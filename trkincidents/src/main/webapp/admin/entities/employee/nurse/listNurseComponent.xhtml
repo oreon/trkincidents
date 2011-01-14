@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <rich:panel> 
+    <f:facet name="header">Nurse Search Results (#{empty records ? 0 : (nurseList.paginated ? nurseList.resultCount : records.size)})</f:facet>  
+    <a:form> 
+      <rich:dataTable var="_nurse" value="#{records}" id="nurseList" rowClasses="odd, even" styleClass="dataTable" rendered="#{not empty records}"> 
+        <h:column> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{nurseList}"/>  
+              <ui:param name="propertyLabel" value="Id"/>  
+              <ui:param name="propertyPath" value="nurse.id"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_nurse.id}"></h:outputText> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{nurseList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.employee_employeeNumber}"/>  
+              <ui:param name="propertyPath" value="nurse.employeeNumber"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_nurse.employeeNumber}"/> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{nurseList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.user_userName}"/>  
+              <ui:param name="propertyPath" value="nurse.user.userName"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_nurse.user.userName}"/> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{nurseList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.user_enabled}"/>  
+              <ui:param name="propertyPath" value="nurse.user.enabled"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_nurse.user.enabled}"/> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{nurseList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.person_firstName}"/>  
+              <ui:param name="propertyPath" value="nurse.firstName"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_nurse.firstName}"/> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{nurseList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.person_lastName}"/>  
+              <ui:param name="propertyPath" value="nurse.lastName"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_nurse.lastName}"/> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{nurseList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.person_dateOfBirth}"/>  
+              <ui:param name="propertyPath" value="nurse.dateOfBirth"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_nurse.dateOfBirth}"> 
+            <s:convertDateTime type="both" dateStyle="short"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{nurseList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.person_gender}"/>  
+              <ui:param name="propertyPath" value="nurse.gender"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_nurse.gender}"/> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{nurseList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.contactDetails_primaryPhone}"/>  
+              <ui:param name="propertyPath" value="nurse.contactDetails.primaryPhone"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_nurse.contactDetails.primaryPhone}"/> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{nurseList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.contactDetails_secondaryPhone}"/>  
+              <ui:param name="propertyPath" value="nurse.contactDetails.secondaryPhone"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_nurse.contactDetails.secondaryPhone}"/> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{nurseList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.contactDetails_email}"/>  
+              <ui:param name="propertyPath" value="nurse.contactDetails.email"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_nurse.contactDetails.email}"/> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{nurseList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.person_age}"/>  
+              <ui:param name="propertyPath" value="nurse.age"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_nurse.age}"/> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{nurseList}"/>  
+              <ui:param name="propertyLabel" value="Creation Date"/>  
+              <ui:param name="propertyPath" value="nurse.dateCreated"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_nurse.dateCreated}"> 
+            <s:convertDateTime type="both" dateStyle="short"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('nurseAction', 'view')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/employee/nurse/viewNurse.xhtml" rendered="#{s:hasPermission(_nurse, 'view')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="nurseId" value="#{_nurse.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('nurseAction', 'edit')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/employee/nurse/editNurse.xhtml" rendered="#{s:hasPermission(_nurse, 'edit')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="nurseId" value="#{_nurse.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('nurseAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <s:link action="#{nurseAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_nurse.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="idToArchive" value="#{_nurse.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('nurseAction', 'edit')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <a:commandLink action="#{nurseAction.setNurseIdForModalDlg(_nurse.id)}" oncomplete="Richfaces.showModalPanel('NurseModalPanel',{});" value="Quick Edit"/> 
+        </h:column> 
+      </rich:dataTable> 
+    </a:form> 
+  </rich:panel>  
+  <div class="tableControl"> 
+    <s:link view="#{request.servletPath}" rendered="#{nurseList.previousExists}" value="#{messages.left}#{messages.left} First Page"> 
+      <f:param name="firstResult" value="0"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{nurseList.previousExists}" value="#{messages.left} Previous Page"> 
+      <f:param name="firstResult" value="#{nurseList.previousFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{nurseList.nextExists}" value="Next Page #{messages.right}"> 
+      <f:param name="firstResult" value="#{nurseList.nextFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{nurseList.nextExists}" value="Last Page #{messages.right}#{messages.right}"> 
+      <f:param name="firstResult" value="#{nurseList.lastFirstResult}"/> 
+    </s:link> 
+  </div> 
+</ui:composition>

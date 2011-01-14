@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.person_firstName} * " rendered="#{s:hasPermission('firstName', 'patientEdit')}"/>  
+        <br/>  
+        <h:inputText id="firstName" value="#{patientAction.patient.firstName}"/>  
+        <h:message styleClass="error errors" for="firstName" rendered="#{s:hasPermission('firstName', 'patientEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.person_lastName} * " rendered="#{s:hasPermission('lastName', 'patientEdit')}"/>  
+        <br/>  
+        <h:inputText id="lastName" value="#{patientAction.patient.lastName}"/>  
+        <h:message styleClass="error errors" for="lastName" rendered="#{s:hasPermission('lastName', 'patientEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.person_dateOfBirth}  " rendered="#{s:hasPermission('dateOfBirth', 'patientEdit')}"/>  
+        <br/>  
+        <rich:calendar id="dateOfBirth" value="#{patientAction.patient.dateOfBirth}"/>  
+        <h:message styleClass="error errors" for="dateOfBirth" rendered="#{s:hasPermission('dateOfBirth', 'patientEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.person_gender}  " rendered="#{s:hasPermission('gender', 'patientEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="gender" value="#{patientAction.patient.gender}" required="false"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="F" itemLabel="F"/>  
+          <f:selectItem itemValue="M" itemLabel="M"/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="gender" rendered="#{s:hasPermission('gender', 'patientEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.contactDetails_primaryPhone}  " rendered="#{s:hasPermission('primaryPhone', 'patientEdit')}"/>  
+        <br/>  
+        <h:inputText id="contactDetails_primaryPhone" value="#{patientAction.patient.contactDetails.primaryPhone}"/>  
+        <h:message styleClass="error errors" for="contactDetails_primaryPhone" rendered="#{s:hasPermission('primaryPhone', 'patientEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{s:hasPermission('secondaryPhone', 'patientEdit')}"/>  
+        <br/>  
+        <h:inputText id="contactDetails_secondaryPhone" value="#{patientAction.patient.contactDetails.secondaryPhone}"/>  
+        <h:message styleClass="error errors" for="contactDetails_secondaryPhone" rendered="#{s:hasPermission('secondaryPhone', 'patientEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.contactDetails_email}  " rendered="#{s:hasPermission('email', 'patientEdit')}"/>  
+        <br/>  
+        <h:inputText id="contactDetails_email" value="#{patientAction.patient.contactDetails.email}"/>  
+        <h:message styleClass="error errors" for="contactDetails_email" rendered="#{s:hasPermission('email', 'patientEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.person_age}  " rendered="#{s:hasPermission('age', 'patientEdit')}"/>  
+        <br/>  
+        <h:inputText id="age" value="#{patientAction.patient.age}"/>  
+        <h:message styleClass="error errors" for="age" rendered="#{s:hasPermission('age', 'patientEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.address_streetAddress}  " rendered="#{s:hasPermission('streetAddress', 'patientEdit')}"/>  
+        <br/>  
+        <h:inputText id="address_streetAddress" value="#{patientAction.patient.address.streetAddress}"/>  
+        <h:message styleClass="error errors" for="address_streetAddress" rendered="#{s:hasPermission('streetAddress', 'patientEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.address_city}  " rendered="#{s:hasPermission('city', 'patientEdit')}"/>  
+        <br/>  
+        <h:inputText id="address_city" value="#{patientAction.patient.address.city}"/>  
+        <h:message styleClass="error errors" for="address_city" rendered="#{s:hasPermission('city', 'patientEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.address_State}  " rendered="#{s:hasPermission('State', 'patientEdit')}"/>  
+        <br/>  
+        <h:inputText id="address_State" value="#{patientAction.patient.address.state}"/>  
+        <h:message styleClass="error errors" for="address_State" rendered="#{s:hasPermission('State', 'patientEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.address_phone}  " rendered="#{s:hasPermission('phone', 'patientEdit')}"/>  
+        <br/>  
+        <h:inputText id="address_phone" value="#{patientAction.patient.address.phone}"/>  
+        <h:message styleClass="error errors" for="address_phone" rendered="#{s:hasPermission('phone', 'patientEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.patient_healthNumber}  " rendered="#{s:hasPermission('healthNumber', 'patientEdit')}"/>  
+        <br/>  
+        <h:inputText id="healthNumber" value="#{patientAction.patient.healthNumber}"/>  
+        <h:message styleClass="error errors" for="healthNumber" rendered="#{s:hasPermission('healthNumber', 'patientEdit')}"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

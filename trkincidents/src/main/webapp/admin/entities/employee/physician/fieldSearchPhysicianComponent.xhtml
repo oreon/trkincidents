@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.employee_employeeNumber} * "/>  
+      <br/>  
+      <h:inputText id="employeeNumber" value="#{physicianList.physician.employeeNumber}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.user_userName} * "/>  
+      <br/>  
+      <h:inputText id="user_userName" value="#{physicianList.physician.user.userName}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.user_enabled}  "/>  
+      <br/>  
+      <h:selectOneMenu id="user_enabled" value="#{physicianList.physician.user.enabled}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="True" itemValue="true"/>  
+        <f:selectItem itemLabel="False" itemValue="false"/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.person_firstName} * "/>  
+      <br/>  
+      <h:inputText id="firstName" value="#{physicianList.physician.firstName}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.person_lastName} * "/>  
+      <br/>  
+      <h:inputText id="lastName" value="#{physicianList.physician.lastName}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.person_dateOfBirth}  "/>  
+      <br/>  
+      <h:outputText value="From"/>  
+      <br/>  
+      <rich:calendar value="#{physicianList.dateOfBirthRange.begin}"/> To
+      <br/>  
+      <rich:calendar value="#{physicianList.dateOfBirthRange.end}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.person_gender}  "/>  
+      <br/>  
+      <h:selectOneMenu id="gender" value="#{physicianList.physician.gender}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="None" itemValue=""/>  
+        <f:selectItem itemValue="F" itemLabel="F"/>  
+        <f:selectItem itemValue="M" itemLabel="M"/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.contactDetails_primaryPhone}  "/>  
+      <br/>  
+      <h:inputText id="contactDetails_primaryPhone" value="#{physicianList.physician.contactDetails.primaryPhone}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.contactDetails_secondaryPhone}  "/>  
+      <br/>  
+      <h:inputText id="contactDetails_secondaryPhone" value="#{physicianList.physician.contactDetails.secondaryPhone}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.contactDetails_email}  "/>  
+      <br/>  
+      <h:inputText id="contactDetails_email" value="#{physicianList.physician.contactDetails.email}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.person_age}  "/>  
+      <br/>  
+      <h:inputText id="age_begin" value="#{physicianList.ageRange.begin}"> 
+        <f:converter converterId="javax.faces.Integer"/> 
+      </h:inputText>  
+      <h:inputText id="age_end" value="#{physicianList.ageRange.end}"> 
+        <f:converter converterId="javax.faces.Integer"/> 
+      </h:inputText> 
+    </h:panelGroup>  
+    <rich:calendar id="from" value="#{physicianList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{physicianList.dateCreatedRange.end}"/> 
+  </h:panelGrid> 
+</ui:composition>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <rich:panel> 
+    <f:facet name="header">PrivacyBreech Search Results (#{empty records ? 0 : (privacyBreechList.paginated ? privacyBreechList.resultCount : records.size)})</f:facet>  
+    <a:form> 
+      <rich:dataTable var="_privacyBreech" value="#{records}" id="privacyBreechList" rowClasses="odd, even" styleClass="dataTable"> 
+        <h:column rendered="#{s:hasPermission('id', 'privacyBreechView' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{privacyBreechList}"/>  
+              <ui:param name="propertyLabel" value="Id"/>  
+              <ui:param name="propertyPath" value="privacyBreech.id"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_privacyBreech.id}"></h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('severity', 'privacyBreechView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{privacyBreechList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.baseIncident_severity}"/>  
+              <ui:param name="propertyPath" value="privacyBreech.severity"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_privacyBreech.severity.displayName}" view="/admin/entities/incidents/severity/viewSeverity.xhtml" propagation="none"> 
+            <f:param name="severityId" value="#{_privacyBreech.severity.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('description', 'privacyBreechView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{privacyBreechList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.baseIncident_description}"/>  
+              <ui:param name="propertyPath" value="privacyBreech.description"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_privacyBreech.description}"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('document', 'privacyBreechView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{privacyBreechList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.baseIncident_document}"/>  
+              <ui:param name="propertyPath" value="privacyBreech.document"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_privacyBreech.document.name}" action="#{baseIncidentAction.downloadDocument(_baseIncident.id)}" propagation="none"> 
+            <f:param name="currentEntityId" value="#{_baseIncident.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('creationDate', 'privacyBreechView' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{privacyBreechList}"/>  
+              <ui:param name="propertyLabel" value="Creation Date"/>  
+              <ui:param name="propertyPath" value="privacyBreech.dateCreated"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_privacyBreech.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_privacyBreech', 'view')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/incidents/privacyBreech/viewPrivacyBreech.xhtml" rendered="#{s:hasPermission(_privacyBreech, 'view')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="privacyBreechId" value="#{_privacyBreech.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_privacyBreech', 'edit')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/incidents/privacyBreech/editPrivacyBreech.xhtml" rendered="#{s:hasPermission(_privacyBreech, 'edit')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="privacyBreechId" value="#{_privacyBreech.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('privacyBreechAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <s:link action="#{privacyBreechAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_privacyBreech.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="idToArchive" value="#{_privacyBreech.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <a:commandLink action="#{privacyBreechAction.setPrivacyBreechIdForModalDlg(_privacyBreech.id)}" rendered="#{s:hasPermission(_privacyBreech, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('PrivacyBreechModalPanel',{});"> 
+            <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
+            <s:conversationPropagation type="join"/> 
+          </a:commandLink> 
+        </h:column> 
+      </rich:dataTable> 
+    </a:form> 
+  </rich:panel>  
+  <div class="tableControl"> 
+    <s:link view="#{request.servletPath}" rendered="#{privacyBreechList.previousExists}" value="#{messages.left}#{messages.left} First Page"> 
+      <f:param name="firstResult" value="0"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{privacyBreechList.previousExists}" value="#{messages.left} Previous Page"> 
+      <f:param name="firstResult" value="#{privacyBreechList.previousFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{privacyBreechList.nextExists}" value="Next Page #{messages.right}"> 
+      <f:param name="firstResult" value="#{privacyBreechList.nextFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{privacyBreechList.nextExists}" value="Last Page #{messages.right}#{messages.right}"> 
+      <f:param name="firstResult" value="#{privacyBreechList.lastFirstResult}"/> 
+    </s:link> 
+  </div> 
+</ui:composition>

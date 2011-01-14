@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:form> 
+    <rich:datascroller align="left" for="dataAudit" maxPages="20" renderIfSinglePage="false"/>  
+    <br/>  
+    <rich:dataTable id="dataAudit" var="_log" value="#{prescriptionItemAction.auditLog}" rows="30" rowClasses="odd, even" styleClass="dataTable"> 
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="Date"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.dateCreated}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="Action"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.action}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="User"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.username}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="Id"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entityId}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.prescriptionItem_drug}"/> 
+        </f:facet>  
+        <s:link value="#{_log.entity.drug.displayName}" view="/admin/entities/drugs/drug/viewDrug.xhtml"> 
+          <f:param name="id" value="#{_entity.drug.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.prescriptionItem_qty}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.qty}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.prescriptionItem_route}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.route}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.prescriptionItem_prescription}"/> 
+        </f:facet>  
+        <s:link value="#{_log.entity.prescription.displayName}" view="/admin/entities/patient/prescription/viewPrescription.xhtml"> 
+          <f:param name="id" value="#{_entity.prescription.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.prescriptionItem_duration}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.duration}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.prescriptionItem_remarks}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.remarks}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.prescriptionItem_frequecy}"/> 
+        </f:facet>  
+        <s:link value="#{_log.entity.frequecy.displayName}" view="/admin/entities/patient/frequecy/viewFrequecy.xhtml"> 
+          <f:param name="id" value="#{_entity.frequecy.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
+      </rich:column> 
+    </rich:dataTable> 
+  </h:form> 
+</html>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+<h:inputText id="text" value="#{departmentList.searchText}"/>
+
+<rich:suggestionbox fetchValue="#{_result.id}" for="text" id="suggestionBoxId" minChars="2" nothingLabel="No Results found" onselect="processObjectsChange(suggestion)" rules="all" suggestionAction="#{departmentList.autocomplete}" tokens=",[]" var="_result">
+	
+	
+	
+	<h:column>
+		<h:outputText style="font-style:italic" value="#{_result.id}"/>
+	</h:column>	
+
+	<h:column>
+		<h:outputText value="#{_result.displayName}"/>
+	</h:column>
+
+</rich:suggestionbox>
+</ui:composition>

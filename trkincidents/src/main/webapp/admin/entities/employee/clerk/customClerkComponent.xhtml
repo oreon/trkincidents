@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.employee_employeeNumber} * "/>  
+        <br/>  
+        <h:inputText id="employeeNumber" value="#{clerkAction.clerk.employeeNumber}"/>  
+        <h:message styleClass="error errors" for="employeeNumber"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.user_userName} * "/>  
+        <br/>  
+        <h:inputText id="user_userName" value="#{clerkAction.clerk.user.userName}"/>  
+        <h:message styleClass="error errors" for="user_userName"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.user_enabled}  "/>  
+        <br/>  
+        <h:selectBooleanCheckbox id="user_enabled" value="#{clerkAction.clerk.user.enabled}"/>  
+        <h:message styleClass="error errors" for="user_enabled"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.person_firstName} * "/>  
+        <br/>  
+        <h:inputText id="firstName" value="#{clerkAction.clerk.firstName}"/>  
+        <h:message styleClass="error errors" for="firstName"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.person_lastName} * "/>  
+        <br/>  
+        <h:inputText id="lastName" value="#{clerkAction.clerk.lastName}"/>  
+        <h:message styleClass="error errors" for="lastName"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.person_dateOfBirth}  "/>  
+        <br/>  
+        <rich:calendar id="dateOfBirth" value="#{clerkAction.clerk.dateOfBirth}"/>  
+        <h:message styleClass="error errors" for="dateOfBirth"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.person_gender}  "/>  
+        <br/>  
+        <h:selectOneMenu id="gender" value="#{clerkAction.clerk.gender}" required="false"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="F" itemLabel="F"/>  
+          <f:selectItem itemValue="M" itemLabel="M"/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="gender"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.contactDetails_primaryPhone}  "/>  
+        <br/>  
+        <h:inputText id="contactDetails_primaryPhone" value="#{clerkAction.clerk.contactDetails.primaryPhone}"/>  
+        <h:message styleClass="error errors" for="contactDetails_primaryPhone"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.contactDetails_secondaryPhone}  "/>  
+        <br/>  
+        <h:inputText id="contactDetails_secondaryPhone" value="#{clerkAction.clerk.contactDetails.secondaryPhone}"/>  
+        <h:message styleClass="error errors" for="contactDetails_secondaryPhone"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.contactDetails_email}  "/>  
+        <br/>  
+        <h:inputText id="contactDetails_email" value="#{clerkAction.clerk.contactDetails.email}"/>  
+        <h:message styleClass="error errors" for="contactDetails_email"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.person_age}  "/>  
+        <br/>  
+        <h:inputText id="age" value="#{clerkAction.clerk.age}"/>  
+        <h:message styleClass="error errors" for="age"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

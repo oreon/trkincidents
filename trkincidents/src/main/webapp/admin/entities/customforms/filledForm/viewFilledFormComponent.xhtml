@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{filledFormAction.load(filledFormId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="FilledForm "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{filledFormAction.filledForm.id}"/>  
+        <h:outputText value="#{msg.filledForm_customForm}  " rendered="#{s:hasPermission('customForm', 'filledFormView')}"/>  
+        <s:link value="#{filledFormAction.filledForm.customForm.displayName}" view="/admin/entities/customforms/customForm/viewCustomForm.xhtml" propagation="none"> 
+          <f:param name="customFormId" value="#{filledFormAction.filledForm.customForm.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.filledForm_entityId}  " rendered="#{s:hasPermission('entityId', 'filledFormView')}"/>  
+        <h:outputText id="entityId#{entityId}" rendered="#{s:hasPermission('entityId', 'filledFormView')}" value="#{filledFormAction.filledForm.entityId}"/> 
+      </h:panelGrid>  
+      <rich:dataTable id="filledFields" var="_filledField" rendered="#{not empty filledFormAction.listFilledFields and s:hasPermission('filledFields', 'filledFormView') }" value="#{filledFormAction.listFilledFields}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.filledField_customField}  " rendered="#{s:hasPermission('customField', 'filledFieldView')}"/>
+          </f:facet>  
+          <s:link value="#{_filledField.customField.displayName}" view="/admin/entities/customforms/customField/viewCustomField.xhtml" propagation="none"> 
+            <f:param name="customFieldId" value="#{_filledField.customField.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column style="text-align:left">
+          <f:facet name="header">
+            <h:outputText value="#{msg.filledField_value}  " rendered="#{s:hasPermission('value', 'filledFieldView')}"/>
+          </f:facet>  
+          <h:outputText id="value#{entityId}" rendered="#{s:hasPermission('value', 'filledFieldView')}" value="#{_filledField.value}"/> 
+        </h:column> 
+      </rich:dataTable> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

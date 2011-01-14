@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:form> 
+    <rich:datascroller align="left" for="dataAudit" maxPages="20" renderIfSinglePage="false"/>  
+    <br/>  
+    <rich:dataTable id="dataAudit" var="_log" value="#{drugAction.auditLog}" rows="30" rowClasses="odd, even" styleClass="dataTable"> 
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="Date"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.dateCreated}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="Action"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.action}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="User"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.username}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="Id"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entityId}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.drug_name}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.name}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.drug_absorption}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.absorption}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.drug_biotransformation}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.biotransformation}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.drug_atcCodes}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.atcCodes}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.drug_contraIndication}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.contraIndication}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.drug_description}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.description}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.drug_dosageForm}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.dosageForm}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.drug_foodInteractions}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.foodInteractions}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.drug_halfLife}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.halfLife}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.drug_halfLifeNumberOfHours}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.halfLifeNumberOfHours}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.drug_indication}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.indication}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.drug_mechanismOfAction}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.mechanismOfAction}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.drug_patientInfo}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.patientInfo}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.drug_pharmacology}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.pharmacology}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.drug_toxicity}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.toxicity}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.drug_routeOfElimination}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.routeOfElimination}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.drug_volumeOfDistribution}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.volumeOfDistribution}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.drug_drugBankId}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.drugBankId}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.drug_categories}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.categories}"/> 
+      </rich:column> 
+    </rich:dataTable> 
+  </h:form> 
+</html>

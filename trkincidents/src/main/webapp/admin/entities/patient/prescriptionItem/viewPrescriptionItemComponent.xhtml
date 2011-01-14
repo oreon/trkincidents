@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{prescriptionItemAction.load(prescriptionItemId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="PrescriptionItem "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{prescriptionItemAction.prescriptionItem.id}"/>  
+        <h:outputText value="#{msg.prescriptionItem_drug}  "/>  
+        <s:link value="#{prescriptionItemAction.prescriptionItem.drug.displayName}" view="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
+          <f:param name="drugId" value="#{prescriptionItemAction.prescriptionItem.drug.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/>  
+          <rich:toolTip> 
+            <span>#{prescriptionItemAction.prescriptionItem.drug.popupInfo}</span> 
+          </rich:toolTip> 
+        </s:link>  
+        <h:outputText value="#{msg.prescriptionItem_prescription}  "/>  
+        <s:link value="#{prescriptionItemAction.prescriptionItem.prescription.displayName}" view="/admin/entities/patient/prescription/viewPrescription.xhtml" propagation="none"> 
+          <f:param name="prescriptionId" value="#{prescriptionItemAction.prescriptionItem.prescription.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.prescriptionItem_frequecy}  "/>  
+        <s:link value="#{prescriptionItemAction.prescriptionItem.frequecy.displayName}" view="/admin/entities/patient/frequecy/viewFrequecy.xhtml" propagation="none"> 
+          <f:param name="frequecyId" value="#{prescriptionItemAction.prescriptionItem.frequecy.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.prescriptionItem_qty}  "/>  
+        <h:outputText id="qty#{entityId}" value="#{prescriptionItemAction.prescriptionItem.qty}"/>  
+        <h:outputText value="#{msg.prescriptionItem_route}  "/>  
+        <h:outputText value="#{prescriptionItemAction.prescriptionItem.route}"/>  
+        <h:outputText value="#{msg.prescriptionItem_duration}  "/>  
+        <h:outputText id="duration#{entityId}" value="#{prescriptionItemAction.prescriptionItem.duration}"/>  
+        <h:outputText value="#{msg.prescriptionItem_remarks}  "/>  
+        <h:outputText id="remarks#{entityId}" value="#{prescriptionItemAction.prescriptionItem.remarks}"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <rich:panel> 
+    <f:facet name="header">Incident Search Results (#{empty records ? 0 : (incidentList.paginated ? incidentList.resultCount : records.size)})</f:facet>  
+    <a:form> 
+      <rich:dataTable var="_incident" value="#{records}" id="incidentList" rowClasses="odd, even" styleClass="dataTable"> 
+        <h:column rendered="#{s:hasPermission('id', 'incidentView' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{incidentList}"/>  
+              <ui:param name="propertyLabel" value="Id"/>  
+              <ui:param name="propertyPath" value="incident.id"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_incident.id}"></h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('occurenceType', 'incidentView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{incidentList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.incident_occurenceType}"/>  
+              <ui:param name="propertyPath" value="incident.occurenceType"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_incident.occurenceType.displayName}" view="/admin/entities/unusualoccurences/occurenceType/viewOccurenceType.xhtml" propagation="none"> 
+            <f:param name="occurenceTypeId" value="#{_incident.occurenceType.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('category', 'incidentView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{incidentList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.incident_category}"/>  
+              <ui:param name="propertyPath" value="incident.category"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_incident.category}"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('severity', 'incidentView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{incidentList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.incident_severity}"/>  
+              <ui:param name="propertyPath" value="incident.severity"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_incident.severity}"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('description', 'incidentView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{incidentList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.incident_description}"/>  
+              <ui:param name="propertyPath" value="incident.description"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_incident.description}"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('patient', 'incidentView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{incidentList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.incident_patient}"/>  
+              <ui:param name="propertyPath" value="incident.patient"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_incident.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+            <f:param name="patientId" value="#{_incident.patient.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/>  
+            <rich:toolTip> 
+              <span>#{_incident.patient.popupInfo}</span> 
+            </rich:toolTip> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('createdBy', 'incidentView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{incidentList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.incident_createdBy}"/>  
+              <ui:param name="propertyPath" value="incident.createdBy"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_incident.createdBy.displayName}" view="/admin/entities/employee/employee/viewEmployee.xhtml" propagation="none"> 
+            <f:param name="createdById" value="#{_incident.createdBy.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('creationDate', 'incidentView' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{incidentList}"/>  
+              <ui:param name="propertyLabel" value="Creation Date"/>  
+              <ui:param name="propertyPath" value="incident.dateCreated"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_incident.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_incident', 'view')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/unusualoccurences/incident/viewIncident.xhtml" rendered="#{s:hasPermission(_incident, 'view')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="incidentId" value="#{_incident.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_incident', 'edit')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/unusualoccurences/incident/editIncident.xhtml" rendered="#{s:hasPermission(_incident, 'edit')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="incidentId" value="#{_incident.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('incidentAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <s:link action="#{incidentAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_incident.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="idToArchive" value="#{_incident.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <a:commandLink action="#{incidentAction.setIncidentIdForModalDlg(_incident.id)}" rendered="#{s:hasPermission(_incident, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('IncidentModalPanel',{});"> 
+            <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
+            <s:conversationPropagation type="join"/> 
+          </a:commandLink> 
+        </h:column> 
+      </rich:dataTable> 
+    </a:form> 
+  </rich:panel>  
+  <div class="tableControl"> 
+    <s:link view="#{request.servletPath}" rendered="#{incidentList.previousExists}" value="#{messages.left}#{messages.left} First Page"> 
+      <f:param name="firstResult" value="0"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{incidentList.previousExists}" value="#{messages.left} Previous Page"> 
+      <f:param name="firstResult" value="#{incidentList.previousFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{incidentList.nextExists}" value="Next Page #{messages.right}"> 
+      <f:param name="firstResult" value="#{incidentList.nextFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{incidentList.nextExists}" value="Last Page #{messages.right}#{messages.right}"> 
+      <f:param name="firstResult" value="#{incidentList.lastFirstResult}"/> 
+    </s:link> 
+  </div> 
+</ui:composition>

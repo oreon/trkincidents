@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
+  <ui:define name="content"> 
+    <h:form> 
+      <rich:tabPanel switchType="ajax"> 
+        <rich:tab label="Employee"> 
+          <ui:include src="/admin/entities/employee/employee/viewEmployeeComponent.xhtml"/>  
+          <div class="buttonBox"> 
+            <h:commandButton value="Edit" rendered="#{s:hasPermission('employee', 'edit', employeeAction.instance)}" action="edit"></h:commandButton>  
+            <h:outputText value=" "/>  
+            <h:commandButton value="Back To Listing" action="#{employeeAction.cancel}"> 
+              <s:conversationPropagation type="end"/> 
+            </h:commandButton> 
+          </div> 
+        </rich:tab>  
+        <rich:tab label="User"> 
+          <ui:include src="/admin/entities/users/user/viewUserComponent.xhtml"> 
+            <ui:param name="entityId" value="1"/>  
+            <ui:param name="userId" value="#{employeeAction.instance.user.id}"/> 
+          </ui:include> 
+        </rich:tab>  
+        <rich:tab label="Department"> 
+          <ui:include src="/admin/entities/employee/department/viewDepartmentComponent.xhtml"> 
+            <ui:param name="entityId" value="2"/>  
+            <ui:param name="departmentId" value="#{employeeAction.instance.department.id}"/> 
+          </ui:include> 
+        </rich:tab>  
+        <rich:tab label="Manager"> 
+          <ui:include src="/admin/entities/employee/employee/viewEmployeeComponent.xhtml"> 
+            <ui:param name="entityId" value="3"/>  
+            <ui:param name="employeeId" value="#{employeeAction.instance.manager.id}"/> 
+          </ui:include> 
+        </rich:tab> 
+      </rich:tabPanel> 
+    </h:form>  
+    <br/>  
+    <rich:tabPanel> 
+      <rich:tab label="Incidents" icon="/images/icons/bricks.png"> 
+        <ui:include src="/admin/entities/unusualoccurences/incident/listIncidentComponent.xhtml"> 
+          <ui:param name="records" value="#{incidentList.getIncidentsByCreatedBy(employeeAction.instance)}"/> 
+        </ui:include>  
+        <a:form> 
+          <s:button value="Create New" view="/admin/entities/unusualoccurences/incident/editIncident.xhtml"> 
+            <f:param name="employeeId" value="#{employeeAction.instance.id}"/>  
+            <f:param name="incidentId" value="0"/> 
+          </s:button>  
+          <a:commandButton oncomplete="Richfaces.showModalPanel('IncidentModalPanel',{});" value="Quick Create"> 
+            <a:actionparam name="incidentId" assignTo="#{incidentAction.incidentId}" value="0"/>  
+            <a:actionparam name="employeeId" assignTo="#{incidentAction.createdById}" value="#{employeeAction.instance.id}"/> 
+          </a:commandButton> 
+        </a:form>  
+        <ui:include src="/admin/entities/unusualoccurences/incident/modalDlgIncidentComponent.xhtml"/> 
+      </rich:tab>  
+      <rich:tab label="Subordinates" icon="/images/icons/bricks.png"> 
+        <ui:include src="/admin/entities/employee/employee/listEmployeeComponent.xhtml"> 
+          <ui:param name="records" value="#{employeeList.getSubordinatesByManager(employeeAction.instance)}"/> 
+        </ui:include>  
+        <a:form> 
+          <s:button value="Create New" view="/admin/entities/employee/employee/editEmployee.xhtml"> 
+            <f:param name="employeeId" value="#{employeeAction.instance.id}"/>  
+            <f:param name="employeeId" value="0"/> 
+          </s:button>  
+          <a:commandButton oncomplete="Richfaces.showModalPanel('EmployeeModalPanel',{});" value="Quick Create"> 
+            <a:actionparam name="employeeId" assignTo="#{employeeAction.employeeId}" value="0"/>  
+            <a:actionparam name="employeeId" assignTo="#{employeeAction.managerId}" value="#{employeeAction.instance.id}"/> 
+          </a:commandButton> 
+        </a:form>  
+        <ui:include src="/admin/entities/employee/employee/modalDlgEmployeeComponent.xhtml"/> 
+      </rich:tab> 
+    </rich:tabPanel>  
+    <br/>  
+    <rich:tabPanel> 
+      <rich:tab label="Notes"> 
+        <wc:comments backingAction="#{employeeAction}"/> 
+      </rich:tab> 
+    </rich:tabPanel> 
+  </ui:define> 
+</ui:composition>

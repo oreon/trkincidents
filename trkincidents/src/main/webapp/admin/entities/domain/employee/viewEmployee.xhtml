@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+	template="/admin/template.xhtml">
+	<ui:define name="content">
+		<h:form>
+			<rich:tabPanel switchType="ajax">
+				<rich:tab label="Employee">
+					<ui:include
+						src="/admin/entities/domain/employee/viewEmployeeComponent.xhtml" />
+
+					<div class="buttonBox"><h:commandButton action="edit"
+						rendered="#{s:hasRole('admin')}" value="Edit">
+						<s:conversationPropagation type="end" />
+					</h:commandButton> <h:outputText value=" " /> <h:commandButton
+						action="#{redirect.returnToCapturedView()}" immediate="true"
+						value="Back To Listing">
+						<s:conversationPropagation type="end" />
+					</h:commandButton></div>
+
+				</rich:tab>
+
+				<rich:tab label="Department">
+					<ui:include
+						src="/admin/entities/domain/department/viewDepartmentComponent.xhtml">
+						<ui:param name="entityId" value="3058" />
+						<ui:param name="departmentId"
+							value="#{employeeAction.instance.department.id}" />
+					</ui:include>
+				</rich:tab>
+
+
+			</rich:tabPanel>
+			<br />
+
+			<rich:tabPanel>
+
+			</rich:tabPanel>
+		</h:form>
+		<br />
+
+		<rich:tabPanel>
+			<rich:tab label="Notes">
+				<wc:comments backingAction="#{employeeAction}" />
+			</rich:tab>
+
+		</rich:tabPanel>
+
+
+	</ui:define>
+</ui:composition>

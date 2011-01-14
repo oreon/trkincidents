@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.customField_customForm}  " rendered="#{s:hasPermission('customForm', 'customFieldEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="customForm" value="#{customFieldAction.customField.customForm}"> 
+          <s:selectItems value="#{customFormList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="customForm" rendered="#{s:hasPermission('customForm', 'customFieldEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.customField_required}  " rendered="#{s:hasPermission('required', 'customFieldEdit')}"/>  
+        <br/>  
+        <h:selectBooleanCheckbox id="required" value="#{customFieldAction.customField.required}"/>  
+        <h:message styleClass="error errors" for="required" rendered="#{s:hasPermission('required', 'customFieldEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.customField_type}  " rendered="#{s:hasPermission('type', 'customFieldEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="type" value="#{customFieldAction.customField.type}" required="false"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="TEXT" itemLabel="Text"/>  
+          <f:selectItem itemValue="LARGE_TEXT" itemLabel="Large_text"/>  
+          <f:selectItem itemValue="CHOICE" itemLabel="Choice"/>  
+          <f:selectItem itemValue="YES_NO" itemLabel="Yes_no"/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="type" rendered="#{s:hasPermission('type', 'customFieldEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.customField_name} * " rendered="#{s:hasPermission('name', 'customFieldEdit')}"/>  
+        <br/>  
+        <h:inputText id="name" value="#{customFieldAction.customField.name}"/>  
+        <h:message styleClass="error errors" for="name" rendered="#{s:hasPermission('name', 'customFieldEdit')}"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

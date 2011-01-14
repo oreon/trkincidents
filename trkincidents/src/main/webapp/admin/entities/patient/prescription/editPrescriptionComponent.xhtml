@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{prescriptionAction.load(prescriptionId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="Prescription "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.prescription_patient}  "/>  
+        <h:selectOneMenu id="patient" label="#{msg.prescription_patient}" value="#{prescriptionAction.prescription.patient}" required="true"> 
+          <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="patient"/>  
+        <h:outputText value="#{msg.prescription_notes}  "/>  
+        <rich:editor useSeamText="true" id="notes#{entityId}" label="#{msg.prescription_notes}" required="false" value="#{prescriptionAction.prescription.notes}"/>  
+        <h:message styleClass="error errors" for="notes"/> 
+      </h:panelGrid>  
+      <a:commandButton value="New PrescriptionItem" action="#{prescriptionAction.addPrescriptionItems}" reRender="prescriptionItems_data#{entityId}"> 
+        <s:conversationId/> 
+      </a:commandButton>  
+      <rich:dataTable id="prescriptionItems_data#{entityId}" var="_prescriptionItem" value="#{prescriptionAction.listPrescriptionItems}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.prescriptionItem_drug}  "/>
+          </f:facet>  
+          <h:panelGroup> 
+            <a:region> 
+              <h:inputText value="#{_prescriptionItem.drug.displayName}" label="#{msg.prescriptionItem_drug}" id="drug" required="true"/>  
+              <rich:suggestionbox for="drug" rules="all" suggestionAction="#{drugList.autocompletedb}" ajaxSingle="true" var="_result" fetchValue="#{_result.displayName}" minChars="2" nothingLabel="No Results found" zindex="99999"> 
+                <h:column> 
+                  <h:outputText value="#{_result.name}"/> 
+                </h:column>  
+                <a:support event="onselect"> 
+                  <f:setPropertyActionListener value="#{_result}" target="#{_prescriptionItem.drug}"/> 
+                </a:support> 
+              </rich:suggestionbox> 
+            </a:region> 
+          </h:panelGroup>  
+          <h:message styleClass="error errors" for="drug"/> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.prescriptionItem_frequecy}  "/>
+          </f:facet>  
+          <h:selectOneMenu id="frequecy" label="#{msg.prescriptionItem_frequecy}" value="#{_prescriptionItem.frequecy}" required="true"> 
+            <s:selectItems value="#{frequecyList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu>  
+          <h:message styleClass="error errors" for="frequecy"/> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.prescriptionItem_qty}  "/>
+          </f:facet>  
+          <h:inputText id="qty#{entityId}" label="#{msg.prescriptionItem_qty}" required="false" value="#{_prescriptionItem.qty}"/>  
+          <h:message styleClass="error errors" for="qty"/> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.prescriptionItem_route}  "/>
+          </f:facet>  
+          <h:selectOneMenu id="route" value="#{_prescriptionItem.route}" required="false" label="#{msg.prescriptionItem_route}"> 
+            <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+            <f:selectItem itemValue="PIO" itemLabel="Pio"/>  
+            <f:selectItem itemValue="IM" itemLabel="Im"/>  
+            <f:selectItem itemValue="IV" itemLabel="Iv"/>  
+            <f:selectItem itemValue="TOPICAL" itemLabel="Topical"/> 
+          </h:selectOneMenu>  
+          <h:message styleClass="error errors" for="route"/> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.prescriptionItem_duration}  "/>
+          </f:facet>  
+          <h:inputText id="duration#{entityId}" label="#{msg.prescriptionItem_duration}" required="false" value="#{_prescriptionItem.duration}"/>  
+          <h:message styleClass="error errors" for="duration"/> 
+        </h:column>  
+        <h:column style="text-align:left">
+          <f:facet name="header">
+            <h:outputText value="#{msg.prescriptionItem_remarks}  "/>
+          </f:facet>  
+          <h:inputText id="remarks#{entityId}" label="#{msg.prescriptionItem_remarks}" required="false" value="#{_prescriptionItem.remarks}"/>  
+          <h:message styleClass="error errors" for="remarks"/> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="New PrescriptionItem" action="#{prescriptionAction.addPrescriptionItems}" reRender="prescriptionItems_data#{entityId}"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="Delete" immediate="true" action="#{prescriptionAction.deletePrescriptionItems(rowIndex)}" reRender="prescriptionItems_data#{entityId}"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column> 
+      </rich:dataTable> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

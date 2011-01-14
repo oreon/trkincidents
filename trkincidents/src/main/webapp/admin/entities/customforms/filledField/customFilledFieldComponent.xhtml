@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.filledField_customField}  " rendered="#{s:hasPermission('customField', 'filledFieldEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="customField" value="#{filledFieldAction.filledField.customField}"> 
+          <s:selectItems value="#{customFieldList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="customField" rendered="#{s:hasPermission('customField', 'filledFieldEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.filledField_filledForm}  " rendered="#{s:hasPermission('filledForm', 'filledFieldEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="filledForm" value="#{filledFieldAction.filledField.filledForm}"> 
+          <s:selectItems value="#{filledFormList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="filledForm" rendered="#{s:hasPermission('filledForm', 'filledFieldEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.filledField_value}  " rendered="#{s:hasPermission('value', 'filledFieldEdit')}"/>  
+        <br/>  
+        <h:inputText id="value" value="#{filledFieldAction.filledField.value}"/>  
+        <h:message styleClass="error errors" for="value" rendered="#{s:hasPermission('value', 'filledFieldEdit')}"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

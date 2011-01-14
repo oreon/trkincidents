@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.document_name} * " rendered="#{s:hasPermission('name', 'documentEdit')}"/>  
+        <br/>  
+        <h:inputText id="name" value="#{documentAction.document.name}"/>  
+        <h:message styleClass="error errors" for="name" rendered="#{s:hasPermission('name', 'documentEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.document_file}  " rendered="#{s:hasPermission('file', 'documentEdit')}"/>  
+        <br/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.document_notes}  " rendered="#{s:hasPermission('notes', 'documentEdit')}"/>  
+        <br/>  
+        <rich:editor useSeamText="true" id="notes" value="#{documentAction.document.notes}"/>  
+        <h:message styleClass="error errors" for="notes" rendered="#{s:hasPermission('notes', 'documentEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.document_patient}  " rendered="#{s:hasPermission('patient', 'documentEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="patient" value="#{documentAction.document.patient}"> 
+          <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="patient" rendered="#{s:hasPermission('patient', 'documentEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.document_baseIncident}  " rendered="#{s:hasPermission('baseIncident', 'documentEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="baseIncident" value="#{documentAction.document.baseIncident}"> 
+          <s:selectItems value="#{baseIncidentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="baseIncident" rendered="#{s:hasPermission('baseIncident', 'documentEdit')}"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

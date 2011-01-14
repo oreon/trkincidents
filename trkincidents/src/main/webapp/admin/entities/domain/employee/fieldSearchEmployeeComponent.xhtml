@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>
+	<h:panelGrid columns="6">
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.employee_department}  "/> <br/>
+	<h:selectOneMenu id="employee_department" value="#{employeeList.employee.department}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Any..." value="#{departmentList}" var="itemIter"/>
+		<s:convertEntity/>
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.employee_employeeNumber}  "/> <br/>
+	
+		<h:inputText id="employee_employeeNumber" value="#{employeeList.employee.employeeNumber}"/>
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.employee_employeeType}  "/> <br/>
+	<h:selectOneMenu id="employee_employeeType" required="false" value="#{employeeList.employee.employeeType}">
+		<f:selectItem itemLabel="Any" itemValue=""/>
+		<f:selectItem itemLabel="None" itemValue=""/>
+		<f:selectItem itemLabel="Full_time" itemValue="FULL_TIME"/>
+		<f:selectItem itemLabel="Contract" itemValue="CONTRACT"/>
+		<f:selectItem itemLabel="Part_time" itemValue="PART_TIME"/>
+		
+	</h:selectOneMenu>
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.person_firstName}  "/> <br/>
+	
+		<h:inputText id="person_firstName" value="#{employeeList.employee.firstName}"/>
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+	<h:panelGroup>
+	<h:outputText value="#{msg.person_lastName}  "/> <br/>
+	
+		<h:inputText id="person_lastName" value="#{employeeList.employee.lastName}"/>
+	
+	
+	</h:panelGroup>
+
+	
+	
+	
+			<s:decorate template="/layout/display.xhtml">
+				<ui:define name="label">From</ui:define> <br/>
+				<rich:calendar id="from" value="#{employeeList.dateCreatedRange.begin}"/>
+			</s:decorate>
+
+			<s:decorate template="/layout/display.xhtml">
+				<ui:define name="label">To</ui:define> <br/>
+				<rich:calendar id="to" value="#{employeeList.dateCreatedRange.end}"/>
+			</s:decorate>
+
+	</h:panelGrid>
+</ui:composition>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.invoiceItem_units}  "/>  
+        <br/>  
+        <h:inputText id="units" value="#{invoiceItemAction.invoiceItem.units}"/>  
+        <h:message styleClass="error errors" for="units"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.invoiceItem_service}  "/>  
+        <br/>  
+        <h:selectOneMenu id="service" value="#{invoiceItemAction.invoiceItem.service}"> 
+          <s:selectItems value="#{serviceList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="service"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.invoiceItem_invoice}  "/>  
+        <br/>  
+        <h:selectOneMenu id="invoice" value="#{invoiceItemAction.invoiceItem.invoice}"> 
+          <s:selectItems value="#{invoiceList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="invoice"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.invoiceItem_total}  "/>  
+        <br/>  
+        <h:inputText id="total" value="#{invoiceItemAction.invoiceItem.total}"/>  
+        <h:message styleClass="error errors" for="total"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

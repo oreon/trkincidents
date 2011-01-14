@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.invoiceItem_units}  "/>  
+      <br/>  
+      <h:inputText id="units_begin" value="#{invoiceItemList.unitsRange.begin}"> 
+        <f:converter converterId="javax.faces.Integer"/> 
+      </h:inputText>  
+      <h:inputText id="units_end" value="#{invoiceItemList.unitsRange.end}"> 
+        <f:converter converterId="javax.faces.Integer"/> 
+      </h:inputText> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.invoiceItem_service}  "/>  
+      <br/>  
+      <h:selectOneMenu id="service" value="#{ invoiceItemList.invoiceItem.service}"> 
+        <s:selectItems value="#{serviceList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.invoiceItem_invoice}  "/>  
+      <br/>  
+      <h:selectOneMenu id="invoice" value="#{ invoiceItemList.invoiceItem.invoice}"> 
+        <s:selectItems value="#{invoiceList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.invoiceItem_total}  "/>  
+      <br/>  
+      <h:inputText id="total_begin" value="#{invoiceItemList.totalRange.begin}"> 
+        <f:converter converterId="javax.faces.Double"/> 
+      </h:inputText>  
+      <h:inputText id="total_end" value="#{invoiceItemList.totalRange.end}"> 
+        <f:converter converterId="javax.faces.Double"/> 
+      </h:inputText> 
+    </h:panelGroup>  
+    <rich:calendar id="from" value="#{invoiceItemList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{invoiceItemList.dateCreatedRange.end}"/> 
+  </h:panelGrid> 
+</ui:composition>

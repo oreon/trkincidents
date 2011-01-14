@@ -1,0 +1,14 @@
+package permissions;
+
+import java.security.Principal;
+import org.jboss.seam.security.permission.PermissionCheck;
+import org.jboss.seam.security.Role;
+
+     
+rule "CanUserDeleteEntities"
+when
+  $c : PermissionCheck( )
+  $r : Role()
+then
+  $c.grant();
+end     

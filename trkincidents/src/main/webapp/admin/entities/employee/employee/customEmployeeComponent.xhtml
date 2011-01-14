@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.person_firstName} * " rendered="#{s:hasPermission('firstName', 'employeeEdit')}"/>  
+        <br/>  
+        <h:inputText id="firstName" value="#{employeeAction.employee.firstName}"/>  
+        <h:message styleClass="error errors" for="firstName" rendered="#{s:hasPermission('firstName', 'employeeEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.person_lastName} * " rendered="#{s:hasPermission('lastName', 'employeeEdit')}"/>  
+        <br/>  
+        <h:inputText id="lastName" value="#{employeeAction.employee.lastName}"/>  
+        <h:message styleClass="error errors" for="lastName" rendered="#{s:hasPermission('lastName', 'employeeEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.person_dateOfBirth}  " rendered="#{s:hasPermission('dateOfBirth', 'employeeEdit')}"/>  
+        <br/>  
+        <rich:calendar id="dateOfBirth" value="#{employeeAction.employee.dateOfBirth}"/>  
+        <h:message styleClass="error errors" for="dateOfBirth" rendered="#{s:hasPermission('dateOfBirth', 'employeeEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.person_gender}  " rendered="#{s:hasPermission('gender', 'employeeEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="gender" value="#{employeeAction.employee.gender}" required="false"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="F" itemLabel="F"/>  
+          <f:selectItem itemValue="M" itemLabel="M"/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="gender" rendered="#{s:hasPermission('gender', 'employeeEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.contactDetails_primaryPhone}  " rendered="#{s:hasPermission('primaryPhone', 'employeeEdit')}"/>  
+        <br/>  
+        <h:inputText id="contactDetails_primaryPhone" value="#{employeeAction.employee.contactDetails.primaryPhone}"/>  
+        <h:message styleClass="error errors" for="contactDetails_primaryPhone" rendered="#{s:hasPermission('primaryPhone', 'employeeEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{s:hasPermission('secondaryPhone', 'employeeEdit')}"/>  
+        <br/>  
+        <h:inputText id="contactDetails_secondaryPhone" value="#{employeeAction.employee.contactDetails.secondaryPhone}"/>  
+        <h:message styleClass="error errors" for="contactDetails_secondaryPhone" rendered="#{s:hasPermission('secondaryPhone', 'employeeEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.contactDetails_email}  " rendered="#{s:hasPermission('email', 'employeeEdit')}"/>  
+        <br/>  
+        <h:inputText id="contactDetails_email" value="#{employeeAction.employee.contactDetails.email}"/>  
+        <h:message styleClass="error errors" for="contactDetails_email" rendered="#{s:hasPermission('email', 'employeeEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.person_age}  " rendered="#{s:hasPermission('age', 'employeeEdit')}"/>  
+        <br/>  
+        <h:inputText id="age" value="#{employeeAction.employee.age}"/>  
+        <h:message styleClass="error errors" for="age" rendered="#{s:hasPermission('age', 'employeeEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.employee_employeeNumber} * " rendered="#{s:hasPermission('employeeNumber', 'employeeEdit')}"/>  
+        <br/>  
+        <h:inputText id="employeeNumber" value="#{employeeAction.employee.employeeNumber}"/>  
+        <h:message styleClass="error errors" for="employeeNumber" rendered="#{s:hasPermission('employeeNumber', 'employeeEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.user_userName} * " rendered="#{s:hasPermission('userName', 'employeeEdit')}"/>  
+        <br/>  
+        <h:inputText id="user_userName" value="#{employeeAction.employee.user.userName}"/>  
+        <h:message styleClass="error errors" for="user_userName" rendered="#{s:hasPermission('userName', 'employeeEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.user_enabled}  " rendered="#{s:hasPermission('enabled', 'employeeEdit')}"/>  
+        <br/>  
+        <h:selectBooleanCheckbox id="user_enabled" value="#{employeeAction.employee.user.enabled}"/>  
+        <h:message styleClass="error errors" for="user_enabled" rendered="#{s:hasPermission('enabled', 'employeeEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.employee_department}  " rendered="#{s:hasPermission('department', 'employeeEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="department" value="#{employeeAction.employee.department}"> 
+          <s:selectItems value="#{departmentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="department" rendered="#{s:hasPermission('department', 'employeeEdit')}"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

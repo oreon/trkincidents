@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{drugTypeAction.load(drugTypeId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="DrugType "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.drugType_name} * "/>  
+        <h:inputText id="name#{entityId}" label="#{msg.drugType_name}" required="true" value="#{drugTypeAction.drugType.name}"/>  
+        <h:message styleClass="error errors" for="name"/>  
+        <h:outputText value="#{msg.drugType_absorption}  "/>  
+        <rich:editor useSeamText="true" id="absorption#{entityId}" label="#{msg.drugType_absorption}" required="false" value="#{drugTypeAction.drugType.absorption}"/>  
+        <h:message styleClass="error errors" for="absorption"/>  
+        <h:outputText value="#{msg.drugType_mechanism}  "/>  
+        <rich:editor useSeamText="true" id="mechanism#{entityId}" label="#{msg.drugType_mechanism}" required="false" value="#{drugTypeAction.drugType.mechanism}"/>  
+        <h:message styleClass="error errors" for="mechanism"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

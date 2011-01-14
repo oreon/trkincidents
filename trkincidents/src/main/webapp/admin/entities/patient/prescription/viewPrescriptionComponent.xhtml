@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{prescriptionAction.load(prescriptionId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="Prescription "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{prescriptionAction.prescription.id}"/>  
+        <h:outputText value="#{msg.prescription_patient}  "/>  
+        <s:link value="#{prescriptionAction.prescription.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+          <f:param name="patientId" value="#{prescriptionAction.prescription.patient.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/>  
+          <rich:toolTip> 
+            <span>#{prescriptionAction.prescription.patient.popupInfo}</span> 
+          </rich:toolTip> 
+        </s:link>  
+        <h:outputText value="#{msg.prescription_notes}  "/>  
+        <s:formattedText escape="false" id="notes#{entityId}" value="#{prescriptionAction.prescription.notes}"/> 
+      </h:panelGrid>  
+      <rich:dataTable id="prescriptionItems_data#{entityId}" var="_prescriptionItem" rendered="#{not empty prescriptionAction.listPrescriptionItems}" value="#{prescriptionAction.listPrescriptionItems}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.prescriptionItem_drug}  "/>
+          </f:facet>  
+          <s:link value="#{_prescriptionItem.drug.displayName}" view="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
+            <f:param name="drugId" value="#{_prescriptionItem.drug.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/>  
+            <rich:toolTip> 
+              <span>#{_prescriptionItem.drug.popupInfo}</span> 
+            </rich:toolTip> 
+          </s:link> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.prescriptionItem_frequecy}  "/>
+          </f:facet>  
+          <s:link value="#{_prescriptionItem.frequecy.displayName}" view="/admin/entities/patient/frequecy/viewFrequecy.xhtml" propagation="none"> 
+            <f:param name="frequecyId" value="#{_prescriptionItem.frequecy.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.prescriptionItem_qty}  "/>
+          </f:facet>  
+          <h:outputText id="qty#{entityId}" value="#{_prescriptionItem.qty}"/> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.prescriptionItem_route}  "/>
+          </f:facet>  
+          <h:outputText value="#{_prescriptionItem.route}"/> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.prescriptionItem_duration}  "/>
+          </f:facet>  
+          <h:outputText id="duration#{entityId}" value="#{_prescriptionItem.duration}"/> 
+        </h:column>  
+        <h:column style="text-align:left">
+          <f:facet name="header">
+            <h:outputText value="#{msg.prescriptionItem_remarks}  "/>
+          </f:facet>  
+          <h:outputText id="remarks#{entityId}" value="#{_prescriptionItem.remarks}"/> 
+        </h:column> 
+      </rich:dataTable> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

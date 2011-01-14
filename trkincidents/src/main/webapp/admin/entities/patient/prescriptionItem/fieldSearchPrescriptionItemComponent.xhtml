@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.prescriptionItem_drug}  "/>  
+      <br/>  
+      <h:selectOneMenu id="drug" value="#{ prescriptionItemList.prescriptionItem.drug}"> 
+        <s:selectItems value="#{drugList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.prescriptionItem_qty}  "/>  
+      <br/>  
+      <h:inputText id="qty_begin" value="#{prescriptionItemList.qtyRange.begin}"> 
+        <f:converter converterId="javax.faces.Double"/> 
+      </h:inputText>  
+      <h:inputText id="qty_end" value="#{prescriptionItemList.qtyRange.end}"> 
+        <f:converter converterId="javax.faces.Double"/> 
+      </h:inputText> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.prescriptionItem_route}  "/>  
+      <br/>  
+      <h:selectOneMenu id="route" value="#{prescriptionItemList.prescriptionItem.route}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="None" itemValue=""/>  
+        <f:selectItem itemValue="PIO" itemLabel="Pio"/>  
+        <f:selectItem itemValue="IM" itemLabel="Im"/>  
+        <f:selectItem itemValue="IV" itemLabel="Iv"/>  
+        <f:selectItem itemValue="TOPICAL" itemLabel="Topical"/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.prescriptionItem_prescription}  "/>  
+      <br/>  
+      <h:selectOneMenu id="prescription" value="#{ prescriptionItemList.prescriptionItem.prescription}"> 
+        <s:selectItems value="#{prescriptionList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.prescriptionItem_duration}  "/>  
+      <br/>  
+      <h:inputText id="duration_begin" value="#{prescriptionItemList.durationRange.begin}"> 
+        <f:converter converterId="javax.faces.Integer"/> 
+      </h:inputText>  
+      <h:inputText id="duration_end" value="#{prescriptionItemList.durationRange.end}"> 
+        <f:converter converterId="javax.faces.Integer"/> 
+      </h:inputText> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.prescriptionItem_remarks}  "/>  
+      <br/>  
+      <h:inputText id="remarks" value="#{prescriptionItemList.prescriptionItem.remarks}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.prescriptionItem_frequecy}  "/>  
+      <br/>  
+      <h:selectOneMenu id="frequecy" value="#{ prescriptionItemList.prescriptionItem.frequecy}"> 
+        <s:selectItems value="#{frequecyList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <rich:calendar id="from" value="#{prescriptionItemList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{prescriptionItemList.dateCreatedRange.end}"/> 
+  </h:panelGrid> 
+</ui:composition>

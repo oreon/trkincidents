@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{allergyAction.load(allergyId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="Allergy "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{allergyAction.allergy.id}"/>  
+        <h:outputText value="#{msg.allergy_patient}  "/>  
+        <s:link value="#{allergyAction.allergy.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+          <f:param name="patientId" value="#{allergyAction.allergy.patient.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/>  
+          <rich:toolTip> 
+            <span>#{allergyAction.allergy.patient.popupInfo}</span> 
+          </rich:toolTip> 
+        </s:link>  
+        <h:outputText value="#{msg.allergy_allergen}  "/>  
+        <s:link value="#{allergyAction.allergy.allergen.displayName}" view="/admin/entities/patient/allergen/viewAllergen.xhtml" propagation="none"> 
+          <f:param name="allergenId" value="#{allergyAction.allergy.allergen.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.allergy_severity}  "/>  
+        <h:outputText value="#{allergyAction.allergy.severity}"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

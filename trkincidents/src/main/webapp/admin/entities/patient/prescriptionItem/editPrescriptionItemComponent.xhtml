@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{prescriptionItemAction.load(prescriptionItemId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="PrescriptionItem "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.prescriptionItem_drug}  "/>  
+        <h:panelGroup> 
+          <a:region> 
+            <h:inputText value="#{prescriptionItemAction.prescriptionItem.drug.displayName}" label="#{msg.prescriptionItem_drug}" id="drug" required="true"/>  
+            <rich:suggestionbox for="drug" rules="all" suggestionAction="#{drugList.autocompletedb}" ajaxSingle="true" var="_result" fetchValue="#{_result.displayName}" minChars="2" nothingLabel="No Results found" zindex="99999"> 
+              <h:column> 
+                <h:outputText value="#{_result.name}"/> 
+              </h:column>  
+              <a:support event="onselect"> 
+                <f:setPropertyActionListener value="#{_result}" target="#{prescriptionItemAction.prescriptionItem.drug}"/> 
+              </a:support> 
+            </rich:suggestionbox> 
+          </a:region> 
+        </h:panelGroup>  
+        <h:message styleClass="error errors" for="drug"/>  
+        <h:outputText value="#{msg.prescriptionItem_prescription}  "/>  
+        <h:selectOneMenu id="prescription" label="#{msg.prescriptionItem_prescription}" value="#{prescriptionItemAction.prescriptionItem.prescription}" required="true"> 
+          <s:selectItems value="#{prescriptionList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="prescription"/>  
+        <h:outputText value="#{msg.prescriptionItem_frequecy}  "/>  
+        <h:selectOneMenu id="frequecy" label="#{msg.prescriptionItem_frequecy}" value="#{prescriptionItemAction.prescriptionItem.frequecy}" required="true"> 
+          <s:selectItems value="#{frequecyList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="frequecy"/>  
+        <h:outputText value="#{msg.prescriptionItem_qty}  "/>  
+        <h:inputText id="qty#{entityId}" label="#{msg.prescriptionItem_qty}" required="false" value="#{prescriptionItemAction.prescriptionItem.qty}"/>  
+        <h:message styleClass="error errors" for="qty"/>  
+        <h:outputText value="#{msg.prescriptionItem_route}  "/>  
+        <h:selectOneMenu id="route" value="#{prescriptionItemAction.prescriptionItem.route}" required="false" label="#{msg.prescriptionItem_route}"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="PIO" itemLabel="Pio"/>  
+          <f:selectItem itemValue="IM" itemLabel="Im"/>  
+          <f:selectItem itemValue="IV" itemLabel="Iv"/>  
+          <f:selectItem itemValue="TOPICAL" itemLabel="Topical"/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="route"/>  
+        <h:outputText value="#{msg.prescriptionItem_duration}  "/>  
+        <h:inputText id="duration#{entityId}" label="#{msg.prescriptionItem_duration}" required="false" value="#{prescriptionItemAction.prescriptionItem.duration}"/>  
+        <h:message styleClass="error errors" for="duration"/>  
+        <h:outputText value="#{msg.prescriptionItem_remarks}  "/>  
+        <h:inputText id="remarks#{entityId}" label="#{msg.prescriptionItem_remarks}" required="false" value="#{prescriptionItemAction.prescriptionItem.remarks}"/>  
+        <h:message styleClass="error errors" for="remarks"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

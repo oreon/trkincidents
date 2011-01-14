@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{technicianAction.load(technicianId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="Technician "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{technicianAction.technician.id}"/>  
+        <h:outputText value="#{msg.user_userName}  "/>  
+        <h:outputText id="user_userName#{entityId}" value="#{technicianAction.technician.user.userName}"/>  
+        <h:outputText value="#{msg.user_enabled}  "/>  
+        <h:outputText id="user_enabled#{entityId}" value="#{technicianAction.technician.user.enabled}"/>  
+        <h:outputText value="#{msg.contactDetails_primaryPhone}  "/>  
+        <h:outputText id="contactDetails_primaryPhone#{entityId}" value="#{technicianAction.technician.contactDetails.primaryPhone}"/>  
+        <h:outputText value="#{msg.contactDetails_secondaryPhone}  "/>  
+        <h:outputText id="contactDetails_secondaryPhone#{entityId}" value="#{technicianAction.technician.contactDetails.secondaryPhone}"/>  
+        <h:outputText value="#{msg.contactDetails_email}  "/>  
+        <h:outputText id="contactDetails_email#{entityId}" value="#{technicianAction.technician.contactDetails.email}"/>  
+        <h:outputText value="#{msg.employee_employeeNumber}  "/>  
+        <h:outputText id="employeeNumber#{entityId}" value="#{technicianAction.technician.employeeNumber}"/>  
+        <h:outputText value="#{msg.person_firstName}  "/>  
+        <h:outputText id="firstName#{entityId}" value="#{technicianAction.technician.firstName}"/>  
+        <h:outputText value="#{msg.person_lastName}  "/>  
+        <h:outputText id="lastName#{entityId}" value="#{technicianAction.technician.lastName}"/>  
+        <h:outputText value="#{msg.person_dateOfBirth}  "/>  
+        <h:outputText id="dateOfBirth#{entityId}" value="#{technicianAction.technician.dateOfBirth}"/>  
+        <h:outputText value="#{msg.person_gender}  "/>  
+        <h:outputText value="#{technicianAction.technician.gender}"/>  
+        <h:outputText value="#{msg.person_age}  "/>  
+        <h:outputText id="age#{entityId}" value="#{technicianAction.technician.age}"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

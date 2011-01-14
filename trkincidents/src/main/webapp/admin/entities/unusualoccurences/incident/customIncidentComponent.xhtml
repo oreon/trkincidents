@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.incident_occurenceType}  " rendered="#{s:hasPermission('occurenceType', 'incidentEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="occurenceType" value="#{incidentAction.incident.occurenceType}"> 
+          <s:selectItems value="#{occurenceTypeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="occurenceType" rendered="#{s:hasPermission('occurenceType', 'incidentEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.incident_category}  " rendered="#{s:hasPermission('category', 'incidentEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="category" value="#{incidentAction.incident.category}" required="false"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="Radiation" itemLabel="Radiation"/>  
+          <f:selectItem itemValue="Chemotherapy" itemLabel="Chemotherapy"/>  
+          <f:selectItem itemValue="Anesthesia" itemLabel="Anesthesia"/>  
+          <f:selectItem itemValue="Surgery" itemLabel="Surgery"/>  
+          <f:selectItem itemValue="Other" itemLabel="Other"/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="category" rendered="#{s:hasPermission('category', 'incidentEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.incident_severity}  " rendered="#{s:hasPermission('severity', 'incidentEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="severity" value="#{incidentAction.incident.severity}" required="false"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="Mild" itemLabel="Mild"/>  
+          <f:selectItem itemValue="Moderate" itemLabel="Moderate"/>  
+          <f:selectItem itemValue="Critical" itemLabel="Critical"/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="severity" rendered="#{s:hasPermission('severity', 'incidentEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.incident_description}  " rendered="#{s:hasPermission('description', 'incidentEdit')}"/>  
+        <br/>  
+        <rich:editor useSeamText="true" id="description" value="#{incidentAction.incident.description}"/>  
+        <h:message styleClass="error errors" for="description" rendered="#{s:hasPermission('description', 'incidentEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.incident_patient}  " rendered="#{s:hasPermission('patient', 'incidentEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="patient" value="#{incidentAction.incident.patient}"> 
+          <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="patient" rendered="#{s:hasPermission('patient', 'incidentEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.incident_createdBy}  " rendered="#{s:hasPermission('createdBy', 'incidentEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="createdBy" value="#{incidentAction.incident.createdBy}"> 
+          <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="createdBy" rendered="#{s:hasPermission('createdBy', 'incidentEdit')}"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

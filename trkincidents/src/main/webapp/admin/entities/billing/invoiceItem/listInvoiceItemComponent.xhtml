@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <rich:panel> 
+    <f:facet name="header">InvoiceItem Search Results (#{empty records ? 0 : (invoiceItemList.paginated ? invoiceItemList.resultCount : records.size)})</f:facet>  
+    <a:form> 
+      <rich:dataTable var="_invoiceItem" value="#{records}" id="invoiceItemList" rowClasses="odd, even" styleClass="dataTable" rendered="#{not empty records}"> 
+        <h:column> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{invoiceItemList}"/>  
+              <ui:param name="propertyLabel" value="Id"/>  
+              <ui:param name="propertyPath" value="invoiceItem.id"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_invoiceItem.id}"></h:outputText> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{invoiceItemList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.invoiceItem_units}"/>  
+              <ui:param name="propertyPath" value="invoiceItem.units"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_invoiceItem.units}"/> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{invoiceItemList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.invoiceItem_service}"/>  
+              <ui:param name="propertyPath" value="invoiceItem.service"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_invoiceItem.service.displayName}" view="/admin/entities/billing/service/viewService.xhtml" propagation="none"> 
+            <f:param name="serviceId" value="#{_invoiceItem.service.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column groupOn="#{invoiceItem.invoice.displayName}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{invoiceItemList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.invoiceItem_invoice}"/>  
+              <ui:param name="propertyPath" value="invoiceItem.invoice"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_invoiceItem.invoice.displayName}" view="/admin/entities/billing/invoice/viewInvoice.xhtml" propagation="none"> 
+            <f:param name="invoiceId" value="#{_invoiceItem.invoice.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{invoiceItemList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.invoiceItem_total}"/>  
+              <ui:param name="propertyPath" value="invoiceItem.total"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_invoiceItem.total}"/> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{invoiceItemList}"/>  
+              <ui:param name="propertyLabel" value="Creation Date"/>  
+              <ui:param name="propertyPath" value="invoiceItem.dateCreated"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_invoiceItem.dateCreated}"> 
+            <s:convertDateTime type="both" dateStyle="short"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('invoiceItemAction', 'view')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/billing/invoiceItem/viewInvoiceItem.xhtml" rendered="#{s:hasPermission(_invoiceItem, 'view')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="invoiceItemId" value="#{_invoiceItem.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('invoiceItemAction', 'edit')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/billing/invoiceItem/editInvoiceItem.xhtml" rendered="#{s:hasPermission(_invoiceItem, 'edit')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="invoiceItemId" value="#{_invoiceItem.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('invoiceItemAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <s:link action="#{invoiceItemAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_invoiceItem.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="idToArchive" value="#{_invoiceItem.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('invoiceItemAction', 'edit')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <a:commandLink action="#{invoiceItemAction.setInvoiceItemIdForModalDlg(_invoiceItem.id)}" oncomplete="Richfaces.showModalPanel('InvoiceItemModalPanel',{});" value="Quick Edit"/> 
+        </h:column> 
+      </rich:dataTable> 
+    </a:form> 
+  </rich:panel>  
+  <div class="tableControl"> 
+    <s:link view="#{request.servletPath}" rendered="#{invoiceItemList.previousExists}" value="#{messages.left}#{messages.left} First Page"> 
+      <f:param name="firstResult" value="0"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{invoiceItemList.previousExists}" value="#{messages.left} Previous Page"> 
+      <f:param name="firstResult" value="#{invoiceItemList.previousFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{invoiceItemList.nextExists}" value="Next Page #{messages.right}"> 
+      <f:param name="firstResult" value="#{invoiceItemList.nextFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{invoiceItemList.nextExists}" value="Last Page #{messages.right}#{messages.right}"> 
+      <f:param name="firstResult" value="#{invoiceItemList.lastFirstResult}"/> 
+    </s:link> 
+  </div> 
+</ui:composition>

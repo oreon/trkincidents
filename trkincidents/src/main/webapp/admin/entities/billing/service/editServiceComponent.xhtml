@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{serviceAction.load(serviceId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="Service "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.service_name} * "/>  
+        <h:inputText id="name#{entityId}" label="#{msg.service_name}" required="true" value="#{serviceAction.service.name}"/>  
+        <h:message styleClass="error errors" for="name"/>  
+        <h:outputText value="#{msg.service_price}  "/>  
+        <h:inputText id="price#{entityId}" label="#{msg.service_price}" required="false" value="#{serviceAction.service.price}"/>  
+        <h:message styleClass="error errors" for="price"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

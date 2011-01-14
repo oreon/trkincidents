@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
+  <ui:define name="content"> 
+    <ui:include src="searchVaccine.xhtml"/>  
+    <br/>  
+    <br/>  
+    <ui:include src="listVaccineComponent.xhtml"> 
+      <ui:param name="records" value="#{vaccineList.resultList}"/> 
+    </ui:include>  
+    <a:form> 
+      <s:button value="Create New" view="/admin/entities/patient/vaccine/editVaccine.xhtml" propagation="none"/>  
+      <a:commandButton action="#{vaccineAction.setVaccineId(0)}" oncomplete="Richfaces.showModalPanel('VaccineModalPanel',{});" value="Quick Create"></a:commandButton> 
+    </a:form>  
+    <ui:include src="/admin/entities/patient/vaccine/modalDlgVaccineComponent.xhtml"/> 
+  </ui:define> 
+</ui:composition>

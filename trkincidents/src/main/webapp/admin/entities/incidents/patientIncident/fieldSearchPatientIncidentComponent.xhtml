@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.baseIncident_severity}  " rendered="#{s:hasPermission('severity', 'patientIncidentEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="severity" value="#{ patientIncidentList.patientIncident.severity}"> 
+        <s:selectItems value="#{severityList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.baseIncident_description}  " rendered="#{s:hasPermission('description', 'patientIncidentEdit')}"/>  
+      <br/>  
+      <h:inputText id="description" value="#{patientIncidentList.patientIncident.description}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.patientIncident_patient}  " rendered="#{s:hasPermission('patient', 'patientIncidentEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="patient" value="#{ patientIncidentList.patientIncident.patient}"> 
+        <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <rich:calendar id="from" value="#{patientIncidentList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{patientIncidentList.dateCreatedRange.end}"/> 
+  </h:panelGrid> 
+</ui:composition>

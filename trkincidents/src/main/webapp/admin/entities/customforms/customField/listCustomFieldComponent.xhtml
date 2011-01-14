@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <rich:panel> 
+    <f:facet name="header">CustomField Search Results (#{empty records ? 0 : (customFieldList.paginated ? customFieldList.resultCount : records.size)})</f:facet>  
+    <a:form> 
+      <rich:dataTable var="_customField" value="#{records}" id="customFieldList" rowClasses="odd, even" styleClass="dataTable"> 
+        <h:column rendered="#{s:hasPermission('id', 'customFieldView' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{customFieldList}"/>  
+              <ui:param name="propertyLabel" value="Id"/>  
+              <ui:param name="propertyPath" value="customField.id"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_customField.id}"></h:outputText> 
+        </h:column>  
+        <h:column groupOn="#{customField.customForm.displayName}" rendered="#{s:hasPermission('customForm', 'customFieldView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{customFieldList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.customField_customForm}"/>  
+              <ui:param name="propertyPath" value="customField.customForm"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_customField.customForm.displayName}" view="/admin/entities/customforms/customForm/viewCustomForm.xhtml" propagation="none"> 
+            <f:param name="customFormId" value="#{_customField.customForm.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('required', 'customFieldView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{customFieldList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.customField_required}"/>  
+              <ui:param name="propertyPath" value="customField.required"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_customField.required? msg.yes : msg.no }"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('type', 'customFieldView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{customFieldList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.customField_type}"/>  
+              <ui:param name="propertyPath" value="customField.type"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_customField.type}"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('name', 'customFieldView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{customFieldList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.customField_name}"/>  
+              <ui:param name="propertyPath" value="customField.name"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_customField.name}"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('creationDate', 'customFieldView' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{customFieldList}"/>  
+              <ui:param name="propertyLabel" value="Creation Date"/>  
+              <ui:param name="propertyPath" value="customField.dateCreated"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_customField.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_customField', 'view')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/customforms/customField/viewCustomField.xhtml" rendered="#{s:hasPermission(_customField, 'view')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="customFieldId" value="#{_customField.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_customField', 'edit')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/customforms/customField/editCustomField.xhtml" rendered="#{s:hasPermission(_customField, 'edit')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="customFieldId" value="#{_customField.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('customFieldAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <s:link action="#{customFieldAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_customField.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="idToArchive" value="#{_customField.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <a:commandLink action="#{customFieldAction.setCustomFieldIdForModalDlg(_customField.id)}" rendered="#{s:hasPermission(_customField, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('CustomFieldModalPanel',{});"> 
+            <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
+            <s:conversationPropagation type="join"/> 
+          </a:commandLink> 
+        </h:column> 
+      </rich:dataTable> 
+    </a:form> 
+  </rich:panel>  
+  <div class="tableControl"> 
+    <s:link view="#{request.servletPath}" rendered="#{customFieldList.previousExists}" value="#{messages.left}#{messages.left} First Page"> 
+      <f:param name="firstResult" value="0"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{customFieldList.previousExists}" value="#{messages.left} Previous Page"> 
+      <f:param name="firstResult" value="#{customFieldList.previousFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{customFieldList.nextExists}" value="Next Page #{messages.right}"> 
+      <f:param name="firstResult" value="#{customFieldList.nextFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{customFieldList.nextExists}" value="Last Page #{messages.right}#{messages.right}"> 
+      <f:param name="firstResult" value="#{customFieldList.lastFirstResult}"/> 
+    </s:link> 
+  </div> 
+</ui:composition>

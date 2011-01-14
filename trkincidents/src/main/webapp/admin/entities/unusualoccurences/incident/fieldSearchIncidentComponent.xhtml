@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.incident_occurenceType}  " rendered="#{s:hasPermission('occurenceType', 'incidentEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="occurenceType" value="#{ incidentList.incident.occurenceType}"> 
+        <s:selectItems value="#{occurenceTypeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.incident_category}  " rendered="#{s:hasPermission('category', 'incidentEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="category" value="#{incidentList.incident.category}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="None" itemValue=""/>  
+        <f:selectItem itemValue="Radiation" itemLabel="Radiation"/>  
+        <f:selectItem itemValue="Chemotherapy" itemLabel="Chemotherapy"/>  
+        <f:selectItem itemValue="Anesthesia" itemLabel="Anesthesia"/>  
+        <f:selectItem itemValue="Surgery" itemLabel="Surgery"/>  
+        <f:selectItem itemValue="Other" itemLabel="Other"/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.incident_severity}  " rendered="#{s:hasPermission('severity', 'incidentEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="severity" value="#{incidentList.incident.severity}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="None" itemValue=""/>  
+        <f:selectItem itemValue="Mild" itemLabel="Mild"/>  
+        <f:selectItem itemValue="Moderate" itemLabel="Moderate"/>  
+        <f:selectItem itemValue="Critical" itemLabel="Critical"/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.incident_description}  " rendered="#{s:hasPermission('description', 'incidentEdit')}"/>  
+      <br/>  
+      <h:inputText id="description" value="#{incidentList.incident.description}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.incident_patient}  " rendered="#{s:hasPermission('patient', 'incidentEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="patient" value="#{ incidentList.incident.patient}"> 
+        <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.incident_createdBy}  " rendered="#{s:hasPermission('createdBy', 'incidentEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="createdBy" value="#{ incidentList.incident.createdBy}"> 
+        <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <rich:calendar id="from" value="#{incidentList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{incidentList.dateCreatedRange.end}"/> 
+  </h:panelGrid> 
+</ui:composition>

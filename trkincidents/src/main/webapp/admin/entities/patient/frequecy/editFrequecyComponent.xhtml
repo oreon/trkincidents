@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{frequecyAction.load(frequecyId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="Frequecy "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.frequecy_name} * "/>  
+        <h:inputText id="name#{entityId}" label="#{msg.frequecy_name}" required="true" value="#{frequecyAction.frequecy.name}"/>  
+        <h:message styleClass="error errors" for="name"/>  
+        <h:outputText value="#{msg.frequecy_qtyPerDay}  "/>  
+        <h:inputText id="qtyPerDay#{entityId}" label="#{msg.frequecy_qtyPerDay}" required="false" value="#{frequecyAction.frequecy.qtyPerDay}"/>  
+        <h:message styleClass="error errors" for="qtyPerDay"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

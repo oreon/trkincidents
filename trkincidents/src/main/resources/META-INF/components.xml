@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<components xmlns="http://jboss.com/products/seam/components"
+	xmlns:core="http://jboss.com/products/seam/core" xmlns:drools="http://jboss.com/products/seam/drools"
+	xmlns:security="http://jboss.com/products/seam/security" xmlns:web="http://jboss.com/products/seam/web"
+	xmlns:mail="http://jboss.com/products/seam/mail" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:persistence="http://jboss.com/products/seam/persistence"
+	xmlns:transaction="http://jboss.com/products/seam/transaction"
+	xmlns:navigation="http://jboss.com/products/seam/navigation"
+	xsi:schemaLocation="http://jboss.com/products/seam/core 
+ 					http://jboss.com/products/seam/core-2.0.xsd   
+ 					http://jboss.com/products/seam/transaction 
+ 					http://jboss.com/products/seam/transaction-2.0.xsd      
+ 					http://jboss.com/products/seam/security 
+ 					http://jboss.com/products/seam/security-2.0.xsd      
+ 					http://jboss.com/products/seam/components 
+ 					http://jboss.com/products/seam/components-2.0.xsd 
+ 					http://jboss.com/products/seam/web 
+ 					http://jboss.com/products/seam/web-2.0.xsd      
+ 					http://jboss.com/products/seam/navigation
+ 					http://jboss.com/products/seam/navigation-2.0.xsd 
+ 					http://jboss.com/products/seam/persistence 
+ 					http://jboss.com/products/seam/persistence-2.0.xsd">
+
+	<core:init debug="true" />
+	<core:manager conversation-timeout="300000" />
+
+
+	<navigation:pages>
+		<navigation:resources>
+			<value>/WEB-INF/applicationPages.xml</value>
+			<value>/WEB-INF/pages.xml</value>
+		</navigation:resources>
+	</navigation:pages>
+
+	<persistence:filter name="archivedFilter">
+		<persistence:name>archiveFilterDef</persistence:name>
+		<persistence:parameters>
+			<key>aArchived</key>
+			<value>#{'0'}</value>
+		</persistence:parameters>
+	</persistence:filter>
+
+	<persistence:entity-manager-factory
+		name="entityManagerFactory" persistence-unit-name="appEntityManager" />
+
+	<persistence:managed-persistence-context
+		auto-create="true" entity-manager-factory="#{entityManagerFactory}"
+		name="entityManager">
+
+		<persistence:filters>
+			<value>#{archivedFilter}</value>
+		</persistence:filters>
+
+	</persistence:managed-persistence-context>
+
+	<transaction:entity-transaction
+		entity-manager="#{entityManager}" />
+
+	<security:identity authenticate-method="#{authenticator.authenticate}"
+		remember-me="true" />
+
+	<security:rule-based-permission-resolver
+		security-rules="#{securityRules}" />
+
+	<drools:rule-base name="securityRules">
+		<drools:rule-files>
+			<value>/permissions/security.drl</value>
+		</drools:rule-files>
+	</drools:rule-base>
+
+
+	<event type="org.jboss.seam.security.notLoggedIn">
+		<action execute="#{redirect.captureCurrentView}" />
+	</event>
+
+	<event type="org.jboss.seam.security.postAuthenticate">
+		<action execute="#{redirect.returnToCapturedView}" />
+	</event>
+	<!--
+		<bpm:jbpm> <bpm:process-definitions>
+		<value>processes/processDefinition.jpdl.xml</value>
+		</bpm:process-definitions> </bpm:jbpm>
+	-->
+
+
+</components>

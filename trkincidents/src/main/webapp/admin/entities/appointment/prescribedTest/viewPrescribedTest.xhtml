@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
+  <ui:define name="content"> 
+    <h:form> 
+      <rich:tabPanel switchType="ajax"> 
+        <rich:tab label="PrescribedTest"> 
+          <ui:include src="/admin/entities/appointment/prescribedTest/viewPrescribedTestComponent.xhtml"/>  
+          <div class="buttonBox"> 
+            <h:commandButton value="Edit" rendered="#{s:hasPermission('prescribedTest', 'edit', prescribedTestAction.instance)}" action="edit"></h:commandButton>  
+            <h:outputText value=" "/>  
+            <h:commandButton value="Back To Listing" action="#{prescribedTestAction.cancel}"> 
+              <s:conversationPropagation type="end"/> 
+            </h:commandButton> 
+          </div> 
+        </rich:tab>  
+        <rich:tab label="DxTest"> 
+          <ui:include src="/admin/entities/appointment/dxTest/viewDxTestComponent.xhtml"> 
+            <ui:param name="entityId" value="1"/>  
+            <ui:param name="dxTestId" value="#{prescribedTestAction.instance.dxTest.id}"/> 
+          </ui:include> 
+        </rich:tab>  
+        <rich:tab label="Encounter"> 
+          <ui:include src="/admin/entities/appointment/encounter/viewEncounterComponent.xhtml"> 
+            <ui:param name="entityId" value="2"/>  
+            <ui:param name="encounterId" value="#{prescribedTestAction.instance.encounter.id}"/> 
+          </ui:include> 
+        </rich:tab> 
+      </rich:tabPanel> 
+    </h:form>  
+    <br/>  
+    <rich:tabPanel></rich:tabPanel>  
+    <br/>  
+    <rich:tabPanel> 
+      <rich:tab label="Notes"> 
+        <wc:comments backingAction="#{prescribedTestAction}"/> 
+      </rich:tab> 
+    </rich:tabPanel> 
+  </ui:define> 
+</ui:composition>

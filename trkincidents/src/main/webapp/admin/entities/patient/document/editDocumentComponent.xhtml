@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{documentAction.load(documentId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="Document "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.document_patient}  " rendered="#{s:hasPermission('patient', 'documentEdit')}"/>  
+        <h:selectOneMenu id="patient" label="#{msg.document_patient}" value="#{documentAction.document.patient}" required="true" rendered="#{s:hasPermission('patient', 'documentEdit')}"> 
+          <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="patient" rendered="#{s:hasPermission('patient', 'documentEdit')}"/>  
+        <h:outputText value="#{msg.document_baseIncident}  " rendered="#{s:hasPermission('baseIncident', 'documentEdit')}"/>  
+        <h:selectOneMenu id="baseIncident" label="#{msg.document_baseIncident}" value="#{documentAction.document.baseIncident}" required="true" rendered="#{s:hasPermission('baseIncident', 'documentEdit')}"> 
+          <s:selectItems value="#{baseIncidentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="baseIncident" rendered="#{s:hasPermission('baseIncident', 'documentEdit')}"/>  
+        <h:outputText value="#{msg.document_name} * " rendered="#{s:hasPermission('name', 'documentEdit')}"/>  
+        <h:inputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'documentEdit')}" label="#{msg.document_name}" required="true" value="#{documentAction.document.name}"/>  
+        <h:message styleClass="error errors" for="name" rendered="#{s:hasPermission('name', 'documentEdit')}"/>  
+        <h:outputText value="#{msg.document_file}  " rendered="#{s:hasPermission('file', 'documentEdit')}"/>  
+        <s:div rendered="#{documentAction.document.id != 0 }"> 
+          <c:choose> 
+            <c:when test="${documentAction.document.file.contentType.startsWith('image')}"> 
+              <s:graphicImage value="#{documentAction.document.file.data}"/> 
+            </c:when>  
+            <c:otherwise> 
+              <s:link value="#{documentAction.document.file.name}" action="#{documentAction.downloadFile(null)}" propagation="none"> 
+                <f:param name="currentEntityId" value="#{documentAction.instance.id}"/> 
+              </s:link> 
+            </c:otherwise> 
+          </c:choose> 
+        </s:div>  
+        <s:div rendered="#{documentAction.document.id == null }"> 
+          <s:fileUpload data="#{documentAction.document.file.data}" fileName="#{documentAction.document.file.name}" contentType="#{documentAction.document.file.contentType}"/> 
+        </s:div>  
+        <h:message styleClass="error errors" for="file" rendered="#{s:hasPermission('file', 'documentEdit')}"/>  
+        <h:outputText value="#{msg.document_notes}  " rendered="#{s:hasPermission('notes', 'documentEdit')}"/>  
+        <rich:editor useSeamText="true" id="notes#{entityId}" rendered="#{s:hasPermission('notes', 'documentEdit')}" label="#{msg.document_notes}" required="false" value="#{documentAction.document.notes}"/>  
+        <h:message styleClass="error errors" for="notes" rendered="#{s:hasPermission('notes', 'documentEdit')}"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

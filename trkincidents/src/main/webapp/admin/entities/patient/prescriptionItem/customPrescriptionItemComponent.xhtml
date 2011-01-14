@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.prescriptionItem_drug}  "/>  
+        <br/>  
+        <h:selectOneMenu id="drug" value="#{prescriptionItemAction.prescriptionItem.drug}"> 
+          <s:selectItems value="#{drugList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="drug"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.prescriptionItem_qty}  "/>  
+        <br/>  
+        <h:inputText id="qty" value="#{prescriptionItemAction.prescriptionItem.qty}"/>  
+        <h:message styleClass="error errors" for="qty"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.prescriptionItem_route}  "/>  
+        <br/>  
+        <h:selectOneMenu id="route" value="#{prescriptionItemAction.prescriptionItem.route}" required="false"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="PIO" itemLabel="Pio"/>  
+          <f:selectItem itemValue="IM" itemLabel="Im"/>  
+          <f:selectItem itemValue="IV" itemLabel="Iv"/>  
+          <f:selectItem itemValue="TOPICAL" itemLabel="Topical"/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="route"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.prescriptionItem_prescription}  "/>  
+        <br/>  
+        <h:selectOneMenu id="prescription" value="#{prescriptionItemAction.prescriptionItem.prescription}"> 
+          <s:selectItems value="#{prescriptionList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="prescription"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.prescriptionItem_duration}  "/>  
+        <br/>  
+        <h:inputText id="duration" value="#{prescriptionItemAction.prescriptionItem.duration}"/>  
+        <h:message styleClass="error errors" for="duration"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.prescriptionItem_remarks}  "/>  
+        <br/>  
+        <h:inputText id="remarks" value="#{prescriptionItemAction.prescriptionItem.remarks}"/>  
+        <h:message styleClass="error errors" for="remarks"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.prescriptionItem_frequecy}  "/>  
+        <br/>  
+        <h:selectOneMenu id="frequecy" value="#{prescriptionItemAction.prescriptionItem.frequecy}"> 
+          <s:selectItems value="#{frequecyList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="frequecy"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

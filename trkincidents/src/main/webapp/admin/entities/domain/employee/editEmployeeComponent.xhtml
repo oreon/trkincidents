@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">	
+	<h:panelGroup>
+		<s:validateAll>
+		<h:panelGrid columnClasses="leftCol, rightCol" columns="3" onload="#{employeeAction.load(employeeId )  }" styleClass="viewInfo">
+		<f:facet name="header">
+			<h:outputText value="Employee "/>
+		</f:facet>
+		
+		
+	
+	
+		
+			
+			
+	
+	
+		
+		<h:outputText value="#{msg.employee_department}  "/>
+	
+	
+		
+	
+	<h:selectOneMenu id="employee_department" required="true" value="#{employeeAction.employee.department}">
+		<s:selectItems label="#{itemIter.displayName}" noSelectionLabel="Please Select..." value="#{departmentList}" var="itemIter"/>
+		<s:convertEntity/>
+	</h:selectOneMenu>
+		
+
+	
+		
+		<h:message for="employee_department" styleClass="error errors"/>		
+		
+	
+	
+		
+	
+
+	 
+	
+	
+		
+		<h:outputText value="#{msg.person_firstName}  "/>
+		
+
+	<h:inputText id="person_firstName#{entityId}" required="false" value="#{employeeAction.employee.firstName}"/>
+   
+		
+		<h:message for="person_firstName" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.person_lastName}  "/>
+		
+
+	<h:inputText id="person_lastName#{entityId}" required="false" value="#{employeeAction.employee.lastName}"/>
+   
+		
+		<h:message for="person_lastName" styleClass="error errors"/>		
+		
+	
+	
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.employee_employeeNumber}  "/>
+		
+
+	<h:inputText id="employee_employeeNumber#{entityId}" required="false" value="#{employeeAction.employee.employeeNumber}"/>
+   
+		
+		<h:message for="employee_employeeNumber" styleClass="error errors"/>		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.employee_employeeType}  "/>
+		
+	
+	<h:selectOneMenu id="employee_employeeType" required="false" value="#{employeeAction.employee.employeeType}">
+		<f:selectItem itemLabel="Please Select..." itemValue=""/>
+		<f:selectItem itemLabel="Full_time" itemValue="FULL_TIME"/>
+		<f:selectItem itemLabel="Contract" itemValue="CONTRACT"/>
+		<f:selectItem itemLabel="Part_time" itemValue="PART_TIME"/>
+		
+	</h:selectOneMenu>
+	
+		
+		<h:message for="employee_employeeType" styleClass="error errors"/>		
+		
+	
+	
+		</h:panelGrid>
+		
+	
+		</s:validateAll>
+		
+	</h:panelGroup>
+	</ui:composition>

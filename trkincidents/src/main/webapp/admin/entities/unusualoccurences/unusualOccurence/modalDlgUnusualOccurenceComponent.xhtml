@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <rich:modalPanel id="UnusualOccurenceModalPanel" autosized="true" zindex="2000" domElementAttachment="parent"> 
+    <f:facet name="header"> 
+      <h:panelGroup> 
+        <h:outputText value="New UnusualOccurence"/> 
+      </h:panelGroup> 
+    </f:facet>  
+    <f:facet name="controls"> 
+      <h:panelGroup> 
+        <h:graphicImage value="/img/close.png" alt="Close" styleClass="hidelink"/>  
+        <rich:componentControl for="UnusualOccurenceModalPanel" attachTo="hidelink" operation="hide" event="onclick"/> 
+      </h:panelGroup> 
+    </f:facet>  
+    <s:div> 
+      <a:outputPanel ajaxRendered="true" id="unusualOccurenceOutputPanel"> 
+        <rich:messages passedLabel="" style="width:100%; text-align: left; color: red; font-weight: bold;" layout="list" rendered="#{facesContext.maximumSeverity != null}"></rich:messages>  
+        <a:form> 
+          <ui:include src="/admin/entities/unusualoccurences/unusualOccurence/editUnusualOccurenceComponent.xhtml"/>  
+          <a:commandButton action="#{unusualOccurenceAction.saveWithoutConversation}" oncomplete="if (#{facesContext.maximumSeverity == null || facesContext.maximumSeverity.ordinal le 1 }) { Richfaces.hideModalPanel('UnusualOccurenceModalPanel'); }" reRender="unusualOccurenceList, unusualOccurenceOutputPanel" value="Save"> 
+            <f:param name="conversationPropagation" value="end"/> 
+          </a:commandButton>  
+          <h:outputText value=" "/>  
+          <a:commandButton immediate="true" oncomplete="Richfaces.hideModalPanel('UnusualOccurenceModalPanel')" value="Hide"/>  
+          <h:outputText value=" "/>  
+          <a:commandButton immediate="true" type="reset" oncomplete="Richfaces.hideModalPanel('UnusualOccurenceModalPanel');" value="Cancel"> 
+            <f:param name="conversationPropagation" value="end"/> 
+          </a:commandButton> 
+        </a:form> 
+      </a:outputPanel> 
+    </s:div> 
+  </rich:modalPanel> 
+</ui:composition>
