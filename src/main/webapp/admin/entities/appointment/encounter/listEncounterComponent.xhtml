@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <rich:panel> 
+    <f:facet name="header">Encounter Search Results (#{empty records ? 0 : (encounterList.paginated ? encounterList.resultCount : records.size)})</f:facet>  
+    <a:form> 
+      <rich:dataTable var="_encounter" value="#{records}" id="encounterList" rowClasses="odd, even" styleClass="dataTable"> 
+        <h:column rendered="#{s:hasPermission('id', 'encounterView' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{encounterList}"/>  
+              <ui:param name="propertyLabel" value="Id"/>  
+              <ui:param name="propertyPath" value="encounter.id"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_encounter.id}"></h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('patient', 'encounterView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{encounterList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.encounter_patient}"/>  
+              <ui:param name="propertyPath" value="encounter.patient"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_encounter.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+            <f:param name="patientId" value="#{_encounter.patient.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/>  
+            <rich:toolTip> 
+              <span>#{_encounter.patient.popupInfo}</span> 
+            </rich:toolTip> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('notes', 'encounterView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{encounterList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.encounter_notes}"/>  
+              <ui:param name="propertyPath" value="encounter.notes"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_encounter.notes}"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('creationDate', 'encounterView' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{encounterList}"/>  
+              <ui:param name="propertyLabel" value="Creation Date"/>  
+              <ui:param name="propertyPath" value="encounter.dateCreated"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_encounter.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_encounter', 'view')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/appointment/encounter/viewEncounter.xhtml" rendered="#{s:hasPermission(_encounter, 'view')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="encounterId" value="#{_encounter.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_encounter', 'edit')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/appointment/encounter/editEncounter.xhtml" rendered="#{s:hasPermission(_encounter, 'edit')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="encounterId" value="#{_encounter.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('encounterAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <s:link action="#{encounterAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_encounter.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="idToArchive" value="#{_encounter.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <a:commandLink action="#{encounterAction.setEncounterIdForModalDlg(_encounter.id)}" rendered="#{s:hasPermission(_encounter, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('EncounterModalPanel',{});"> 
+            <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
+            <s:conversationPropagation type="join"/> 
+          </a:commandLink> 
+        </h:column> 
+      </rich:dataTable> 
+    </a:form> 
+  </rich:panel>  
+  <div class="tableControl"> 
+    <s:link view="#{request.servletPath}" rendered="#{encounterList.previousExists}" value="#{messages.left}#{messages.left} First Page"> 
+      <f:param name="firstResult" value="0"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{encounterList.previousExists}" value="#{messages.left} Previous Page"> 
+      <f:param name="firstResult" value="#{encounterList.previousFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{encounterList.nextExists}" value="Next Page #{messages.right}"> 
+      <f:param name="firstResult" value="#{encounterList.nextFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{encounterList.nextExists}" value="Last Page #{messages.right}#{messages.right}"> 
+      <f:param name="firstResult" value="#{encounterList.lastFirstResult}"/> 
+    </s:link> 
+  </div> 
+</ui:composition>

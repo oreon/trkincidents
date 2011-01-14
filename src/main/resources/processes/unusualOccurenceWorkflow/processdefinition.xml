@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-definition name="unusualOccurenceWorkflow">  
+  <swimlane name="initiator"> 
+    <assignment class="com.nas.recovery.web.action.workflowmgt.unusualOccurenceWorkflow.assign.InitiatorAssignment"/> 
+  </swimlane>  
+  <swimlane name="physician"> 
+    <assignment class="com.nas.recovery.web.action.workflowmgt.unusualOccurenceWorkflow.assign.PhysicianAssignment"/> 
+  </swimlane>  
+  <start-state name=""> 
+    <task name="" swimlane="initiator"></task>  
+    <transition to="reviewOccurence" name="proceedToReviewOccurence"></transition> 
+  </start-state>  
+  <task-node name="reviewOccurence"> 
+    <task name="reviewOccurence" swimlane="physician" notify="false"></task>  
+    <transition to="provideInfo" name="requestMoreInfo"></transition>  
+    <transition to="" name="closeOccurence"></transition> 
+  </task-node>  
+  <task-node name="provideInfo"> 
+    <task name="provideInfo" swimlane="initiator" notify="false"></task>  
+    <transition to="reviewOccurence" name="done"></transition> 
+  </task-node>  
+  <end-state name=""/> 
+</process-definition>

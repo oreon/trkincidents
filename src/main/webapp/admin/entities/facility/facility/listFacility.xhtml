@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
+  <ui:define name="content"> 
+    <ui:include src="searchFacility.xhtml"/>  
+    <br/>  
+    <br/>  
+    <ui:include src="listFacilityComponent.xhtml"> 
+      <ui:param name="records" value="#{facilityList.resultList}"/> 
+    </ui:include>  
+    <a:form> 
+      <s:button value="Create New" view="/admin/entities/facility/facility/editFacility.xhtml" propagation="none"> 
+        <f:param name="facilityId" value="0"/> 
+      </s:button>  
+      <a:commandButton action="#{facilityAction.setFacilityId(0)}" oncomplete="Richfaces.showModalPanel('FacilityModalPanel',{});" value="Quick Create"></a:commandButton> 
+    </a:form>  
+    <ui:include src="/admin/entities/facility/facility/modalDlgFacilityComponent.xhtml"/> 
+  </ui:define> 
+</ui:composition>

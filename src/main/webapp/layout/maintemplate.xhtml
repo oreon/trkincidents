@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<f:view contentType="text/html" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:s="http://jboss.com/products/seam/taglib">
+	<html>
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Callosum EMR - Online Electronic healthcare system that
+	ensures better patient outcomes</title>
+	<script type="text/javascript"
+		src="#{request.contextPath}/js/commons.js"></script>
+	<ui:insert name="head" />
+	</head>
+
+	<body>
+	<f:loadBundle basename="messages" var="msg" />
+	<h:messages globalOnly="true" />
+	
+	<rich:toolBar>
+
+		<s:link value="Patients" />
+		<rich:toolBarGroup location="right">
+			<s:link rendered="#{identity.loggedIn}" id="logout"
+				action="#{identity.logout}" view="/login.xhtml"
+				value="Logout #{identity.credentials.username}" />
+		</rich:toolBarGroup>
+	</rich:toolBar>
+
+	<div class="body"><h:messages /> <ui:insert name="body" /></div>
+
+	<div class="footer">Powered by <a
+		href="http://jboss.com/products/seam">Oreon Consulting</a>.</div>
+
+	</body>
+	</html>
+</f:view>

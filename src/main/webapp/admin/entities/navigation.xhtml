@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:form> 
+    <rich:panelMenu style="width:162px" mode="ajax" iconExpandedGroup="disc" iconCollapsedGroup="disc" iconExpandedTopGroup="chevronUp" iconGroupTopPosition="right" iconCollapsedTopGroup="chevronDown" iconCollapsedTopPosition="right"> 
+      <rich:panelMenuGroup label="Patient" expanded="true"> 
+        <rich:panelMenuItem> 
+          <h:commandLink value="Patient" action="patient"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="Document" action="document"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem> 
+      </rich:panelMenuGroup>  
+      <rich:panelMenuGroup label="Unusualoccurences" expanded="true"> 
+        <rich:panelMenuItem> 
+          <h:commandLink value="Incident" action="incident"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="OccurenceType" action="occurenceType"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem> 
+      </rich:panelMenuGroup>  
+      <rich:panelMenuGroup label="Employee" expanded="true"> 
+        <rich:panelMenuItem> 
+          <h:commandLink value="Employee" action="employee"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="Department" action="department"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem> 
+      </rich:panelMenuGroup>  
+      <rich:panelMenuGroup label="Users" expanded="true"> 
+        <rich:panelMenuItem> 
+          <h:commandLink value="User" action="user"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="Role" action="role"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem> 
+      </rich:panelMenuGroup>  
+      <rich:panelMenuGroup label="Facility" expanded="true"> 
+        <rich:panelMenuItem> 
+          <h:commandLink value="Facility" action="facility"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem> 
+      </rich:panelMenuGroup>  
+      <rich:panelMenuGroup label="Appointment" expanded="true"> 
+        <rich:panelMenuItem> 
+          <h:commandLink value="Appointment" action="appointment"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="Encounter" action="encounter"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="History" action="history"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="DxTest" action="dxTest"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="PrescribedTest" action="prescribedTest"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem> 
+      </rich:panelMenuGroup>  
+      <rich:panelMenuGroup label="Incidents" expanded="true"> 
+        <rich:panelMenuItem> 
+          <h:commandLink value="BaseIncident" action="baseIncident"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="EmployeeIncident" action="employeeIncident"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="Severity" action="severity"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="PatientIncident" action="patientIncident"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="PrivacyBreech" action="privacyBreech"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem> 
+      </rich:panelMenuGroup>  
+      <rich:panelMenuGroup label="Customforms" expanded="true"> 
+        <rich:panelMenuItem> 
+          <h:commandLink value="CustomForm" action="customForm"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="CustomField" action="customField"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="FilledForm" action="filledForm"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="FilledField" action="filledField"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem> 
+      </rich:panelMenuGroup> 
+    </rich:panelMenu> 
+  </h:form> 
+</ui:composition>

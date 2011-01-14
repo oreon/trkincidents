@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{allergyAction.load(allergyId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="Allergy "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.allergy_patient}  "/>  
+        <h:selectOneMenu id="patient" label="#{msg.allergy_patient}" value="#{allergyAction.allergy.patient}" required="true"> 
+          <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="patient"/>  
+        <h:outputText value="#{msg.allergy_allergen}  "/>  
+        <h:selectOneMenu id="allergen" label="#{msg.allergy_allergen}" value="#{allergyAction.allergy.allergen}" required="true"> 
+          <s:selectItems value="#{allergenList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="allergen"/>  
+        <h:outputText value="#{msg.allergy_severity}  "/>  
+        <h:selectOneMenu id="severity" value="#{allergyAction.allergy.severity}" required="false" label="#{msg.allergy_severity}"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="SEVERE" itemLabel="Severe"/>  
+          <f:selectItem itemValue="MODERATE" itemLabel="Moderate"/>  
+          <f:selectItem itemValue="MILD" itemLabel="Mild"/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="severity"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{immunizationAction.load(immunizationId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="Immunization "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.immunization_patient}  "/>  
+        <h:selectOneMenu id="patient" label="#{msg.immunization_patient}" value="#{immunizationAction.immunization.patient}" required="true"> 
+          <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="patient"/>  
+        <h:outputText value="#{msg.immunization_vaccine}  "/>  
+        <h:selectOneMenu id="vaccine" label="#{msg.immunization_vaccine}" value="#{immunizationAction.immunization.vaccine}" required="true"> 
+          <s:selectItems value="#{vaccineList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="vaccine"/>  
+        <h:outputText value="#{msg.immunization_date}  "/>  
+        <rich:calendar id="date#{entityId}" label="#{msg.immunization_date}" required="false" value="#{immunizationAction.immunization.date}"/>  
+        <h:message styleClass="error errors" for="date"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

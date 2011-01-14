@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{drugSaltAction.load(drugSaltId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="DrugSalt "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{drugSaltAction.drugSalt.id}"/>  
+        <h:outputText value="#{msg.drugSalt_name}  "/>  
+        <h:outputText id="name#{entityId}" value="#{drugSaltAction.drugSalt.name}"/>  
+        <h:outputText value="#{msg.drugSalt_absorption}  "/>  
+        <s:formattedText escape="false" id="absorption#{entityId}" value="#{drugSaltAction.drugSalt.absorption}"/>  
+        <h:outputText value="#{msg.drugSalt_mechanism}  "/>  
+        <s:formattedText escape="false" id="mechanism#{entityId}" value="#{drugSaltAction.drugSalt.mechanism}"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{atcDrugAction.load(atcDrugId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="AtcDrug "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{atcDrugAction.atcDrug.id}"/>  
+        <h:outputText value="#{msg.atcDrug_drug}  "/>  
+        <s:link value="#{atcDrugAction.atcDrug.drug.displayName}" view="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
+          <f:param name="drugId" value="#{atcDrugAction.atcDrug.drug.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/>  
+          <rich:toolTip> 
+            <span>#{atcDrugAction.atcDrug.drug.popupInfo}</span> 
+          </rich:toolTip> 
+        </s:link>  
+        <h:outputText value="#{msg.atcDrug_parent}  "/>  
+        <s:link value="#{atcDrugAction.atcDrug.parent.displayName}" view="/admin/entities/drugs/atcDrug/viewAtcDrug.xhtml" propagation="none"> 
+          <f:param name="parentId" value="#{atcDrugAction.atcDrug.parent.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.atcDrug_code}  "/>  
+        <h:outputText id="code#{entityId}" value="#{atcDrugAction.atcDrug.code}"/>  
+        <h:outputText value="#{msg.atcDrug_name}  "/>  
+        <h:outputText id="name#{entityId}" value="#{atcDrugAction.atcDrug.name}"/> 
+      </h:panelGrid>  
+      <rich:dataTable id="subcategories_data#{entityId}" var="_atcDrug" rendered="#{not empty atcDrugAction.listSubcategories}" value="#{atcDrugAction.listSubcategories}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.atcDrug_drug}  "/>
+          </f:facet>  
+          <s:link value="#{_atcDrug.drug.displayName}" view="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
+            <f:param name="drugId" value="#{_atcDrug.drug.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/>  
+            <rich:toolTip> 
+              <span>#{_atcDrug.drug.popupInfo}</span> 
+            </rich:toolTip> 
+          </s:link> 
+        </h:column>  
+        <h:column style="text-align:left">
+          <f:facet name="header">
+            <h:outputText value="#{msg.atcDrug_code}  "/>
+          </f:facet>  
+          <h:outputText id="code#{entityId}" value="#{_atcDrug.code}"/> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.atcDrug_name}  "/>
+          </f:facet>  
+          <h:outputText id="name#{entityId}" value="#{_atcDrug.name}"/> 
+        </h:column> 
+      </rich:dataTable> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

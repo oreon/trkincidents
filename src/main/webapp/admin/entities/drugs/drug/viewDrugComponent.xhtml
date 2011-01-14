@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{drugAction.load(drugId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="Drug "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{drugAction.drug.id}"/>  
+        <h:outputText value="#{msg.drug_name}  "/>  
+        <h:outputText id="name#{entityId}" value="#{drugAction.drug.name}"/>  
+        <h:outputText value="#{msg.drug_absorption}  "/>  
+        <s:formattedText escape="false" id="absorption#{entityId}" value="#{drugAction.drug.absorption}"/>  
+        <h:outputText value="#{msg.drug_biotransformation}  "/>  
+        <s:formattedText escape="false" id="biotransformation#{entityId}" value="#{drugAction.drug.biotransformation}"/>  
+        <h:outputText value="#{msg.drug_atcCodes}  "/>  
+        <h:outputText id="atcCodes#{entityId}" value="#{drugAction.drug.atcCodes}"/>  
+        <h:outputText value="#{msg.drug_contraIndication}  "/>  
+        <s:formattedText escape="false" id="contraIndication#{entityId}" value="#{drugAction.drug.contraIndication}"/>  
+        <h:outputText value="#{msg.drug_description}  "/>  
+        <s:formattedText escape="false" id="description#{entityId}" value="#{drugAction.drug.description}"/>  
+        <h:outputText value="#{msg.drug_dosageForm}  "/>  
+        <h:outputText id="dosageForm#{entityId}" value="#{drugAction.drug.dosageForm}"/>  
+        <h:outputText value="#{msg.drug_foodInteractions}  "/>  
+        <s:formattedText escape="false" id="foodInteractions#{entityId}" value="#{drugAction.drug.foodInteractions}"/>  
+        <h:outputText value="#{msg.drug_halfLife}  "/>  
+        <s:formattedText escape="false" id="halfLife#{entityId}" value="#{drugAction.drug.halfLife}"/>  
+        <h:outputText value="#{msg.drug_halfLifeNumberOfHours}  "/>  
+        <h:outputText id="halfLifeNumberOfHours#{entityId}" value="#{drugAction.drug.halfLifeNumberOfHours}"/>  
+        <h:outputText value="#{msg.drug_indication}  "/>  
+        <s:formattedText escape="false" id="indication#{entityId}" value="#{drugAction.drug.indication}"/>  
+        <h:outputText value="#{msg.drug_mechanismOfAction}  "/>  
+        <s:formattedText escape="false" id="mechanismOfAction#{entityId}" value="#{drugAction.drug.mechanismOfAction}"/>  
+        <h:outputText value="#{msg.drug_patientInfo}  "/>  
+        <s:formattedText escape="false" id="patientInfo#{entityId}" value="#{drugAction.drug.patientInfo}"/>  
+        <h:outputText value="#{msg.drug_pharmacology}  "/>  
+        <s:formattedText escape="false" id="pharmacology#{entityId}" value="#{drugAction.drug.pharmacology}"/>  
+        <h:outputText value="#{msg.drug_toxicity}  "/>  
+        <s:formattedText escape="false" id="toxicity#{entityId}" value="#{drugAction.drug.toxicity}"/>  
+        <h:outputText value="#{msg.drug_routeOfElimination}  "/>  
+        <s:formattedText escape="false" id="routeOfElimination#{entityId}" value="#{drugAction.drug.routeOfElimination}"/>  
+        <h:outputText value="#{msg.drug_volumeOfDistribution}  "/>  
+        <h:outputText id="volumeOfDistribution#{entityId}" value="#{drugAction.drug.volumeOfDistribution}"/>  
+        <h:outputText value="#{msg.drug_drugBankId}  "/>  
+        <h:outputText id="drugBankId#{entityId}" value="#{drugAction.drug.drugBankId}"/>  
+        <h:outputText value="#{msg.drug_categories}  "/>  
+        <h:outputText id="categories#{entityId}" value="#{drugAction.drug.categories}"/> 
+      </h:panelGrid>  
+      <rich:dataTable id="drugInteractions_data#{entityId}" var="_drugInteraction" rendered="#{not empty drugAction.listDrugInteractions}" value="#{drugAction.listDrugInteractions}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.drugInteraction_interactingDrug}  "/>
+          </f:facet>  
+          <s:link value="#{_drugInteraction.interactingDrug.displayName}" view="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
+            <f:param name="interactingDrugId" value="#{_drugInteraction.interactingDrug.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/>  
+            <rich:toolTip> 
+              <span>#{_drugInteraction.interactingDrug.popupInfo}</span> 
+            </rich:toolTip> 
+          </s:link> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.drugInteraction_description}  "/>
+          </f:facet>  
+          <s:formattedText escape="false" id="description#{entityId}" value="#{_drugInteraction.description}"/> 
+        </h:column> 
+      </rich:dataTable> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

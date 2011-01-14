@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.prescribedTest_remarks}  " rendered="#{s:hasPermission('remarks', 'prescribedTestEdit')}"/>  
+        <br/>  
+        <h:inputText id="remarks" value="#{prescribedTestAction.prescribedTest.remarks}"/>  
+        <h:message styleClass="error errors" for="remarks" rendered="#{s:hasPermission('remarks', 'prescribedTestEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.prescribedTest_dxTest}  " rendered="#{s:hasPermission('dxTest', 'prescribedTestEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="dxTest" value="#{prescribedTestAction.prescribedTest.dxTest}"> 
+          <s:selectItems value="#{dxTestList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="dxTest" rendered="#{s:hasPermission('dxTest', 'prescribedTestEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.prescribedTest_encounter}  " rendered="#{s:hasPermission('encounter', 'prescribedTestEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="encounter" value="#{prescribedTestAction.prescribedTest.encounter}"> 
+          <s:selectItems value="#{encounterList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="encounter" rendered="#{s:hasPermission('encounter', 'prescribedTestEdit')}"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

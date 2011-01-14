@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
+  <ui:define name="content"> 
+    <ui:include src="searchDocument.xhtml"/>  
+    <br/>  
+    <br/>  
+    <ui:include src="listDocumentComponent.xhtml"> 
+      <ui:param name="records" value="#{documentList.resultList}"/> 
+    </ui:include>  
+    <a:form> 
+      <s:button value="Create New" view="/admin/entities/patient/document/editDocument.xhtml" propagation="none"> 
+        <f:param name="documentId" value="0"/> 
+      </s:button>  
+      <a:commandButton action="#{documentAction.setDocumentId(0)}" oncomplete="Richfaces.showModalPanel('DocumentModalPanel',{});" value="Quick Create"></a:commandButton> 
+    </a:form>  
+    <ui:include src="/admin/entities/patient/document/modalDlgDocumentComponent.xhtml"/> 
+  </ui:define> 
+</ui:composition>

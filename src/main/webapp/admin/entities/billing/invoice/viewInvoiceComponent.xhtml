@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{invoiceAction.load(invoiceId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="Invoice "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{invoiceAction.invoice.id}"/>  
+        <h:outputText value="#{msg.invoice_patient}  "/>  
+        <s:link value="#{invoiceAction.invoice.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+          <f:param name="patientId" value="#{invoiceAction.invoice.patient.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/>  
+          <rich:toolTip> 
+            <span>#{invoiceAction.invoice.patient.popupInfo}</span> 
+          </rich:toolTip> 
+        </s:link>  
+        <h:outputText value="#{msg.invoice_notes}  "/>  
+        <h:outputText id="notes#{entityId}" value="#{invoiceAction.invoice.notes}"/> 
+      </h:panelGrid>  
+      <rich:dataTable id="invoiceItems_data#{entityId}" var="_invoiceItem" rendered="#{not empty invoiceAction.listInvoiceItems}" value="#{invoiceAction.listInvoiceItems}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.invoiceItem_service}  "/>
+          </f:facet>  
+          <s:link value="#{_invoiceItem.service.displayName}" view="/admin/entities/billing/service/viewService.xhtml" propagation="none"> 
+            <f:param name="serviceId" value="#{_invoiceItem.service.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.invoiceItem_units}  "/>
+          </f:facet>  
+          <h:outputText id="units#{entityId}" value="#{_invoiceItem.units}"/> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.invoiceItem_total}  "/>
+          </f:facet>  
+          <h:outputText id="total#{entityId}" value="#{_invoiceItem.total}"/> 
+        </h:column> 
+      </rich:dataTable> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{nurseAction.load(nurseId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="Nurse "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.user_userName} * "/>  
+        <h:inputText id="user_userName#{entityId}" label="#{msg.user_userName}" required="true" value="#{nurseAction.nurse.user.userName}"/>  
+        <h:message styleClass="error errors" for="user_userName"/>  
+        <h:outputText value="#{msg.user_password} * "/>  
+        <h:inputSecret redisplay="true" id="user_password#{entityId}" label="#{msg.user_password}" required="true" value="#{nurseAction.nurse.user.password}"/>  
+        <h:message styleClass="error errors" for="user_password"/>  
+        <h:outputText value="#{msg.user_enabled}  "/>  
+        <h:selectBooleanCheckbox id="user_enabled#{entityId}" label="#{msg.user_enabled}" required="false" value="#{nurseAction.nurse.user.enabled}"/>  
+        <h:message styleClass="error errors" for="user_enabled"/>  
+        <h:outputText value="#{msg.contactDetails_primaryPhone}  "/>  
+        <h:inputText id="contactDetails_primaryPhone#{entityId}" label="#{msg.contactDetails_primaryPhone}" required="false" value="#{nurseAction.nurse.contactDetails.primaryPhone}"/>  
+        <h:message styleClass="error errors" for="contactDetails_primaryPhone"/>  
+        <h:outputText value="#{msg.contactDetails_secondaryPhone}  "/>  
+        <h:inputText id="contactDetails_secondaryPhone#{entityId}" label="#{msg.contactDetails_secondaryPhone}" required="false" value="#{nurseAction.nurse.contactDetails.secondaryPhone}"/>  
+        <h:message styleClass="error errors" for="contactDetails_secondaryPhone"/>  
+        <h:outputText value="#{msg.contactDetails_email}  "/>  
+        <h:inputText id="contactDetails_email#{entityId}" label="#{msg.contactDetails_email}" required="false" value="#{nurseAction.nurse.contactDetails.email}"/>  
+        <h:message styleClass="error errors" for="contactDetails_email"/>  
+        <h:outputText value="#{msg.employee_employeeNumber} * "/>  
+        <h:inputText id="employeeNumber#{entityId}" label="#{msg.employee_employeeNumber}" required="true" value="#{nurseAction.nurse.employeeNumber}"/>  
+        <h:message styleClass="error errors" for="employeeNumber"/>  
+        <h:outputText value="#{msg.person_firstName} * "/>  
+        <h:inputText id="firstName#{entityId}" label="#{msg.person_firstName}" required="true" value="#{nurseAction.nurse.firstName}"/>  
+        <h:message styleClass="error errors" for="firstName"/>  
+        <h:outputText value="#{msg.person_lastName} * "/>  
+        <h:inputText id="lastName#{entityId}" label="#{msg.person_lastName}" required="true" value="#{nurseAction.nurse.lastName}"/>  
+        <h:message styleClass="error errors" for="lastName"/>  
+        <h:outputText value="#{msg.person_dateOfBirth}  "/>  
+        <rich:calendar id="dateOfBirth#{entityId}" label="#{msg.person_dateOfBirth}" required="false" value="#{nurseAction.nurse.dateOfBirth}"/>  
+        <h:message styleClass="error errors" for="dateOfBirth"/>  
+        <h:outputText value="#{msg.person_gender}  "/>  
+        <h:selectOneMenu id="gender" value="#{nurseAction.nurse.gender}" required="false" label="#{msg.person_gender}"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="F" itemLabel="F"/>  
+          <f:selectItem itemValue="M" itemLabel="M"/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="gender"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

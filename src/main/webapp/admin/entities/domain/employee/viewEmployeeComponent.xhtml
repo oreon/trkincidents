@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:wc="http://witchcraft.sourceforge.net/jsf">	
+	<h:panelGroup>
+		<s:validateAll>
+		<h:panelGrid columnClasses="leftCol, rightCol" columns="2" onload="#{employeeAction.load(employeeId )  }" styleClass="viewInfo">
+		<f:facet name="header">
+			<h:outputText value="Employee "/>
+		</f:facet>
+		
+			<h:outputText value="#{msg.id}"/>
+			<h:outputText value="#{employeeAction.employee.id}"/>
+		
+		
+	
+	
+		
+			
+			
+	
+	
+		
+		<h:outputText value="#{msg.employee_department}  "/>		
+	
+	<s:link value="#{employeeAction.employee.department.displayName}" view="/admin/entities/domain/department/viewDepartment.xhtml">
+		<f:param name="id" value="#{employeeAction.employee.department.id}"/>
+	</s:link>
+	
+		
+		
+		
+	
+	
+		
+	
+
+	 
+	
+	
+		
+		<h:outputText value="#{msg.person_firstName}  "/>		
+
+	<h:outputText id="person_firstName#{entityId}" value="#{employeeAction.employee.firstName}"/>
+   
+		
+		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.person_lastName}  "/>		
+
+	<h:outputText id="person_lastName#{entityId}" value="#{employeeAction.employee.lastName}"/>
+   
+		
+		
+		
+	
+	
+	
+	
+	
+	
+		
+		<h:outputText value="#{msg.employee_employeeNumber}  "/>		
+
+	<h:outputText id="employee_employeeNumber#{entityId}" value="#{employeeAction.employee.employeeNumber}"/>
+   
+		
+		
+		
+	
+	
+
+	
+	
+		
+		<h:outputText value="#{msg.employee_employeeType}  "/>		
+	<h:outputText value="#{employeeAction.employee.employeeType}"/>
+	
+		
+		
+		
+	
+	
+		</h:panelGrid>
+		
+	
+		</s:validateAll>
+		
+	</h:panelGroup>
+	</ui:composition>

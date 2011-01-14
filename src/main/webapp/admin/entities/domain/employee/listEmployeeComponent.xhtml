@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="WINDOWS-1252" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:a="http://richfaces.org/a4j" xmlns:c="http://java.sun.com/jstl/core" xmlns:f="http://java.sun.com/jsf/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:h="http://java.sun.com/jsf/html" xmlns:rich="http://richfaces.org/rich" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:wc="http://witchcraft.sourceforge.net/jsf">	
+	
+	
+<rich:panel>
+   <h:form>
+	  <f:facet name="header">Employee Search Results (#{empty employeeList.resultList ? 0 : (employeeList.paginated ? employeeList.resultCount : employeeList.resultList.size)})</f:facet>
+	
+		<rich:dataTable id="employeeList" rendered="#{not empty employeeList.resultList}" rowClasses="odd, even" styleClass="dataTable" value="#{employeeList.resultList}" var="_employee">	
+		
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{employeeList}"/>
+				<ui:param name="propertyLabel" value="Id"/>
+				<ui:param name="propertyPath" value="employee.id"/>
+			</ui:include>
+		</f:facet>
+		<h:outputText value="#{_employee.id}">
+		</h:outputText>
+	</h:column>
+		
+		
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{employeeList}"/>
+				<ui:param name="propertyLabel" value="#{msg.employee_department}"/>
+				<ui:param name="propertyPath" value="employee.department"/>
+			</ui:include>
+		</f:facet>
+		<s:link value="#{_employee.department.displayName}" view="/admin/entities/domain/department/viewDepartment.xhtml">
+			<f:param name="departmentId" value="#{_employee.department.id}"/>
+			<f:param name="from" value="#{request.servletPath}"/>
+		</s:link>
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{employeeList}"/>
+				<ui:param name="propertyLabel" value="#{msg.employee_employeeNumber}"/>
+				<ui:param name="propertyPath" value="employee.employeeNumber"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_employee.employeeNumber}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{employeeList}"/>
+				<ui:param name="propertyLabel" value="#{msg.employee_employeeType}"/>
+				<ui:param name="propertyPath" value="employee.employeeType"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_employee.employeeType}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{employeeList}"/>
+				<ui:param name="propertyLabel" value="#{msg.person_firstName}"/>
+				<ui:param name="propertyPath" value="employee.firstName"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_employee.firstName}"/>	
+		
+	</h:column>
+	
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{employeeList}"/>
+				<ui:param name="propertyLabel" value="#{msg.person_lastName}"/>
+				<ui:param name="propertyPath" value="employee.lastName"/>
+			</ui:include>
+		</f:facet>
+		
+			<h:outputText value="#{_employee.lastName}"/>	
+		
+	</h:column>
+	
+		
+	
+		
+	<h:column>
+		<f:facet name="header">
+			<ui:include src="/layout/sort.xhtml">
+				<ui:param name="entityList" value="#{employeeList}"/>
+				<ui:param name="propertyLabel" value="Creation Date"/>
+				<ui:param name="propertyPath" value="employee.dateCreated"/>
+			</ui:include>
+		</f:facet>
+		<h:outputText value="#{_employee.dateCreated}">
+			<s:convertDateTime dateStyle="short" type="both"/>
+		</h:outputText>
+	</h:column>
+		
+	<h:column rendered="#{s:hasPermission('employeeAction', 'view')}">
+		<f:facet name="header">
+			<h:outputText value=" "/>
+		</f:facet>
+		<s:link view="/admin/entities/domain/employee/viewEmployee.xhtml">
+			<h:graphicImage alt="view" style="border: 0px" value="/images/icons/eye.png"/>
+			<f:param name="employeeId" value="#{_employee.id}"/>
+		</s:link>
+	</h:column>
+
+		
+	<h:column rendered="#{s:hasPermission('employeeAction', 'edit')}">
+		<f:facet name="header">
+			<h:outputText value=" "/>
+		</f:facet>
+		<s:link view="/admin/entities/domain/employee/editEmployee.xhtml">
+			<h:graphicImage alt="edit" style="border: 0px" value="/images/icons/edit.png"/>
+			<f:param name="employeeId" value="#{_employee.id}"/>
+		</s:link>
+	</h:column>
+
+		
+	<h:column rendered="#{s:hasPermission('employeeAction', 'archive')}">
+		<f:facet name="header">
+			<h:outputText value=""/>
+		</f:facet>
+		
+		<s:link action="#{employeeAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_employee.displayName} ?')){ return false; } else { return true; }">
+			<h:graphicImage alt="archive" style="border: 0px" value="/images/icons/delete.png"/>
+			<f:param name="idToArchive" value="#{_employee.id}"/>
+		</s:link>
+	</h:column>
+
+		</rich:dataTable>
+ 	</h:form>		
+</rich:panel>	
+
+
+
+ <div class="tableControl">
+<s:link rendered="#{employeeList.previousExists}" value="#{messages.left}#{messages.left} First Page" view="#{request.servletPath}">
+	<f:param name="firstResult" value="0"/>
+</s:link> 
+
+<s:link rendered="#{employeeList.previousExists}" value="#{messages.left} Previous Page" view="#{request.servletPath}">
+	<f:param name="firstResult" value="#{employeeList.previousFirstResult}"/>
+</s:link> 
+
+<s:link rendered="#{employeeList.nextExists}" value="Next Page #{messages.right}" view="#{request.servletPath}">
+	<f:param name="firstResult" value="#{employeeList.nextFirstResult}"/>
+</s:link> 
+
+<s:link rendered="#{employeeList.nextExists}" value="Last Page #{messages.right}#{messages.right}" view="#{request.servletPath}">
+	<f:param name="firstResult" value="#{employeeList.lastFirstResult}"/>
+</s:link>
+</div>
+
+
+<h:form>
+<s:div rendered="#{empty from}" styleClass="actionButtons">
+	<s:button propagation="none" value="Create New" view="/admin/entities/domain/employee/editEmployee.xhtml">
+		 <f:param name="employeeId"/>
+		
+		
+			<f:param name="departmentId" value="#{departmentAction.department.id}"/>
+		
+		
+	</s:button>
+</s:div>
+</h:form>
+
+</html>

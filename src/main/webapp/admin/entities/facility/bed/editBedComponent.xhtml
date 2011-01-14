@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{bedAction.load(bedId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="Bed "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.bed_room}  "/>  
+        <h:selectOneMenu id="room" label="#{msg.bed_room}" value="#{bedAction.bed.room}" required="true"> 
+          <s:selectItems value="#{roomList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="room"/>  
+        <h:outputText value="#{msg.bed_admission}  "/>  
+        <h:selectOneMenu id="admission" label="#{msg.bed_admission}" value="#{bedAction.bed.admission}" required="true"> 
+          <s:selectItems value="#{admissionList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="admission"/>  
+        <h:outputText value="#{msg.bed_name} * "/>  
+        <h:inputText id="name#{entityId}" label="#{msg.bed_name}" required="true" value="#{bedAction.bed.name}"/>  
+        <h:message styleClass="error errors" for="name"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

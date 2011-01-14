@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{atcDrugAction.load(atcDrugId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="AtcDrug "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.atcDrug_drug}  "/>  
+        <h:selectOneMenu id="drug" label="#{msg.atcDrug_drug}" value="#{atcDrugAction.atcDrug.drug}" required="false"> 
+          <s:selectItems value="#{drugList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="drug"/>  
+        <h:outputText value="#{msg.atcDrug_parent}  "/>  
+        <h:selectOneMenu id="parent" label="#{msg.atcDrug_parent}" value="#{atcDrugAction.atcDrug.parent}" required="false"> 
+          <s:selectItems value="#{atcDrugList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="parent"/>  
+        <h:outputText value="#{msg.atcDrug_code}  "/>  
+        <h:inputText id="code#{entityId}" label="#{msg.atcDrug_code}" required="false" value="#{atcDrugAction.atcDrug.code}"/>  
+        <h:message styleClass="error errors" for="code"/>  
+        <h:outputText value="#{msg.atcDrug_name} * "/>  
+        <h:inputText id="name#{entityId}" label="#{msg.atcDrug_name}" required="true" value="#{atcDrugAction.atcDrug.name}"/>  
+        <h:message styleClass="error errors" for="name"/> 
+      </h:panelGrid>  
+      <a:commandButton value="New Subcategorie" action="#{atcDrugAction.addSubcategories}" reRender="subcategories_data#{entityId}"> 
+        <s:conversationId/> 
+      </a:commandButton>  
+      <rich:dataTable id="subcategories_data#{entityId}" var="_atcDrug" value="#{atcDrugAction.listSubcategories}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.atcDrug_drug}  "/>
+          </f:facet>  
+          <h:selectOneMenu id="drug" label="#{msg.atcDrug_drug}" value="#{_atcDrug.drug}" required="false"> 
+            <s:selectItems value="#{drugList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu>  
+          <h:message styleClass="error errors" for="drug"/> 
+        </h:column>  
+        <h:column style="text-align:left">
+          <f:facet name="header">
+            <h:outputText value="#{msg.atcDrug_code}  "/>
+          </f:facet>  
+          <h:inputText id="code#{entityId}" label="#{msg.atcDrug_code}" required="false" value="#{_atcDrug.code}"/>  
+          <h:message styleClass="error errors" for="code"/> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.atcDrug_name} * "/>
+          </f:facet>  
+          <h:inputText id="name#{entityId}" label="#{msg.atcDrug_name}" required="true" value="#{_atcDrug.name}"/>  
+          <h:message styleClass="error errors" for="name"/> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="New Subcategorie" action="#{atcDrugAction.addSubcategories}" reRender="subcategories_data#{entityId}"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="Delete" immediate="true" action="#{atcDrugAction.deleteSubcategories(rowIndex)}" reRender="subcategories_data#{entityId}"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column> 
+      </rich:dataTable> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

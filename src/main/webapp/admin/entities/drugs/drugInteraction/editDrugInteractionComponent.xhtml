@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{drugInteractionAction.load(drugInteractionId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="DrugInteraction "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.drugInteraction_drug}  "/>  
+        <h:selectOneMenu id="drug" label="#{msg.drugInteraction_drug}" value="#{drugInteractionAction.drugInteraction.drug}" required="true"> 
+          <s:selectItems value="#{drugList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="drug"/>  
+        <h:outputText value="#{msg.drugInteraction_interactingDrug}  "/>  
+        <h:selectOneMenu id="interactingDrug" label="#{msg.drugInteraction_interactingDrug}" value="#{drugInteractionAction.drugInteraction.interactingDrug}" required="true"> 
+          <s:selectItems value="#{drugList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="interactingDrug"/>  
+        <h:outputText value="#{msg.drugInteraction_description}  "/>  
+        <rich:editor useSeamText="true" id="description#{entityId}" label="#{msg.drugInteraction_description}" required="false" value="#{drugInteractionAction.drugInteraction.description}"/>  
+        <h:message styleClass="error errors" for="description"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

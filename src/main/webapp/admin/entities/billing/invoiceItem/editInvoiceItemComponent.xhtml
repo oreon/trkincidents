@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{invoiceItemAction.load(invoiceItemId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="InvoiceItem "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.invoiceItem_service}  "/>  
+        <h:selectOneMenu id="service" label="#{msg.invoiceItem_service}" value="#{invoiceItemAction.invoiceItem.service}" required="true"> 
+          <s:selectItems value="#{serviceList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="service"/>  
+        <h:outputText value="#{msg.invoiceItem_invoice}  "/>  
+        <h:selectOneMenu id="invoice" label="#{msg.invoiceItem_invoice}" value="#{invoiceItemAction.invoiceItem.invoice}" required="true"> 
+          <s:selectItems value="#{invoiceList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="invoice"/>  
+        <h:outputText value="#{msg.invoiceItem_units}  "/>  
+        <h:inputText id="units#{entityId}" label="#{msg.invoiceItem_units}" required="false" value="#{invoiceItemAction.invoiceItem.units}"/>  
+        <h:message styleClass="error errors" for="units"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

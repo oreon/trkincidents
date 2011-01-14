@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{drugTypeAction.load(drugTypeId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="DrugType "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{drugTypeAction.drugType.id}"/>  
+        <h:outputText value="#{msg.drugType_name}  "/>  
+        <h:outputText id="name#{entityId}" value="#{drugTypeAction.drugType.name}"/>  
+        <h:outputText value="#{msg.drugType_absorption}  "/>  
+        <s:formattedText escape="false" id="absorption#{entityId}" value="#{drugTypeAction.drugType.absorption}"/>  
+        <h:outputText value="#{msg.drugType_mechanism}  "/>  
+        <s:formattedText escape="false" id="mechanism#{entityId}" value="#{drugTypeAction.drugType.mechanism}"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

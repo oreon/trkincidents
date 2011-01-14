@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{employeeIncidentAction.load(employeeIncidentId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="EmployeeIncident "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{employeeIncidentAction.employeeIncident.id}"/>  
+        <h:outputText value="#{msg.baseIncident_severity}  " rendered="#{s:hasPermission('severity', 'employeeIncidentView')}"/>  
+        <s:link value="#{employeeIncidentAction.employeeIncident.severity.displayName}" view="/admin/entities/incidents/severity/viewSeverity.xhtml" propagation="none"> 
+          <f:param name="severityId" value="#{employeeIncidentAction.employeeIncident.severity.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.baseIncident_description}  " rendered="#{s:hasPermission('description', 'employeeIncidentView')}"/>  
+        <s:formattedText escape="false" id="description#{entityId}" rendered="#{s:hasPermission('description', 'employeeIncidentView')}" value="#{employeeIncidentAction.employeeIncident.description}"/>  
+        <h:outputText value="#{msg.baseIncident_document}  " rendered="#{s:hasPermission('document', 'employeeIncidentView')}"/>  
+        <c:choose> 
+          <c:when test="${baseIncidentAction.baseIncident.document.contentType.startsWith('image')}"> 
+            <s:graphicImage value="#{baseIncidentAction.baseIncident.document.data}"/> 
+          </c:when>  
+          <c:otherwise> 
+            <s:link value="#{baseIncidentAction.baseIncident.document.name}" action="#{baseIncidentAction.downloadFile(null)}" propagation="none"> 
+              <f:param name="currentEntityId" value="#{baseIncidentAction.instance.id}"/> 
+            </s:link> 
+          </c:otherwise> 
+        </c:choose> 
+      </h:panelGrid>  
+      <rich:dataTable id="documents" var="_document" rendered="#{not empty baseIncidentAction.listDocuments and s:hasPermission('documents', 'employeeIncidentView') }" value="#{baseIncidentAction.listDocuments}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.document_name}  " rendered="#{s:hasPermission('name', 'documentView')}"/>
+          </f:facet>  
+          <h:outputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'documentView')}" value="#{_document.name}"/> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.document_file}  " rendered="#{s:hasPermission('file', 'documentView')}"/>
+          </f:facet>  
+          <c:choose> 
+            <c:when test="${_document.contentType.startsWith('image')}"> 
+              <s:graphicImage value="#{_document.data}"/> 
+            </c:when>  
+            <c:otherwise> 
+              <s:link value="#{_document.name}" action="#{documentAction.downloadFile(null)}" propagation="none"> 
+                <f:param name="currentEntityId" value="#{documentAction.instance.id}"/> 
+              </s:link> 
+            </c:otherwise> 
+          </c:choose> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.document_notes}  " rendered="#{s:hasPermission('notes', 'documentView')}"/>
+          </f:facet>  
+          <s:formattedText escape="false" id="notes#{entityId}" rendered="#{s:hasPermission('notes', 'documentView')}" value="#{_document.notes}"/> 
+        </h:column> 
+      </rich:dataTable> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

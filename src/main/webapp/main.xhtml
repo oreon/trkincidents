@@ -1,0 +1,31 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich" xmlns:o="http://openfaces.org/"
+	template="/layout/maintemplate.xhtml">
+
+	<ui:define name="body">
+
+		<ui:include src="/admin/entities/patient/patient/searchPatient.xhtml" />
+		<br />
+		<br />
+		<ui:include src="/admin/entities/patient/patient/listPatientComponent.xhtml">
+			<ui:param name="records" value="#{patientList.resultList}" />
+		</ui:include>
+		<a:form>
+			<s:button value="Create New"
+				view="/admin/entities/patient/patient/editPatient.xhtml" />
+			<a:commandButton action="#{patientAction.setPatientId(0)}"
+				oncomplete="Richfaces.showModalPanel('PatientModalPanel',{});"
+				value="Quick Create"></a:commandButton>
+		</a:form>
+		<ui:include
+			src="/admin/entities/patient/patient/modalDlgPatientComponent.xhtml" />
+
+	</ui:define>
+</ui:composition>

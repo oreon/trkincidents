@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.person_firstName} * " rendered="#{s:hasPermission('firstName', 'patientEdit')}"/>  
+      <br/>  
+      <h:inputText id="firstName" value="#{patientList.patient.firstName}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.person_lastName} * " rendered="#{s:hasPermission('lastName', 'patientEdit')}"/>  
+      <br/>  
+      <h:inputText id="lastName" value="#{patientList.patient.lastName}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.person_dateOfBirth}  " rendered="#{s:hasPermission('dateOfBirth', 'patientEdit')}"/>  
+      <br/>  
+      <h:outputText value="From"/>  
+      <br/>  
+      <rich:calendar value="#{patientList.dateOfBirthRange.begin}"/> To
+      <br/>  
+      <rich:calendar value="#{patientList.dateOfBirthRange.end}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.person_gender}  " rendered="#{s:hasPermission('gender', 'patientEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="gender" value="#{patientList.patient.gender}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="None" itemValue=""/>  
+        <f:selectItem itemValue="F" itemLabel="F"/>  
+        <f:selectItem itemValue="M" itemLabel="M"/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.contactDetails_primaryPhone}  " rendered="#{s:hasPermission('primaryPhone', 'patientEdit')}"/>  
+      <br/>  
+      <h:inputText id="contactDetails_primaryPhone" value="#{patientList.patient.contactDetails.primaryPhone}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{s:hasPermission('secondaryPhone', 'patientEdit')}"/>  
+      <br/>  
+      <h:inputText id="contactDetails_secondaryPhone" value="#{patientList.patient.contactDetails.secondaryPhone}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.contactDetails_email}  " rendered="#{s:hasPermission('email', 'patientEdit')}"/>  
+      <br/>  
+      <h:inputText id="contactDetails_email" value="#{patientList.patient.contactDetails.email}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.person_age}  " rendered="#{s:hasPermission('age', 'patientEdit')}"/>  
+      <br/>  
+      <h:inputText id="age_begin" value="#{patientList.ageRange.begin}"> 
+        <f:converter converterId="javax.faces.Integer"/> 
+      </h:inputText>  
+      <h:inputText id="age_end" value="#{patientList.ageRange.end}"> 
+        <f:converter converterId="javax.faces.Integer"/> 
+      </h:inputText> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.address_streetAddress}  " rendered="#{s:hasPermission('streetAddress', 'patientEdit')}"/>  
+      <br/>  
+      <h:inputText id="address_streetAddress" value="#{patientList.patient.address.streetAddress}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.address_city}  " rendered="#{s:hasPermission('city', 'patientEdit')}"/>  
+      <br/>  
+      <h:inputText id="address_city" value="#{patientList.patient.address.city}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.address_State}  " rendered="#{s:hasPermission('State', 'patientEdit')}"/>  
+      <br/>  
+      <h:inputText id="address_State" value="#{patientList.patient.address.state}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.address_phone}  " rendered="#{s:hasPermission('phone', 'patientEdit')}"/>  
+      <br/>  
+      <h:inputText id="address_phone" value="#{patientList.patient.address.phone}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.patient_healthNumber}  " rendered="#{s:hasPermission('healthNumber', 'patientEdit')}"/>  
+      <br/>  
+      <h:inputText id="healthNumber" value="#{patientList.patient.healthNumber}"/> 
+    </h:panelGroup>  
+    <rich:calendar id="from" value="#{patientList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{patientList.dateCreatedRange.end}"/> 
+  </h:panelGrid> 
+</ui:composition>

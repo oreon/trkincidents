@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<html xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:form> 
+    <rich:datascroller align="left" for="dataAudit" maxPages="20" renderIfSinglePage="false"/>  
+    <br/>  
+    <rich:dataTable id="dataAudit" var="_log" value="#{patientAction.auditLog}" rows="30" rowClasses="odd, even" styleClass="dataTable"> 
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="Date"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.dateCreated}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="Action"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.action}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="User"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.username}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="Id"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entityId}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.person_firstName}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.firstName}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.person_lastName}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.lastName}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.person_dateOfBirth}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.dateOfBirth}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.person_gender}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.gender}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.contactDetails_primaryPhone}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.contactDetails.primaryPhone}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.contactDetails_secondaryPhone}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.contactDetails.secondaryPhone}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.contactDetails_email}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.contactDetails.email}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.person_age}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.contactDetails.age}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.address_streetAddress}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.address.streetAddress}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.address_city}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.address.city}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.address_State}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.address.state}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.address_phone}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.address.phone}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.patient_healthNumber}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.address.healthNumber}"/> 
+      </rich:column> 
+    </rich:dataTable> 
+  </h:form> 
+</html>

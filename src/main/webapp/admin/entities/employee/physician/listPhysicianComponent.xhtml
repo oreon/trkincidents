@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <rich:panel> 
+    <f:facet name="header">Physician Search Results (#{empty records ? 0 : (physicianList.paginated ? physicianList.resultCount : records.size)})</f:facet>  
+    <a:form> 
+      <rich:dataTable var="_physician" value="#{records}" id="physicianList" rowClasses="odd, even" styleClass="dataTable" rendered="#{not empty records}"> 
+        <h:column> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{physicianList}"/>  
+              <ui:param name="propertyLabel" value="Id"/>  
+              <ui:param name="propertyPath" value="physician.id"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_physician.id}"></h:outputText> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{physicianList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.employee_employeeNumber}"/>  
+              <ui:param name="propertyPath" value="physician.employeeNumber"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_physician.employeeNumber}"/> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{physicianList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.user_userName}"/>  
+              <ui:param name="propertyPath" value="physician.user.userName"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_physician.user.userName}"/> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{physicianList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.user_enabled}"/>  
+              <ui:param name="propertyPath" value="physician.user.enabled"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_physician.user.enabled}"/> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{physicianList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.person_firstName}"/>  
+              <ui:param name="propertyPath" value="physician.firstName"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_physician.firstName}"/> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{physicianList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.person_lastName}"/>  
+              <ui:param name="propertyPath" value="physician.lastName"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_physician.lastName}"/> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{physicianList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.person_dateOfBirth}"/>  
+              <ui:param name="propertyPath" value="physician.dateOfBirth"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_physician.dateOfBirth}"> 
+            <s:convertDateTime type="both" dateStyle="short"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{physicianList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.person_gender}"/>  
+              <ui:param name="propertyPath" value="physician.gender"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_physician.gender}"/> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{physicianList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.contactDetails_primaryPhone}"/>  
+              <ui:param name="propertyPath" value="physician.contactDetails.primaryPhone"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_physician.contactDetails.primaryPhone}"/> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{physicianList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.contactDetails_secondaryPhone}"/>  
+              <ui:param name="propertyPath" value="physician.contactDetails.secondaryPhone"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_physician.contactDetails.secondaryPhone}"/> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{physicianList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.contactDetails_email}"/>  
+              <ui:param name="propertyPath" value="physician.contactDetails.email"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_physician.contactDetails.email}"/> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{physicianList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.person_age}"/>  
+              <ui:param name="propertyPath" value="physician.age"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_physician.age}"/> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{physicianList}"/>  
+              <ui:param name="propertyLabel" value="Creation Date"/>  
+              <ui:param name="propertyPath" value="physician.dateCreated"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_physician.dateCreated}"> 
+            <s:convertDateTime type="both" dateStyle="short"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('physicianAction', 'view')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/employee/physician/viewPhysician.xhtml" rendered="#{s:hasPermission(_physician, 'view')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="physicianId" value="#{_physician.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('physicianAction', 'edit')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/employee/physician/editPhysician.xhtml" rendered="#{s:hasPermission(_physician, 'edit')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="physicianId" value="#{_physician.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('physicianAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <s:link action="#{physicianAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_physician.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="idToArchive" value="#{_physician.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('physicianAction', 'edit')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <a:commandLink action="#{physicianAction.setPhysicianIdForModalDlg(_physician.id)}" oncomplete="Richfaces.showModalPanel('PhysicianModalPanel',{});" value="Quick Edit"/> 
+        </h:column> 
+      </rich:dataTable> 
+    </a:form> 
+  </rich:panel>  
+  <div class="tableControl"> 
+    <s:link view="#{request.servletPath}" rendered="#{physicianList.previousExists}" value="#{messages.left}#{messages.left} First Page"> 
+      <f:param name="firstResult" value="0"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{physicianList.previousExists}" value="#{messages.left} Previous Page"> 
+      <f:param name="firstResult" value="#{physicianList.previousFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{physicianList.nextExists}" value="Next Page #{messages.right}"> 
+      <f:param name="firstResult" value="#{physicianList.nextFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{physicianList.nextExists}" value="Last Page #{messages.right}#{messages.right}"> 
+      <f:param name="firstResult" value="#{physicianList.lastFirstResult}"/> 
+    </s:link> 
+  </div> 
+</ui:composition>

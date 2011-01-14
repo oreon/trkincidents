@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{roomAction.load(roomId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="Room "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.room_facility}  "/>  
+        <h:selectOneMenu id="facility" label="#{msg.room_facility}" value="#{roomAction.room.facility}" required="true"> 
+          <s:selectItems value="#{facilityList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="facility"/>  
+        <h:outputText value="#{msg.room_name} * "/>  
+        <h:inputText id="name#{entityId}" label="#{msg.room_name}" required="true" value="#{roomAction.room.name}"/>  
+        <h:message styleClass="error errors" for="name"/> 
+      </h:panelGrid>  
+      <a:commandButton value="New Bed" action="#{roomAction.addBeds}" reRender="beds_data#{entityId}"> 
+        <s:conversationId/> 
+      </a:commandButton>  
+      <rich:dataTable id="beds_data#{entityId}" var="_bed" value="#{roomAction.listBeds}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.bed_name} * "/>
+          </f:facet>  
+          <h:inputText id="name#{entityId}" label="#{msg.bed_name}" required="true" value="#{_bed.name}"/>  
+          <h:message styleClass="error errors" for="name"/> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="New Bed" action="#{roomAction.addBeds}" reRender="beds_data#{entityId}"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="Delete" immediate="true" action="#{roomAction.deleteBeds(rowIndex)}" reRender="beds_data#{entityId}"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column> 
+      </rich:dataTable> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.prescribedTest_remarks}  " rendered="#{s:hasPermission('remarks', 'prescribedTestEdit')}"/>  
+      <br/>  
+      <h:inputText id="remarks" value="#{prescribedTestList.prescribedTest.remarks}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.prescribedTest_dxTest}  " rendered="#{s:hasPermission('dxTest', 'prescribedTestEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="dxTest" value="#{ prescribedTestList.prescribedTest.dxTest}"> 
+        <s:selectItems value="#{dxTestList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.prescribedTest_encounter}  " rendered="#{s:hasPermission('encounter', 'prescribedTestEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="encounter" value="#{ prescribedTestList.prescribedTest.encounter}"> 
+        <s:selectItems value="#{encounterList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <rich:calendar id="from" value="#{prescribedTestList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{prescribedTestList.dateCreatedRange.end}"/> 
+  </h:panelGrid> 
+</ui:composition>

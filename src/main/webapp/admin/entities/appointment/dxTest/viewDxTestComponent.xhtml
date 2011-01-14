@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{dxTestAction.load(dxTestId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="DxTest "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{dxTestAction.dxTest.id}"/>  
+        <h:outputText value="#{msg.dxTest_name}  " rendered="#{s:hasPermission('name', 'dxTestView')}"/>  
+        <h:outputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'dxTestView')}" value="#{dxTestAction.dxTest.name}"/>  
+        <h:outputText value="#{msg.dxTest_description}  " rendered="#{s:hasPermission('description', 'dxTestView')}"/>  
+        <s:formattedText escape="false" id="description#{entityId}" rendered="#{s:hasPermission('description', 'dxTestView')}" value="#{dxTestAction.dxTest.description}"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

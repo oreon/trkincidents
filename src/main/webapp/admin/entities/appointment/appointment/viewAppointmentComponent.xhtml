@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{appointmentAction.load(appointmentId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="Appointment "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{appointmentAction.appointment.id}"/>  
+        <h:outputText value="#{msg.appointment_patient}  " rendered="#{s:hasPermission('patient', 'appointmentView')}"/>  
+        <s:link value="#{appointmentAction.appointment.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+          <f:param name="patientId" value="#{appointmentAction.appointment.patient.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/>  
+          <rich:toolTip> 
+            <span>#{appointmentAction.appointment.patient.popupInfo}</span> 
+          </rich:toolTip> 
+        </s:link>  
+        <h:outputText value="#{msg.appointment_start}  " rendered="#{s:hasPermission('start', 'appointmentView')}"/>  
+        <h:outputText id="start#{entityId}" rendered="#{s:hasPermission('start', 'appointmentView')}" value="#{appointmentAction.appointment.start}"/>  
+        <h:outputText value="#{msg.appointment_end}  " rendered="#{s:hasPermission('end', 'appointmentView')}"/>  
+        <h:outputText id="end#{entityId}" rendered="#{s:hasPermission('end', 'appointmentView')}" value="#{appointmentAction.appointment.end}"/>  
+        <h:outputText value="#{msg.appointment_remarks}  " rendered="#{s:hasPermission('remarks', 'appointmentView')}"/>  
+        <s:formattedText escape="false" id="remarks#{entityId}" rendered="#{s:hasPermission('remarks', 'appointmentView')}" value="#{appointmentAction.appointment.remarks}"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

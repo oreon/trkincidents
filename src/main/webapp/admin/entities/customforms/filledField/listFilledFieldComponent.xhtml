@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <rich:panel> 
+    <f:facet name="header">FilledField Search Results (#{empty records ? 0 : (filledFieldList.paginated ? filledFieldList.resultCount : records.size)})</f:facet>  
+    <a:form> 
+      <rich:dataTable var="_filledField" value="#{records}" id="filledFieldList" rowClasses="odd, even" styleClass="dataTable"> 
+        <h:column rendered="#{s:hasPermission('id', 'filledFieldView' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{filledFieldList}"/>  
+              <ui:param name="propertyLabel" value="Id"/>  
+              <ui:param name="propertyPath" value="filledField.id"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_filledField.id}"></h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('customField', 'filledFieldView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{filledFieldList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.filledField_customField}"/>  
+              <ui:param name="propertyPath" value="filledField.customField"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_filledField.customField.displayName}" view="/admin/entities/customforms/customField/viewCustomField.xhtml" propagation="none"> 
+            <f:param name="customFieldId" value="#{_filledField.customField.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column groupOn="#{filledField.filledForm.displayName}" rendered="#{s:hasPermission('filledForm', 'filledFieldView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{filledFieldList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.filledField_filledForm}"/>  
+              <ui:param name="propertyPath" value="filledField.filledForm"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_filledField.filledForm.displayName}" view="/admin/entities/customforms/filledForm/viewFilledForm.xhtml" propagation="none"> 
+            <f:param name="filledFormId" value="#{_filledField.filledForm.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('value', 'filledFieldView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{filledFieldList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.filledField_value}"/>  
+              <ui:param name="propertyPath" value="filledField.value"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_filledField.value}"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('creationDate', 'filledFieldView' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{filledFieldList}"/>  
+              <ui:param name="propertyLabel" value="Creation Date"/>  
+              <ui:param name="propertyPath" value="filledField.dateCreated"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_filledField.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_filledField', 'view')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/customforms/filledField/viewFilledField.xhtml" rendered="#{s:hasPermission(_filledField, 'view')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="filledFieldId" value="#{_filledField.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_filledField', 'edit')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/customforms/filledField/editFilledField.xhtml" rendered="#{s:hasPermission(_filledField, 'edit')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="filledFieldId" value="#{_filledField.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('filledFieldAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <s:link action="#{filledFieldAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_filledField.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="idToArchive" value="#{_filledField.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <a:commandLink action="#{filledFieldAction.setFilledFieldIdForModalDlg(_filledField.id)}" rendered="#{s:hasPermission(_filledField, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('FilledFieldModalPanel',{});"> 
+            <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
+            <s:conversationPropagation type="join"/> 
+          </a:commandLink> 
+        </h:column> 
+      </rich:dataTable> 
+    </a:form> 
+  </rich:panel>  
+  <div class="tableControl"> 
+    <s:link view="#{request.servletPath}" rendered="#{filledFieldList.previousExists}" value="#{messages.left}#{messages.left} First Page"> 
+      <f:param name="firstResult" value="0"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{filledFieldList.previousExists}" value="#{messages.left} Previous Page"> 
+      <f:param name="firstResult" value="#{filledFieldList.previousFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{filledFieldList.nextExists}" value="Next Page #{messages.right}"> 
+      <f:param name="firstResult" value="#{filledFieldList.nextFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{filledFieldList.nextExists}" value="Last Page #{messages.right}#{messages.right}"> 
+      <f:param name="firstResult" value="#{filledFieldList.lastFirstResult}"/> 
+    </s:link> 
+  </div> 
+</ui:composition>

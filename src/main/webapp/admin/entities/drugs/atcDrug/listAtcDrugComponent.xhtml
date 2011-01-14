@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <rich:panel> 
+    <f:facet name="header">AtcDrug Search Results (#{empty records ? 0 : (atcDrugList.paginated ? atcDrugList.resultCount : records.size)})</f:facet>  
+    <a:form> 
+      <rich:dataTable var="_atcDrug" value="#{records}" id="atcDrugList" rowClasses="odd, even" styleClass="dataTable" rendered="#{not empty records}"> 
+        <h:column> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{atcDrugList}"/>  
+              <ui:param name="propertyLabel" value="Id"/>  
+              <ui:param name="propertyPath" value="atcDrug.id"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_atcDrug.id}"></h:outputText> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{atcDrugList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.atcDrug_code}"/>  
+              <ui:param name="propertyPath" value="atcDrug.code"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_atcDrug.code}"/> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{atcDrugList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.atcDrug_name}"/>  
+              <ui:param name="propertyPath" value="atcDrug.name"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_atcDrug.name}"/> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{atcDrugList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.atcDrug_drug}"/>  
+              <ui:param name="propertyPath" value="atcDrug.drug"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_atcDrug.drug.displayName}" view="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
+            <f:param name="drugId" value="#{_atcDrug.drug.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/>  
+            <rich:toolTip> 
+              <span>#{_atcDrug.drug.popupInfo}</span> 
+            </rich:toolTip> 
+          </s:link> 
+        </h:column>  
+        <h:column groupOn="#{atcDrug.parent.displayName}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{atcDrugList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.atcDrug_parent}"/>  
+              <ui:param name="propertyPath" value="atcDrug.parent"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_atcDrug.parent.displayName}" view="/admin/entities/drugs/atcDrug/viewAtcDrug.xhtml" propagation="none"> 
+            <f:param name="parentId" value="#{_atcDrug.parent.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{atcDrugList}"/>  
+              <ui:param name="propertyLabel" value="Creation Date"/>  
+              <ui:param name="propertyPath" value="atcDrug.dateCreated"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_atcDrug.dateCreated}"> 
+            <s:convertDateTime type="both" dateStyle="short"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('atcDrugAction', 'view')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/drugs/atcDrug/viewAtcDrug.xhtml" rendered="#{s:hasPermission(_atcDrug, 'view')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="atcDrugId" value="#{_atcDrug.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('atcDrugAction', 'edit')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/drugs/atcDrug/editAtcDrug.xhtml" rendered="#{s:hasPermission(_atcDrug, 'edit')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="atcDrugId" value="#{_atcDrug.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('atcDrugAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <s:link action="#{atcDrugAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_atcDrug.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="idToArchive" value="#{_atcDrug.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('atcDrugAction', 'edit')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <a:commandLink action="#{atcDrugAction.setAtcDrugIdForModalDlg(_atcDrug.id)}" oncomplete="Richfaces.showModalPanel('AtcDrugModalPanel',{});" value="Quick Edit"/> 
+        </h:column> 
+      </rich:dataTable> 
+    </a:form> 
+  </rich:panel>  
+  <div class="tableControl"> 
+    <s:link view="#{request.servletPath}" rendered="#{atcDrugList.previousExists}" value="#{messages.left}#{messages.left} First Page"> 
+      <f:param name="firstResult" value="0"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{atcDrugList.previousExists}" value="#{messages.left} Previous Page"> 
+      <f:param name="firstResult" value="#{atcDrugList.previousFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{atcDrugList.nextExists}" value="Next Page #{messages.right}"> 
+      <f:param name="firstResult" value="#{atcDrugList.nextFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{atcDrugList.nextExists}" value="Last Page #{messages.right}#{messages.right}"> 
+      <f:param name="firstResult" value="#{atcDrugList.lastFirstResult}"/> 
+    </s:link> 
+  </div> 
+</ui:composition>

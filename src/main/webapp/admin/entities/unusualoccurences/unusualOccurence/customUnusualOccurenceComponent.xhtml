@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.unusualOccurence_occurenceType}  "/>  
+        <br/>  
+        <h:selectOneMenu id="occurenceType" value="#{unusualOccurenceAction.unusualOccurence.occurenceType}"> 
+          <s:selectItems value="#{occurenceTypeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="occurenceType"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.unusualOccurence_category}  "/>  
+        <br/>  
+        <h:selectOneMenu id="category" value="#{unusualOccurenceAction.unusualOccurence.category}" required="false"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="Radiation" itemLabel="Radiation"/>  
+          <f:selectItem itemValue="Chemotherapy" itemLabel="Chemotherapy"/>  
+          <f:selectItem itemValue="Anesthesia" itemLabel="Anesthesia"/>  
+          <f:selectItem itemValue="Surgery" itemLabel="Surgery"/>  
+          <f:selectItem itemValue="Other" itemLabel="Other"/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="category"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.unusualOccurence_severity}  "/>  
+        <br/>  
+        <h:selectOneMenu id="severity" value="#{unusualOccurenceAction.unusualOccurence.severity}" required="false"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="Mild" itemLabel="Mild"/>  
+          <f:selectItem itemValue="Moderate" itemLabel="Moderate"/>  
+          <f:selectItem itemValue="Critical" itemLabel="Critical"/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="severity"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.unusualOccurence_description}  "/>  
+        <br/>  
+        <rich:editor useSeamText="true" id="description" value="#{unusualOccurenceAction.unusualOccurence.description}"/>  
+        <h:message styleClass="error errors" for="description"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.unusualOccurence_patient}  "/>  
+        <br/>  
+        <h:selectOneMenu id="patient" value="#{unusualOccurenceAction.unusualOccurence.patient}"> 
+          <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="patient"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.unusualOccurence_createdBy}  "/>  
+        <br/>  
+        <h:selectOneMenu id="createdBy" value="#{unusualOccurenceAction.unusualOccurence.createdBy}"> 
+          <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="createdBy"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

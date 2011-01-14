@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.encounter_patient}  " rendered="#{s:hasPermission('patient', 'encounterEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="patient" value="#{ encounterList.encounter.patient}"> 
+        <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.encounter_notes}  " rendered="#{s:hasPermission('notes', 'encounterEdit')}"/>  
+      <br/>  
+      <h:inputText id="notes" value="#{encounterList.encounter.notes}"/> 
+    </h:panelGroup>  
+    <rich:calendar id="from" value="#{encounterList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{encounterList.dateCreatedRange.end}"/> 
+  </h:panelGrid> 
+</ui:composition>

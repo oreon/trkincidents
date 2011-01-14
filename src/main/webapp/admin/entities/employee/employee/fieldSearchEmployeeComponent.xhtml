@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.person_firstName} * " rendered="#{s:hasPermission('firstName', 'employeeEdit')}"/>  
+      <br/>  
+      <h:inputText id="firstName" value="#{employeeList.employee.firstName}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.person_lastName} * " rendered="#{s:hasPermission('lastName', 'employeeEdit')}"/>  
+      <br/>  
+      <h:inputText id="lastName" value="#{employeeList.employee.lastName}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.person_dateOfBirth}  " rendered="#{s:hasPermission('dateOfBirth', 'employeeEdit')}"/>  
+      <br/>  
+      <h:outputText value="From"/>  
+      <br/>  
+      <rich:calendar value="#{employeeList.dateOfBirthRange.begin}"/> To
+      <br/>  
+      <rich:calendar value="#{employeeList.dateOfBirthRange.end}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.person_gender}  " rendered="#{s:hasPermission('gender', 'employeeEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="gender" value="#{employeeList.employee.gender}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="None" itemValue=""/>  
+        <f:selectItem itemValue="F" itemLabel="F"/>  
+        <f:selectItem itemValue="M" itemLabel="M"/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.contactDetails_primaryPhone}  " rendered="#{s:hasPermission('primaryPhone', 'employeeEdit')}"/>  
+      <br/>  
+      <h:inputText id="contactDetails_primaryPhone" value="#{employeeList.employee.contactDetails.primaryPhone}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{s:hasPermission('secondaryPhone', 'employeeEdit')}"/>  
+      <br/>  
+      <h:inputText id="contactDetails_secondaryPhone" value="#{employeeList.employee.contactDetails.secondaryPhone}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.contactDetails_email}  " rendered="#{s:hasPermission('email', 'employeeEdit')}"/>  
+      <br/>  
+      <h:inputText id="contactDetails_email" value="#{employeeList.employee.contactDetails.email}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.person_age}  " rendered="#{s:hasPermission('age', 'employeeEdit')}"/>  
+      <br/>  
+      <h:inputText id="age_begin" value="#{employeeList.ageRange.begin}"> 
+        <f:converter converterId="javax.faces.Integer"/> 
+      </h:inputText>  
+      <h:inputText id="age_end" value="#{employeeList.ageRange.end}"> 
+        <f:converter converterId="javax.faces.Integer"/> 
+      </h:inputText> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.employee_employeeNumber} * " rendered="#{s:hasPermission('employeeNumber', 'employeeEdit')}"/>  
+      <br/>  
+      <h:inputText id="employeeNumber" value="#{employeeList.employee.employeeNumber}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.user_userName} * " rendered="#{s:hasPermission('userName', 'employeeEdit')}"/>  
+      <br/>  
+      <h:inputText id="user_userName" value="#{employeeList.employee.user.userName}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.user_enabled}  " rendered="#{s:hasPermission('enabled', 'employeeEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="user_enabled" value="#{employeeList.employee.user.enabled}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="True" itemValue="true"/>  
+        <f:selectItem itemLabel="False" itemValue="false"/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.employee_department}  " rendered="#{s:hasPermission('department', 'employeeEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="department" value="#{ employeeList.employee.department}"> 
+        <s:selectItems value="#{departmentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <rich:calendar id="from" value="#{employeeList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{employeeList.dateCreatedRange.end}"/> 
+  </h:panelGrid> 
+</ui:composition>

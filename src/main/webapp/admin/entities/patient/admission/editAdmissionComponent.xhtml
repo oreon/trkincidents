@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{admissionAction.load(admissionId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="Admission "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.admission_patient}  "/>  
+        <h:panelGroup> 
+          <a:region> 
+            <h:inputText value="#{admissionAction.admission.patient.displayName}" label="#{msg.admission_patient}" id="patient" required="true"/>  
+            <rich:suggestionbox for="patient" rules="all" suggestionAction="#{patientList.autocompletedb}" ajaxSingle="true" var="_result" fetchValue="#{_result.displayName}" minChars="2" nothingLabel="No Results found" zindex="99999"> 
+              <h:column> 
+                <h:outputText value="#{_result.firstName}"/> 
+              </h:column>  
+              <h:column> 
+                <h:outputText value="#{_result.lastName}"/> 
+              </h:column>  
+              <h:column> 
+                <h:outputText value="#{_result.address.phone}"/> 
+              </h:column>  
+              <a:support event="onselect"> 
+                <f:setPropertyActionListener value="#{_result}" target="#{admissionAction.admission.patient}"/> 
+              </a:support> 
+            </rich:suggestionbox> 
+          </a:region> 
+        </h:panelGroup>  
+        <h:message styleClass="error errors" for="patient"/>  
+        <h:outputText value="#{msg.admission_bed}  "/>  
+        <h:selectOneMenu id="bed" label="#{msg.admission_bed}" value="#{admissionAction.admission.bed}" required="false"> 
+          <s:selectItems value="#{bedAction.availableBeds}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="bed"/>  
+        <h:outputText value="#{msg.admission_notes}  "/>  
+        <rich:editor useSeamText="true" id="notes#{entityId}" label="#{msg.admission_notes}" required="false" value="#{admissionAction.admission.notes}"/>  
+        <h:message styleClass="error errors" for="notes"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

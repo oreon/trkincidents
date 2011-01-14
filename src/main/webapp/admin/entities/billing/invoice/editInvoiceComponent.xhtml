@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{invoiceAction.load(invoiceId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="Invoice "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.invoice_patient}  "/>  
+        <h:selectOneMenu id="patient" label="#{msg.invoice_patient}" value="#{invoiceAction.invoice.patient}" required="true"> 
+          <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="patient"/>  
+        <h:outputText value="#{msg.invoice_notes}  "/>  
+        <h:inputText id="notes#{entityId}" label="#{msg.invoice_notes}" required="false" value="#{invoiceAction.invoice.notes}"/>  
+        <h:message styleClass="error errors" for="notes"/> 
+      </h:panelGrid>  
+      <a:commandButton value="New InvoiceItem" action="#{invoiceAction.addInvoiceItems}" reRender="invoiceItems_data#{entityId}"> 
+        <s:conversationId/> 
+      </a:commandButton>  
+      <rich:dataTable id="invoiceItems_data#{entityId}" var="_invoiceItem" value="#{invoiceAction.listInvoiceItems}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.invoiceItem_service}  "/>
+          </f:facet>  
+          <h:selectOneMenu id="service" label="#{msg.invoiceItem_service}" value="#{_invoiceItem.service}" required="true"> 
+            <s:selectItems value="#{serviceList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu>  
+          <h:message styleClass="error errors" for="service"/> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.invoiceItem_units}  "/>
+          </f:facet>  
+          <h:inputText id="units#{entityId}" label="#{msg.invoiceItem_units}" required="false" value="#{_invoiceItem.units}"/>  
+          <h:message styleClass="error errors" for="units"/> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="New InvoiceItem" action="#{invoiceAction.addInvoiceItems}" reRender="invoiceItems_data#{entityId}"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="Delete" immediate="true" action="#{invoiceAction.deleteInvoiceItems(rowIndex)}" reRender="invoiceItems_data#{entityId}"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column> 
+      </rich:dataTable> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

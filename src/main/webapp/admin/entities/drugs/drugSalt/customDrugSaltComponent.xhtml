@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.drugSalt_name} * "/>  
+        <br/>  
+        <h:inputText id="name" value="#{drugSaltAction.drugSalt.name}"/>  
+        <h:message styleClass="error errors" for="name"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.drugSalt_absorption}  "/>  
+        <br/>  
+        <rich:editor useSeamText="true" id="absorption" value="#{drugSaltAction.drugSalt.absorption}"/>  
+        <h:message styleClass="error errors" for="absorption"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.drugSalt_mechanism}  "/>  
+        <br/>  
+        <rich:editor useSeamText="true" id="mechanism" value="#{drugSaltAction.drugSalt.mechanism}"/>  
+        <h:message styleClass="error errors" for="mechanism"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

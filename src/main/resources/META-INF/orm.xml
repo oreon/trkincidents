@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd" version="1.0">  
+  <description/>  
+  <!--  Patient  JPA Configurations -->  
+  <entity class="com.oreon.trkincidents.patient.Patient" name="Patient"> 
+    <table name="patient"></table> 
+  </entity>  
+  <!--  Document  JPA Configurations -->  
+  <entity class="com.oreon.trkincidents.patient.Document" name="Document"> 
+    <table name="document"></table> 
+  </entity>  
+  <!--  Incident  JPA Configurations -->  
+  <entity class="com.oreon.trkincidents.unusualoccurences.Incident" name="Incident"> 
+    <table name="incident"></table> 
+  </entity>  
+  <!--  OccurenceType  JPA Configurations -->  
+  <entity class="com.oreon.trkincidents.unusualoccurences.OccurenceType" name="OccurenceType"> 
+    <table name="occurencetype"></table> 
+  </entity>  
+  <!--  Employee  JPA Configurations -->  
+  <entity class="com.oreon.trkincidents.employee.Employee" name="Employee"> 
+    <table name="employee"></table> 
+  </entity>  
+  <!--  Department  JPA Configurations -->  
+  <entity class="com.oreon.trkincidents.employee.Department" name="Department"> 
+    <table name="department"></table> 
+  </entity>  
+  <!--  User  JPA Configurations -->  
+  <entity class="com.oreon.trkincidents.users.User" name="User"> 
+    <table name="user"></table>  
+    <named-query name="findByUnqUserName"> 
+      <query> <![CDATA[
+			select u from User u where u.userName = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  Role  JPA Configurations -->  
+  <entity class="com.oreon.trkincidents.users.Role" name="Role"> 
+    <table name="role"></table>  
+    <named-query name="findByUnqName"> 
+      <query> <![CDATA[
+			select u from Role u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  Facility  JPA Configurations -->  
+  <entity class="com.oreon.trkincidents.facility.Facility" name="Facility"> 
+    <table name="facility"></table> 
+  </entity>  
+  <!--  Appointment  JPA Configurations -->  
+  <entity class="com.oreon.trkincidents.appointment.Appointment" name="Appointment"> 
+    <table name="appointment"></table> 
+  </entity>  
+  <!--  Encounter  JPA Configurations -->  
+  <entity class="com.oreon.trkincidents.appointment.Encounter" name="Encounter"> 
+    <table name="encounter"></table> 
+  </entity>  
+  <!--  History  JPA Configurations -->  
+  <entity class="com.oreon.trkincidents.appointment.History" name="History"> 
+    <table name="history"></table> 
+  </entity>  
+  <!--  DxTest  JPA Configurations -->  
+  <entity class="com.oreon.trkincidents.appointment.DxTest" name="DxTest"> 
+    <table name="dxtest"></table> 
+  </entity>  
+  <!--  PrescribedTest  JPA Configurations -->  
+  <entity class="com.oreon.trkincidents.appointment.PrescribedTest" name="PrescribedTest"> 
+    <table name="prescribedtest"></table> 
+  </entity>  
+  <!--  BaseIncident  JPA Configurations -->  
+  <entity class="com.oreon.trkincidents.incidents.BaseIncident" name="BaseIncident"> 
+    <table name="baseincident"></table> 
+  </entity>  
+  <!--  EmployeeIncident  JPA Configurations -->  
+  <entity class="com.oreon.trkincidents.incidents.EmployeeIncident" name="EmployeeIncident"> 
+    <table name="employeeincident"></table> 
+  </entity>  
+  <!--  Severity  JPA Configurations -->  
+  <entity class="com.oreon.trkincidents.incidents.Severity" name="Severity"> 
+    <table name="severity"></table> 
+  </entity>  
+  <!--  PatientIncident  JPA Configurations -->  
+  <entity class="com.oreon.trkincidents.incidents.PatientIncident" name="PatientIncident"> 
+    <table name="patientincident"></table> 
+  </entity>  
+  <!--  PrivacyBreech  JPA Configurations -->  
+  <entity class="com.oreon.trkincidents.incidents.PrivacyBreech" name="PrivacyBreech"> 
+    <table name="privacybreech"></table> 
+  </entity>  
+  <!--  CustomForm  JPA Configurations -->  
+  <entity class="com.oreon.trkincidents.customforms.CustomForm" name="CustomForm"> 
+    <table name="customform"></table> 
+  </entity>  
+  <!--  CustomField  JPA Configurations -->  
+  <entity class="com.oreon.trkincidents.customforms.CustomField" name="CustomField"> 
+    <table name="customfield"></table> 
+  </entity>  
+  <!--  FilledForm  JPA Configurations -->  
+  <entity class="com.oreon.trkincidents.customforms.FilledForm" name="FilledForm"> 
+    <table name="filledform"></table> 
+  </entity>  
+  <!--  FilledField  JPA Configurations -->  
+  <entity class="com.oreon.trkincidents.customforms.FilledField" name="FilledField"> 
+    <table name="filledfield"></table> 
+  </entity> 
+</entity-mappings>

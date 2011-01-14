@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <rich:panel> 
+    <f:facet name="header">DxTest Search Results (#{empty records ? 0 : (dxTestList.paginated ? dxTestList.resultCount : records.size)})</f:facet>  
+    <a:form> 
+      <rich:dataTable var="_dxTest" value="#{records}" id="dxTestList" rowClasses="odd, even" styleClass="dataTable"> 
+        <h:column rendered="#{s:hasPermission('id', 'dxTestView' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{dxTestList}"/>  
+              <ui:param name="propertyLabel" value="Id"/>  
+              <ui:param name="propertyPath" value="dxTest.id"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_dxTest.id}"></h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('name', 'dxTestView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{dxTestList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.dxTest_name}"/>  
+              <ui:param name="propertyPath" value="dxTest.name"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_dxTest.name}"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('description', 'dxTestView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{dxTestList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.dxTest_description}"/>  
+              <ui:param name="propertyPath" value="dxTest.description"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_dxTest.description}"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('creationDate', 'dxTestView' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{dxTestList}"/>  
+              <ui:param name="propertyLabel" value="Creation Date"/>  
+              <ui:param name="propertyPath" value="dxTest.dateCreated"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_dxTest.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_dxTest', 'view')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/appointment/dxTest/viewDxTest.xhtml" rendered="#{s:hasPermission(_dxTest, 'view')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="dxTestId" value="#{_dxTest.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_dxTest', 'edit')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/appointment/dxTest/editDxTest.xhtml" rendered="#{s:hasPermission(_dxTest, 'edit')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="dxTestId" value="#{_dxTest.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('dxTestAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <s:link action="#{dxTestAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_dxTest.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="idToArchive" value="#{_dxTest.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <a:commandLink action="#{dxTestAction.setDxTestIdForModalDlg(_dxTest.id)}" rendered="#{s:hasPermission(_dxTest, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('DxTestModalPanel',{});"> 
+            <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
+            <s:conversationPropagation type="join"/> 
+          </a:commandLink> 
+        </h:column> 
+      </rich:dataTable> 
+    </a:form> 
+  </rich:panel>  
+  <div class="tableControl"> 
+    <s:link view="#{request.servletPath}" rendered="#{dxTestList.previousExists}" value="#{messages.left}#{messages.left} First Page"> 
+      <f:param name="firstResult" value="0"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{dxTestList.previousExists}" value="#{messages.left} Previous Page"> 
+      <f:param name="firstResult" value="#{dxTestList.previousFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{dxTestList.nextExists}" value="Next Page #{messages.right}"> 
+      <f:param name="firstResult" value="#{dxTestList.nextFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{dxTestList.nextExists}" value="Last Page #{messages.right}#{messages.right}"> 
+      <f:param name="firstResult" value="#{dxTestList.lastFirstResult}"/> 
+    </s:link> 
+  </div> 
+</ui:composition>

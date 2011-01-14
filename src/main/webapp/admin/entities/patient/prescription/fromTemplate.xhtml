@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
+  <ui:define name="content"> 
+    <h:form enctype="multipart/form-data"> 
+      <h:outputText value="#{msg.prescription_patient}  "/>  
+        <h:selectOneMenu id="patient" label="#{msg.prescription_patient}" value="#{prescriptionAction.prescription.patient}" required="true"> 
+          <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="patient"/> 
+      <div class="buttonBox"> 
+        <h:commandButton value="Save" action="#{prescriptionAction.saveTemplate}"></h:commandButton>  
+        <h:outputText value=" "/>  
+        <h:commandButton value="Cancel" immediate="true" action="#{prescriptionAction.cancel}"></h:commandButton> 
+      </div> 
+    </h:form> 
+  </ui:define> 
+</ui:composition>
