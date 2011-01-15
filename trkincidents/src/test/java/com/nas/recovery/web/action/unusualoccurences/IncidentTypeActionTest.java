@@ -1,6 +1,6 @@
 
 
-package com.nas.recovery.web.action.incidents;
+package com.nas.recovery.web.action.unusualoccurences;
 
 
 	import javax.persistence.EntityManager;
@@ -13,9 +13,9 @@ package com.nas.recovery.web.action.incidents;
 	
 	import org.testng.annotations.BeforeClass;
 	import org.witchcraft.seam.action.BaseAction;
-	import com.oreon.trkincidents.incidents.EmployeeIncident;
+	import com.oreon.trkincidents.unusualoccurences.IncidentType;
 
 
-public class EmployeeIncidentActionTest extends EmployeeIncidentActionTestBase{
+public class IncidentTypeActionTest extends IncidentTypeActionTestBase{
 	
 }

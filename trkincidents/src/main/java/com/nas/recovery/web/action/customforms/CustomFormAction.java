@@ -1,8 +1,5 @@
+package com.nas.recovery.web.action.customforms;
 
-	
-	package com.nas.recovery.web.action.customforms;
-	
-	
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,10 +30,10 @@ import org.jboss.seam.annotations.datamodel.DataModelSelection;
 import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
-	
-	//@Scope(ScopeType.CONVERSATION)
-	@Name("customFormAction")
-	public class CustomFormAction extends CustomFormActionBase implements java.io.Serializable{
-		
-	}
-	
+
+//@Scope(ScopeType.CONVERSATION)
+@Name("customFormAction")
+public class CustomFormAction extends CustomFormActionBase implements
+		java.io.Serializable {
+
+}

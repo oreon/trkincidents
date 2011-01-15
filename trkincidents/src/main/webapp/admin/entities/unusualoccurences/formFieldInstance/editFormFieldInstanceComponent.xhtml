@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{formFieldInstanceAction.load(formFieldInstanceId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="FormFieldInstance "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.formFieldInstance_incident}  " rendered="#{s:hasPermission('incident', 'formFieldInstanceEdit')}"/>  
+        <h:selectOneMenu id="incident" label="#{msg.formFieldInstance_incident}" value="#{formFieldInstanceAction.formFieldInstance.incident}" required="true" rendered="#{s:hasPermission('incident', 'formFieldInstanceEdit')}"> 
+          <s:selectItems value="#{incidentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="incident" rendered="#{s:hasPermission('incident', 'formFieldInstanceEdit')}"/>  
+        <h:outputText value="#{msg.formFieldInstance_formField}  " rendered="#{s:hasPermission('formField', 'formFieldInstanceEdit')}"/>  
+        <h:selectOneMenu id="formField" label="#{msg.formFieldInstance_formField}" value="#{formFieldInstanceAction.formFieldInstance.formField}" required="true" rendered="#{s:hasPermission('formField', 'formFieldInstanceEdit')}"> 
+          <s:selectItems value="#{formFieldList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="formField" rendered="#{s:hasPermission('formField', 'formFieldInstanceEdit')}"/>  
+        <h:outputText value="#{msg.formFieldInstance_value}  " rendered="#{s:hasPermission('value', 'formFieldInstanceEdit')}"/>  
+        <h:inputText id="value#{entityId}" rendered="#{s:hasPermission('value', 'formFieldInstanceEdit')}" label="#{msg.formFieldInstance_value}" required="false" value="#{formFieldInstanceAction.formFieldInstance.value}"/>  
+        <h:message styleClass="error errors" for="value" rendered="#{s:hasPermission('value', 'formFieldInstanceEdit')}"/>  
+        <h:outputText value="#{msg.formFieldInstance_boolValue}  " rendered="#{s:hasPermission('boolValue', 'formFieldInstanceEdit')}"/>  
+        <h:selectBooleanCheckbox id="boolValue#{entityId}" rendered="#{s:hasPermission('boolValue', 'formFieldInstanceEdit')}" label="#{msg.formFieldInstance_boolValue}" required="false" value="#{formFieldInstanceAction.formFieldInstance.boolValue}"/>  
+        <h:message styleClass="error errors" for="boolValue" rendered="#{s:hasPermission('boolValue', 'formFieldInstanceEdit')}"/>  
+        <h:outputText value="#{msg.formFieldInstance_dateValue}  " rendered="#{s:hasPermission('dateValue', 'formFieldInstanceEdit')}"/>  
+        <rich:calendar id="dateValue#{entityId}" rendered="#{s:hasPermission('dateValue', 'formFieldInstanceEdit')}" label="#{msg.formFieldInstance_dateValue}" required="false" value="#{formFieldInstanceAction.formFieldInstance.dateValue}"/>  
+        <h:message styleClass="error errors" for="dateValue" rendered="#{s:hasPermission('dateValue', 'formFieldInstanceEdit')}"/>  
+        <h:outputText value="#{msg.formFieldInstance_enumOrdinal}  " rendered="#{s:hasPermission('enumOrdinal', 'formFieldInstanceEdit')}"/>  
+        <h:inputText id="enumOrdinal#{entityId}" rendered="#{s:hasPermission('enumOrdinal', 'formFieldInstanceEdit')}" label="#{msg.formFieldInstance_enumOrdinal}" required="false" value="#{formFieldInstanceAction.formFieldInstance.enumOrdinal}"/>  
+        <h:message styleClass="error errors" for="enumOrdinal" rendered="#{s:hasPermission('enumOrdinal', 'formFieldInstanceEdit')}"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

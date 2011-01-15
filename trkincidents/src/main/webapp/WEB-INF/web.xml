@@ -49,7 +49,7 @@
 
 	<context-param>
 		<param-name>org.richfaces.SKIN</param-name>
-		<param-value>emeraldTown</param-value>
+		<param-value>glassX</param-value>
 	</context-param>
 
 

@@ -36,6 +36,7 @@ import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
 import com.oreon.trkincidents.employee.Employee;
+import com.oreon.trkincidents.unusualoccurences.Incident;
 
 public abstract class DepartmentActionBase extends BaseAction<Department>
 		implements
@@ -48,6 +49,9 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 
 	@In(create = true, value = "employeeAction")
 	com.nas.recovery.web.action.employee.EmployeeAction employeesAction;
+
+	@In(create = true, value = "incidentAction")
+	com.nas.recovery.web.action.unusualoccurences.IncidentAction incidentsAction;
 
 	@DataModel
 	private List<Department> departmentRecordList;
@@ -131,6 +135,8 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 
 		initListEmployees();
 
+		initListIncidents();
+
 	}
 
 	public void updateAssociations() {
@@ -139,6 +145,11 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 				.getInstance("employee");
 		employee.setDepartment(department);
 		events.raiseTransactionSuccessEvent("archivedEmployee");
+
+		com.oreon.trkincidents.unusualoccurences.Incident incident = (com.oreon.trkincidents.unusualoccurences.Incident) org.jboss.seam.Component
+				.getInstance("incident");
+		incident.setDepartment(department);
+		events.raiseTransactionSuccessEvent("archivedIncident");
 
 	}
 
@@ -179,16 +190,59 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 		getListEmployees().add(employees);
 	}
 
+	protected List<com.oreon.trkincidents.unusualoccurences.Incident> listIncidents = new ArrayList<com.oreon.trkincidents.unusualoccurences.Incident>();
+
+	void initListIncidents() {
+
+		if (listIncidents.isEmpty())
+			listIncidents.addAll(getInstance().getIncidents());
+
+	}
+
+	public List<com.oreon.trkincidents.unusualoccurences.Incident> getListIncidents() {
+
+		prePopulateListIncidents();
+		return listIncidents;
+	}
+
+	public void prePopulateListIncidents() {
+	}
+
+	public void setListIncidents(
+			List<com.oreon.trkincidents.unusualoccurences.Incident> listIncidents) {
+		this.listIncidents = listIncidents;
+	}
+
+	public void deleteIncidents(int index) {
+		listIncidents.remove(index);
+	}
+
+	@Begin(join = true)
+	public void addIncidents() {
+		initListIncidents();
+		Incident incidents = new Incident();
+
+		incidents.setDepartment(getInstance());
+
+		getListIncidents().add(incidents);
+	}
+
 	public void updateComposedAssociations() {
 
 		if (listEmployees != null) {
 			getInstance().getEmployees().clear();
 			getInstance().getEmployees().addAll(listEmployees);
 		}
+
+		if (listIncidents != null) {
+			getInstance().getIncidents().clear();
+			getInstance().getIncidents().addAll(listIncidents);
+		}
 	}
 
 	public void clearLists() {
 		listEmployees.clear();
+		listIncidents.clear();
 
 	}
 

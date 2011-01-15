@@ -31,18 +31,18 @@
       </rich:column>  
       <rich:column> 
         <f:facet name="header"> 
-          <h:outputText value="#{msg.incident_occurenceType}"/> 
+          <h:outputText value="#{msg.incident_incidentType}"/> 
         </f:facet>  
-        <s:link value="#{_log.entity.occurenceType.displayName}" view="/admin/entities/unusualoccurences/occurenceType/viewOccurenceType.xhtml"> 
-          <f:param name="id" value="#{_entity.occurenceType.id}"/>  
+        <s:link value="#{_log.entity.incidentType.displayName}" view="/admin/entities/unusualoccurences/incidentType/viewIncidentType.xhtml"> 
+          <f:param name="id" value="#{_entity.incidentType.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link> 
       </rich:column>  
       <rich:column> 
         <f:facet name="header"> 
-          <h:outputText value="#{msg.incident_category}"/> 
+          <h:outputText value="#{msg.incident_title}"/> 
         </f:facet>  
-        <h:outputText value="#{_log.entity.category}"/> 
+        <h:outputText value="#{_log.entity.title}"/> 
       </rich:column>  
       <rich:column> 
         <f:facet name="header"> 
@@ -52,27 +52,48 @@
       </rich:column>  
       <rich:column> 
         <f:facet name="header"> 
-          <h:outputText value="#{msg.incident_description}"/> 
-        </f:facet>  
-        <h:outputText value="#{_log.entity.description}"/> 
-      </rich:column>  
-      <rich:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.incident_patient}"/> 
-        </f:facet>  
-        <s:link value="#{_log.entity.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml"> 
-          <f:param name="id" value="#{_entity.patient.id}"/>  
-          <f:param name="from" value="#{request.servletPath}"/> 
-        </s:link> 
-      </rich:column>  
-      <rich:column> 
-        <f:facet name="header"> 
           <h:outputText value="#{msg.incident_createdBy}"/> 
         </f:facet>  
         <s:link value="#{_log.entity.createdBy.displayName}" view="/admin/entities/employee/employee/viewEmployee.xhtml"> 
           <f:param name="id" value="#{_entity.createdBy.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.incident_description}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.description}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.incident_department}"/> 
+        </f:facet>  
+        <s:link value="#{_log.entity.department.displayName}" view="/admin/entities/employee/department/viewDepartment.xhtml"> 
+          <f:param name="id" value="#{_entity.department.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.incident_dateOfIncident}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.dateOfIncident}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.incident_reportedTo}"/> 
+        </f:facet>  
+        <s:link value="#{_log.entity.reportedTo.displayName}" view="/admin/entities/employee/employee/viewEmployee.xhtml"> 
+          <f:param name="id" value="#{_entity.reportedTo.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.incident_document}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.document}"/> 
       </rich:column> 
     </rich:dataTable> 
   </h:form> 

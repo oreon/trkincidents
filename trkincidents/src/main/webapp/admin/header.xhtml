@@ -1,0 +1,73 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf">
+	<h:form>
+
+		<rich:toolBar height="34" itemSeparator="line">
+
+			<rich:toolBarGroup>
+				<h:graphicImage id="edit" value="/images/icons/bricks.png" />
+				<s:link view="/admin/entities/summary.xhtml" value="Entities" />
+			</rich:toolBarGroup>
+
+			<rich:toolBarGroup>
+				<h:graphicImage id="find" value="/images/icons/clock.png" />
+				<s:link view="/admin/tasks/tasks.xhtml" value="Tasks" />
+			</rich:toolBarGroup>
+
+			<rich:toolBarGroup>
+				<h:graphicImage id="filter" value="/images/icons/chart_bar.png" />
+				<s:link view="/admin/reports/reports.xhtml" value="Reports" />
+			</rich:toolBarGroup>
+
+			<rich:toolBarGroup>
+				<h:graphicImage id="issues" value="/images/icons/eye.png" />
+				<s:link view="/admin/entities/issues/issue/listIssue.xhtml"
+					value="Incidents" />
+			</rich:toolBarGroup>
+
+			<rich:toolBarGroup>
+				<h:graphicImage value="/images/icons/accept.png" />
+				<s:link view="/admin/entities/domain/employee/viewEmployee.xhtml"
+					value="My Account">
+				
+				</s:link>
+			</rich:toolBarGroup>
+
+			<rich:toolBarGroup location="right">
+				<s:link action="#{identity.logout}" view="/login.xhtml"
+					value="Logout #{identity.credentials.username}" propagation="none" />
+			</rich:toolBarGroup>
+
+			<rich:toolBarGroup location="right">
+				<h:selectOneMenu value="#{localeSelector.localeString}">
+					<a:support event="onchange" action="#{customLocaleSelector.select}"
+						ajaxSingle="true" />
+					<f:selectItems value="#{localeSelector.supportedLocales}" />
+				</h:selectOneMenu>
+			</rich:toolBarGroup>
+
+
+			<rich:toolBarGroup location="right">
+				
+					<h:inputText styleClass="barsearch" value="#{issueList.textToSearch}" required="true" />
+					<h:commandButton styleClass="barsearchbutton"
+						action="#{issueList.textSearch}" value="Search" >
+						<h:graphicImage value="/images/icons/search_icon.gif" />
+						<s:conversationPropagation type="join"></s:conversationPropagation> 
+					</h:commandButton>
+				
+			</rich:toolBarGroup>
+
+		</rich:toolBar>
+
+	</h:form>
+
+</ui:composition>

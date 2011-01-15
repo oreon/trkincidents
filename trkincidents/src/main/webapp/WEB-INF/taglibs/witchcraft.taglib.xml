@@ -10,8 +10,8 @@
 	</tag>
 	
 	<tag>
-		<tag-name>deletePanel</tag-name>
-		<source>wccomponents/deletePanel.xhtml</source>
+		<tag-name>dynamicField</tag-name>
+		<source>wccomponents/dynamicField.xhtml</source>
 	</tag>
 	
 	<tag>

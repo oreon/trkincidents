@@ -80,6 +80,15 @@
       <h:inputText id="address_phone" value="#{patientList.patient.address.phone}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
+      <h:outputText value="#{msg.patient_incidents}  " rendered="#{s:hasPermission('incidents', 'patientEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="incidents" value="#{ patientList.incidentToSearch}"> 
+        <s:selectItems value="#{incidentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/>  
+        <f:selectItem itemLabel="--None--" itemValue=""/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
       <h:outputText value="#{msg.patient_healthNumber}  " rendered="#{s:hasPermission('healthNumber', 'patientEdit')}"/>  
       <br/>  
       <h:inputText id="healthNumber" value="#{patientList.patient.healthNumber}"/> 

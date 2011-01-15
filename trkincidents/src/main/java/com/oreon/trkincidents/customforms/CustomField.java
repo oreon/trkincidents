@@ -123,15 +123,5 @@ public class CustomField extends BusinessEntity implements java.io.Serializable 
 
 		return listSearchableFields;
 	}
-	
-	public String getRenderedField() {
-		//if(field == null)
-		//return "";
-	
-		if (getType().equals(FieldType.TEXT))
-			return "/admin/entities/customforms/customTextField.xhtml";
-		else
-			return "/admin/entities/customforms/customTextArea.xhtml";
-	}
 
 }

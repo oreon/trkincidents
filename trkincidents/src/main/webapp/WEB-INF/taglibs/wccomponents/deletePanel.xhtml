@@ -1,15 +1,37 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<ui:composition
-xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
- xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich"
-  xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions"
- xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
 
-${fld.customField.name} <br/>
-<h:inputText value="" rendered="${fld.customField.type == 'TEXT'}"/>
-<rich:editor value="" rendered="${fld.customField.type == 'LARGE_TEXT'}"/>
-<h:selectBooleanCheckbox rendered="${fld.customField.type == 'YES_NO'}" value="" />
-	
+${fld.customField.name} <h:outputText value="*"
+		rendered="${fld.customField.required}" />
+	<br />
+	<h:inputText value="${fld.value}"
+		rendered="${fld.customField.type == 'TEXT'}"
+		required="${fld.customField.required}"
+		id="${fld.customField.name}Text" />
+	<h:message styleClass="error errors" for="${fld.customField.name}Text" />
+	<br />
+	<rich:editor value="${fld.value}"
+		rendered="${fld.customField.type == 'LARGE_TEXT'}"
+		required="${fld.customField.required}"  
+		id="${fld.customField.name}Editor" />
+	<h:message styleClass="error errors"
+		for="${fld.customField.name}Editor" />
+	<br />
+	<h:selectBooleanCheckbox rendered="${fld.customField.type == 'YES_NO'}"  validator="boolValidator"
+		value="${fld.value}" required="${fld.customField.required}" converter="boolConverter"
+		id="${fld.customField.name}CB" />
+		
+	<h:message styleClass="error errors" for="${fld.customField.name}CB" />
+	<br />
+
 </ui:composition>

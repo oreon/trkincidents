@@ -47,7 +47,14 @@
         <h:outputText value="#{msg.patient_healthNumber}  " rendered="#{s:hasPermission('healthNumber', 'patientEdit')}"/>  
         <h:inputText id="healthNumber#{entityId}" rendered="#{s:hasPermission('healthNumber', 'patientEdit')}" label="#{msg.patient_healthNumber}" required="false" value="#{patientAction.patient.healthNumber}"/>  
         <h:message styleClass="error errors" for="healthNumber" rendered="#{s:hasPermission('healthNumber', 'patientEdit')}"/> 
-      </h:panelGrid> 
+      </h:panelGrid>  
+      <br/>  
+      <rich:simpleTogglePanel label="#{msg.patient_incidents}" switchType="client"> 
+        <rich:listShuttle sourceValue="#{patientAction.listAvailableIncidents}" targetValue="#{patientAction.listIncidents}" var="item"> 
+          <s:convertEntity/>  
+          <rich:column>#{item.displayName}</rich:column> 
+        </rich:listShuttle> 
+      </rich:simpleTogglePanel> 
     </s:validateAll> 
   </h:panelGroup> 
 </ui:composition>

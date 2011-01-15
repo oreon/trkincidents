@@ -42,7 +42,7 @@ import org.witchcraft.utils.*;
 @Entity
 @Table(name = "baseincident")
 @Filter(name = "archiveFilterDef")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class BaseIncident extends BusinessEntity
 		implements
 			java.io.Serializable {

@@ -31,12 +31,6 @@
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <h:message styleClass="error errors" for="department" rendered="#{s:hasPermission('department', 'employeeEdit')}"/>  
-        <h:outputText value="#{msg.employee_manager}  " rendered="#{s:hasPermission('manager', 'employeeEdit')}"/>  
-        <h:selectOneMenu id="manager" label="#{msg.employee_manager}" value="#{employeeAction.employee.manager}" required="true" rendered="#{s:hasPermission('manager', 'employeeEdit')}"> 
-          <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <s:convertEntity/> 
-        </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="manager" rendered="#{s:hasPermission('manager', 'employeeEdit')}"/>  
         <h:outputText value="#{msg.person_firstName} * " rendered="#{s:hasPermission('firstName', 'employeeEdit')}"/>  
         <h:inputText id="firstName#{entityId}" rendered="#{s:hasPermission('firstName', 'employeeEdit')}" label="#{msg.person_firstName}" required="true" value="#{employeeAction.employee.firstName}"/>  
         <h:message styleClass="error errors" for="firstName" rendered="#{s:hasPermission('firstName', 'employeeEdit')}"/>  

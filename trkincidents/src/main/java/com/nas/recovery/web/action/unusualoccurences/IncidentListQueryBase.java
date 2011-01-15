@@ -34,6 +34,17 @@ public abstract class IncidentListQueryBase extends BaseQuery<Incident, Long> {
 		return incident;
 	}
 
+	private com.oreon.trkincidents.patient.Patient patientToSearch;
+
+	public void setPatientToSearch(
+			com.oreon.trkincidents.patient.Patient patientToSearch) {
+		this.patientToSearch = patientToSearch;
+	}
+
+	public com.oreon.trkincidents.patient.Patient getPatientToSearch() {
+		return patientToSearch;
+	}
+
 	@Override
 	protected String getql() {
 		return EJBQL;
@@ -49,35 +60,50 @@ public abstract class IncidentListQueryBase extends BaseQuery<Incident, Long> {
 		return RESTRICTIONS;
 	}
 
+	private Range<Date> dateOfIncidentRange = new Range<Date>();
+	public Range<Date> getDateOfIncidentRange() {
+		return dateOfIncidentRange;
+	}
+	public void setDateOfIncident(Range<Date> dateOfIncidentRange) {
+		this.dateOfIncidentRange = dateOfIncidentRange;
+	}
+
 	private static final String[] RESTRICTIONS = {
 			"incident.id = #{incidentList.incident.id}",
 
-			"incident.occurenceType.id = #{incidentList.incident.occurenceType.id}",
+			"incident.incidentType.id = #{incidentList.incident.incidentType.id}",
 
-			"incident.category = #{incidentList.incident.category}",
+			"lower(incident.title) like concat(lower(#{incidentList.incident.title}),'%')",
 
 			"incident.severity = #{incidentList.incident.severity}",
 
-			"lower(incident.description) like concat(lower(#{incidentList.incident.description}),'%')",
-
-			"incident.patient.id = #{incidentList.incident.patient.id}",
+			"#{incidentList.patientToSearch} in elements(incident.patients)",
 
 			"incident.createdBy.id = #{incidentList.incident.createdBy.id}",
 
+			"lower(incident.description) like concat(lower(#{incidentList.incident.description}),'%')",
+
+			"incident.department.id = #{incidentList.incident.department.id}",
+
+			"incident.dateOfIncident >= #{incidentList.dateOfIncidentRange.begin}",
+			"incident.dateOfIncident <= #{incidentList.dateOfIncidentRange.end}",
+
+			"incident.reportedTo.id = #{incidentList.incident.reportedTo.id}",
+
 			"incident.dateCreated <= #{incidentList.dateCreatedRange.end}",
 			"incident.dateCreated >= #{incidentList.dateCreatedRange.begin}",};
-
-	public List<Incident> getIncidentsByPatient(
-			com.oreon.trkincidents.patient.Patient patient) {
-		//setMaxResults(10000);
-		incident.setPatient(patient);
-		return getResultList();
-	}
 
 	public List<Incident> getIncidentsByCreatedBy(
 			com.oreon.trkincidents.employee.Employee employee) {
 		//setMaxResults(10000);
 		incident.setCreatedBy(employee);
+		return getResultList();
+	}
+
+	public List<Incident> getIncidentsByDepartment(
+			com.oreon.trkincidents.employee.Department department) {
+		//setMaxResults(10000);
+		incident.setDepartment(department);
 		return getResultList();
 	}
 

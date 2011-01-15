@@ -94,8 +94,6 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 
 			"employee.department.id = #{employeeList.employee.department.id}",
 
-			"employee.manager.id = #{employeeList.employee.manager.id}",
-
 			"employee.dateCreated <= #{employeeList.dateCreatedRange.end}",
 			"employee.dateCreated >= #{employeeList.dateCreatedRange.begin}",};
 
@@ -103,13 +101,6 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 			com.oreon.trkincidents.employee.Department department) {
 		//setMaxResults(10000);
 		employee.setDepartment(department);
-		return getResultList();
-	}
-
-	public List<Employee> getSubordinatesByManager(
-			com.oreon.trkincidents.employee.Employee employee) {
-		//setMaxResults(10000);
-		employee.setManager(employee);
 		return getResultList();
 	}
 

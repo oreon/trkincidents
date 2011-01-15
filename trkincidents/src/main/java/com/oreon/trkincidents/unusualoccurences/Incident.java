@@ -52,13 +52,23 @@ public class Incident extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = 1953656907L;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "occurenceType_id", nullable = false, updatable = true)
+	@JoinColumn(name = "incidentType_id", nullable = false, updatable = true)
 	@ContainedIn
-	protected OccurenceType occurenceType;
+	protected IncidentType incidentType;
 
-	protected TreatmentCategory category;
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
+	protected String title;
 
 	protected Severity severity;
+
+	@ManyToMany(mappedBy = "incidents")
+	private Set<com.oreon.trkincidents.patient.Patient> patients = new HashSet<com.oreon.trkincidents.patient.Patient>();
+
+	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "createdBy_id", nullable = true, updatable = true)
+	@ContainedIn
+	protected com.oreon.trkincidents.employee.Employee createdBy;
 
 	@Lob
 	@Field(index = Index.TOKENIZED)
@@ -66,29 +76,44 @@ public class Incident extends BusinessEntity implements java.io.Serializable {
 	protected String description;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "patient_id", nullable = false, updatable = true)
+	@JoinColumn(name = "department_id", nullable = false, updatable = true)
 	@ContainedIn
-	protected com.oreon.trkincidents.patient.Patient patient;
+	protected com.oreon.trkincidents.employee.Department department;
+
+	protected Date dateOfIncident;
+
+	@OneToMany(mappedBy = "incident", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "incident_ID", nullable = true)
+	@OrderBy("dateCreated DESC")
+	@IndexedEmbedded
+	private Set<FormFieldInstance> formFieldInstances = new HashSet<FormFieldInstance>();
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "createdBy_id", nullable = false, updatable = true)
+	@JoinColumn(name = "reportedTo_id", nullable = false, updatable = true)
 	@ContainedIn
-	protected com.oreon.trkincidents.employee.Employee createdBy;
+	protected com.oreon.trkincidents.employee.Employee reportedTo;
 
-	public void setOccurenceType(OccurenceType occurenceType) {
-		this.occurenceType = occurenceType;
+	@Embedded
+	@AttributeOverrides({
+			@AttributeOverride(name = "name", column = @Column(name = "document_name")),
+			@AttributeOverride(name = "contentType", column = @Column(name = "document_contentType")),
+			@AttributeOverride(name = "data", column = @Column(name = "document_data", length = 4194304))})
+	protected FileAttachment document = new FileAttachment();
+
+	public void setIncidentType(IncidentType incidentType) {
+		this.incidentType = incidentType;
 	}
 
-	public OccurenceType getOccurenceType() {
-		return occurenceType;
+	public IncidentType getIncidentType() {
+		return incidentType;
 	}
 
-	public void setCategory(TreatmentCategory category) {
-		this.category = category;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public TreatmentCategory getCategory() {
-		return category;
+	public String getTitle() {
+		return title;
 	}
 
 	public void setSeverity(Severity severity) {
@@ -99,20 +124,12 @@ public class Incident extends BusinessEntity implements java.io.Serializable {
 		return severity;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setPatients(Set<com.oreon.trkincidents.patient.Patient> patients) {
+		this.patients = patients;
 	}
 
-	public String getDescription() {
-		return description;
-	}
-
-	public void setPatient(com.oreon.trkincidents.patient.Patient patient) {
-		this.patient = patient;
-	}
-
-	public com.oreon.trkincidents.patient.Patient getPatient() {
-		return patient;
+	public Set<com.oreon.trkincidents.patient.Patient> getPatients() {
+		return patients;
 	}
 
 	public void setCreatedBy(com.oreon.trkincidents.employee.Employee createdBy) {
@@ -123,10 +140,60 @@ public class Incident extends BusinessEntity implements java.io.Serializable {
 		return createdBy;
 	}
 
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDepartment(
+			com.oreon.trkincidents.employee.Department department) {
+		this.department = department;
+	}
+
+	public com.oreon.trkincidents.employee.Department getDepartment() {
+		return department;
+	}
+
+	public void setDateOfIncident(Date dateOfIncident) {
+		this.dateOfIncident = dateOfIncident;
+	}
+
+	public Date getDateOfIncident() {
+		return dateOfIncident;
+	}
+
+	public void setFormFieldInstances(Set<FormFieldInstance> formFieldInstances) {
+		this.formFieldInstances = formFieldInstances;
+	}
+
+	public Set<FormFieldInstance> getFormFieldInstances() {
+		return formFieldInstances;
+	}
+
+	public void setReportedTo(
+			com.oreon.trkincidents.employee.Employee reportedTo) {
+		this.reportedTo = reportedTo;
+	}
+
+	public com.oreon.trkincidents.employee.Employee getReportedTo() {
+		return reportedTo;
+	}
+
+	public void setDocument(FileAttachment document) {
+		this.document = document;
+	}
+
+	public FileAttachment getDocument() {
+		return document;
+	}
+
 	@Transient
 	public String getDisplayName() {
 		try {
-			return occurenceType + "";
+			return title;
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
 		}
@@ -144,7 +211,11 @@ public class Incident extends BusinessEntity implements java.io.Serializable {
 		List<String> listSearchableFields = new ArrayList<String>();
 		listSearchableFields.addAll(super.listSearchableFields());
 
+		listSearchableFields.add("title");
+
 		listSearchableFields.add("description");
+
+		listSearchableFields.add("formFieldInstances.value");
 
 		return listSearchableFields;
 	}

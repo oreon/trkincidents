@@ -34,6 +34,17 @@ public abstract class PatientListQueryBase extends BaseQuery<Patient, Long> {
 		return patient;
 	}
 
+	private com.oreon.trkincidents.unusualoccurences.Incident incidentToSearch;
+
+	public void setIncidentToSearch(
+			com.oreon.trkincidents.unusualoccurences.Incident incidentToSearch) {
+		this.incidentToSearch = incidentToSearch;
+	}
+
+	public com.oreon.trkincidents.unusualoccurences.Incident getIncidentToSearch() {
+		return incidentToSearch;
+	}
+
 	@Override
 	protected String getql() {
 		return EJBQL;
@@ -93,6 +104,8 @@ public abstract class PatientListQueryBase extends BaseQuery<Patient, Long> {
 			"lower(patient.address.state) like concat(lower(#{patientList.patient.address.state}),'%')",
 
 			"lower(patient.address.phone) like concat(lower(#{patientList.patient.address.phone}),'%')",
+
+			"#{patientList.incidentToSearch} in elements(patient.incidents)",
 
 			"lower(patient.healthNumber) like concat(lower(#{patientList.patient.healthNumber}),'%')",
 

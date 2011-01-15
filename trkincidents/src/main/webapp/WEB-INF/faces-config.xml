@@ -5,10 +5,29 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd"
 	version="1.2">
 
-	<application>  
+	<application>
 		<view-handler>com.sun.facelets.FaceletViewHandler</view-handler>
 		<el-resolver>org.jboss.seam.el.SeamELResolver</el-resolver>
-		
+		<locale-config>
+			<default-locale>en</default-locale>
+			<supported-locale>en</supported-locale>
+			<supported-locale>fr</supported-locale>
+		</locale-config>
 	</application>
 
+	<converter>
+		<description>A Converter for Bools to string</description>
+		<converter-id>boolConverter</converter-id>
+		<converter-class>
+			org.witchcraft.jsf.BoolConverter
+		</converter-class>
+	</converter>
+
+
+	<validator>
+		<validator-class>boolValidator</validator-class>
+		<validator-id>org.witchcraft.jsf.BoolValidator</validator-id>
+	</validator>
+	
+	
 </faces-config>

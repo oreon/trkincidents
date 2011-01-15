@@ -1,6 +1,6 @@
-package com.nas.recovery.web.action.incidents;
+package com.nas.recovery.web.action.unusualoccurences;
 
-import com.oreon.trkincidents.incidents.EmployeeIncident;
+import com.oreon.trkincidents.unusualoccurences.FormField;
 
 import org.witchcraft.seam.action.BaseAction;
 
@@ -35,19 +35,19 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
-public abstract class EmployeeIncidentActionBase
-		extends
-			BaseAction<EmployeeIncident> implements java.io.Serializable {
+public abstract class FormFieldActionBase extends BaseAction<FormField>
+		implements
+			java.io.Serializable {
 
 	@In(create = true)
 	@Out(required = false)
 	@DataModelSelection
-	private EmployeeIncident employeeIncident;
+	private FormField formField;
 
 	@DataModel
-	private List<EmployeeIncident> employeeIncidentRecordList;
+	private List<FormField> formFieldRecordList;
 
-	public void setEmployeeIncidentId(Long id) {
+	public void setFormFieldId(Long id) {
 		if (id == 0) {
 			clearInstance();
 			loadAssociations();
@@ -61,32 +61,32 @@ public abstract class EmployeeIncidentActionBase
 	/** for modal dlg we need to load associaitons regardless of postback
 	 * @param id
 	 */
-	public void setEmployeeIncidentIdForModalDlg(Long id) {
+	public void setFormFieldIdForModalDlg(Long id) {
 		setId(id);
 		loadAssociations();
 	}
 
-	public Long getEmployeeIncidentId() {
+	public Long getFormFieldId() {
 		return (Long) getId();
 	}
 
-	public EmployeeIncident getEntity() {
-		return employeeIncident;
+	public FormField getEntity() {
+		return formField;
 	}
 
 	//@Override
-	public void setEntity(EmployeeIncident t) {
-		this.employeeIncident = t;
+	public void setEntity(FormField t) {
+		this.formField = t;
 		loadAssociations();
 	}
 
-	public EmployeeIncident getEmployeeIncident() {
-		return (EmployeeIncident) getInstance();
+	public FormField getFormField() {
+		return (FormField) getInstance();
 	}
 
 	@Override
-	protected EmployeeIncident createInstance() {
-		return new EmployeeIncident();
+	protected FormField createInstance() {
+		return new FormField();
 	}
 
 	public void load() {
@@ -104,18 +104,18 @@ public abstract class EmployeeIncidentActionBase
 		return true;
 	}
 
-	public EmployeeIncident getDefinedInstance() {
-		return (EmployeeIncident) (isIdDefined() ? getInstance() : null);
+	public FormField getDefinedInstance() {
+		return (FormField) (isIdDefined() ? getInstance() : null);
 	}
 
-	public void setEmployeeIncident(EmployeeIncident t) {
-		this.employeeIncident = t;
+	public void setFormField(FormField t) {
+		this.formField = t;
 		loadAssociations();
 	}
 
 	@Override
-	public Class<EmployeeIncident> getEntityClass() {
-		return EmployeeIncident.class;
+	public Class<FormField> getEntityClass() {
+		return FormField.class;
 	}
 
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so

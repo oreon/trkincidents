@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{incidentTypeAction.load(incidentTypeId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="IncidentType "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{incidentTypeAction.incidentType.id}"/>  
+        <h:outputText value="#{msg.incidentType_name}  " rendered="#{s:hasPermission('name', 'incidentTypeView')}"/>  
+        <h:outputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'incidentTypeView')}" value="#{incidentTypeAction.incidentType.name}"/> 
+      </h:panelGrid>  
+      <rich:dataTable id="formFields" var="_formField" rendered="#{not empty incidentTypeAction.listFormFields and s:hasPermission('formFields', 'incidentTypeView') }" value="#{incidentTypeAction.listFormFields}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.formField_name}  " rendered="#{s:hasPermission('name', 'formFieldView')}"/>
+          </f:facet>  
+          <h:outputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'formFieldView')}" value="#{_formField.name}"/> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.formField_type}  " rendered="#{s:hasPermission('type', 'formFieldView')}"/>
+          </f:facet>  
+          <h:outputText value="#{_formField.type}"/> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.formField_required}  " rendered="#{s:hasPermission('required', 'formFieldView')}"/>
+          </f:facet>  
+          <h:outputText id="required#{entityId}" rendered="#{s:hasPermission('required', 'formFieldView')}" value="#{_formField.required}"/> 
+        </h:column>  
+        <h:column style="text-align:left">
+          <f:facet name="header">
+            <h:outputText value="#{msg.formField_choiceValues}  " rendered="#{s:hasPermission('choiceValues', 'formFieldView')}"/>
+          </f:facet>  
+          <h:outputText id="choiceValues#{entityId}" rendered="#{s:hasPermission('choiceValues', 'formFieldView')}" value="#{_formField.choiceValues}"/> 
+        </h:column> 
+      </rich:dataTable> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

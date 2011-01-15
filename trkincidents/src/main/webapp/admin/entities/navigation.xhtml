@@ -22,7 +22,17 @@
           </h:commandLink> 
         </rich:panelMenuItem>  
         <rich:panelMenuItem> 
-          <h:commandLink value="OccurenceType" action="occurenceType"> 
+          <h:commandLink value="IncidentType" action="incidentType"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="FormField" action="formField"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="FormFieldInstance" action="formFieldInstance"> 
             <s:conversationPropagation type="none"/> 
           </h:commandLink> 
         </rich:panelMenuItem> 
@@ -88,11 +98,6 @@
       <rich:panelMenuGroup label="Incidents" expanded="true"> 
         <rich:panelMenuItem> 
           <h:commandLink value="BaseIncident" action="baseIncident"> 
-            <s:conversationPropagation type="none"/> 
-          </h:commandLink> 
-        </rich:panelMenuItem>  
-        <rich:panelMenuItem> 
-          <h:commandLink value="EmployeeIncident" action="employeeIncident"> 
             <s:conversationPropagation type="none"/> 
           </h:commandLink> 
         </rich:panelMenuItem>  
