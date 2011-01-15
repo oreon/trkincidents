@@ -303,6 +303,11 @@
 			</exclusions>
 		</dependency>
 		<dependency>
+			<groupId>org.richfaces.samples</groupId>
+			<artifactId>glassX</artifactId>
+			<version>${richfaces.api.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>org.richfaces.framework</groupId>
 			<artifactId>richfaces-impl</artifactId>
 			<version>${richfaces.impl.version}</version>
@@ -317,21 +322,14 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-<!-- 
+		<!--
 
-		<dependency>
-			<groupId>org.primefaces</groupId>
-			<artifactId>primefaces</artifactId>
-			<version>1.1</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.openfaces</groupId>
-			<artifactId>openfaces</artifactId>
-			<version>2.0</version>
-			<scope>compile</scope>
-		</dependency>
- -->
+			<dependency> <groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId> <version>1.1</version>
+			</dependency> <dependency> <groupId>org.openfaces</groupId>
+			<artifactId>openfaces</artifactId> <version>2.0</version>
+			<scope>compile</scope> </dependency>
+		-->
 		<dependency>
 			<groupId>jfree</groupId>
 			<artifactId>jcommon</artifactId>
