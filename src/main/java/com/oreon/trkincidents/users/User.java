@@ -4,40 +4,35 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.Date;
 
-import javax.persistence.*;
-import org.hibernate.validator.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.apache.solr.analysis.LowerCaseFilterFactory;
 import org.apache.solr.analysis.SnowballPorterFilterFactory;
 import org.apache.solr.analysis.StandardTokenizerFactory;
 import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
-import org.hibernate.annotations.Cascade;
-
-import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.AnalyzerDef;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Parameter;
 import org.hibernate.search.annotations.TokenFilterDef;
 import org.hibernate.search.annotations.TokenizerDef;
-import org.hibernate.search.annotations.ContainedIn;
-import org.hibernate.search.annotations.IndexedEmbedded;
-
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
 import org.jboss.seam.annotations.Name;
 import org.witchcraft.base.entity.BusinessEntity;
-import org.witchcraft.model.support.audit.Auditable;
-import org.witchcraft.base.entity.FileAttachment;
-import org.hibernate.annotations.Filter;
-
-import org.witchcraft.utils.*;
+import org.witchcraft.base.entity.Unique;
 
 @Entity
 @Table(name = "user")
@@ -45,14 +40,15 @@ import org.witchcraft.utils.*;
 @Name("user")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
+
 @AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
 public class User extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -1796332121L;
 
-	//@Unique(entityName = "com.oreon.trkincidents.users.User", fieldName = "userName")
-
+	@Unique(entityName = "com.oreon.trkincidents.users.User", fieldName = "userName", idProvider = "userAction")
+	
 	@NotNull
 	@Length(min = 2, max = 250)
 	@Column(name = "userName", unique = true)
