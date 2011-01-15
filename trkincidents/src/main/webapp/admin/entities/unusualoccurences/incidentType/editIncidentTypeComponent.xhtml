@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+    <a:region>
+      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{incidentTypeAction.load(incidentTypeId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="IncidentType "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.incidentType_name} * " rendered="#{s:hasPermission('name', 'incidentTypeEdit')}"/>  
+        <h:inputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'incidentTypeEdit')}" label="#{msg.incidentType_name}" required="true" value="#{incidentTypeAction.incidentType.name}"/>  
+        <h:message styleClass="error errors" for="name" rendered="#{s:hasPermission('name', 'incidentTypeEdit')}"/> 
+      </h:panelGrid>  
+      <a:commandButton value="New FormField" action="#{incidentTypeAction.addFormFields}" reRender="formFields" rendered="#{s:hasPermission('formFields', 'incidentTypeEdit')}"> 
+        <s:conversationId/> 
+      </a:commandButton>  
+      <rich:dataTable id="formFields" var="_formField" rendered="#{s:hasPermission('formFields', 'incidentTypeEdit')}" value="#{incidentTypeAction.listFormFields}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.formField_name} * " rendered="#{s:hasPermission('name', 'formFieldEdit')}"/>
+          </f:facet>  
+          <h:inputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'formFieldEdit')}" label="#{msg.formField_name}" required="true" value="#{_formField.name}"/>  
+          <h:message styleClass="error errors" for="name" rendered="#{s:hasPermission('name', 'formFieldEdit')}"/> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.formField_type}  " rendered="#{s:hasPermission('type', 'formFieldEdit')}"/>
+          </f:facet>  
+          <h:selectOneMenu id="type" rendered="#{s:hasPermission('type', 'formFieldEdit')}" value="#{_formField.type}" required="false" label="#{msg.formField_type}"> 
+            <a:support event="onchange" reRender="xx, choiceText"  limitToList="true"/>
+            <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+            <f:selectItem itemValue="TEXT" itemLabel="Text"/>  
+            <f:selectItem itemValue="LARGE_TEXT" itemLabel="Large_text"/>  
+            <f:selectItem itemValue="CHOICE" itemLabel="Choice"/>  
+            <f:selectItem itemValue="YES_NO" itemLabel="Yes_no"/>  
+            <f:selectItem itemValue="DATE" itemLabel="Date"/> 
+          </h:selectOneMenu>  
+          <h:message styleClass="error errors" for="type" rendered="#{s:hasPermission('type', 'formFieldEdit')}"/> 
+          <h:inputText value="XXX" rendered="#{_formField.type != null}" id="choiceText" />
+          <h:outputText value="#{_formField.type.name eq 'CHOICE'}" id="xx" />
+        </h:column>  
+        <h:column>
+        
+        </h:column>
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.formField_required}  " rendered="#{s:hasPermission('required', 'formFieldEdit')}"/>
+          </f:facet>  
+          <h:selectBooleanCheckbox id="required#{entityId}" rendered="#{s:hasPermission('required', 'formFieldEdit')}" label="#{msg.formField_required}" required="false" value="#{_formField.required}"/>  
+          <h:message styleClass="error errors" for="required" rendered="#{s:hasPermission('required', 'formFieldEdit')}"/> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="New FormField" action="#{incidentTypeAction.addFormFields}" reRender="formFields" rendered="#{s:hasPermission('formFields', 'formFieldEdit')}"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="Delete" immediate="true" action="#{incidentTypeAction.deleteFormFields(rowIndex)}" reRender="formFields"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column> 
+      </rich:dataTable> 
+       </a:region>
+    </s:validateAll> 
+   
+  </h:panelGroup> 
+</ui:composition>
