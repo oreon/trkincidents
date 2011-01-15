@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.formField_name} * " rendered="#{s:hasPermission('name', 'formFieldEdit')}"/>  
+        <br/>  
+        <h:inputText id="name" value="#{formFieldAction.formField.name}"/>  
+        <h:message styleClass="error errors" for="name" rendered="#{s:hasPermission('name', 'formFieldEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.formField_type}  " rendered="#{s:hasPermission('type', 'formFieldEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="type" value="#{formFieldAction.formField.type}" required="false"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="TEXT" itemLabel="Text"/>  
+          <f:selectItem itemValue="LARGE_TEXT" itemLabel="Large_text"/>  
+          <f:selectItem itemValue="CHOICE" itemLabel="Choice"/>  
+          <f:selectItem itemValue="YES_NO" itemLabel="Yes_no"/>  
+          <f:selectItem itemValue="DATE" itemLabel="Date"/>  
+          <f:selectItem itemValue="REFERENCE" itemLabel="Reference"/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="type" rendered="#{s:hasPermission('type', 'formFieldEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.formField_required}  " rendered="#{s:hasPermission('required', 'formFieldEdit')}"/>  
+        <br/>  
+        <h:selectBooleanCheckbox id="required" value="#{formFieldAction.formField.required}"/>  
+        <h:message styleClass="error errors" for="required" rendered="#{s:hasPermission('required', 'formFieldEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.formField_choiceValues}  " rendered="#{s:hasPermission('choiceValues', 'formFieldEdit')}"/>  
+        <br/>  
+        <h:inputText id="choiceValues" value="#{formFieldAction.formField.choiceValues}"/>  
+        <h:message styleClass="error errors" for="choiceValues" rendered="#{s:hasPermission('choiceValues', 'formFieldEdit')}"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

@@ -1,4 +1,4 @@
-package com.oreon.trkincidents.incidents;
+package com.oreon.trkincidents.unusualoccurences;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -40,40 +40,52 @@ import org.hibernate.annotations.Filter;
 import org.witchcraft.utils.*;
 
 @Entity
-@Table(name = "employeeincident")
+@Table(name = "incidenttype")
 @Filter(name = "archiveFilterDef")
-@Name("employeeIncident")
+@Name("incidentType")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
-public class EmployeeIncident
-		extends
-			com.oreon.trkincidents.incidents.BaseIncident
+public class IncidentType extends BusinessEntity
 		implements
 			java.io.Serializable {
-	private static final long serialVersionUID = -1643885035L;
+	private static final long serialVersionUID = -278624219L;
+
+	@NotNull
+	@Length(min = 2, max = 250)
+	@Column(unique = true)
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
+	protected String name;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "employeeIncident_ID", nullable = false)
+	@JoinColumn(name = "incidentType_ID", nullable = true)
 	@OrderBy("dateCreated DESC")
 	@IndexedEmbedded
-	private Set<com.oreon.trkincidents.employee.Employee> employees = new HashSet<com.oreon.trkincidents.employee.Employee>();
+	private Set<FormField> formFields = new HashSet<FormField>();
 
-	public void setEmployees(
-			Set<com.oreon.trkincidents.employee.Employee> employees) {
-		this.employees = employees;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public Set<com.oreon.trkincidents.employee.Employee> getEmployees() {
-		return employees;
+	public String getName() {
+		return name;
+	}
+
+	public void setFormFields(Set<FormField> formFields) {
+		this.formFields = formFields;
+	}
+
+	public Set<FormField> getFormFields() {
+		return formFields;
 	}
 
 	@Transient
 	public String getDisplayName() {
 		try {
-			return employees + "";
+			return name;
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
 		}
@@ -90,6 +102,12 @@ public class EmployeeIncident
 	public List<String> listSearchableFields() {
 		List<String> listSearchableFields = new ArrayList<String>();
 		listSearchableFields.addAll(super.listSearchableFields());
+
+		listSearchableFields.add("name");
+
+		listSearchableFields.add("formFields.name");
+
+		listSearchableFields.add("formFields.choiceValues");
 
 		return listSearchableFields;
 	}

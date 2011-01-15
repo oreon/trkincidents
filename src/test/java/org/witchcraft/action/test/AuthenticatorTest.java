@@ -8,11 +8,15 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.witchcraft.seam.action.BaseAction;
 
+import com.oreon.trkincidents.customforms.FieldType;
+import com.oreon.trkincidents.employee.Department;
+import com.oreon.trkincidents.employee.Employee;
+import com.oreon.trkincidents.unusualoccurences.FormField;
+import com.oreon.trkincidents.unusualoccurences.IncidentType;
 import com.oreon.trkincidents.users.Role;
 import com.oreon.trkincidents.users.User;
 
 public class AuthenticatorTest extends BaseTest<User> {
-
 
 	@BeforeClass
 	public void init() {
@@ -31,10 +35,10 @@ public class AuthenticatorTest extends BaseTest<User> {
 			protected void testComponents() throws Exception {
 				Identity.instance().getCredentials().setUsername("admin");
 				Identity.instance().getCredentials().setPassword("admin");
-				
-				  assert invokeMethod( "#{authenticator.authenticate}")
-				  .equals(true);
-				 
+
+				assert invokeMethod("#{authenticator.authenticate}").equals(
+						true);
+
 			}
 
 		}.run();
@@ -57,41 +61,76 @@ public class AuthenticatorTest extends BaseTest<User> {
 				Identity.instance().getCredentials().setUsername("admin");
 				Identity.instance().getCredentials().setPassword("admin");
 
-				createUserAndRole( "admin", "admin", "admin");
-				createUserAndRole( "jim", "jim", "support");
-				createUserAndRole( "roger", "roger", "clerk");
-				createUserAndRole( "erica", "erica", "manager");
+				createUserAndRole("admin", "admin", "admin");
+				createUserAndRole("jim", "jim", "support");
+				createUserAndRole("roger", "roger", "clerk");
+				createUserAndRole("erica", "erica", "manager");
+				createEmp("", "", "");
 			}
-			
-			
 
 		}.run();
 
 		// em.getTransaction().commit();
 		em.close();
 	}
-	
+
 	private User createUserAndRole(String username, String password, String role) {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		em.getTransaction().begin();
-		
-		
+
 		User admin = new User();
 		admin.setUserName(username);
 		admin.setPassword(password);
-		
+
 		Role adminRole = new Role();
 		adminRole.setName(role);
 		admin.getRoles().add(adminRole);
-		//setValue("#{userAction.instance}", admin);
-		//invokeMethod("#{userAction.save}");
+		// setValue("#{userAction.instance}", admin);
+		// invokeMethod("#{userAction.save}");
 		em.persist(admin);
 		em.getTransaction().commit();
 		return admin;
 	}
-	
 
-
-    
+	private User createEmp(String username, String password, String role) {
+		EntityManager em = getEntityManagerFactory().createEntityManager();
+		em.getTransaction().begin();
+		Department dep = new Department();
+		dep.setName("Nursing");
+		em.persist(dep);
+		User user = em.find(User.class, 2L);
+		Employee emp = new Employee();
+		emp.setDepartment(dep);
+		emp.setUser(user);
+		emp.setFirstName("Alicia");
+		emp.setLastName("Nickson");
+		emp.setEmployeeNumber("3434");
+		
+		
+		//setValue("#{userAction.instance}", admin);
+		//invokeMethod("#{userAction.save}");
+		em.persist(emp);
+		
+		
+		IncidentType itype = new IncidentType();
+		itype.setName("Violence");
+		
+		FormField formField = new FormField();
+		formField.setName("Person Name");
+		formField.setType(FieldType.TEXT);
+		
+		itype.getFormFields().add(formField);
+		
+		FormField formField2 = new FormField();
+		formField2.setName("Reported On");
+		
+		formField.setType(FieldType.DATE);
+		itype.getFormFields().add(formField2);
+		
+		em.persist(itype);
+		
+		em.getTransaction().commit();
+		return user;
+	}
 
 }

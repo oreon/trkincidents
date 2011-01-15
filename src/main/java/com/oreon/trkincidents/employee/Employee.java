@@ -76,15 +76,6 @@ public class Employee extends com.oreon.trkincidents.patient.Person
 	@ContainedIn
 	protected Department department;
 
-	@OneToMany(mappedBy = "manager", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "manager_ID", nullable = true)
-	@OrderBy("dateCreated DESC")
-	private Set<Employee> subordinates = new HashSet<Employee>();
-
-	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "manager_id", nullable = false, updatable = true)
-	protected Employee manager;
-
 	public void setEmployeeNumber(String employeeNumber) {
 		this.employeeNumber = employeeNumber;
 	}
@@ -116,22 +107,6 @@ public class Employee extends com.oreon.trkincidents.patient.Person
 
 	public Department getDepartment() {
 		return department;
-	}
-
-	public void setSubordinates(Set<Employee> subordinates) {
-		this.subordinates = subordinates;
-	}
-
-	public Set<Employee> getSubordinates() {
-		return subordinates;
-	}
-
-	public void setManager(Employee manager) {
-		this.manager = manager;
-	}
-
-	public Employee getManager() {
-		return manager;
 	}
 
 	@Transient

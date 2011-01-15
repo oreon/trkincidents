@@ -4,15 +4,15 @@
   <swimlane name="initiator"> 
     <assignment class="com.nas.recovery.web.action.workflowmgt.unusualOccurenceWorkflow.assign.InitiatorAssignment"/> 
   </swimlane>  
-  <swimlane name="physician"> 
-    <assignment class="com.nas.recovery.web.action.workflowmgt.unusualOccurenceWorkflow.assign.PhysicianAssignment"/> 
+  <swimlane name="incidentReviewer"> 
+    <assignment class="com.nas.recovery.web.action.workflowmgt.unusualOccurenceWorkflow.assign.IncidentReviewerAssignment"/> 
   </swimlane>  
   <start-state name=""> 
     <task name="" swimlane="initiator"></task>  
-    <transition to="reviewOccurence" name="proceedToReviewOccurence"></transition> 
+    <transition to="reviewOccurence" name="createIncident"></transition> 
   </start-state>  
   <task-node name="reviewOccurence"> 
-    <task name="reviewOccurence" swimlane="physician" notify="false"></task>  
+    <task name="reviewOccurence" swimlane="incidentReviewer" notify="false"></task>  
     <transition to="provideInfo" name="requestMoreInfo"></transition>  
     <transition to="" name="closeOccurence"></transition> 
   </task-node>  

@@ -10,6 +10,10 @@ public enum FieldType {
 
 	YES_NO,
 
+	DATE,
+
+	REFERENCE,
+
 	;
 
 	FieldType() {

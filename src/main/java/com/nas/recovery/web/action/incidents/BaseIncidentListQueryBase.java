@@ -30,7 +30,7 @@ public abstract class BaseIncidentListQueryBase
 
 	private static final String EJBQL = "select baseIncident from BaseIncident baseIncident";
 
-	protected BaseIncident baseIncident = new com.oreon.trkincidents.incidents.EmployeeIncident();
+	protected BaseIncident baseIncident = new com.oreon.trkincidents.incidents.PatientIncident();
 
 	public BaseIncident getBaseIncident() {
 		return baseIncident;

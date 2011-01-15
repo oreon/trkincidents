@@ -25,12 +25,6 @@
             <ui:param name="entityId" value="2"/>  
             <ui:param name="departmentId" value="#{employeeAction.instance.department.id}"/> 
           </ui:include> 
-        </rich:tab>  
-        <rich:tab label="Manager"> 
-          <ui:include src="/admin/entities/employee/employee/viewEmployeeComponent.xhtml"> 
-            <ui:param name="entityId" value="3"/>  
-            <ui:param name="employeeId" value="#{employeeAction.instance.manager.id}"/> 
-          </ui:include> 
         </rich:tab> 
       </rich:tabPanel> 
     </h:form>  
@@ -51,22 +45,6 @@
           </a:commandButton> 
         </a:form>  
         <ui:include src="/admin/entities/unusualoccurences/incident/modalDlgIncidentComponent.xhtml"/> 
-      </rich:tab>  
-      <rich:tab label="Subordinates" icon="/images/icons/bricks.png"> 
-        <ui:include src="/admin/entities/employee/employee/listEmployeeComponent.xhtml"> 
-          <ui:param name="records" value="#{employeeList.getSubordinatesByManager(employeeAction.instance)}"/> 
-        </ui:include>  
-        <a:form> 
-          <s:button value="Create New" view="/admin/entities/employee/employee/editEmployee.xhtml"> 
-            <f:param name="employeeId" value="#{employeeAction.instance.id}"/>  
-            <f:param name="employeeId" value="0"/> 
-          </s:button>  
-          <a:commandButton oncomplete="Richfaces.showModalPanel('EmployeeModalPanel',{});" value="Quick Create"> 
-            <a:actionparam name="employeeId" assignTo="#{employeeAction.employeeId}" value="0"/>  
-            <a:actionparam name="employeeId" assignTo="#{employeeAction.managerId}" value="#{employeeAction.instance.id}"/> 
-          </a:commandButton> 
-        </a:form>  
-        <ui:include src="/admin/entities/employee/employee/modalDlgEmployeeComponent.xhtml"/> 
       </rich:tab> 
     </rich:tabPanel>  
     <br/>  

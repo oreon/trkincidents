@@ -35,7 +35,13 @@
         <h:outputText id="age#{entityId}" rendered="#{s:hasPermission('age', 'patientView')}" value="#{patientAction.patient.age}"/>  
         <h:outputText value="#{msg.patient_healthNumber}  " rendered="#{s:hasPermission('healthNumber', 'patientView')}"/>  
         <h:outputText id="healthNumber#{entityId}" rendered="#{s:hasPermission('healthNumber', 'patientView')}" value="#{patientAction.patient.healthNumber}"/> 
-      </h:panelGrid> 
+      </h:panelGrid>  
+      <br/>  
+      <rich:simpleTogglePanel label="#{msg.patient_incidents}" switchType="client"> 
+        <rich:dataTable value="#{patientAction.listIncidents}" var="item"> 
+          <rich:column>#{item.displayName}</rich:column> 
+        </rich:dataTable> 
+      </rich:simpleTogglePanel> 
     </s:validateAll> 
   </h:panelGroup> 
 </ui:composition>

@@ -36,7 +36,6 @@ import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
 import com.oreon.trkincidents.unusualoccurences.Incident;
-import com.oreon.trkincidents.employee.Employee;
 
 public abstract class EmployeeActionBase
 		extends
@@ -55,14 +54,8 @@ public abstract class EmployeeActionBase
 	@In(create = true, value = "departmentAction")
 	com.nas.recovery.web.action.employee.DepartmentAction departmentAction;
 
-	@In(create = true, value = "employeeAction")
-	com.nas.recovery.web.action.employee.EmployeeAction managerAction;
-
 	@In(create = true, value = "incidentAction")
 	com.nas.recovery.web.action.unusualoccurences.IncidentAction incidentsAction;
-
-	@In(create = true, value = "employeeAction")
-	com.nas.recovery.web.action.employee.EmployeeAction subordinatesAction;
 
 	@DataModel
 	private List<Employee> employeeRecordList;
@@ -112,19 +105,6 @@ public abstract class EmployeeActionBase
 		return 0L;
 	}
 
-	public void setManagerId(Long id) {
-
-		if (id != null && id > 0)
-			getInstance().setManager(managerAction.loadFromId(id));
-
-	}
-
-	public Long getManagerId() {
-		if (getInstance().getManager() != null)
-			return getInstance().getManager().getId();
-		return 0L;
-	}
-
 	public Long getEmployeeId() {
 		return (Long) getId();
 	}
@@ -169,12 +149,6 @@ public abstract class EmployeeActionBase
 			getInstance().setDepartment(department);
 		}
 
-		com.oreon.trkincidents.employee.Employee manager = managerAction
-				.getDefinedInstance();
-		if (manager != null && isNew()) {
-			getInstance().setManager(manager);
-		}
-
 	}
 
 	public boolean isWired() {
@@ -211,11 +185,6 @@ public abstract class EmployeeActionBase
 					.getDepartment().getId()));
 		}
 
-		if (employee.getManager() != null) {
-			criteria = criteria.add(Restrictions.eq("manager.id", employee
-					.getManager().getId()));
-		}
-
 	}
 
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
@@ -232,13 +201,7 @@ public abstract class EmployeeActionBase
 			departmentAction.setInstance(getInstance().getDepartment());
 		}
 
-		if (employee.getManager() != null) {
-			managerAction.setInstance(getInstance().getManager());
-		}
-
 		initListIncidents();
-
-		initListSubordinates();
 
 	}
 
@@ -248,11 +211,6 @@ public abstract class EmployeeActionBase
 				.getInstance("incident");
 		incident.setCreatedBy(employee);
 		events.raiseTransactionSuccessEvent("archivedIncident");
-
-		com.oreon.trkincidents.employee.Employee employee = (com.oreon.trkincidents.employee.Employee) org.jboss.seam.Component
-				.getInstance("employee");
-		employee.setManager(employee);
-		events.raiseTransactionSuccessEvent("archivedEmployee");
 
 	}
 
@@ -293,60 +251,23 @@ public abstract class EmployeeActionBase
 		getListIncidents().add(incidents);
 	}
 
-	protected List<com.oreon.trkincidents.employee.Employee> listSubordinates = new ArrayList<com.oreon.trkincidents.employee.Employee>();
-
-	void initListSubordinates() {
-
-		if (listSubordinates.isEmpty())
-			listSubordinates.addAll(getInstance().getSubordinates());
-
-	}
-
-	public List<com.oreon.trkincidents.employee.Employee> getListSubordinates() {
-
-		prePopulateListSubordinates();
-		return listSubordinates;
-	}
-
-	public void prePopulateListSubordinates() {
-	}
-
-	public void setListSubordinates(
-			List<com.oreon.trkincidents.employee.Employee> listSubordinates) {
-		this.listSubordinates = listSubordinates;
-	}
-
-	public void deleteSubordinates(int index) {
-		listSubordinates.remove(index);
-	}
-
-	@Begin(join = true)
-	public void addSubordinates() {
-		initListSubordinates();
-		Employee subordinates = new Employee();
-
-		subordinates.setManager(getInstance());
-
-		getListSubordinates().add(subordinates);
-	}
-
 	public void updateComposedAssociations() {
 
 		if (listIncidents != null) {
 			getInstance().getIncidents().clear();
 			getInstance().getIncidents().addAll(listIncidents);
 		}
-
-		if (listSubordinates != null) {
-			getInstance().getSubordinates().clear();
-			getInstance().getSubordinates().addAll(listSubordinates);
-		}
 	}
 
 	public void clearLists() {
 		listIncidents.clear();
-		listSubordinates.clear();
 
+	}
+
+	public Employee getCurrentLoggedInEmployee() {
+		String query = "Select e from Employee e where e.user.userName = ?1";
+		return (Employee) executeSingleResultQuery(query, Identity.instance()
+				.getCredentials().getUsername());
 	}
 
 }

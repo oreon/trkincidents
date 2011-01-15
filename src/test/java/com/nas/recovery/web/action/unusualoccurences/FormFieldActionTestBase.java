@@ -1,4 +1,4 @@
-package com.nas.recovery.web.action.incidents;
+package com.nas.recovery.web.action.unusualoccurences;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -10,13 +10,13 @@ import org.hibernate.annotations.Filter;
 
 import org.testng.annotations.BeforeClass;
 import org.witchcraft.seam.action.BaseAction;
-import com.oreon.trkincidents.incidents.EmployeeIncident;
+import com.oreon.trkincidents.unusualoccurences.FormField;
 
-public class EmployeeIncidentActionTestBase
+public class FormFieldActionTestBase
 		extends
-			org.witchcraft.action.test.BaseTest<EmployeeIncident> {
+			org.witchcraft.action.test.BaseTest<FormField> {
 
-	EmployeeIncidentAction employeeIncidentAction = new EmployeeIncidentAction();
+	FormFieldAction formFieldAction = new FormFieldAction();
 
 	@BeforeClass
 	public void init() {
@@ -24,8 +24,8 @@ public class EmployeeIncidentActionTestBase
 	}
 
 	@Override
-	public BaseAction<EmployeeIncident> getAction() {
-		return employeeIncidentAction;
+	public BaseAction<FormField> getAction() {
+		return formFieldAction;
 	}
 
 }

@@ -14,9 +14,17 @@
   <entity class="com.oreon.trkincidents.unusualoccurences.Incident" name="Incident"> 
     <table name="incident"></table> 
   </entity>  
-  <!--  OccurenceType  JPA Configurations -->  
-  <entity class="com.oreon.trkincidents.unusualoccurences.OccurenceType" name="OccurenceType"> 
-    <table name="occurencetype"></table> 
+  <!--  IncidentType  JPA Configurations -->  
+  <entity class="com.oreon.trkincidents.unusualoccurences.IncidentType" name="IncidentType"> 
+    <table name="incidenttype"></table> 
+  </entity>  
+  <!--  FormField  JPA Configurations -->  
+  <entity class="com.oreon.trkincidents.unusualoccurences.FormField" name="FormField"> 
+    <table name="formfield"></table> 
+  </entity>  
+  <!--  FormFieldInstance  JPA Configurations -->  
+  <entity class="com.oreon.trkincidents.unusualoccurences.FormFieldInstance" name="FormFieldInstance"> 
+    <table name="formfieldinstance"></table> 
   </entity>  
   <!--  Employee  JPA Configurations -->  
   <entity class="com.oreon.trkincidents.employee.Employee" name="Employee"> 
@@ -71,10 +79,6 @@
   <!--  BaseIncident  JPA Configurations -->  
   <entity class="com.oreon.trkincidents.incidents.BaseIncident" name="BaseIncident"> 
     <table name="baseincident"></table> 
-  </entity>  
-  <!--  EmployeeIncident  JPA Configurations -->  
-  <entity class="com.oreon.trkincidents.incidents.EmployeeIncident" name="EmployeeIncident"> 
-    <table name="employeeincident"></table> 
   </entity>  
   <!--  Severity  JPA Configurations -->  
   <entity class="com.oreon.trkincidents.incidents.Severity" name="Severity"> 

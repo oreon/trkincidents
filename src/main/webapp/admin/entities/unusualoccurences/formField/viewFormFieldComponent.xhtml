@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{formFieldAction.load(formFieldId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="FormField "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{formFieldAction.formField.id}"/>  
+        <h:outputText value="#{msg.formField_name}  " rendered="#{s:hasPermission('name', 'formFieldView')}"/>  
+        <h:outputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'formFieldView')}" value="#{formFieldAction.formField.name}"/>  
+        <h:outputText value="#{msg.formField_type}  " rendered="#{s:hasPermission('type', 'formFieldView')}"/>  
+        <h:outputText value="#{formFieldAction.formField.type}"/>  
+        <h:outputText value="#{msg.formField_required}  " rendered="#{s:hasPermission('required', 'formFieldView')}"/>  
+        <h:outputText id="required#{entityId}" rendered="#{s:hasPermission('required', 'formFieldView')}" value="#{formFieldAction.formField.required}"/>  
+        <h:outputText value="#{msg.formField_choiceValues}  " rendered="#{s:hasPermission('choiceValues', 'formFieldView')}"/>  
+        <h:outputText id="choiceValues#{entityId}" rendered="#{s:hasPermission('choiceValues', 'formFieldView')}" value="#{formFieldAction.formField.choiceValues}"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

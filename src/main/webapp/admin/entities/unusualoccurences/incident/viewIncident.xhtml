@@ -14,22 +14,28 @@
             </h:commandButton> 
           </div> 
         </rich:tab>  
-        <rich:tab label="OccurenceType"> 
-          <ui:include src="/admin/entities/unusualoccurences/occurenceType/viewOccurenceTypeComponent.xhtml"> 
+        <rich:tab label="IncidentType"> 
+          <ui:include src="/admin/entities/unusualoccurences/incidentType/viewIncidentTypeComponent.xhtml"> 
             <ui:param name="entityId" value="1"/>  
-            <ui:param name="occurenceTypeId" value="#{incidentAction.instance.occurenceType.id}"/> 
-          </ui:include> 
-        </rich:tab>  
-        <rich:tab label="Patient"> 
-          <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
-            <ui:param name="entityId" value="2"/>  
-            <ui:param name="patientId" value="#{incidentAction.instance.patient.id}"/> 
+            <ui:param name="incidentTypeId" value="#{incidentAction.instance.incidentType.id}"/> 
           </ui:include> 
         </rich:tab>  
         <rich:tab label="CreatedBy"> 
           <ui:include src="/admin/entities/employee/employee/viewEmployeeComponent.xhtml"> 
-            <ui:param name="entityId" value="3"/>  
+            <ui:param name="entityId" value="2"/>  
             <ui:param name="employeeId" value="#{incidentAction.instance.createdBy.id}"/> 
+          </ui:include> 
+        </rich:tab>  
+        <rich:tab label="Department"> 
+          <ui:include src="/admin/entities/employee/department/viewDepartmentComponent.xhtml"> 
+            <ui:param name="entityId" value="3"/>  
+            <ui:param name="departmentId" value="#{incidentAction.instance.department.id}"/> 
+          </ui:include> 
+        </rich:tab>  
+        <rich:tab label="ReportedTo"> 
+          <ui:include src="/admin/entities/employee/employee/viewEmployeeComponent.xhtml"> 
+            <ui:param name="entityId" value="4"/>  
+            <ui:param name="employeeId" value="#{incidentAction.instance.reportedTo.id}"/> 
           </ui:include> 
         </rich:tab> 
       </rich:tabPanel> 

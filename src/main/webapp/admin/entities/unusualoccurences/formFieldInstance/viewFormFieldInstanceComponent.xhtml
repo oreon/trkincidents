@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{formFieldInstanceAction.load(formFieldInstanceId )  }"> 
+        <f:facet name="header"> 
+          <h:outputText value="FormFieldInstance "/> 
+        </f:facet>  
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{formFieldInstanceAction.formFieldInstance.id}"/>  
+        <h:outputText value="#{msg.formFieldInstance_incident}  " rendered="#{s:hasPermission('incident', 'formFieldInstanceView')}"/>  
+        <s:link value="#{formFieldInstanceAction.formFieldInstance.incident.displayName}" view="/admin/entities/unusualoccurences/incident/viewIncident.xhtml" propagation="none"> 
+          <f:param name="incidentId" value="#{formFieldInstanceAction.formFieldInstance.incident.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.formFieldInstance_formField}  " rendered="#{s:hasPermission('formField', 'formFieldInstanceView')}"/>  
+        <s:link value="#{formFieldInstanceAction.formFieldInstance.formField.displayName}" view="/admin/entities/unusualoccurences/formField/viewFormField.xhtml" propagation="none"> 
+          <f:param name="formFieldId" value="#{formFieldInstanceAction.formFieldInstance.formField.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.formFieldInstance_value}  " rendered="#{s:hasPermission('value', 'formFieldInstanceView')}"/>  
+        <h:outputText id="value#{entityId}" rendered="#{s:hasPermission('value', 'formFieldInstanceView')}" value="#{formFieldInstanceAction.formFieldInstance.value}"/>  
+        <h:outputText value="#{msg.formFieldInstance_boolValue}  " rendered="#{s:hasPermission('boolValue', 'formFieldInstanceView')}"/>  
+        <h:outputText id="boolValue#{entityId}" rendered="#{s:hasPermission('boolValue', 'formFieldInstanceView')}" value="#{formFieldInstanceAction.formFieldInstance.boolValue}"/>  
+        <h:outputText value="#{msg.formFieldInstance_dateValue}  " rendered="#{s:hasPermission('dateValue', 'formFieldInstanceView')}"/>  
+        <h:outputText id="dateValue#{entityId}" rendered="#{s:hasPermission('dateValue', 'formFieldInstanceView')}" value="#{formFieldInstanceAction.formFieldInstance.dateValue}"/>  
+        <h:outputText value="#{msg.formFieldInstance_enumOrdinal}  " rendered="#{s:hasPermission('enumOrdinal', 'formFieldInstanceView')}"/>  
+        <h:outputText id="enumOrdinal#{entityId}" rendered="#{s:hasPermission('enumOrdinal', 'formFieldInstanceView')}" value="#{formFieldInstanceAction.formFieldInstance.enumOrdinal}"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

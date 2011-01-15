@@ -24,11 +24,6 @@
           <f:param name="departmentId" value="#{employeeAction.employee.department.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
-        <h:outputText value="#{msg.employee_manager}  " rendered="#{s:hasPermission('manager', 'employeeView')}"/>  
-        <s:link value="#{employeeAction.employee.manager.displayName}" view="/admin/entities/employee/employee/viewEmployee.xhtml" propagation="none"> 
-          <f:param name="managerId" value="#{employeeAction.employee.manager.id}"/>  
-          <f:param name="from" value="#{request.servletPath}"/> 
-        </s:link>  
         <h:outputText value="#{msg.person_firstName}  " rendered="#{s:hasPermission('firstName', 'employeeView')}"/>  
         <h:outputText id="firstName#{entityId}" rendered="#{s:hasPermission('firstName', 'employeeView')}" value="#{employeeAction.employee.firstName}"/>  
         <h:outputText value="#{msg.person_lastName}  " rendered="#{s:hasPermission('lastName', 'employeeView')}"/>  

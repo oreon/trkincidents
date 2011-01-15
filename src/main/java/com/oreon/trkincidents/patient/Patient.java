@@ -67,10 +67,8 @@ public class Patient extends com.oreon.trkincidents.patient.Person
 	})
 	protected Address address = new Address();
 
-	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "patient_ID", nullable = true)
-	@OrderBy("dateCreated DESC")
-	@IndexedEmbedded
+	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@JoinTable(name = "patients_incidents", joinColumns = @JoinColumn(name = "patients_ID"), inverseJoinColumns = @JoinColumn(name = "incidents_ID"))
 	private Set<com.oreon.trkincidents.unusualoccurences.Incident> incidents = new HashSet<com.oreon.trkincidents.unusualoccurences.Incident>();
 
 	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

@@ -64,6 +64,12 @@ public class Department extends BusinessEntity implements java.io.Serializable {
 	@IndexedEmbedded
 	private Set<Employee> employees = new HashSet<Employee>();
 
+	@OneToMany(mappedBy = "department", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "department_ID", nullable = true)
+	@OrderBy("dateCreated DESC")
+	@IndexedEmbedded
+	private Set<com.oreon.trkincidents.unusualoccurences.Incident> incidents = new HashSet<com.oreon.trkincidents.unusualoccurences.Incident>();
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -78,6 +84,15 @@ public class Department extends BusinessEntity implements java.io.Serializable {
 
 	public Set<Employee> getEmployees() {
 		return employees;
+	}
+
+	public void setIncidents(
+			Set<com.oreon.trkincidents.unusualoccurences.Incident> incidents) {
+		this.incidents = incidents;
+	}
+
+	public Set<com.oreon.trkincidents.unusualoccurences.Incident> getIncidents() {
+		return incidents;
 	}
 
 	@Transient

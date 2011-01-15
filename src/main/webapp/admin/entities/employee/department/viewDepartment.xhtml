@@ -33,6 +33,22 @@
           </a:commandButton> 
         </a:form>  
         <ui:include src="/admin/entities/employee/employee/modalDlgEmployeeComponent.xhtml"/> 
+      </rich:tab>  
+      <rich:tab label="Incidents" icon="/images/icons/bricks.png"> 
+        <ui:include src="/admin/entities/unusualoccurences/incident/listIncidentComponent.xhtml"> 
+          <ui:param name="records" value="#{incidentList.getIncidentsByDepartment(departmentAction.instance)}"/> 
+        </ui:include>  
+        <a:form> 
+          <s:button value="Create New" view="/admin/entities/unusualoccurences/incident/editIncident.xhtml"> 
+            <f:param name="departmentId" value="#{departmentAction.instance.id}"/>  
+            <f:param name="incidentId" value="0"/> 
+          </s:button>  
+          <a:commandButton oncomplete="Richfaces.showModalPanel('IncidentModalPanel',{});" value="Quick Create"> 
+            <a:actionparam name="incidentId" assignTo="#{incidentAction.incidentId}" value="0"/>  
+            <a:actionparam name="departmentId" assignTo="#{incidentAction.departmentId}" value="#{departmentAction.instance.id}"/> 
+          </a:commandButton> 
+        </a:form>  
+        <ui:include src="/admin/entities/unusualoccurences/incident/modalDlgIncidentComponent.xhtml"/> 
       </rich:tab> 
     </rich:tabPanel>  
     <br/>  

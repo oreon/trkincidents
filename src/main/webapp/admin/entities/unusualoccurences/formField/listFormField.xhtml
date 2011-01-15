@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
+  <ui:define name="content"> 
+    <ui:include src="searchFormField.xhtml"/>  
+    <br/>  
+    <br/>  
+    <ui:include src="listFormFieldComponent.xhtml"> 
+      <ui:param name="records" value="#{formFieldList.resultList}"/> 
+    </ui:include>  
+    <a:form> 
+      <s:button value="Create New" view="/admin/entities/unusualoccurences/formField/editFormField.xhtml" propagation="none"> 
+        <f:param name="formFieldId" value="0"/> 
+      </s:button>  
+      <a:commandButton action="#{formFieldAction.setFormFieldId(0)}" oncomplete="Richfaces.showModalPanel('FormFieldModalPanel',{});" value="Quick Create"></a:commandButton> 
+    </a:form>  
+    <ui:include src="/admin/entities/unusualoccurences/formField/modalDlgFormFieldComponent.xhtml"/> 
+  </ui:define> 
+</ui:composition>

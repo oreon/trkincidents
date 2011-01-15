@@ -35,7 +35,6 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
-import com.oreon.trkincidents.unusualoccurences.Incident;
 import com.oreon.trkincidents.patient.Document;
 import com.oreon.trkincidents.incidents.PatientIncident;
 
@@ -49,9 +48,6 @@ public abstract class PatientActionBase
 	@Out(required = false)
 	@DataModelSelection
 	private Patient patient;
-
-	@In(create = true, value = "incidentAction")
-	com.nas.recovery.web.action.unusualoccurences.IncidentAction incidentsAction;
 
 	@In(create = true, value = "documentAction")
 	com.nas.recovery.web.action.patient.DocumentAction documentsAction;
@@ -139,20 +135,16 @@ public abstract class PatientActionBase
 	 */
 	public void loadAssociations() {
 
-		initListIncidents();
-
 		initListDocuments();
 
 		initListPatientIncidents();
 
+		initListIncidents();
+		initListAvailableIncidents();
+
 	}
 
 	public void updateAssociations() {
-
-		com.oreon.trkincidents.unusualoccurences.Incident incident = (com.oreon.trkincidents.unusualoccurences.Incident) org.jboss.seam.Component
-				.getInstance("incident");
-		incident.setPatient(patient);
-		events.raiseTransactionSuccessEvent("archivedIncident");
 
 		com.oreon.trkincidents.patient.Document document = (com.oreon.trkincidents.patient.Document) org.jboss.seam.Component
 				.getInstance("document");
@@ -164,43 +156,6 @@ public abstract class PatientActionBase
 		patientIncident.setPatient(patient);
 		events.raiseTransactionSuccessEvent("archivedPatientIncident");
 
-	}
-
-	protected List<com.oreon.trkincidents.unusualoccurences.Incident> listIncidents = new ArrayList<com.oreon.trkincidents.unusualoccurences.Incident>();
-
-	void initListIncidents() {
-
-		if (listIncidents.isEmpty())
-			listIncidents.addAll(getInstance().getIncidents());
-
-	}
-
-	public List<com.oreon.trkincidents.unusualoccurences.Incident> getListIncidents() {
-
-		prePopulateListIncidents();
-		return listIncidents;
-	}
-
-	public void prePopulateListIncidents() {
-	}
-
-	public void setListIncidents(
-			List<com.oreon.trkincidents.unusualoccurences.Incident> listIncidents) {
-		this.listIncidents = listIncidents;
-	}
-
-	public void deleteIncidents(int index) {
-		listIncidents.remove(index);
-	}
-
-	@Begin(join = true)
-	public void addIncidents() {
-		initListIncidents();
-		Incident incidents = new Incident();
-
-		incidents.setPatient(getInstance());
-
-		getListIncidents().add(incidents);
 	}
 
 	protected List<com.oreon.trkincidents.patient.Document> listDocuments = new ArrayList<com.oreon.trkincidents.patient.Document>();
@@ -277,12 +232,55 @@ public abstract class PatientActionBase
 		getListPatientIncidents().add(patientIncidents);
 	}
 
-	public void updateComposedAssociations() {
+	protected List<com.oreon.trkincidents.unusualoccurences.Incident> listIncidents = new ArrayList<com.oreon.trkincidents.unusualoccurences.Incident>();
 
-		if (listIncidents != null) {
-			getInstance().getIncidents().clear();
-			getInstance().getIncidents().addAll(listIncidents);
-		}
+	void initListIncidents() {
+
+		if (listIncidents.isEmpty())
+			listIncidents.addAll(getInstance().getIncidents());
+
+	}
+
+	public List<com.oreon.trkincidents.unusualoccurences.Incident> getListIncidents() {
+
+		prePopulateListIncidents();
+		return listIncidents;
+	}
+
+	public void prePopulateListIncidents() {
+	}
+
+	public void setListIncidents(
+			List<com.oreon.trkincidents.unusualoccurences.Incident> listIncidents) {
+		this.listIncidents = listIncidents;
+	}
+
+	protected List<com.oreon.trkincidents.unusualoccurences.Incident> listAvailableIncidents = new ArrayList<com.oreon.trkincidents.unusualoccurences.Incident>();
+
+	void initListAvailableIncidents() {
+
+		listAvailableIncidents = getEntityManager().createQuery(
+				"select r from Incident r").getResultList();
+		listAvailableIncidents.removeAll(getInstance().getIncidents());
+
+	}
+
+	@Begin(join = true)
+	public List<com.oreon.trkincidents.unusualoccurences.Incident> getListAvailableIncidents() {
+
+		prePopulateListAvailableIncidents();
+		return listAvailableIncidents;
+	}
+
+	public void prePopulateListAvailableIncidents() {
+	}
+
+	public void setListAvailableIncidents(
+			List<com.oreon.trkincidents.unusualoccurences.Incident> listAvailableIncidents) {
+		this.listAvailableIncidents = listAvailableIncidents;
+	}
+
+	public void updateComposedAssociations() {
 
 		if (listDocuments != null) {
 			getInstance().getDocuments().clear();
@@ -293,12 +291,18 @@ public abstract class PatientActionBase
 			getInstance().getPatientIncidents().clear();
 			getInstance().getPatientIncidents().addAll(listPatientIncidents);
 		}
+
+		if (listIncidents != null) {
+			getInstance().getIncidents().clear();
+			getInstance().getIncidents().addAll(listIncidents);
+		}
 	}
 
 	public void clearLists() {
-		listIncidents.clear();
 		listDocuments.clear();
 		listPatientIncidents.clear();
+
+		listIncidents.clear();
 
 	}
 
