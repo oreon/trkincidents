@@ -1,5 +1,6 @@
 package org.witchcraft.base.entity;
 
+import java.io.OutputStream;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -12,7 +13,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import javax.faces.context.FacesContext;
 import javax.persistence.Query;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.queryParser.MultiFieldQueryParser;
@@ -20,8 +23,10 @@ import org.apache.lucene.queryParser.ParseException;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.FullTextQuery;
 import org.jboss.seam.annotations.In;
+import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.web.RequestParameter;
 import org.jboss.seam.framework.EntityQuery;
+import org.jboss.seam.log.Log;
 import org.jboss.seam.persistence.PersistenceProvider;
 
 
@@ -38,6 +43,9 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 
 	protected E instance;
 	
+
+	@Logger
+	protected Log log;
 	
 	private Range<java.util.Date> dateCreatedRange = new Range<Date>();
 
@@ -341,6 +349,47 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 		Map region = new TreeMap();
 		region.put("name=org.hibernate.cacheable", "value=true");
 		this.setHints(region);
+	}
+	
+	protected void downloadAttachment(byte[] bytes) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		HttpServletResponse response = (HttpServletResponse) context
+				.getExternalContext().getResponse();
+		response.setContentType("text/plain");
+
+		response.addHeader("Content-disposition", "attachment; filename=\""
+				+ "export.csv" + "\"");
+
+		try {
+			OutputStream os = response.getOutputStream();
+			os.write(bytes);
+			os.flush();
+			os.close();
+			context.responseComplete();
+		} catch (Exception e) {
+			log.error("\nFailure : " + e.toString() + "\n");
+		}
+	}
+	
+	public void exportToCsv(){
+		int originalMaxResults = getMaxResults();
+		setMaxResults(50000);
+		List<E> results = getResultList();
+		
+		StringBuilder builder = new StringBuilder();
+		builder.append("Id,");
+		builder.append("displayName");
+		builder.append("\r\n");
+		
+		for (E e : results) {
+			builder.append(e.getId() + ",");
+			builder.append(e.getDisplayName() + ",");
+			builder.append("\r\n");
+		}
+		
+		setMaxResults(originalMaxResults);
+		downloadAttachment(builder.toString().getBytes());
+		
 	}
 	
 	
