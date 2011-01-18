@@ -9,7 +9,11 @@
       <h:outputText value="#{msg.severity_name} * " rendered="#{s:hasPermission('name', 'severityEdit')}"/>  
       <br/>  
       <h:inputText id="name" value="#{severityList.severity.name}"/> 
-    </h:panelGroup>  
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
     <rich:calendar id="from" value="#{severityList.dateCreatedRange.begin}"/>  
     <rich:calendar id="to" value="#{severityList.dateCreatedRange.end}"/> 
   </h:panelGrid> 

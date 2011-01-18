@@ -1,10 +1,11 @@
 package org.witchcraft.seam.action;
 
+import java.util.Locale;
+
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
-import java.util.Locale;
 import org.jboss.seam.international.LocaleSelector;
 
 @Name("customLocaleSelector")

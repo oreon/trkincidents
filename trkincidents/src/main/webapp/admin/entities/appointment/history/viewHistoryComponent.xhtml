@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <h:panelGroup> 
-    <s:validateAll> 
-      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{historyAction.load(historyId )  }"> 
-        <f:facet name="header"> 
-          <h:outputText value="History "/> 
-        </f:facet>  
-        <h:outputText value="#{msg.id}"/>  
-        <h:outputText value="#{historyAction.history.id}"/>  
-        <h:outputText value="#{msg.history_encounter}  " rendered="#{s:hasPermission('encounter', 'historyView')}"/>  
-        <s:link value="#{historyAction.history.encounter.displayName}" view="/admin/entities/appointment/encounter/viewEncounter.xhtml" propagation="none"> 
-          <f:param name="encounterId" value="#{historyAction.history.encounter.id}"/>  
-          <f:param name="from" value="#{request.servletPath}"/> 
-        </s:link>  
-        <h:outputText value="#{msg.history_history}  " rendered="#{s:hasPermission('history', 'historyView')}"/>  
-        <h:outputText id="history#{entityId}" rendered="#{s:hasPermission('history', 'historyView')}" value="#{historyAction.history.history}"/> 
-      </h:panelGrid> 
-    </s:validateAll> 
-  </h:panelGroup> 
+  <rich:panel> 
+    <f:facet name="header"> 
+      <h:outputText value="History "/> 
+    </f:facet>  
+    <h:panelGroup> 
+      <s:validateAll> 
+        <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{historyAction.load(historyId )  }"> 
+          <h:outputText value="#{msg.id}"/>  
+          <h:outputText value="#{historyAction.history.id}"/>  
+          <h:outputText value="#{msg.history_encounter}  " rendered="#{s:hasPermission('encounter', 'historyView')}"/>  
+          <s:link value="#{historyAction.history.encounter.displayName}" view="/admin/entities/appointment/encounter/viewEncounter.xhtml" propagation="none"> 
+            <f:param name="encounterId" value="#{historyAction.history.encounter.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link>  
+          <h:outputText value="#{msg.history_history}  " rendered="#{s:hasPermission('history', 'historyView')}"/>  
+          <h:outputText id="history#{entityId}" rendered="#{s:hasPermission('history', 'historyView')}" value="#{historyAction.history.history}"/> 
+        </h:panelGrid> 
+      </s:validateAll> 
+    </h:panelGroup> 
+  </rich:panel> 
 </ui:composition>

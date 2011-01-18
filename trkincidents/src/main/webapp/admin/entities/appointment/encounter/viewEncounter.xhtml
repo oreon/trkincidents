@@ -14,7 +14,7 @@
             </h:commandButton> 
           </div> 
         </rich:tab>  
-        <rich:tab label="Patient"> 
+        <rich:tab label="Patient" rendered="#{encounterAction.instance.patient != null}"> 
           <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
             <ui:param name="entityId" value="1"/>  
             <ui:param name="patientId" value="#{encounterAction.instance.patient.id}"/> 

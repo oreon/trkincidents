@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <s:div styleClass="mortgage_status_formwrap2"> 
+    <ui:include src="/admin/entities/incidents/formFieldInstance/listFormFieldInstanceComponent.xhtml"> 
+      <ui:param name="records" value="#{formFieldInstanceList.getFormFieldInstancesByIncident(loanDataAction.instance.incident)}"/> 
+    </ui:include>  
+    <a:form> 
+      <a:commandButton action="#{formFieldInstanceAction.setFormFieldInstanceId(0)}" oncomplete="Richfaces.showModalPanel('FormFieldInstanceModalPanel',{});" value="Add FormFieldInstance"/> 
+    </a:form>  
+    <ui:include src="/admin/entities/incidents/formFieldInstance/modalDlgFormFieldInstanceComponent.xhtml"/> 
+  </s:div> 
+</ui:composition>

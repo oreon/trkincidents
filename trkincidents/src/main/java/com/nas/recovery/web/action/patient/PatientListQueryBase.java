@@ -34,17 +34,6 @@ public abstract class PatientListQueryBase extends BaseQuery<Patient, Long> {
 		return patient;
 	}
 
-	private com.oreon.trkincidents.unusualoccurences.Incident incidentToSearch;
-
-	public void setIncidentToSearch(
-			com.oreon.trkincidents.unusualoccurences.Incident incidentToSearch) {
-		this.incidentToSearch = incidentToSearch;
-	}
-
-	public com.oreon.trkincidents.unusualoccurences.Incident getIncidentToSearch() {
-		return incidentToSearch;
-	}
-
 	@Override
 	protected String getql() {
 		return EJBQL;
@@ -83,20 +72,6 @@ public abstract class PatientListQueryBase extends BaseQuery<Patient, Long> {
 
 			"lower(patient.lastName) like concat(lower(#{patientList.patient.lastName}),'%')",
 
-			"patient.dateOfBirth >= #{patientList.dateOfBirthRange.begin}",
-			"patient.dateOfBirth <= #{patientList.dateOfBirthRange.end}",
-
-			"patient.gender = #{patientList.patient.gender}",
-
-			"lower(patient.contactDetails.primaryPhone) like concat(lower(#{patientList.patient.contactDetails.primaryPhone}),'%')",
-
-			"lower(patient.contactDetails.secondaryPhone) like concat(lower(#{patientList.patient.contactDetails.secondaryPhone}),'%')",
-
-			"lower(patient.contactDetails.email) like concat(lower(#{patientList.patient.contactDetails.email}),'%')",
-
-			"patient.age >= #{patientList.ageRange.begin}",
-			"patient.age <= #{patientList.ageRange.end}",
-
 			"lower(patient.address.streetAddress) like concat(lower(#{patientList.patient.address.streetAddress}),'%')",
 
 			"lower(patient.address.city) like concat(lower(#{patientList.patient.address.city}),'%')",
@@ -105,9 +80,15 @@ public abstract class PatientListQueryBase extends BaseQuery<Patient, Long> {
 
 			"lower(patient.address.phone) like concat(lower(#{patientList.patient.address.phone}),'%')",
 
-			"#{patientList.incidentToSearch} in elements(patient.incidents)",
-
 			"lower(patient.healthNumber) like concat(lower(#{patientList.patient.healthNumber}),'%')",
+
+			"patient.dateOfBirth >= #{patientList.dateOfBirthRange.begin}",
+			"patient.dateOfBirth <= #{patientList.dateOfBirthRange.end}",
+
+			"patient.gender = #{patientList.patient.gender}",
+
+			"patient.age >= #{patientList.ageRange.begin}",
+			"patient.age <= #{patientList.ageRange.end}",
 
 			"patient.dateCreated <= #{patientList.dateCreatedRange.end}",
 			"patient.dateCreated >= #{patientList.dateCreatedRange.begin}",};

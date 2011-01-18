@@ -266,6 +266,7 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 		try {
 
 			updateComposedAssociations();
+			//getEntityManager().setFlushMode(FlushModeType.COMMIT);
 
 			if (isManaged())
 				update();
@@ -275,7 +276,10 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 			//addInfoMessage("Successfully saved record: {0}", getInstance().getDisplayName());
 			updateAssociations();
 
-		} catch (Exception e) {
+		} /*catch(ConstraintViolationException cve){
+			if(cve.getCause() instanceof )
+		}*/
+		catch (Exception e) {
 			addErrorMessage("Error Saving record: " + e.getMessage());
 			log.error("error saving ", e);
 			return "error";

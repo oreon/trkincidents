@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.formFieldInstance_value}  " rendered="#{s:hasPermission('value', 'formFieldInstanceEdit')}"/>  
+        <br/>  
+        <h:inputText id="value" value="#{formFieldInstanceAction.formFieldInstance.value}"/>  
+        <h:message styleClass="error errors" for="value" rendered="#{s:hasPermission('value', 'formFieldInstanceEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.formFieldInstance_incident}  " rendered="#{s:hasPermission('incident', 'formFieldInstanceEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="incident" value="#{formFieldInstanceAction.formFieldInstance.incident}"> 
+          <s:selectItems value="#{incidentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="incident" rendered="#{s:hasPermission('incident', 'formFieldInstanceEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.formFieldInstance_formField}  " rendered="#{s:hasPermission('formField', 'formFieldInstanceEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="formField" value="#{formFieldInstanceAction.formFieldInstance.formField}"> 
+          <s:selectItems value="#{formFieldList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="formField" rendered="#{s:hasPermission('formField', 'formFieldInstanceEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.formFieldInstance_boolValue}  " rendered="#{s:hasPermission('boolValue', 'formFieldInstanceEdit')}"/>  
+        <br/>  
+        <h:selectBooleanCheckbox id="boolValue" value="#{formFieldInstanceAction.formFieldInstance.boolValue}"/>  
+        <h:message styleClass="error errors" for="boolValue" rendered="#{s:hasPermission('boolValue', 'formFieldInstanceEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.formFieldInstance_dateValue}  " rendered="#{s:hasPermission('dateValue', 'formFieldInstanceEdit')}"/>  
+        <br/>  
+        <rich:calendar id="dateValue" value="#{formFieldInstanceAction.formFieldInstance.dateValue}"/>  
+        <h:message styleClass="error errors" for="dateValue" rendered="#{s:hasPermission('dateValue', 'formFieldInstanceEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.formFieldInstance_enumOrdinal}  " rendered="#{s:hasPermission('enumOrdinal', 'formFieldInstanceEdit')}"/>  
+        <br/>  
+        <h:inputText id="enumOrdinal" value="#{formFieldInstanceAction.formFieldInstance.enumOrdinal}"/>  
+        <h:message styleClass="error errors" for="enumOrdinal" rendered="#{s:hasPermission('enumOrdinal', 'formFieldInstanceEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.formFieldInstance_description}  " rendered="#{s:hasPermission('description', 'formFieldInstanceEdit')}"/>  
+        <br/>  
+        <rich:editor useSeamText="true" id="description" value="#{formFieldInstanceAction.formFieldInstance.description}"/>  
+        <h:message styleClass="error errors" for="description" rendered="#{s:hasPermission('description', 'formFieldInstanceEdit')}"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

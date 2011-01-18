@@ -18,37 +18,45 @@
     </h:form>  
     <br/>  
     <rich:tabPanel> 
+      <rich:tab label="Incidents" icon="/images/icons/bricks.png"> 
+        <c:set var="modalId" value="PatientModalPanel-incidents"/>  
+        <ui:include src="/admin/entities/incidents/incident/listIncidentComponent.xhtml"> 
+          <ui:param name="records" value="#{incidentList.getIncidentsByPatient(patientAction.instance)}"/>  
+          <ui:param name="modalId" value="${modalId}"/> 
+        </ui:include>  
+        <a:form> 
+          <s:button value="Create New" view="/admin/entities/incidents/incident/editIncident.xhtml"> 
+            <f:param name="patientId" value="#{patientAction.instance.id}"/>  
+            <f:param name="incidentId" value="0"/> 
+          </s:button>  
+          <a:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"> 
+            <a:actionparam name="incidentId" assignTo="#{incidentAction.incidentId}" value="0"/>  
+            <a:actionparam name="patientId" assignTo="#{incidentAction.patientId}" value="#{patientAction.instance.id}"/> 
+          </a:commandButton> 
+        </a:form>  
+        <ui:include src="/admin/entities/incidents/incident/modalDlgIncidentComponent.xhtml"> 
+          <ui:param name="modalId" value="${modalId}"/> 
+        </ui:include> 
+      </rich:tab>  
       <rich:tab label="Documents" icon="/images/icons/bricks.png"> 
+        <c:set var="modalId" value="PatientModalPanel-documents"/>  
         <ui:include src="/admin/entities/patient/document/listDocumentComponent.xhtml"> 
-          <ui:param name="records" value="#{documentList.getDocumentsByPatient(patientAction.instance)}"/> 
+          <ui:param name="records" value="#{documentList.getDocumentsByPatient(patientAction.instance)}"/>  
+          <ui:param name="modalId" value="${modalId}"/> 
         </ui:include>  
         <a:form> 
           <s:button value="Create New" view="/admin/entities/patient/document/editDocument.xhtml"> 
             <f:param name="patientId" value="#{patientAction.instance.id}"/>  
             <f:param name="documentId" value="0"/> 
           </s:button>  
-          <a:commandButton oncomplete="Richfaces.showModalPanel('DocumentModalPanel',{});" value="Quick Create"> 
+          <a:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"> 
             <a:actionparam name="documentId" assignTo="#{documentAction.documentId}" value="0"/>  
             <a:actionparam name="patientId" assignTo="#{documentAction.patientId}" value="#{patientAction.instance.id}"/> 
           </a:commandButton> 
         </a:form>  
-        <ui:include src="/admin/entities/patient/document/modalDlgDocumentComponent.xhtml"/> 
-      </rich:tab>  
-      <rich:tab label="PatientIncidents" icon="/images/icons/bricks.png"> 
-        <ui:include src="/admin/entities/incidents/patientIncident/listPatientIncidentComponent.xhtml"> 
-          <ui:param name="records" value="#{patientIncidentList.getPatientIncidentsByPatient(patientAction.instance)}"/> 
-        </ui:include>  
-        <a:form> 
-          <s:button value="Create New" view="/admin/entities/incidents/patientIncident/editPatientIncident.xhtml"> 
-            <f:param name="patientId" value="#{patientAction.instance.id}"/>  
-            <f:param name="patientIncidentId" value="0"/> 
-          </s:button>  
-          <a:commandButton oncomplete="Richfaces.showModalPanel('PatientIncidentModalPanel',{});" value="Quick Create"> 
-            <a:actionparam name="patientIncidentId" assignTo="#{patientIncidentAction.patientIncidentId}" value="0"/>  
-            <a:actionparam name="patientId" assignTo="#{patientIncidentAction.patientId}" value="#{patientAction.instance.id}"/> 
-          </a:commandButton> 
-        </a:form>  
-        <ui:include src="/admin/entities/incidents/patientIncident/modalDlgPatientIncidentComponent.xhtml"/> 
+        <ui:include src="/admin/entities/patient/document/modalDlgDocumentComponent.xhtml"> 
+          <ui:param name="modalId" value="${modalId}"/> 
+        </ui:include> 
       </rich:tab> 
     </rich:tabPanel>  
     <br/>  

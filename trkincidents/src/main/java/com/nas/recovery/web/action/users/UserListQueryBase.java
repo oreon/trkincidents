@@ -68,6 +68,8 @@ public abstract class UserListQueryBase extends BaseQuery<User, Long> {
 
 			"#{userList.roleToSearch} in elements(user.roles)",
 
+			"lower(user.email) like concat(lower(#{userList.user.email}),'%')",
+
 			"user.dateCreated <= #{userList.dateCreatedRange.end}",
 			"user.dateCreated >= #{userList.dateCreatedRange.begin}",};
 

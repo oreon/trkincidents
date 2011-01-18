@@ -36,7 +36,7 @@ import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
 import com.oreon.trkincidents.employee.Employee;
-import com.oreon.trkincidents.unusualoccurences.Incident;
+import com.oreon.trkincidents.incidents.Incident;
 
 public abstract class DepartmentActionBase extends BaseAction<Department>
 		implements
@@ -51,7 +51,7 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 	com.nas.recovery.web.action.employee.EmployeeAction employeesAction;
 
 	@In(create = true, value = "incidentAction")
-	com.nas.recovery.web.action.unusualoccurences.IncidentAction incidentsAction;
+	com.nas.recovery.web.action.incidents.IncidentAction incidentsAction;
 
 	@DataModel
 	private List<Department> departmentRecordList;
@@ -141,14 +141,14 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 
 	public void updateAssociations() {
 
-		com.oreon.trkincidents.employee.Employee employee = (com.oreon.trkincidents.employee.Employee) org.jboss.seam.Component
+		com.oreon.trkincidents.employee.Employee employees = (com.oreon.trkincidents.employee.Employee) org.jboss.seam.Component
 				.getInstance("employee");
-		employee.setDepartment(department);
+		employees.setDepartment(department);
 		events.raiseTransactionSuccessEvent("archivedEmployee");
 
-		com.oreon.trkincidents.unusualoccurences.Incident incident = (com.oreon.trkincidents.unusualoccurences.Incident) org.jboss.seam.Component
+		com.oreon.trkincidents.incidents.Incident incidents = (com.oreon.trkincidents.incidents.Incident) org.jboss.seam.Component
 				.getInstance("incident");
-		incident.setDepartment(department);
+		incidents.setDepartment(department);
 		events.raiseTransactionSuccessEvent("archivedIncident");
 
 	}
@@ -190,7 +190,7 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 		getListEmployees().add(employees);
 	}
 
-	protected List<com.oreon.trkincidents.unusualoccurences.Incident> listIncidents = new ArrayList<com.oreon.trkincidents.unusualoccurences.Incident>();
+	protected List<com.oreon.trkincidents.incidents.Incident> listIncidents = new ArrayList<com.oreon.trkincidents.incidents.Incident>();
 
 	void initListIncidents() {
 
@@ -199,7 +199,7 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 
 	}
 
-	public List<com.oreon.trkincidents.unusualoccurences.Incident> getListIncidents() {
+	public List<com.oreon.trkincidents.incidents.Incident> getListIncidents() {
 
 		prePopulateListIncidents();
 		return listIncidents;
@@ -209,7 +209,7 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 	}
 
 	public void setListIncidents(
-			List<com.oreon.trkincidents.unusualoccurences.Incident> listIncidents) {
+			List<com.oreon.trkincidents.incidents.Incident> listIncidents) {
 		this.listIncidents = listIncidents;
 	}
 

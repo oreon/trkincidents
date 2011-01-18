@@ -14,7 +14,7 @@
             </h:commandButton> 
           </div> 
         </rich:tab>  
-        <rich:tab label="Encounter"> 
+        <rich:tab label="Encounter" rendered="#{historyAction.instance.encounter != null}"> 
           <ui:include src="/admin/entities/appointment/encounter/viewEncounterComponent.xhtml"> 
             <ui:param name="entityId" value="1"/>  
             <ui:param name="encounterId" value="#{historyAction.instance.encounter.id}"/> 

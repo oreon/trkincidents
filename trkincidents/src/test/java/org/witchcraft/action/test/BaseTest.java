@@ -9,11 +9,11 @@ import org.testng.annotations.AfterClass;
 import org.witchcraft.base.entity.BusinessEntity;
 import org.witchcraft.seam.action.BaseAction;
 
-public abstract class BaseTest<T extends BusinessEntity> extends SeamTest{
+public abstract class BaseTest<T> extends SeamTest{
 	
 	private static final String NOMBRE_PERSISTENCE_UNIT = "appEntityManager";
 	private EntityManagerFactory emf;
-	private EntityManager em;
+	protected EntityManager em;
 
 	public EntityManagerFactory getEntityManagerFactory() {
 		return emf;
@@ -27,7 +27,7 @@ public abstract class BaseTest<T extends BusinessEntity> extends SeamTest{
 		//getAction().setEntityManager(Search.getFullTextEntityManager(em));
 	}
 	
-	abstract public BaseAction<T> getAction();
+	abstract public Object getAction();
 
 	@AfterClass
 	public void destroy() {

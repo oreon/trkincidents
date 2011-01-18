@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <rich:modalPanel id="viewPrescribedTestModalPanel" autosized="true" zindex="2000" domElementAttachment="parent"> 
+  <rich:modalPanel id="view${modalId}" autosized="true" zindex="2000" domElementAttachment="parent"> 
     <f:facet name="header"> 
       <h:panelGroup> 
         <h:outputText value="New PrescribedTest"/> 
@@ -10,7 +10,7 @@
     <f:facet name="controls"> 
       <h:panelGroup> 
         <h:graphicImage value="/img/close.png" alt="Close" styleClass="hidelink"/>  
-        <rich:componentControl for="viewPrescribedTestModalPanel" attachTo="hidelink" operation="hide" event="onclick"/> 
+        <rich:componentControl for="view${modalId}" attachTo="hidelink" operation="hide" event="onclick"/> 
       </h:panelGroup> 
     </f:facet>  
     <s:div> 
@@ -18,7 +18,7 @@
         <a:form> 
           <ui:include src="/admin/entities/appointment/prescribedTest/viewPrescribedTestComponent.xhtml"/>  
           <h:outputText value=" "/>  
-          <a:commandButton oncomplete="Richfaces.hideModalPanel('PrescribedTestModalPanel')" value="Hide"/> 
+          <a:commandButton oncomplete="Richfaces.hideModalPanel('${modalId}')" value="Hide"/> 
         </a:form> 
       </a:outputPanel> 
     </s:div> 

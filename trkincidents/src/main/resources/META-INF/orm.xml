@@ -11,20 +11,36 @@
     <table name="document"></table> 
   </entity>  
   <!--  Incident  JPA Configurations -->  
-  <entity class="com.oreon.trkincidents.unusualoccurences.Incident" name="Incident"> 
+  <entity class="com.oreon.trkincidents.incidents.Incident" name="Incident"> 
     <table name="incident"></table> 
   </entity>  
   <!--  IncidentType  JPA Configurations -->  
-  <entity class="com.oreon.trkincidents.unusualoccurences.IncidentType" name="IncidentType"> 
+  <entity class="com.oreon.trkincidents.incidents.IncidentType" name="IncidentType"> 
     <table name="incidenttype"></table> 
   </entity>  
   <!--  FormField  JPA Configurations -->  
-  <entity class="com.oreon.trkincidents.unusualoccurences.FormField" name="FormField"> 
+  <entity class="com.oreon.trkincidents.incidents.FormField" name="FormField"> 
     <table name="formfield"></table> 
   </entity>  
   <!--  FormFieldInstance  JPA Configurations -->  
-  <entity class="com.oreon.trkincidents.unusualoccurences.FormFieldInstance" name="FormFieldInstance"> 
+  <entity class="com.oreon.trkincidents.incidents.FormFieldInstance" name="FormFieldInstance"> 
     <table name="formfieldinstance"></table> 
+  </entity>  
+  <!--  Drug  JPA Configurations -->  
+  <entity class="com.oreon.trkincidents.incidents.Drug" name="Drug"> 
+    <table name="drug"></table> 
+  </entity>  
+  <!--  Severity  JPA Configurations -->  
+  <entity class="com.oreon.trkincidents.incidents.Severity" name="Severity"> 
+    <table name="severity"></table> 
+  </entity>  
+  <!--  Proccedure  JPA Configurations -->  
+  <entity class="com.oreon.trkincidents.incidents.Proccedure" name="Proccedure"> 
+    <table name="proccedure"></table> 
+  </entity>  
+  <!--  ReferenceField  JPA Configurations -->  
+  <entity class="com.oreon.trkincidents.incidents.ReferenceField" name="ReferenceField"> 
+    <table name="referencefield"></table> 
   </entity>  
   <!--  Employee  JPA Configurations -->  
   <entity class="com.oreon.trkincidents.employee.Employee" name="Employee"> 
@@ -75,22 +91,6 @@
   <!--  PrescribedTest  JPA Configurations -->  
   <entity class="com.oreon.trkincidents.appointment.PrescribedTest" name="PrescribedTest"> 
     <table name="prescribedtest"></table> 
-  </entity>  
-  <!--  BaseIncident  JPA Configurations -->  
-  <entity class="com.oreon.trkincidents.incidents.BaseIncident" name="BaseIncident"> 
-    <table name="baseincident"></table> 
-  </entity>  
-  <!--  Severity  JPA Configurations -->  
-  <entity class="com.oreon.trkincidents.incidents.Severity" name="Severity"> 
-    <table name="severity"></table> 
-  </entity>  
-  <!--  PatientIncident  JPA Configurations -->  
-  <entity class="com.oreon.trkincidents.incidents.PatientIncident" name="PatientIncident"> 
-    <table name="patientincident"></table> 
-  </entity>  
-  <!--  PrivacyBreech  JPA Configurations -->  
-  <entity class="com.oreon.trkincidents.incidents.PrivacyBreech" name="PrivacyBreech"> 
-    <table name="privacybreech"></table> 
   </entity>  
   <!--  CustomForm  JPA Configurations -->  
   <entity class="com.oreon.trkincidents.customforms.CustomForm" name="CustomForm"> 

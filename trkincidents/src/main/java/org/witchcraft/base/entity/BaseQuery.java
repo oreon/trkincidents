@@ -22,6 +22,7 @@ import org.apache.lucene.queryParser.MultiFieldQueryParser;
 import org.apache.lucene.queryParser.ParseException;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.jpa.FullTextQuery;
+import org.jboss.seam.annotations.Begin;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.web.RequestParameter;
@@ -29,33 +30,26 @@ import org.jboss.seam.framework.EntityQuery;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.persistence.PersistenceProvider;
 
-
-
-
-
-
-
 @SuppressWarnings("serial")
-public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializable> extends
-		EntityQuery<E> {
+public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializable>
+		extends EntityQuery<E> {
 
 	private Class<E> entityClass = null;
 
 	protected E instance;
-	
 
 	@Logger
 	protected Log log;
-	
+
 	private Range<java.util.Date> dateCreatedRange = new Range<Date>();
 
 	private List<E> entityList;
-	
+
 	@RequestParameter
 	protected String searchText;
-	
+
 	public static final int DEFAULT_PAGES_FOR_PAGINATION = 25;
-	
+
 	@In
 	// @PersistenceContext(type=EXTENDED)
 	protected FullTextEntityManager entityManager;
@@ -67,7 +61,7 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 	public void setSearchText(String searchText) {
 		this.searchText = searchText;
 	}
-	
+
 	public abstract String[] getEntityRestrictions();
 
 	public BaseQuery() {
@@ -76,9 +70,20 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 		setMaxResults(DEFAULT_PAGES_FOR_PAGINATION);
 	}
 
-	protected  String getql(){
+	protected String getql() {
 		String simpleEntityName = getSimpleEntityName().toLowerCase();
-		return "SELECT " + simpleEntityName + " FROM  " + getEntityName() + " " + simpleEntityName;
+		return "SELECT " + simpleEntityName + " FROM  " + getEntityName() + " "
+				+ simpleEntityName;
+	}
+
+	protected String textToSearch;
+
+	public String getTextToSearch() {
+		return textToSearch;
+	}
+
+	public void setTextToSearch(String textToSearch) {
+		this.textToSearch = textToSearch;
 	}
 
 	/**
@@ -231,8 +236,6 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 		}
 	}
 
-	
-
 	public Range<java.util.Date> getDateCreatedRange() {
 		return dateCreatedRange;
 	}
@@ -240,9 +243,9 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 	public void setDateCreatedRange(Range<java.util.Date> dateCreatedRange) {
 		this.dateCreatedRange = dateCreatedRange;
 	}
-	
-	
+
 	@SuppressWarnings("unchecked")
+	@Begin(join=true)
 	public String textSearch() {
 
 		BusinessEntity businessEntity = null;
@@ -273,7 +276,9 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 
 		try {
 			if(searchText == null)
-				searchText = "this";
+				searchText = textToSearch;
+			if(searchText == null)
+				searchText = "";
 			query = parser.parse(searchText);
 		} catch (ParseException e) {
 			throw new RuntimeException(e);
@@ -284,11 +289,10 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 		List<E> result = ftq.getResultList();
 		
 		setEntityList(result);
-		return "success";
+		return "textSearch";
 	}
-	
-	
-	//@Override
+
+	// @Override
 	public void setEntityList(List<E> list) {
 		this.entityList = list;
 	}
@@ -296,33 +300,38 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 	public List<E> getEntityList() {
 		return entityList;
 	}
-	
-	
-	/** do autocomplete based on lucene/hibernate text search
+
+	/**
+	 * do autocomplete based on lucene/hibernate text search
+	 * 
 	 * @param suggest
 	 * @return
 	 */
 	public List<E> autocomplete(Object suggest) {
 
-        String input = (String)suggest;
+		String input = (String) suggest;
 
-        ArrayList<E> result = new ArrayList<E>();
-        //departmentListQuery.getDepartment().setName(input);
-       
-        Iterator<E> iterator = getResultList().iterator();
+		ArrayList<E> result = new ArrayList<E>();
+		// departmentListQuery.getDepartment().setName(input);
 
-        while (iterator.hasNext()) {
-            E elem =  iterator.next();
-            String elemProperty = elem.getDisplayName();
-            if ((elemProperty != null && elemProperty.toLowerCase().indexOf(input.toLowerCase()) == 0) || "".equals(input)){
-                result.add(elem);
-            }
-        }
+		Iterator<E> iterator = getResultList().iterator();
 
-        return result;
-    }
-	
-	/** Do autocomplete based on database fields 
+		while (iterator.hasNext()) {
+			E elem = iterator.next();
+			String elemProperty = elem.getDisplayName();
+			if ((elemProperty != null && elemProperty.toLowerCase().indexOf(
+					input.toLowerCase()) == 0)
+					|| "".equals(input)) {
+				result.add(elem);
+			}
+		}
+
+		return result;
+	}
+
+	/**
+	 * Do autocomplete based on database fields
+	 * 
 	 * @param suggest
 	 * @return
 	 */
@@ -333,16 +342,18 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 		return getResultList();
 	}
 
-	/** This method should be overridden by derived classes to provide fileds that will be used for autocomplete
+	/**
+	 * This method should be overridden by derived classes to provide fileds
+	 * that will be used for autocomplete
+	 * 
 	 * @param input
 	 */
 	protected void setupForAutoComplete(String input) {
-		
+
 	}
-	
-	
+
 	/**
-	 *  set the query to be usable by hibernate second level cache
+	 * set the query to be usable by hibernate second level cache
 	 */
 	@SuppressWarnings("unchecked")
 	protected void setQueryCacheable() {
@@ -350,7 +361,7 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 		region.put("name=org.hibernate.cacheable", "value=true");
 		this.setHints(region);
 	}
-	
+
 	protected void downloadAttachment(byte[] bytes) {
 		FacesContext context = FacesContext.getCurrentInstance();
 		HttpServletResponse response = (HttpServletResponse) context
@@ -370,27 +381,26 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 			log.error("\nFailure : " + e.toString() + "\n");
 		}
 	}
-	
-	public void exportToCsv(){
+
+	public void exportToCsv() {
 		int originalMaxResults = getMaxResults();
 		setMaxResults(50000);
 		List<E> results = getResultList();
-		
+
 		StringBuilder builder = new StringBuilder();
 		builder.append("Id,");
 		builder.append("displayName");
 		builder.append("\r\n");
-		
+
 		for (E e : results) {
 			builder.append(e.getId() + ",");
 			builder.append(e.getDisplayName() + ",");
 			builder.append("\r\n");
 		}
-		
+
 		setMaxResults(originalMaxResults);
 		downloadAttachment(builder.toString().getBytes());
-		
+
 	}
-	
-	
+
 }

@@ -58,8 +58,6 @@ public abstract class DocumentListQueryBase extends BaseQuery<Document, Long> {
 
 			"document.patient.id = #{documentList.document.patient.id}",
 
-			"document.baseIncident.id = #{documentList.document.baseIncident.id}",
-
 			"document.dateCreated <= #{documentList.dateCreatedRange.end}",
 			"document.dateCreated >= #{documentList.dateCreatedRange.begin}",};
 

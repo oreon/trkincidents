@@ -17,8 +17,12 @@
       <h:outputText value="#{msg.encounter_notes}  " rendered="#{s:hasPermission('notes', 'encounterEdit')}"/>  
       <br/>  
       <h:inputText id="notes" value="#{encounterList.encounter.notes}"/> 
-    </h:panelGroup>  
-    <rich:calendar id="from" value="#{encounterList.dateCreatedRange.begin}"/>  
-    <rich:calendar id="to" value="#{encounterList.dateCreatedRange.end}"/> 
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
+    <rich:calendar id="from" value="#{severityList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{severityList.dateCreatedRange.end}"/> 
   </h:panelGrid> 
 </ui:composition>

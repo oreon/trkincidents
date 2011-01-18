@@ -35,8 +35,12 @@
       <h:outputText value="#{msg.appointment_remarks}  " rendered="#{s:hasPermission('remarks', 'appointmentEdit')}"/>  
       <br/>  
       <h:inputText id="remarks" value="#{appointmentList.appointment.remarks}"/> 
-    </h:panelGroup>  
-    <rich:calendar id="from" value="#{appointmentList.dateCreatedRange.begin}"/>  
-    <rich:calendar id="to" value="#{appointmentList.dateCreatedRange.end}"/> 
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
+    <rich:calendar id="from" value="#{severityList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{severityList.dateCreatedRange.end}"/> 
   </h:panelGrid> 
 </ui:composition>

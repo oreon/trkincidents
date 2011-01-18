@@ -30,15 +30,6 @@
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <h:message styleClass="error errors" for="patient" rendered="#{s:hasPermission('patient', 'documentEdit')}"/> 
-      </h:panelGroup>  
-      <h:panelGroup> 
-        <h:outputText value="#{msg.document_baseIncident}  " rendered="#{s:hasPermission('baseIncident', 'documentEdit')}"/>  
-        <br/>  
-        <h:selectOneMenu id="baseIncident" value="#{documentAction.document.baseIncident}"> 
-          <s:selectItems value="#{baseIncidentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
-          <s:convertEntity/> 
-        </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="baseIncident" rendered="#{s:hasPermission('baseIncident', 'documentEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

@@ -6,13 +6,12 @@ import javax.persistence.Query;
 import org.jboss.seam.security.Identity;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import org.witchcraft.seam.action.BaseAction;
 
 import com.oreon.trkincidents.customforms.FieldType;
 import com.oreon.trkincidents.employee.Department;
 import com.oreon.trkincidents.employee.Employee;
-import com.oreon.trkincidents.unusualoccurences.FormField;
-import com.oreon.trkincidents.unusualoccurences.IncidentType;
+import com.oreon.trkincidents.incidents.FormField;
+import com.oreon.trkincidents.incidents.IncidentType;
 import com.oreon.trkincidents.users.Role;
 import com.oreon.trkincidents.users.User;
 
@@ -23,10 +22,7 @@ public class AuthenticatorTest extends BaseTest<User> {
 		super.init();
 	}
 
-	@Override
-	public BaseAction<User> getAction() {
-		return null;
-	}
+	
 
 	@Test(dependsOnMethods = { "testRegisterAction" })
 	public void validateAuthenticationBadUser() throws Exception {
@@ -73,7 +69,27 @@ public class AuthenticatorTest extends BaseTest<User> {
 		// em.getTransaction().commit();
 		em.close();
 	}
-
+	
+	@Test
+	public void testCreateUser() throws Exception {
+	
+		new ComponentTest() {
+			
+			@Override
+			protected void testComponents() throws Exception {
+				/*
+				UserAction useraction = (UserAction) Component.getInstance("userAction");
+				useraction.setId(2L);
+				//useraction.getEntityManager().getTransaction().begin();
+				useraction.getInstance().setUserName("sss");
+				useraction.save();
+				useraction.getEntityManager().getTransaction().commit();*/
+			}
+			
+		}.run();
+	}
+	
+	
 	private User createUserAndRole(String username, String password, String role) {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		em.getTransaction().begin();
@@ -131,6 +147,14 @@ public class AuthenticatorTest extends BaseTest<User> {
 		
 		em.getTransaction().commit();
 		return user;
+	}
+
+
+
+	@Override
+	public Object getAction() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

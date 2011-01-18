@@ -17,8 +17,12 @@
       <h:outputText value="#{msg.history_history}  " rendered="#{s:hasPermission('history', 'historyEdit')}"/>  
       <br/>  
       <h:inputText id="history" value="#{historyList.history.history}"/> 
-    </h:panelGroup>  
-    <rich:calendar id="from" value="#{historyList.dateCreatedRange.begin}"/>  
-    <rich:calendar id="to" value="#{historyList.dateCreatedRange.end}"/> 
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
+    <rich:calendar id="from" value="#{severityList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{severityList.dateCreatedRange.end}"/> 
   </h:panelGrid> 
 </ui:composition>

@@ -19,36 +19,44 @@
     <br/>  
     <rich:tabPanel> 
       <rich:tab label="Employees" icon="/images/icons/bricks.png"> 
+        <c:set var="modalId" value="DepartmentModalPanel-employees"/>  
         <ui:include src="/admin/entities/employee/employee/listEmployeeComponent.xhtml"> 
-          <ui:param name="records" value="#{employeeList.getEmployeesByDepartment(departmentAction.instance)}"/> 
+          <ui:param name="records" value="#{employeeList.getEmployeesByDepartment(departmentAction.instance)}"/>  
+          <ui:param name="modalId" value="${modalId}"/> 
         </ui:include>  
         <a:form> 
           <s:button value="Create New" view="/admin/entities/employee/employee/editEmployee.xhtml"> 
             <f:param name="departmentId" value="#{departmentAction.instance.id}"/>  
             <f:param name="employeeId" value="0"/> 
           </s:button>  
-          <a:commandButton oncomplete="Richfaces.showModalPanel('EmployeeModalPanel',{});" value="Quick Create"> 
+          <a:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"> 
             <a:actionparam name="employeeId" assignTo="#{employeeAction.employeeId}" value="0"/>  
             <a:actionparam name="departmentId" assignTo="#{employeeAction.departmentId}" value="#{departmentAction.instance.id}"/> 
           </a:commandButton> 
         </a:form>  
-        <ui:include src="/admin/entities/employee/employee/modalDlgEmployeeComponent.xhtml"/> 
+        <ui:include src="/admin/entities/employee/employee/modalDlgEmployeeComponent.xhtml"> 
+          <ui:param name="modalId" value="${modalId}"/> 
+        </ui:include> 
       </rich:tab>  
       <rich:tab label="Incidents" icon="/images/icons/bricks.png"> 
-        <ui:include src="/admin/entities/unusualoccurences/incident/listIncidentComponent.xhtml"> 
-          <ui:param name="records" value="#{incidentList.getIncidentsByDepartment(departmentAction.instance)}"/> 
+        <c:set var="modalId" value="DepartmentModalPanel-incidents"/>  
+        <ui:include src="/admin/entities/incidents/incident/listIncidentComponent.xhtml"> 
+          <ui:param name="records" value="#{incidentList.getIncidentsByDepartment(departmentAction.instance)}"/>  
+          <ui:param name="modalId" value="${modalId}"/> 
         </ui:include>  
         <a:form> 
-          <s:button value="Create New" view="/admin/entities/unusualoccurences/incident/editIncident.xhtml"> 
+          <s:button value="Create New" view="/admin/entities/incidents/incident/editIncident.xhtml"> 
             <f:param name="departmentId" value="#{departmentAction.instance.id}"/>  
             <f:param name="incidentId" value="0"/> 
           </s:button>  
-          <a:commandButton oncomplete="Richfaces.showModalPanel('IncidentModalPanel',{});" value="Quick Create"> 
+          <a:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"> 
             <a:actionparam name="incidentId" assignTo="#{incidentAction.incidentId}" value="0"/>  
             <a:actionparam name="departmentId" assignTo="#{incidentAction.departmentId}" value="#{departmentAction.instance.id}"/> 
           </a:commandButton> 
         </a:form>  
-        <ui:include src="/admin/entities/unusualoccurences/incident/modalDlgIncidentComponent.xhtml"/> 
+        <ui:include src="/admin/entities/incidents/incident/modalDlgIncidentComponent.xhtml"> 
+          <ui:param name="modalId" value="${modalId}"/> 
+        </ui:include> 
       </rich:tab> 
     </rich:tabPanel>  
     <br/>  

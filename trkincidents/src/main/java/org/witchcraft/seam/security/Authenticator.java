@@ -2,7 +2,6 @@ package org.witchcraft.seam.security;
 
 import java.util.Set;
 
-import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 

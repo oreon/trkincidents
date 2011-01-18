@@ -43,42 +43,6 @@
       </rich:column>  
       <rich:column> 
         <f:facet name="header"> 
-          <h:outputText value="#{msg.person_dateOfBirth}"/> 
-        </f:facet>  
-        <h:outputText value="#{_log.entity.dateOfBirth}"/> 
-      </rich:column>  
-      <rich:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.person_gender}"/> 
-        </f:facet>  
-        <h:outputText value="#{_log.entity.gender}"/> 
-      </rich:column>  
-      <rich:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.contactDetails_primaryPhone}"/> 
-        </f:facet>  
-        <h:outputText value="#{_log.entity.contactDetails.primaryPhone}"/> 
-      </rich:column>  
-      <rich:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.contactDetails_secondaryPhone}"/> 
-        </f:facet>  
-        <h:outputText value="#{_log.entity.contactDetails.secondaryPhone}"/> 
-      </rich:column>  
-      <rich:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.contactDetails_email}"/> 
-        </f:facet>  
-        <h:outputText value="#{_log.entity.contactDetails.email}"/> 
-      </rich:column>  
-      <rich:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.person_age}"/> 
-        </f:facet>  
-        <h:outputText value="#{_log.entity.contactDetails.age}"/> 
-      </rich:column>  
-      <rich:column> 
-        <f:facet name="header"> 
           <h:outputText value="#{msg.address_streetAddress}"/> 
         </f:facet>  
         <h:outputText value="#{_log.entity.address.streetAddress}"/> 
@@ -106,6 +70,24 @@
           <h:outputText value="#{msg.patient_healthNumber}"/> 
         </f:facet>  
         <h:outputText value="#{_log.entity.address.healthNumber}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.patient_dateOfBirth}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.address.dateOfBirth}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.patient_gender}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.address.gender}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.patient_age}"/> 
+        </f:facet>  
+        <h:outputText value="#{_log.entity.address.age}"/> 
       </rich:column> 
     </rich:dataTable> 
   </h:form> 

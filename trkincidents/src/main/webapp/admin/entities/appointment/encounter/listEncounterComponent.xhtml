@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="EncounterModalPanel"/> 
+  </c:if>  
   <rich:panel> 
     <f:facet name="header">Encounter Search Results (#{empty records ? 0 : (encounterList.paginated ? encounterList.resultCount : records.size)})</f:facet>  
     <a:form> 
@@ -84,7 +87,7 @@
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
-          <a:commandLink action="#{encounterAction.setEncounterIdForModalDlg(_encounter.id)}" rendered="#{s:hasPermission(_encounter, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('EncounterModalPanel',{});"> 
+          <a:commandLink action="#{encounterAction.setEncounterIdForModalDlg(_encounter.id)}" rendered="#{s:hasPermission(_encounter, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});"> 
             <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
             <s:conversationPropagation type="join"/> 
           </a:commandLink> 

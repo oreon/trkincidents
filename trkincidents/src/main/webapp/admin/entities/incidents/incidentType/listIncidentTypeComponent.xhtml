@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="IncidentTypeModalPanel"/> 
+  </c:if>  
+  <rich:panel> 
+    <f:facet name="header">IncidentType Search Results (#{empty records ? 0 : (incidentTypeList.paginated ? incidentTypeList.resultCount : records.size)})</f:facet>  
+    <a:form> 
+      <rich:dataTable var="_incidentType" value="#{records}" id="incidentTypeList" rowClasses="odd, even" styleClass="dataTable"> 
+        <h:column rendered="#{s:hasPermission('id', 'incidentTypeView' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{incidentTypeList}"/>  
+              <ui:param name="propertyLabel" value="Id"/>  
+              <ui:param name="propertyPath" value="incidentType.id"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_incidentType.id}"></h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('name', 'incidentTypeView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{incidentTypeList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.incidentType_name}"/>  
+              <ui:param name="propertyPath" value="incidentType.name"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_incidentType.name}"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('creationDate', 'incidentTypeView' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{incidentTypeList}"/>  
+              <ui:param name="propertyLabel" value="Creation Date"/>  
+              <ui:param name="propertyPath" value="incidentType.dateCreated"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_incidentType.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_incidentType', 'view')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/incidents/incidentType/viewIncidentType.xhtml" rendered="#{s:hasPermission(_incidentType, 'view')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="incidentTypeId" value="#{_incidentType.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_incidentType', 'edit')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/incidents/incidentType/editIncidentType.xhtml" rendered="#{s:hasPermission(_incidentType, 'edit')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="incidentTypeId" value="#{_incidentType.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('incidentTypeAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <s:link action="#{incidentTypeAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_incidentType.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="idToArchive" value="#{_incidentType.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <a:commandLink action="#{incidentTypeAction.setIncidentTypeIdForModalDlg(_incidentType.id)}" rendered="#{s:hasPermission(_incidentType, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});"> 
+            <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
+            <s:conversationPropagation type="join"/> 
+          </a:commandLink> 
+        </h:column> 
+      </rich:dataTable> 
+    </a:form> 
+  </rich:panel>  
+  <div class="tableControl"> 
+    <s:link view="#{request.servletPath}" rendered="#{incidentTypeList.previousExists}" value="#{messages.left}#{messages.left} First Page"> 
+      <f:param name="firstResult" value="0"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{incidentTypeList.previousExists}" value="#{messages.left} Previous Page"> 
+      <f:param name="firstResult" value="#{incidentTypeList.previousFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{incidentTypeList.nextExists}" value="Next Page #{messages.right}"> 
+      <f:param name="firstResult" value="#{incidentTypeList.nextFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{incidentTypeList.nextExists}" value="Last Page #{messages.right}#{messages.right}"> 
+      <f:param name="firstResult" value="#{incidentTypeList.lastFirstResult}"/> 
+    </s:link> 
+  </div> 
+</ui:composition>

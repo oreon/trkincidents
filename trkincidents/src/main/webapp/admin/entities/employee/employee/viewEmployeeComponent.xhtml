@@ -1,42 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <h:panelGroup> 
-    <s:validateAll> 
-      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{employeeAction.load(employeeId )  }"> 
-        <f:facet name="header"> 
-          <h:outputText value="Employee "/> 
-        </f:facet>  
-        <h:outputText value="#{msg.id}"/>  
-        <h:outputText value="#{employeeAction.employee.id}"/>  
-        <h:outputText value="#{msg.contactDetails_primaryPhone}  " rendered="#{s:hasPermission('primaryPhone', 'employeeView')}"/>  
-        <h:outputText id="contactDetails_primaryPhone#{entityId}" rendered="#{s:hasPermission('primaryPhone', 'employeeView')}" value="#{employeeAction.employee.contactDetails.primaryPhone}"/>  
-        <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{s:hasPermission('secondaryPhone', 'employeeView')}"/>  
-        <h:outputText id="contactDetails_secondaryPhone#{entityId}" rendered="#{s:hasPermission('secondaryPhone', 'employeeView')}" value="#{employeeAction.employee.contactDetails.secondaryPhone}"/>  
-        <h:outputText value="#{msg.contactDetails_email}  " rendered="#{s:hasPermission('email', 'employeeView')}"/>  
-        <h:outputText id="contactDetails_email#{entityId}" rendered="#{s:hasPermission('email', 'employeeView')}" value="#{employeeAction.employee.contactDetails.email}"/>  
-        <h:outputText value="#{msg.user_userName}  " rendered="#{s:hasPermission('userName', 'employeeView')}"/>  
-        <h:outputText id="user_userName#{entityId}" rendered="#{s:hasPermission('userName', 'employeeView')}" value="#{employeeAction.employee.user.userName}"/>  
-        <h:outputText value="#{msg.user_enabled}  " rendered="#{s:hasPermission('enabled', 'employeeView')}"/>  
-        <h:outputText id="user_enabled#{entityId}" rendered="#{s:hasPermission('enabled', 'employeeView')}" value="#{employeeAction.employee.user.enabled}"/>  
-        <h:outputText value="#{msg.employee_department}  " rendered="#{s:hasPermission('department', 'employeeView')}"/>  
-        <s:link value="#{employeeAction.employee.department.displayName}" view="/admin/entities/employee/department/viewDepartment.xhtml" propagation="none"> 
-          <f:param name="departmentId" value="#{employeeAction.employee.department.id}"/>  
-          <f:param name="from" value="#{request.servletPath}"/> 
-        </s:link>  
-        <h:outputText value="#{msg.person_firstName}  " rendered="#{s:hasPermission('firstName', 'employeeView')}"/>  
-        <h:outputText id="firstName#{entityId}" rendered="#{s:hasPermission('firstName', 'employeeView')}" value="#{employeeAction.employee.firstName}"/>  
-        <h:outputText value="#{msg.person_lastName}  " rendered="#{s:hasPermission('lastName', 'employeeView')}"/>  
-        <h:outputText id="lastName#{entityId}" rendered="#{s:hasPermission('lastName', 'employeeView')}" value="#{employeeAction.employee.lastName}"/>  
-        <h:outputText value="#{msg.person_dateOfBirth}  " rendered="#{s:hasPermission('dateOfBirth', 'employeeView')}"/>  
-        <h:outputText id="dateOfBirth#{entityId}" rendered="#{s:hasPermission('dateOfBirth', 'employeeView')}" value="#{employeeAction.employee.dateOfBirth}"/>  
-        <h:outputText value="#{msg.person_gender}  " rendered="#{s:hasPermission('gender', 'employeeView')}"/>  
-        <h:outputText value="#{employeeAction.employee.gender}"/>  
-        <h:outputText value="#{msg.person_age}  " rendered="#{s:hasPermission('age', 'employeeView')}"/>  
-        <h:outputText id="age#{entityId}" rendered="#{s:hasPermission('age', 'employeeView')}" value="#{employeeAction.employee.age}"/>  
-        <h:outputText value="#{msg.employee_employeeNumber}  " rendered="#{s:hasPermission('employeeNumber', 'employeeView')}"/>  
-        <h:outputText id="employeeNumber#{entityId}" rendered="#{s:hasPermission('employeeNumber', 'employeeView')}" value="#{employeeAction.employee.employeeNumber}"/> 
-      </h:panelGrid> 
-    </s:validateAll> 
-  </h:panelGroup> 
+  <rich:panel> 
+    <f:facet name="header"> 
+      <h:outputText value="Employee "/> 
+    </f:facet>  
+    <h:panelGroup> 
+      <s:validateAll> 
+        <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{employeeAction.load(employeeId )  }"> 
+          <h:outputText value="#{msg.id}"/>  
+          <h:outputText value="#{employeeAction.employee.id}"/>  
+          <h:outputText value="#{msg.user_userName}  " rendered="#{s:hasPermission('userName', 'employeeView')}"/>  
+          <h:outputText id="user_userName#{entityId}" rendered="#{s:hasPermission('userName', 'employeeView')}" value="#{employeeAction.employee.user.userName}"/>  
+          <h:outputText value="#{msg.user_enabled}  " rendered="#{s:hasPermission('enabled', 'employeeView')}"/>  
+          <h:outputText id="user_enabled#{entityId}" rendered="#{s:hasPermission('enabled', 'employeeView')}" value="#{employeeAction.employee.user.enabled}"/>  
+          <h:outputText value="#{msg.user_email}  " rendered="#{s:hasPermission('email', 'employeeView')}"/>  
+          <h:outputText id="user_email#{entityId}" rendered="#{s:hasPermission('email', 'employeeView')}" value="#{employeeAction.employee.user.email}"/>  
+          <h:outputText value="#{msg.employee_department}  " rendered="#{s:hasPermission('department', 'employeeView')}"/>  
+          <s:link value="#{employeeAction.employee.department.displayName}" view="/admin/entities/employee/department/viewDepartment.xhtml" propagation="none"> 
+            <f:param name="departmentId" value="#{employeeAction.employee.department.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link>  
+          <h:outputText value="#{msg.contactDetails_primaryPhone}  " rendered="#{s:hasPermission('primaryPhone', 'employeeView')}"/>  
+          <h:outputText id="contactDetails_primaryPhone#{entityId}" rendered="#{s:hasPermission('primaryPhone', 'employeeView')}" value="#{employeeAction.employee.contactDetails.primaryPhone}"/>  
+          <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{s:hasPermission('secondaryPhone', 'employeeView')}"/>  
+          <h:outputText id="contactDetails_secondaryPhone#{entityId}" rendered="#{s:hasPermission('secondaryPhone', 'employeeView')}" value="#{employeeAction.employee.contactDetails.secondaryPhone}"/>  
+          <h:outputText value="#{msg.contactDetails_streetAddress}  " rendered="#{s:hasPermission('streetAddress', 'employeeView')}"/>  
+          <h:outputText id="contactDetails_streetAddress#{entityId}" rendered="#{s:hasPermission('streetAddress', 'employeeView')}" value="#{employeeAction.employee.contactDetails.streetAddress}"/>  
+          <h:outputText value="#{msg.contactDetails_city}  " rendered="#{s:hasPermission('city', 'employeeView')}"/>  
+          <h:outputText id="contactDetails_city#{entityId}" rendered="#{s:hasPermission('city', 'employeeView')}" value="#{employeeAction.employee.contactDetails.city}"/>  
+          <h:outputText value="#{msg.contactDetails_zip}  " rendered="#{s:hasPermission('zip', 'employeeView')}"/>  
+          <h:outputText id="contactDetails_zip#{entityId}" rendered="#{s:hasPermission('zip', 'employeeView')}" value="#{employeeAction.employee.contactDetails.zip}"/>  
+          <h:outputText value="#{msg.person_firstName}  " rendered="#{s:hasPermission('firstName', 'employeeView')}"/>  
+          <h:outputText id="firstName#{entityId}" rendered="#{s:hasPermission('firstName', 'employeeView')}" value="#{employeeAction.employee.firstName}"/>  
+          <h:outputText value="#{msg.person_lastName}  " rendered="#{s:hasPermission('lastName', 'employeeView')}"/>  
+          <h:outputText id="lastName#{entityId}" rendered="#{s:hasPermission('lastName', 'employeeView')}" value="#{employeeAction.employee.lastName}"/>  
+          <h:outputText value="#{msg.employee_employeeNumber}  " rendered="#{s:hasPermission('employeeNumber', 'employeeView')}"/>  
+          <h:outputText id="employeeNumber#{entityId}" rendered="#{s:hasPermission('employeeNumber', 'employeeView')}" value="#{employeeAction.employee.employeeNumber}"/> 
+        </h:panelGrid> 
+      </s:validateAll> 
+    </h:panelGroup> 
+  </rich:panel> 
 </ui:composition>

@@ -1,6 +1,7 @@
 package org.witchcraft.base.entity;
 
 import javax.persistence.EntityManager;
+import javax.persistence.FlushModeType;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
@@ -40,14 +41,19 @@ public class UniqueValidator implements Validator<Unique>, PropertyConstraint {
 		
 		boolean isEdit = action.getId() != null;
 		
+		
 		EntityManager entityManager = (EntityManager) Component.getInstance("entityManager");
-		entityManager.setFlushMode(javax.persistence.FlushModeType.COMMIT); 
+		//entityManager.setFlushMode(javax.persistence.FlushModeType.COMMIT); 
 		
 		Query query = entityManager.createQuery("select t from " + targetEntity
 				+ " t where t." + field + "  = :value" + (isEdit ? " and t.id != :id" : "") );
 		query.setParameter("value", value);
+		
+		query.setFlushMode(FlushModeType.COMMIT);
 		if(isEdit)
 			query.setParameter("id", action.getId());
+		
+		
 
 		try {
 			query.getSingleResult();

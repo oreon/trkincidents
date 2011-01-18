@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="EmployeeModalPanel"/> 
+  </c:if>  
   <rich:panel> 
     <f:facet name="header">Employee Search Results (#{empty records ? 0 : (employeeList.paginated ? employeeList.resultCount : records.size)})</f:facet>  
     <a:form> 
@@ -35,68 +38,6 @@
           </f:facet>  
           <h:outputText value="#{_employee.lastName}"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('dateOfBirth', 'employeeView'  )}"> 
-          <f:facet name="header"> 
-            <ui:include src="/layout/sort.xhtml"> 
-              <ui:param name="entityList" value="#{employeeList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.person_dateOfBirth}"/>  
-              <ui:param name="propertyPath" value="employee.dateOfBirth"/> 
-            </ui:include> 
-          </f:facet>  
-          <h:outputText value="#{_employee.dateOfBirth}"> 
-            <s:convertDateTime type="date" dateStyle="medium"/> 
-          </h:outputText> 
-        </h:column>  
-        <h:column rendered="#{s:hasPermission('gender', 'employeeView'  )}"> 
-          <f:facet name="header"> 
-            <ui:include src="/layout/sort.xhtml"> 
-              <ui:param name="entityList" value="#{employeeList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.person_gender}"/>  
-              <ui:param name="propertyPath" value="employee.gender"/> 
-            </ui:include> 
-          </f:facet>  
-          <h:outputText value="#{_employee.gender}"/> 
-        </h:column>  
-        <h:column rendered="#{s:hasPermission('primaryPhone', 'employeeView'  )}"> 
-          <f:facet name="header"> 
-            <ui:include src="/layout/sort.xhtml"> 
-              <ui:param name="entityList" value="#{employeeList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.contactDetails_primaryPhone}"/>  
-              <ui:param name="propertyPath" value="employee.contactDetails.primaryPhone"/> 
-            </ui:include> 
-          </f:facet>  
-          <h:outputText value="#{_employee.contactDetails.primaryPhone}"/> 
-        </h:column>  
-        <h:column rendered="#{s:hasPermission('secondaryPhone', 'employeeView'  )}"> 
-          <f:facet name="header"> 
-            <ui:include src="/layout/sort.xhtml"> 
-              <ui:param name="entityList" value="#{employeeList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.contactDetails_secondaryPhone}"/>  
-              <ui:param name="propertyPath" value="employee.contactDetails.secondaryPhone"/> 
-            </ui:include> 
-          </f:facet>  
-          <h:outputText value="#{_employee.contactDetails.secondaryPhone}"/> 
-        </h:column>  
-        <h:column rendered="#{s:hasPermission('email', 'employeeView'  )}"> 
-          <f:facet name="header"> 
-            <ui:include src="/layout/sort.xhtml"> 
-              <ui:param name="entityList" value="#{employeeList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.contactDetails_email}"/>  
-              <ui:param name="propertyPath" value="employee.contactDetails.email"/> 
-            </ui:include> 
-          </f:facet>  
-          <h:outputText value="#{_employee.contactDetails.email}"/> 
-        </h:column>  
-        <h:column rendered="#{s:hasPermission('age', 'employeeView'  )}"> 
-          <f:facet name="header"> 
-            <ui:include src="/layout/sort.xhtml"> 
-              <ui:param name="entityList" value="#{employeeList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.person_age}"/>  
-              <ui:param name="propertyPath" value="employee.age"/> 
-            </ui:include> 
-          </f:facet>  
-          <h:outputText value="#{_employee.age}"/> 
-        </h:column>  
         <h:column rendered="#{s:hasPermission('employeeNumber', 'employeeView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
@@ -127,6 +68,16 @@
           </f:facet>  
           <h:outputText value="#{_employee.user.enabled? msg.yes : msg.no }"/> 
         </h:column>  
+        <h:column rendered="#{s:hasPermission('email', 'employeeView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{employeeList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.user_email}"/>  
+              <ui:param name="propertyPath" value="employee.user.email"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_employee.user.email}"/> 
+        </h:column>  
         <h:column rendered="#{s:hasPermission('department', 'employeeView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
@@ -139,6 +90,56 @@
             <f:param name="departmentId" value="#{_employee.department.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('primaryPhone', 'employeeView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{employeeList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.contactDetails_primaryPhone}"/>  
+              <ui:param name="propertyPath" value="employee.contactDetails.primaryPhone"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_employee.contactDetails.primaryPhone}"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('secondaryPhone', 'employeeView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{employeeList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.contactDetails_secondaryPhone}"/>  
+              <ui:param name="propertyPath" value="employee.contactDetails.secondaryPhone"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_employee.contactDetails.secondaryPhone}"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('streetAddress', 'employeeView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{employeeList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.contactDetails_streetAddress}"/>  
+              <ui:param name="propertyPath" value="employee.contactDetails.streetAddress"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_employee.contactDetails.streetAddress}"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('city', 'employeeView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{employeeList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.contactDetails_city}"/>  
+              <ui:param name="propertyPath" value="employee.contactDetails.city"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_employee.contactDetails.city}"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('zip', 'employeeView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{employeeList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.contactDetails_zip}"/>  
+              <ui:param name="propertyPath" value="employee.contactDetails.zip"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_employee.contactDetails.zip}"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'employeeView' )}"> 
           <f:facet name="header"> 
@@ -183,7 +184,7 @@
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
-          <a:commandLink action="#{employeeAction.setEmployeeIdForModalDlg(_employee.id)}" rendered="#{s:hasPermission(_employee, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('EmployeeModalPanel',{});"> 
+          <a:commandLink action="#{employeeAction.setEmployeeIdForModalDlg(_employee.id)}" rendered="#{s:hasPermission(_employee, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});"> 
             <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
             <s:conversationPropagation type="join"/> 
           </a:commandLink> 

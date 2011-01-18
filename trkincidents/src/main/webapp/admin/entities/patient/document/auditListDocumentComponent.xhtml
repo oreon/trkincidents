@@ -55,15 +55,6 @@
           <f:param name="id" value="#{_entity.patient.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link> 
-      </rich:column>  
-      <rich:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.document_baseIncident}"/> 
-        </f:facet>  
-        <s:link value="#{_log.entity.baseIncident.displayName}" view="/admin/entities/incidents/baseIncident/viewBaseIncident.xhtml"> 
-          <f:param name="id" value="#{_entity.baseIncident.id}"/>  
-          <f:param name="from" value="#{request.servletPath}"/> 
-        </s:link> 
       </rich:column> 
     </rich:dataTable> 
   </h:form> 

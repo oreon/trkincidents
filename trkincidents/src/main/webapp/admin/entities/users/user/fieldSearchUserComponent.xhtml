@@ -28,7 +28,16 @@
         <f:selectItem itemLabel="--None--" itemValue=""/> 
       </h:selectOneMenu> 
     </h:panelGroup>  
-    <rich:calendar id="from" value="#{userList.dateCreatedRange.begin}"/>  
-    <rich:calendar id="to" value="#{userList.dateCreatedRange.end}"/> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.user_email} * " rendered="#{s:hasPermission('email', 'userEdit')}"/>  
+      <br/>  
+      <h:inputText id="email" value="#{userList.user.email}"/> 
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
+    <rich:calendar id="from" value="#{severityList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{severityList.dateCreatedRange.end}"/> 
   </h:panelGrid> 
 </ui:composition>
