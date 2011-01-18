@@ -23,7 +23,7 @@
         <textField evaluationTime="Group" evaluationGroup="Groupdepartment.name" bookmarkLevel="1"> 
           <reportElement mode="Opaque" x="0" y="5" width="360" height="15" backcolor="#e1e1f1"/>  
           <box leftPadding="10" bottomBorder="1Point"/>  
-          <textFieldExpression class="java.lang.String"> <![CDATA[department.name + "  " + String.valueOf($F{department.name})]]> </textFieldExpression>  
+          <textFieldExpression class="java.lang.String"> <![CDATA[String.valueOf($F{department.name})]]> </textFieldExpression>  
           <anchorNameExpression><![CDATA[String.valueOf($F{department.name})]]></anchorNameExpression> 
         </textField> 
       </band> 
@@ -50,7 +50,7 @@
         <textField evaluationTime="Group" evaluationGroup="GroupincidentType.name" bookmarkLevel="2"> 
           <reportElement mode="Opaque" x="0" y="5" width="360" height="15" backcolor="#e1e1d1"/>  
           <box leftPadding="10" bottomBorder="1Point"/>  
-          <textFieldExpression class="java.lang.String"> <![CDATA[incidentType.name + "  " + String.valueOf($F{incidentType.name})]]> </textFieldExpression>  
+          <textFieldExpression class="java.lang.String"> <![CDATA[String.valueOf($F{incidentType.name})]]> </textFieldExpression>  
           <anchorNameExpression><![CDATA[String.valueOf($F{incidentType.name})]]></anchorNameExpression> 
         </textField> 
       </band> 
