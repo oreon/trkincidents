@@ -55,26 +55,6 @@ public class Person extends BusinessEntity {
 	@Analyzer(definition = "customanalyzer")
 	protected String lastName;
 
-	protected Date dateOfBirth;
-
-	protected Gender gender;
-
-	@IndexedEmbedded
-	@AttributeOverrides({
-
-			@AttributeOverride(name = "primaryPhone", column = @Column(name = "contactDetails_primaryPhone")),
-
-			@AttributeOverride(name = "secondaryPhone", column = @Column(name = "contactDetails_secondaryPhone")),
-
-			@AttributeOverride(name = "email", column = @Column(name = "contactDetails_email"))
-
-	})
-	protected ContactDetails contactDetails = new ContactDetails();
-
-	@Column(name = "age", unique = false)
-	@Transient
-	protected Integer age;
-
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
@@ -89,38 +69,6 @@ public class Person extends BusinessEntity {
 
 	public String getLastName() {
 		return lastName;
-	}
-
-	public void setDateOfBirth(Date dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
-	}
-
-	public Date getDateOfBirth() {
-		return dateOfBirth;
-	}
-
-	public void setGender(Gender gender) {
-		this.gender = gender;
-	}
-
-	public Gender getGender() {
-		return gender;
-	}
-
-	public void setContactDetails(ContactDetails contactDetails) {
-		this.contactDetails = contactDetails;
-	}
-
-	public ContactDetails getContactDetails() {
-		return contactDetails;
-	}
-
-	public void setAge(Integer age) {
-		this.age = age;
-	}
-
-	public Integer getAge() {
-		return DateUtils.calcAge(dateOfBirth);
 	}
 
 	@Transient
@@ -143,12 +91,6 @@ public class Person extends BusinessEntity {
 		listSearchableFields.add("firstName");
 
 		listSearchableFields.add("lastName");
-
-		listSearchableFields.add("contactDetails.primaryPhone");
-
-		listSearchableFields.add("contactDetails.secondaryPhone");
-
-		listSearchableFields.add("contactDetails.email");
 
 		return listSearchableFields;
 	}

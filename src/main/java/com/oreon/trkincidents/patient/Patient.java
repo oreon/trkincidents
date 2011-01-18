@@ -67,9 +67,11 @@ public class Patient extends com.oreon.trkincidents.patient.Person
 	})
 	protected Address address = new Address();
 
-	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinTable(name = "patients_incidents", joinColumns = @JoinColumn(name = "patients_ID"), inverseJoinColumns = @JoinColumn(name = "incidents_ID"))
-	private Set<com.oreon.trkincidents.unusualoccurences.Incident> incidents = new HashSet<com.oreon.trkincidents.unusualoccurences.Incident>();
+	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "patient_ID", nullable = true)
+	@OrderBy("dateCreated DESC")
+	@IndexedEmbedded
+	private Set<com.oreon.trkincidents.incidents.Incident> incidents = new HashSet<com.oreon.trkincidents.incidents.Incident>();
 
 	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "patient_ID", nullable = true)
@@ -81,11 +83,13 @@ public class Patient extends com.oreon.trkincidents.patient.Person
 	@Analyzer(definition = "customanalyzer")
 	protected String healthNumber;
 
-	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "patient_ID", nullable = true)
-	@OrderBy("dateCreated DESC")
-	@IndexedEmbedded
-	private Set<com.oreon.trkincidents.incidents.PatientIncident> patientIncidents = new HashSet<com.oreon.trkincidents.incidents.PatientIncident>();
+	protected Date dateOfBirth;
+
+	protected Gender gender;
+
+	@Column(name = "age", unique = false)
+	@Transient
+	protected Integer age;
 
 	public void setAddress(Address address) {
 		this.address = address;
@@ -96,11 +100,11 @@ public class Patient extends com.oreon.trkincidents.patient.Person
 	}
 
 	public void setIncidents(
-			Set<com.oreon.trkincidents.unusualoccurences.Incident> incidents) {
+			Set<com.oreon.trkincidents.incidents.Incident> incidents) {
 		this.incidents = incidents;
 	}
 
-	public Set<com.oreon.trkincidents.unusualoccurences.Incident> getIncidents() {
+	public Set<com.oreon.trkincidents.incidents.Incident> getIncidents() {
 		return incidents;
 	}
 
@@ -120,13 +124,28 @@ public class Patient extends com.oreon.trkincidents.patient.Person
 		return healthNumber;
 	}
 
-	public void setPatientIncidents(
-			Set<com.oreon.trkincidents.incidents.PatientIncident> patientIncidents) {
-		this.patientIncidents = patientIncidents;
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
 	}
 
-	public Set<com.oreon.trkincidents.incidents.PatientIncident> getPatientIncidents() {
-		return patientIncidents;
+	public Date getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setGender(Gender gender) {
+		this.gender = gender;
+	}
+
+	public Gender getGender() {
+		return gender;
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
+	}
+
+	public Integer getAge() {
+		return DateUtils.calcAge(dateOfBirth);
 	}
 
 	@Transient

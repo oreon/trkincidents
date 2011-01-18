@@ -43,15 +43,27 @@
       </rich:column>  
       <rich:column> 
         <f:facet name="header"> 
-          <h:outputText value="#{msg.person_dateOfBirth}"/> 
+          <h:outputText value="#{msg.employee_employeeNumber}"/> 
         </f:facet>  
-        <h:outputText value="#{_log.entity.dateOfBirth}"/> 
+        <h:outputText value="#{_log.entity.employeeNumber}"/> 
       </rich:column>  
       <rich:column> 
         <f:facet name="header"> 
-          <h:outputText value="#{msg.person_gender}"/> 
+          <h:outputText value="#{msg.employee_user}"/> 
         </f:facet>  
-        <h:outputText value="#{_log.entity.gender}"/> 
+        <s:link value="#{_log.entity.user.displayName}" view="/admin/entities/users/user/viewUser.xhtml"> 
+          <f:param name="id" value="#{_entity.user.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.employee_department}"/> 
+        </f:facet>  
+        <s:link value="#{_log.entity.department.displayName}" view="/admin/entities/employee/department/viewDepartment.xhtml"> 
+          <f:param name="id" value="#{_entity.department.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
       </rich:column>  
       <rich:column> 
         <f:facet name="header"> 
@@ -67,39 +79,21 @@
       </rich:column>  
       <rich:column> 
         <f:facet name="header"> 
-          <h:outputText value="#{msg.contactDetails_email}"/> 
+          <h:outputText value="#{msg.contactDetails_streetAddress}"/> 
         </f:facet>  
-        <h:outputText value="#{_log.entity.contactDetails.email}"/> 
+        <h:outputText value="#{_log.entity.contactDetails.streetAddress}"/> 
       </rich:column>  
       <rich:column> 
         <f:facet name="header"> 
-          <h:outputText value="#{msg.person_age}"/> 
+          <h:outputText value="#{msg.contactDetails_city}"/> 
         </f:facet>  
-        <h:outputText value="#{_log.entity.contactDetails.age}"/> 
+        <h:outputText value="#{_log.entity.contactDetails.city}"/> 
       </rich:column>  
       <rich:column> 
         <f:facet name="header"> 
-          <h:outputText value="#{msg.employee_employeeNumber}"/> 
+          <h:outputText value="#{msg.contactDetails_zip}"/> 
         </f:facet>  
-        <h:outputText value="#{_log.entity.contactDetails.employeeNumber}"/> 
-      </rich:column>  
-      <rich:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.employee_user}"/> 
-        </f:facet>  
-        <s:link value="#{_log.entity.contactDetails.user.displayName}" view="/admin/entities/users/user/viewUser.xhtml"> 
-          <f:param name="id" value="#{_entity.contactDetails.user.id}"/>  
-          <f:param name="from" value="#{request.servletPath}"/> 
-        </s:link> 
-      </rich:column>  
-      <rich:column> 
-        <f:facet name="header"> 
-          <h:outputText value="#{msg.employee_department}"/> 
-        </f:facet>  
-        <s:link value="#{_log.entity.contactDetails.department.displayName}" view="/admin/entities/employee/department/viewDepartment.xhtml"> 
-          <f:param name="id" value="#{_entity.contactDetails.department.id}"/>  
-          <f:param name="from" value="#{request.servletPath}"/> 
-        </s:link> 
+        <h:outputText value="#{_log.entity.contactDetails.zip}"/> 
       </rich:column> 
     </rich:dataTable> 
   </h:form> 

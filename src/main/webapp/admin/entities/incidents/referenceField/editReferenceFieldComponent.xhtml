@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <rich:panel> 
+    <f:facet name="header"> 
+      <h:outputText value="ReferenceField "/> 
+    </f:facet>  
+    <h:panelGroup> 
+      <s:validateAll> 
+        <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{referenceFieldAction.load(referenceFieldId )  }"> 
+          <h:outputText value="#{msg.referenceField_incidentType}  " rendered="#{s:hasPermission('incidentType', 'referenceFieldEdit')}"/>  
+          <h:selectOneMenu id="incidentType" label="#{msg.referenceField_incidentType}" value="#{referenceFieldAction.referenceField.incidentType}" required="true" rendered="#{s:hasPermission('incidentType', 'referenceFieldEdit')}"> 
+            <s:selectItems value="#{incidentTypeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu>  
+          <h:message styleClass="error errors" for="incidentType" rendered="#{s:hasPermission('incidentType', 'referenceFieldEdit')}"/>  
+          <h:outputText value="#{msg.referenceField_references}  " rendered="#{s:hasPermission('references', 'referenceFieldEdit')}"/>  
+          <h:selectOneMenu id="references" rendered="#{s:hasPermission('references', 'referenceFieldEdit')}" value="#{referenceFieldAction.referenceField.references}" required="false" label="#{msg.referenceField_references}"> 
+            <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+            <f:selectItem itemValue="Patient" itemLabel="Patient"/>  
+            <f:selectItem itemValue="Drug" itemLabel="Drug"/>  
+            <f:selectItem itemValue="Procedure" itemLabel="Procedure"/> 
+          </h:selectOneMenu>  
+          <h:message styleClass="error errors" for="references" rendered="#{s:hasPermission('references', 'referenceFieldEdit')}"/>  
+          <h:outputText value="#{msg.referenceField_required}  " rendered="#{s:hasPermission('required', 'referenceFieldEdit')}"/>  
+          <h:selectBooleanCheckbox id="required#{entityId}" rendered="#{s:hasPermission('required', 'referenceFieldEdit')}" label="#{msg.referenceField_required}" required="false" value="#{referenceFieldAction.referenceField.required}"/>  
+          <h:message styleClass="error errors" for="required" rendered="#{s:hasPermission('required', 'referenceFieldEdit')}"/> 
+        </h:panelGrid> 
+      </s:validateAll> 
+    </h:panelGroup> 
+  </rich:panel> 
+</ui:composition>

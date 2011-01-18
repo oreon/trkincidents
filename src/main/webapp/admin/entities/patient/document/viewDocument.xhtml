@@ -14,16 +14,10 @@
             </h:commandButton> 
           </div> 
         </rich:tab>  
-        <rich:tab label="Patient"> 
+        <rich:tab label="Patient" rendered="#{documentAction.instance.patient != null}"> 
           <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
             <ui:param name="entityId" value="1"/>  
             <ui:param name="patientId" value="#{documentAction.instance.patient.id}"/> 
-          </ui:include> 
-        </rich:tab>  
-        <rich:tab label="BaseIncident"> 
-          <ui:include src="/admin/entities/incidents/baseIncident/viewBaseIncidentComponent.xhtml"> 
-            <ui:param name="entityId" value="2"/>  
-            <ui:param name="baseIncidentId" value="#{documentAction.instance.baseIncident.id}"/> 
           </ui:include> 
         </rich:tab> 
       </rich:tabPanel> 

@@ -1,37 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <h:panelGroup> 
-    <s:validateAll> 
-      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{customFormAction.load(customFormId )  }"> 
-        <f:facet name="header"> 
-          <h:outputText value="CustomForm "/> 
-        </f:facet>  
-        <h:outputText value="#{msg.id}"/>  
-        <h:outputText value="#{customFormAction.customForm.id}"/>  
-        <h:outputText value="#{msg.customForm_name}  " rendered="#{s:hasPermission('name', 'customFormView')}"/>  
-        <h:outputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'customFormView')}" value="#{customFormAction.customForm.name}"/> 
-      </h:panelGrid>  
-      <rich:dataTable id="customFields" var="_customField" rendered="#{not empty customFormAction.listCustomFields and s:hasPermission('customFields', 'customFormView') }" value="#{customFormAction.listCustomFields}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
-        <h:column style="text-align:right">
-          <f:facet name="header">
-            <h:outputText value="#{msg.customField_required}  " rendered="#{s:hasPermission('required', 'customFieldView')}"/>
-          </f:facet>  
-          <h:outputText id="required#{entityId}" rendered="#{s:hasPermission('required', 'customFieldView')}" value="#{_customField.required}"/> 
-        </h:column>  
-        <h:column style="text-align:right">
-          <f:facet name="header">
-            <h:outputText value="#{msg.customField_type}  " rendered="#{s:hasPermission('type', 'customFieldView')}"/>
-          </f:facet>  
-          <h:outputText value="#{_customField.type}"/> 
-        </h:column>  
-        <h:column style="text-align:right">
-          <f:facet name="header">
-            <h:outputText value="#{msg.customField_name}  " rendered="#{s:hasPermission('name', 'customFieldView')}"/>
-          </f:facet>  
-          <h:outputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'customFieldView')}" value="#{_customField.name}"/> 
-        </h:column> 
-      </rich:dataTable> 
-    </s:validateAll> 
-  </h:panelGroup> 
+  <rich:panel> 
+    <f:facet name="header"> 
+      <h:outputText value="CustomForm "/> 
+    </f:facet>  
+    <h:panelGroup> 
+      <s:validateAll> 
+        <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{customFormAction.load(customFormId )  }"> 
+          <h:outputText value="#{msg.id}"/>  
+          <h:outputText value="#{customFormAction.customForm.id}"/>  
+          <h:outputText value="#{msg.customForm_name}  " rendered="#{s:hasPermission('name', 'customFormView')}"/>  
+          <h:outputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'customFormView')}" value="#{customFormAction.customForm.name}"/> 
+        </h:panelGrid>  
+        <rich:dataTable id="customFields" var="_customField" rendered="#{not empty customFormAction.listCustomFields and s:hasPermission('customFields', 'customFormView') }" value="#{customFormAction.listCustomFields}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+          <h:column style="text-align:right">
+            <f:facet name="header">
+              <h:outputText value="#{msg.customField_required}  " rendered="#{s:hasPermission('required', 'customFieldView')}"/>
+            </f:facet>  
+            <h:outputText id="required#{entityId}" rendered="#{s:hasPermission('required', 'customFieldView')}" value="#{_customField.required}"/> 
+          </h:column>  
+          <h:column style="text-align:right">
+            <f:facet name="header">
+              <h:outputText value="#{msg.customField_type}  " rendered="#{s:hasPermission('type', 'customFieldView')}"/>
+            </f:facet>  
+            <h:outputText value="#{_customField.type}"/> 
+          </h:column>  
+          <h:column style="text-align:right">
+            <f:facet name="header">
+              <h:outputText value="#{msg.customField_name}  " rendered="#{s:hasPermission('name', 'customFieldView')}"/>
+            </f:facet>  
+            <h:outputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'customFieldView')}" value="#{_customField.name}"/> 
+          </h:column> 
+        </rich:dataTable> 
+      </s:validateAll> 
+    </h:panelGroup> 
+  </rich:panel> 
 </ui:composition>

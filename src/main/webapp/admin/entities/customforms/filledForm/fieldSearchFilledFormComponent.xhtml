@@ -17,8 +17,12 @@
       <h:outputText value="#{msg.filledForm_entityId}  " rendered="#{s:hasPermission('entityId', 'filledFormEdit')}"/>  
       <br/>  
       <h:inputText id="entityId" value="#{filledFormList.filledForm.entityId}"/> 
-    </h:panelGroup>  
-    <rich:calendar id="from" value="#{filledFormList.dateCreatedRange.begin}"/>  
-    <rich:calendar id="to" value="#{filledFormList.dateCreatedRange.end}"/> 
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
+    <rich:calendar id="from" value="#{severityList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{severityList.dateCreatedRange.end}"/> 
   </h:panelGrid> 
 </ui:composition>

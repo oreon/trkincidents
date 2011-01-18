@@ -4,35 +4,40 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.Date;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
+import org.hibernate.validator.*;
 
 import org.apache.solr.analysis.LowerCaseFilterFactory;
 import org.apache.solr.analysis.SnowballPorterFilterFactory;
 import org.apache.solr.analysis.StandardTokenizerFactory;
 import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Filter;
-import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.annotations.Cascade;
+
 import org.hibernate.search.annotations.AnalyzerDef;
+import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 import org.hibernate.search.annotations.Indexed;
 import org.hibernate.search.annotations.Parameter;
 import org.hibernate.search.annotations.TokenFilterDef;
 import org.hibernate.search.annotations.TokenizerDef;
+import org.hibernate.search.annotations.ContainedIn;
+import org.hibernate.search.annotations.IndexedEmbedded;
+
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
 import org.jboss.seam.annotations.Name;
 import org.witchcraft.base.entity.BusinessEntity;
-import org.witchcraft.base.entity.Unique;
+import org.witchcraft.model.support.audit.Auditable;
+import org.witchcraft.base.entity.FileAttachment;
+import org.hibernate.annotations.Filter;
+
+import org.witchcraft.utils.*;
 
 @Entity
 @Table(name = "user")
@@ -40,15 +45,14 @@ import org.witchcraft.base.entity.Unique;
 @Name("user")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-
 @AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
 public class User extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -1796332121L;
 
-	@Unique(entityName = "com.oreon.trkincidents.users.User", fieldName = "userName", idProvider = "userAction")
-	
+	//@Unique(entityName = "com.oreon.trkincidents.users.User", fieldName = "userName")
+
 	@NotNull
 	@Length(min = 2, max = 250)
 	@Column(name = "userName", unique = true)
@@ -67,6 +71,12 @@ public class User extends BusinessEntity implements java.io.Serializable {
 	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "users_ID"), inverseJoinColumns = @JoinColumn(name = "roles_ID"))
 	private Set<Role> roles = new HashSet<Role>();
+
+	@NotNull
+	@Column(name = "email", unique = false)
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "customanalyzer")
+	protected String email;
 
 	public void setUserName(String userName) {
 		this.userName = userName;
@@ -100,6 +110,14 @@ public class User extends BusinessEntity implements java.io.Serializable {
 		return roles;
 	}
 
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
 	@Transient
 	public String getDisplayName() {
 		try {
@@ -124,6 +142,8 @@ public class User extends BusinessEntity implements java.io.Serializable {
 		listSearchableFields.add("userName");
 
 		listSearchableFields.add("password");
+
+		listSearchableFields.add("email");
 
 		return listSearchableFields;
 	}

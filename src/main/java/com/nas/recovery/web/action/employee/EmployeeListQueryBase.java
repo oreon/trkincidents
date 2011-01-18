@@ -49,22 +49,6 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 		return RESTRICTIONS;
 	}
 
-	private Range<Date> dateOfBirthRange = new Range<Date>();
-	public Range<Date> getDateOfBirthRange() {
-		return dateOfBirthRange;
-	}
-	public void setDateOfBirth(Range<Date> dateOfBirthRange) {
-		this.dateOfBirthRange = dateOfBirthRange;
-	}
-
-	private Range<Integer> ageRange = new Range<Integer>();
-	public Range<Integer> getAgeRange() {
-		return ageRange;
-	}
-	public void setAge(Range<Integer> ageRange) {
-		this.ageRange = ageRange;
-	}
-
 	private static final String[] RESTRICTIONS = {
 			"employee.id = #{employeeList.employee.id}",
 
@@ -72,27 +56,25 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 
 			"lower(employee.lastName) like concat(lower(#{employeeList.employee.lastName}),'%')",
 
-			"employee.dateOfBirth >= #{employeeList.dateOfBirthRange.begin}",
-			"employee.dateOfBirth <= #{employeeList.dateOfBirthRange.end}",
-
-			"employee.gender = #{employeeList.employee.gender}",
-
-			"lower(employee.contactDetails.primaryPhone) like concat(lower(#{employeeList.employee.contactDetails.primaryPhone}),'%')",
-
-			"lower(employee.contactDetails.secondaryPhone) like concat(lower(#{employeeList.employee.contactDetails.secondaryPhone}),'%')",
-
-			"lower(employee.contactDetails.email) like concat(lower(#{employeeList.employee.contactDetails.email}),'%')",
-
-			"employee.age >= #{employeeList.ageRange.begin}",
-			"employee.age <= #{employeeList.ageRange.end}",
-
 			"lower(employee.employeeNumber) like concat(lower(#{employeeList.employee.employeeNumber}),'%')",
 
 			"lower(employee.user.userName) like concat(lower(#{employeeList.employee.user.userName}),'%')",
 
 			"employee.user.enabled = #{employeeList.employee.user.enabled}",
 
+			"lower(employee.user.email) like concat(lower(#{employeeList.employee.user.email}),'%')",
+
 			"employee.department.id = #{employeeList.employee.department.id}",
+
+			"lower(employee.contactDetails.primaryPhone) like concat(lower(#{employeeList.employee.contactDetails.primaryPhone}),'%')",
+
+			"lower(employee.contactDetails.secondaryPhone) like concat(lower(#{employeeList.employee.contactDetails.secondaryPhone}),'%')",
+
+			"lower(employee.contactDetails.streetAddress) like concat(lower(#{employeeList.employee.contactDetails.streetAddress}),'%')",
+
+			"lower(employee.contactDetails.city) like concat(lower(#{employeeList.employee.contactDetails.city}),'%')",
+
+			"lower(employee.contactDetails.zip) like concat(lower(#{employeeList.employee.contactDetails.zip}),'%')",
 
 			"employee.dateCreated <= #{employeeList.dateCreatedRange.end}",
 			"employee.dateCreated >= #{employeeList.dateCreatedRange.begin}",};

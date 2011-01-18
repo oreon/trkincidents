@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
+  <ui:define name="content"> 
+    <h:form> 
+      <rich:tabPanel switchType="ajax"> 
+        <rich:tab label="Incident"> 
+          <ui:include src="/admin/entities/incidents/incident/viewIncidentComponent.xhtml"/>  
+          <div class="buttonBox"> 
+            <h:commandButton value="Edit" rendered="#{s:hasPermission('incident', 'edit', incidentAction.instance)}" action="edit"></h:commandButton>  
+            <h:outputText value=" "/>  
+            <h:commandButton value="Back To Listing" action="#{incidentAction.cancel}"> 
+              <s:conversationPropagation type="end"/> 
+            </h:commandButton> 
+          </div> 
+        </rich:tab>  
+        <rich:tab label="IncidentType" rendered="#{incidentAction.instance.incidentType != null}"> 
+          <ui:include src="/admin/entities/incidents/incidentType/viewIncidentTypeComponent.xhtml"> 
+            <ui:param name="entityId" value="1"/>  
+            <ui:param name="incidentTypeId" value="#{incidentAction.instance.incidentType.id}"/> 
+          </ui:include> 
+        </rich:tab>  
+        <rich:tab label="Patient" rendered="#{incidentAction.instance.patient != null}"> 
+          <ui:include src="/admin/entities/patient/patient/viewPatientComponent.xhtml"> 
+            <ui:param name="entityId" value="2"/>  
+            <ui:param name="patientId" value="#{incidentAction.instance.patient.id}"/> 
+          </ui:include> 
+        </rich:tab>  
+        <rich:tab label="CreatedBy" rendered="#{incidentAction.instance.createdBy != null}"> 
+          <ui:include src="/admin/entities/employee/employee/viewEmployeeComponent.xhtml"> 
+            <ui:param name="entityId" value="3"/>  
+            <ui:param name="employeeId" value="#{incidentAction.instance.createdBy.id}"/> 
+          </ui:include> 
+        </rich:tab>  
+        <rich:tab label="Department" rendered="#{incidentAction.instance.department != null}"> 
+          <ui:include src="/admin/entities/employee/department/viewDepartmentComponent.xhtml"> 
+            <ui:param name="entityId" value="4"/>  
+            <ui:param name="departmentId" value="#{incidentAction.instance.department.id}"/> 
+          </ui:include> 
+        </rich:tab>  
+        <rich:tab label="ReportedTo" rendered="#{incidentAction.instance.reportedTo != null}"> 
+          <ui:include src="/admin/entities/employee/employee/viewEmployeeComponent.xhtml"> 
+            <ui:param name="entityId" value="5"/>  
+            <ui:param name="employeeId" value="#{incidentAction.instance.reportedTo.id}"/> 
+          </ui:include> 
+        </rich:tab>  
+        <rich:tab label="Drug" rendered="#{incidentAction.instance.drug != null}"> 
+          <ui:include src="/admin/entities/incidents/drug/viewDrugComponent.xhtml"> 
+            <ui:param name="entityId" value="6"/>  
+            <ui:param name="drugId" value="#{incidentAction.instance.drug.id}"/> 
+          </ui:include> 
+        </rich:tab>  
+        <rich:tab label="Proccedure" rendered="#{incidentAction.instance.proccedure != null}"> 
+          <ui:include src="/admin/entities/incidents/proccedure/viewProccedureComponent.xhtml"> 
+            <ui:param name="entityId" value="7"/>  
+            <ui:param name="proccedureId" value="#{incidentAction.instance.proccedure.id}"/> 
+          </ui:include> 
+        </rich:tab>  
+        <rich:tab label="ResponsibleEmployee" rendered="#{incidentAction.instance.responsibleEmployee != null}"> 
+          <ui:include src="/admin/entities/employee/employee/viewEmployeeComponent.xhtml"> 
+            <ui:param name="entityId" value="8"/>  
+            <ui:param name="employeeId" value="#{incidentAction.instance.responsibleEmployee.id}"/> 
+          </ui:include> 
+        </rich:tab>  
+        <rich:tab label="Severity" rendered="#{incidentAction.instance.severity != null}"> 
+          <ui:include src="/admin/entities/incidents/severity/viewSeverityComponent.xhtml"> 
+            <ui:param name="entityId" value="9"/>  
+            <ui:param name="severityId" value="#{incidentAction.instance.severity.id}"/> 
+          </ui:include> 
+        </rich:tab> 
+      </rich:tabPanel> 
+    </h:form>  
+    <br/>  
+    <rich:tabPanel></rich:tabPanel>  
+    <br/>  
+    <rich:tabPanel> 
+      <rich:tab label="Notes"> 
+        <wc:comments backingAction="#{incidentAction}"/> 
+      </rich:tab> 
+    </rich:tabPanel> 
+  </ui:define> 
+</ui:composition>

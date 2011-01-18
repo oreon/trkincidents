@@ -17,6 +17,12 @@
         <br/>  
         <h:selectBooleanCheckbox id="enabled" value="#{userAction.user.enabled}"/>  
         <h:message styleClass="error errors" for="enabled" rendered="#{s:hasPermission('enabled', 'userEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.user_email} * " rendered="#{s:hasPermission('email', 'userEdit')}"/>  
+        <br/>  
+        <h:inputText id="email" value="#{userAction.user.email}"/>  
+        <h:message styleClass="error errors" for="email" rendered="#{s:hasPermission('email', 'userEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

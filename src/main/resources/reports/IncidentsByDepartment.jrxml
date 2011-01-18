@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+
+<jasperReport name="IncidentsByDepartment" isTitleNewPage="false" isSummaryNewPage="false" formatFactoryClass="org.witchcraft.jasperreports.WCFormatFactory"> 
+  <parameter name="ReportTitle" class="java.lang.String"/>  
+  <queryString language="ejbql"> <![CDATA[select e from Incident e order by e.department, e.incidentType]]> </queryString>  
+  <field name="title" class="java.lang.String"/>  
+  <field name="description" class="java.lang.String"/>  
+  <field name="severity.name" class="java.lang.String"/>  
+  <field name="dateOfIncident" class="java.util.Date"/>  
+  <field name="department.name" class="java.lang.String"/>  
+  <field name="incidentType.name" class="java.lang.String"/>  
+  <variable name="Groupdepartment.nameCounter" class="java.lang.Integer" incrementType="Group" incrementGroup="Groupdepartment.name" calculation="Count"> 
+    <variableExpression><![CDATA[Boolean.TRUE]]></variableExpression> 
+  </variable>  
+  <variable name="GroupincidentType.nameCounter" class="java.lang.Integer" incrementType="Group" incrementGroup="GroupincidentType.name" calculation="Count"> 
+    <variableExpression><![CDATA[Boolean.TRUE]]></variableExpression> 
+  </variable>  
+  <group name="Groupdepartment.name" minHeightToStartNewPage="60"> 
+    <groupExpression><![CDATA[$F{department.name}]]></groupExpression>  
+    <groupHeader> 
+      <band height="20"> 
+        <textField evaluationTime="Group" evaluationGroup="Groupdepartment.name" bookmarkLevel="1"> 
+          <reportElement mode="Opaque" x="0" y="5" width="360" height="15" backcolor="#e1e1f1"/>  
+          <box leftPadding="10" bottomBorder="1Point"/>  
+          <textFieldExpression class="java.lang.String"> <![CDATA[department.name + "  " + String.valueOf($F{department.name})]]> </textFieldExpression>  
+          <anchorNameExpression><![CDATA[String.valueOf($F{department.name})]]></anchorNameExpression> 
+        </textField> 
+      </band> 
+    </groupHeader>  
+    <groupFooter> 
+      <band height="20"> 
+        <staticText> 
+          <reportElement x="270" y="1" width="60" height="15" backcolor="#c0c0dd"/>  
+          <textElement textAlignment="Right"/>  
+          <text><![CDATA[Count:]]></text> 
+        </staticText>  
+        <textField> 
+          <reportElement x="360" y="1" width="30" height="15" backcolor="#c0c0ff"/>  
+          <textElement textAlignment="Right"/>  
+          <textFieldExpression class="java.lang.Integer"> <![CDATA[$V{Groupdepartment.name_COUNT}]]> </textFieldExpression> 
+        </textField> 
+      </band> 
+    </groupFooter> 
+  </group>  
+  <group name="GroupincidentType.name" minHeightToStartNewPage="60"> 
+    <groupExpression><![CDATA[$F{incidentType.name}]]></groupExpression>  
+    <groupHeader> 
+      <band height="20"> 
+        <textField evaluationTime="Group" evaluationGroup="GroupincidentType.name" bookmarkLevel="2"> 
+          <reportElement mode="Opaque" x="0" y="5" width="360" height="15" backcolor="#e1e1d1"/>  
+          <box leftPadding="10" bottomBorder="1Point"/>  
+          <textFieldExpression class="java.lang.String"> <![CDATA[incidentType.name + "  " + String.valueOf($F{incidentType.name})]]> </textFieldExpression>  
+          <anchorNameExpression><![CDATA[String.valueOf($F{incidentType.name})]]></anchorNameExpression> 
+        </textField> 
+      </band> 
+    </groupHeader>  
+    <groupFooter> 
+      <band height="20"> 
+        <staticText> 
+          <reportElement x="450" y="1" width="60" height="15" backcolor="#c0c0dd"/>  
+          <textElement textAlignment="Right"/>  
+          <text><![CDATA[Count:]]></text> 
+        </staticText>  
+        <textField> 
+          <reportElement x="540" y="1" width="30" height="15" backcolor="#c0c0ff"/>  
+          <textElement textAlignment="Right"/>  
+          <textFieldExpression class="java.lang.Integer"> <![CDATA[$V{GroupincidentType.name_COUNT}]]> </textFieldExpression> 
+        </textField> 
+      </band> 
+    </groupFooter> 
+  </group>  
+  <title> 
+    <band height="70"> 
+      <line> 
+        <reportElement x="0" y="0" width="720" height="1"/>  
+        <graphicElement/> 
+      </line>  
+      <textField> 
+        <reportElement x="0" y="10" width="720" height="30"/>  
+        <textElement textAlignment="Center"> 
+          <font size="13"/> 
+        </textElement>  
+        <textFieldExpression class="java.lang.String"><![CDATA["Incidents By Department"]]></textFieldExpression> 
+      </textField> 
+    </band> 
+  </title>  
+  <pageHeader> 
+    <band height="20"> 
+      <rectangle> 
+        <reportElement x="0" y="5" width="720" height="15" forecolor="#333333" backcolor="#333333"/>  
+        <graphicElement/> 
+      </rectangle>  
+      <staticText> 
+        <reportElement mode="Opaque" x="0" y="5" width="90" height="15" forecolor="#ffffff" backcolor="#333333"/>  
+        <textElement textAlignment="Center"/>  
+        <text><![CDATA[Title]]></text> 
+      </staticText>  
+      <staticText> 
+        <reportElement mode="Opaque" x="90" y="5" width="90" height="15" forecolor="#ffffff" backcolor="#333333"/>  
+        <textElement textAlignment="Center"/>  
+        <text><![CDATA[Description]]></text> 
+      </staticText>  
+      <staticText> 
+        <reportElement mode="Opaque" x="180" y="5" width="90" height="15" forecolor="#ffffff" backcolor="#333333"/>  
+        <textElement textAlignment="Center"/>  
+        <text><![CDATA[Severity.name]]></text> 
+      </staticText>  
+      <staticText> 
+        <reportElement mode="Opaque" x="270" y="5" width="90" height="15" forecolor="#ffffff" backcolor="#333333"/>  
+        <textElement textAlignment="Center"/>  
+        <text><![CDATA[Date]]></text> 
+      </staticText> 
+    </band> 
+  </pageHeader>  
+  <detail> 
+    <band height="30"> 
+      <textField isBlankWhenNull="true" isStretchWithOverflow="true"> 
+        <reportElement x="0" y="0" width="90" height="24"/>  
+        <textElement/>  
+        <textFieldExpression class="java.lang.String"> <![CDATA[$F{title}]]> </textFieldExpression> 
+      </textField>  
+      <textField isBlankWhenNull="true" isStretchWithOverflow="true"> 
+        <reportElement x="90" y="0" width="90" height="24"/>  
+        <textElement/>  
+        <textFieldExpression class="java.lang.String"> <![CDATA[$F{description}]]> </textFieldExpression> 
+      </textField>  
+      <textField isBlankWhenNull="true" isStretchWithOverflow="true"> 
+        <reportElement x="180" y="0" width="90" height="24"/>  
+        <textElement/>  
+        <textFieldExpression class="java.lang.String"> <![CDATA[$F{severity.name}]]> </textFieldExpression> 
+      </textField>  
+      <textField isBlankWhenNull="true" isStretchWithOverflow="true"> 
+        <reportElement x="270" y="0" width="90" height="24"/>  
+        <textElement/>  
+        <textFieldExpression class="java.util.Date"> <![CDATA[$F{dateOfIncident}]]> </textFieldExpression> 
+      </textField> 
+    </band> 
+  </detail>  
+  <summary> 
+    <band height="320"> 
+      <staticText> 
+        <reportElement mode="Opaque" x="0" y="1" width="720" height="15" backcolor="#c0c0c0"/>  
+        <box leftPadding="10" bottomBorder="1Point"/>  
+        <text><![CDATA[Summary]]> </text> 
+      </staticText>  
+      <textField> 
+        <reportElement x="460" y="1" width="30" height="15"/>  
+        <textElement textAlignment="Right"/>  
+        <textFieldExpression class="java.lang.Integer"><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression> 
+      </textField>  
+      <textField> 
+        <reportElement x="460" y="1" width="30" height="15"/>  
+        <textElement textAlignment="Right"/>  
+        <textFieldExpression class="java.lang.Integer"><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression> 
+      </textField>  
+      <pieChart> 
+        <chart evaluationTime="Report"> 
+          <reportElement x="235" y="0" width="240" height="240"/> 
+        </chart>  
+        <pieDataset> 
+          <keyExpression><![CDATA[$F{department.name}]]></keyExpression>  
+          <valueExpression><![CDATA[$V{Groupdepartment.name_COUNT}]]></valueExpression>  
+          <labelExpression><![CDATA[$F{department.name}  + " - " + $V{Groupdepartment.name_COUNT}  ]]></labelExpression> 
+        </pieDataset>  
+        <piePlot> 
+          <plot/> 
+        </piePlot> 
+      </pieChart>  
+      <barChart> 
+        <chart evaluationTime="Report"> 
+          <reportElement positionType="Float" x="0" y="0" width="270" height="275"/>  
+          <chartTitle/>  
+          <chartSubtitle/>  
+          <chartLegend/> 
+        </chart>  
+        <categoryDataset> 
+          <categorySeries> 
+            <seriesExpression><![CDATA[$F{incidentType.name}]]></seriesExpression>  
+            <categoryExpression><![CDATA[$F{department.name}]]></categoryExpression>  
+            <valueExpression><![CDATA[$V{GroupincidentType.name_COUNT}]]></valueExpression> 
+          </categorySeries> 
+        </categoryDataset>  
+        <barPlot isShowTickLabels="true" isShowTickMarks="true"> 
+          <plot/> 
+        </barPlot> 
+      </barChart> 
+    </band> 
+  </summary> 
+</jasperReport>

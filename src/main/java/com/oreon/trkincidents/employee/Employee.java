@@ -64,7 +64,7 @@ public class Employee extends com.oreon.trkincidents.patient.Person
 	@JoinColumn(name = "createdBy_ID", nullable = true)
 	@OrderBy("dateCreated DESC")
 	@IndexedEmbedded
-	private Set<com.oreon.trkincidents.unusualoccurences.Incident> incidents = new HashSet<com.oreon.trkincidents.unusualoccurences.Incident>();
+	private Set<com.oreon.trkincidents.incidents.Incident> incidentsCreated = new HashSet<com.oreon.trkincidents.incidents.Incident>();
 
 	@OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_id", nullable = false, updatable = true)
@@ -76,6 +76,28 @@ public class Employee extends com.oreon.trkincidents.patient.Person
 	@ContainedIn
 	protected Department department;
 
+	@OneToMany(mappedBy = "responsibleEmployee", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "responsibleEmployee_ID", nullable = true)
+	@OrderBy("dateCreated DESC")
+	@IndexedEmbedded
+	private Set<com.oreon.trkincidents.incidents.Incident> incidentsResponsibleFor = new HashSet<com.oreon.trkincidents.incidents.Incident>();
+
+	@IndexedEmbedded
+	@AttributeOverrides({
+
+			@AttributeOverride(name = "primaryPhone", column = @Column(name = "contactDetails_primaryPhone")),
+
+			@AttributeOverride(name = "secondaryPhone", column = @Column(name = "contactDetails_secondaryPhone")),
+
+			@AttributeOverride(name = "streetAddress", column = @Column(name = "contactDetails_streetAddress")),
+
+			@AttributeOverride(name = "city", column = @Column(name = "contactDetails_city")),
+
+			@AttributeOverride(name = "zip", column = @Column(name = "contactDetails_zip"))
+
+	})
+	protected ContactDetails contactDetails = new ContactDetails();
+
 	public void setEmployeeNumber(String employeeNumber) {
 		this.employeeNumber = employeeNumber;
 	}
@@ -84,13 +106,13 @@ public class Employee extends com.oreon.trkincidents.patient.Person
 		return employeeNumber;
 	}
 
-	public void setIncidents(
-			Set<com.oreon.trkincidents.unusualoccurences.Incident> incidents) {
-		this.incidents = incidents;
+	public void setIncidentsCreated(
+			Set<com.oreon.trkincidents.incidents.Incident> incidentsCreated) {
+		this.incidentsCreated = incidentsCreated;
 	}
 
-	public Set<com.oreon.trkincidents.unusualoccurences.Incident> getIncidents() {
-		return incidents;
+	public Set<com.oreon.trkincidents.incidents.Incident> getIncidentsCreated() {
+		return incidentsCreated;
 	}
 
 	public void setUser(com.oreon.trkincidents.users.User user) {
@@ -107,6 +129,23 @@ public class Employee extends com.oreon.trkincidents.patient.Person
 
 	public Department getDepartment() {
 		return department;
+	}
+
+	public void setIncidentsResponsibleFor(
+			Set<com.oreon.trkincidents.incidents.Incident> incidentsResponsibleFor) {
+		this.incidentsResponsibleFor = incidentsResponsibleFor;
+	}
+
+	public Set<com.oreon.trkincidents.incidents.Incident> getIncidentsResponsibleFor() {
+		return incidentsResponsibleFor;
+	}
+
+	public void setContactDetails(ContactDetails contactDetails) {
+		this.contactDetails = contactDetails;
+	}
+
+	public ContactDetails getContactDetails() {
+		return contactDetails;
 	}
 
 	@Transient
@@ -131,6 +170,16 @@ public class Employee extends com.oreon.trkincidents.patient.Person
 		listSearchableFields.addAll(super.listSearchableFields());
 
 		listSearchableFields.add("employeeNumber");
+
+		listSearchableFields.add("contactDetails.primaryPhone");
+
+		listSearchableFields.add("contactDetails.secondaryPhone");
+
+		listSearchableFields.add("contactDetails.streetAddress");
+
+		listSearchableFields.add("contactDetails.city");
+
+		listSearchableFields.add("contactDetails.zip");
 
 		return listSearchableFields;
 	}

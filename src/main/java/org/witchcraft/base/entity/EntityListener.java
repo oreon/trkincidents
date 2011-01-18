@@ -1,13 +1,21 @@
 package org.witchcraft.base.entity;
 
+import java.util.Date;
+
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.jboss.seam.Component;
+
+import com.oreon.trkincidents.users.User;
 
 public class EntityListener {
 	
 	Log log = LogFactory.getLog(EntityListener.class);
 	
-	/*
+	
 	@PrePersist
 	public void setDatesAndUser(BusinessEntity modelBase) {
 		Date now = new Date();
@@ -42,5 +50,5 @@ public class EntityListener {
 		Date now = new Date();
 		modelBase.setDateUpdated(now);
 	}
-*/
+
 }

@@ -82,16 +82,6 @@ public abstract class DocumentActionBase extends BaseAction<Document>
 		return 0L;
 	}
 
-	public void setBaseIncidentId(Long id) {
-
-	}
-
-	public Long getBaseIncidentId() {
-		if (getInstance().getBaseIncident() != null)
-			return getInstance().getBaseIncident().getId();
-		return 0L;
-	}
-
 	public Long getDocumentId() {
 		return (Long) getId();
 	}
@@ -167,11 +157,6 @@ public abstract class DocumentActionBase extends BaseAction<Document>
 		if (document.getPatient() != null) {
 			criteria = criteria.add(Restrictions.eq("patient.id", document
 					.getPatient().getId()));
-		}
-
-		if (document.getBaseIncident() != null) {
-			criteria = criteria.add(Restrictions.eq("baseIncident.id", document
-					.getBaseIncident().getId()));
 		}
 
 	}

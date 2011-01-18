@@ -14,8 +14,12 @@
       <h:outputText value="#{msg.dxTest_description}  " rendered="#{s:hasPermission('description', 'dxTestEdit')}"/>  
       <br/>  
       <h:inputText id="description" value="#{dxTestList.dxTest.description}"/> 
-    </h:panelGroup>  
-    <rich:calendar id="from" value="#{dxTestList.dateCreatedRange.begin}"/>  
-    <rich:calendar id="to" value="#{dxTestList.dateCreatedRange.end}"/> 
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
+    <rich:calendar id="from" value="#{severityList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{severityList.dateCreatedRange.end}"/> 
   </h:panelGrid> 
 </ui:composition>

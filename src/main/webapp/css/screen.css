@@ -185,7 +185,7 @@ table.viewInfo td.leftCol{
 }	
 
 /* Buttons */
-input[type="submit"], input[type="button"] {
+input[type="submit"], input[type="button"], input[type="reset"] {
 	font-weight: bold;
 	color: #fff;
 	border: 1px solid #5D1414;

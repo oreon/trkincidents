@@ -14,26 +14,21 @@
 		<filter-name>Seam Filter</filter-name>
 		<filter-class>org.jboss.seam.servlet.SeamFilter</filter-class>
 	</filter>
-	
+
 	<filter-mapping>
 		<filter-name>Seam Filter</filter-name>
 		<url-pattern>*.seam</url-pattern>
 	</filter-mapping>
-	
 
-<!--  
-	<filter>
-		<filter-name>ResourceFilter</filter-name>
+
+	<!--
+		<filter> <filter-name>ResourceFilter</filter-name>
 		<filter-class>org.openfaces.util.ResourceFilter</filter-class>
-	</filter>
-	
-		<filter-mapping>
-		<filter-name>ResourceFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
--->
+		</filter> <filter-mapping> <filter-name>ResourceFilter</filter-name>
+		<url-pattern>/*</url-pattern> </filter-mapping>
+	-->
 
-	
+
 
 
 
@@ -79,10 +74,18 @@
 	</servlet>
 
 
+	<servlet>
+		<servlet-name>Document Store Servlet</servlet-name>
+		<servlet-class>org.jboss.seam.document.DocumentStoreServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Document Store Servlet</servlet-name>
+		<url-pattern>/seam/docstore/*</url-pattern>
+	</servlet-mapping>
 
 
 
-
+	
 	<servlet-mapping>
 		<servlet-name>Seam Resource Servlet</servlet-name>
 		<url-pattern>/seam/resource/*</url-pattern>
@@ -94,19 +97,13 @@
 	</servlet-mapping>
 
 
-<!--  
-	<servlet>
-		<servlet-name>Resource Servlet</servlet-name>
+	<!--
+		<servlet> <servlet-name>Resource Servlet</servlet-name>
 		<servlet-class>org.primefaces.resource.ResourceServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-
-
-	<servlet-mapping>
+		<load-on-startup>1</load-on-startup> </servlet> <servlet-mapping>
 		<servlet-name>Resource Servlet</servlet-name>
-		<url-pattern>/primefaces_resource/*</url-pattern>
-	</servlet-mapping>
--->
+		<url-pattern>/primefaces_resource/*</url-pattern> </servlet-mapping>
+	-->
 	<session-config>
 		<session-timeout>610</session-timeout>
 	</session-config>

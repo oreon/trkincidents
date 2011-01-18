@@ -16,50 +16,6 @@
       <h:inputText id="lastName" value="#{employeeList.employee.lastName}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.person_dateOfBirth}  " rendered="#{s:hasPermission('dateOfBirth', 'employeeEdit')}"/>  
-      <br/>  
-      <h:outputText value="From"/>  
-      <br/>  
-      <rich:calendar value="#{employeeList.dateOfBirthRange.begin}"/> To
-      <br/>  
-      <rich:calendar value="#{employeeList.dateOfBirthRange.end}"/> 
-    </h:panelGroup>  
-    <h:panelGroup> 
-      <h:outputText value="#{msg.person_gender}  " rendered="#{s:hasPermission('gender', 'employeeEdit')}"/>  
-      <br/>  
-      <h:selectOneMenu id="gender" value="#{employeeList.employee.gender}" required="false"> 
-        <f:selectItem itemLabel="Any" itemValue=""/>  
-        <f:selectItem itemLabel="None" itemValue=""/>  
-        <f:selectItem itemValue="F" itemLabel="F"/>  
-        <f:selectItem itemValue="M" itemLabel="M"/> 
-      </h:selectOneMenu> 
-    </h:panelGroup>  
-    <h:panelGroup> 
-      <h:outputText value="#{msg.contactDetails_primaryPhone}  " rendered="#{s:hasPermission('primaryPhone', 'employeeEdit')}"/>  
-      <br/>  
-      <h:inputText id="contactDetails_primaryPhone" value="#{employeeList.employee.contactDetails.primaryPhone}"/> 
-    </h:panelGroup>  
-    <h:panelGroup> 
-      <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{s:hasPermission('secondaryPhone', 'employeeEdit')}"/>  
-      <br/>  
-      <h:inputText id="contactDetails_secondaryPhone" value="#{employeeList.employee.contactDetails.secondaryPhone}"/> 
-    </h:panelGroup>  
-    <h:panelGroup> 
-      <h:outputText value="#{msg.contactDetails_email}  " rendered="#{s:hasPermission('email', 'employeeEdit')}"/>  
-      <br/>  
-      <h:inputText id="contactDetails_email" value="#{employeeList.employee.contactDetails.email}"/> 
-    </h:panelGroup>  
-    <h:panelGroup> 
-      <h:outputText value="#{msg.person_age}  " rendered="#{s:hasPermission('age', 'employeeEdit')}"/>  
-      <br/>  
-      <h:inputText id="age_begin" value="#{employeeList.ageRange.begin}"> 
-        <f:converter converterId="javax.faces.Integer"/> 
-      </h:inputText>  
-      <h:inputText id="age_end" value="#{employeeList.ageRange.end}"> 
-        <f:converter converterId="javax.faces.Integer"/> 
-      </h:inputText> 
-    </h:panelGroup>  
-    <h:panelGroup> 
       <h:outputText value="#{msg.employee_employeeNumber} * " rendered="#{s:hasPermission('employeeNumber', 'employeeEdit')}"/>  
       <br/>  
       <h:inputText id="employeeNumber" value="#{employeeList.employee.employeeNumber}"/> 
@@ -79,6 +35,11 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
+      <h:outputText value="#{msg.user_email} * " rendered="#{s:hasPermission('email', 'employeeEdit')}"/>  
+      <br/>  
+      <h:inputText id="user_email" value="#{employeeList.employee.user.email}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
       <h:outputText value="#{msg.employee_department}  " rendered="#{s:hasPermission('department', 'employeeEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="department" value="#{ employeeList.employee.department}"> 
@@ -86,7 +47,36 @@
         <s:convertEntity/> 
       </h:selectOneMenu> 
     </h:panelGroup>  
-    <rich:calendar id="from" value="#{employeeList.dateCreatedRange.begin}"/>  
-    <rich:calendar id="to" value="#{employeeList.dateCreatedRange.end}"/> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.contactDetails_primaryPhone}  " rendered="#{s:hasPermission('primaryPhone', 'employeeEdit')}"/>  
+      <br/>  
+      <h:inputText id="contactDetails_primaryPhone" value="#{employeeList.employee.contactDetails.primaryPhone}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{s:hasPermission('secondaryPhone', 'employeeEdit')}"/>  
+      <br/>  
+      <h:inputText id="contactDetails_secondaryPhone" value="#{employeeList.employee.contactDetails.secondaryPhone}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.contactDetails_streetAddress}  " rendered="#{s:hasPermission('streetAddress', 'employeeEdit')}"/>  
+      <br/>  
+      <h:inputText id="contactDetails_streetAddress" value="#{employeeList.employee.contactDetails.streetAddress}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.contactDetails_city}  " rendered="#{s:hasPermission('city', 'employeeEdit')}"/>  
+      <br/>  
+      <h:inputText id="contactDetails_city" value="#{employeeList.employee.contactDetails.city}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.contactDetails_zip}  " rendered="#{s:hasPermission('zip', 'employeeEdit')}"/>  
+      <br/>  
+      <h:inputText id="contactDetails_zip" value="#{employeeList.employee.contactDetails.zip}"/> 
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
+    <rich:calendar id="from" value="#{severityList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{severityList.dateCreatedRange.end}"/> 
   </h:panelGrid> 
 </ui:composition>

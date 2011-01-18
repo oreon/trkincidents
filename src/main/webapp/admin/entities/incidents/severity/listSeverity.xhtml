@@ -2,6 +2,7 @@
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
   <ui:define name="content"> 
+    <c:set var="modalId" value="SeverityModalPanel-Severity"/>  
     <ui:include src="searchSeverity.xhtml"/>  
     <br/>  
     <br/>  
@@ -12,8 +13,10 @@
       <s:button value="Create New" view="/admin/entities/incidents/severity/editSeverity.xhtml" propagation="none"> 
         <f:param name="severityId" value="0"/> 
       </s:button>  
-      <a:commandButton action="#{severityAction.setSeverityId(0)}" oncomplete="Richfaces.showModalPanel('SeverityModalPanel',{});" value="Quick Create"></a:commandButton> 
+      <a:commandButton action="#{severityAction.setSeverityId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"></a:commandButton> 
     </a:form>  
-    <ui:include src="/admin/entities/incidents/severity/modalDlgSeverityComponent.xhtml"/> 
+    <ui:include src="/admin/entities/incidents/severity/modalDlgSeverityComponent.xhtml"> 
+      <ui:param name="modalId" value="${modalId}"/> 
+    </ui:include> 
   </ui:define> 
 </ui:composition>

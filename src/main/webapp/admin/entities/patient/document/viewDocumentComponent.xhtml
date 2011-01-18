@@ -1,43 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <h:panelGroup> 
-    <s:validateAll> 
-      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{documentAction.load(documentId )  }"> 
-        <f:facet name="header"> 
-          <h:outputText value="Document "/> 
-        </f:facet>  
-        <h:outputText value="#{msg.id}"/>  
-        <h:outputText value="#{documentAction.document.id}"/>  
-        <h:outputText value="#{msg.document_patient}  " rendered="#{s:hasPermission('patient', 'documentView')}"/>  
-        <s:link value="#{documentAction.document.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
-          <f:param name="patientId" value="#{documentAction.document.patient.id}"/>  
-          <f:param name="from" value="#{request.servletPath}"/>  
-          <rich:toolTip> 
-            <span>#{documentAction.document.patient.popupInfo}</span> 
-          </rich:toolTip> 
-        </s:link>  
-        <h:outputText value="#{msg.document_baseIncident}  " rendered="#{s:hasPermission('baseIncident', 'documentView')}"/>  
-        <s:link value="#{documentAction.document.baseIncident.displayName}" view="/admin/entities/incidents/baseIncident/viewBaseIncident.xhtml" propagation="none"> 
-          <f:param name="baseIncidentId" value="#{documentAction.document.baseIncident.id}"/>  
-          <f:param name="from" value="#{request.servletPath}"/> 
-        </s:link>  
-        <h:outputText value="#{msg.document_name}  " rendered="#{s:hasPermission('name', 'documentView')}"/>  
-        <h:outputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'documentView')}" value="#{documentAction.document.name}"/>  
-        <h:outputText value="#{msg.document_file}  " rendered="#{s:hasPermission('file', 'documentView')}"/>  
-        <c:choose> 
-          <c:when test="${documentAction.document.file.contentType.startsWith('image')}"> 
-            <s:graphicImage value="#{documentAction.document.file.data}"/> 
-          </c:when>  
-          <c:otherwise> 
-            <s:link value="#{documentAction.document.file.name}" action="#{documentAction.downloadFile(null)}" propagation="none"> 
-              <f:param name="currentEntityId" value="#{documentAction.instance.id}"/> 
-            </s:link> 
-          </c:otherwise> 
-        </c:choose>  
-        <h:outputText value="#{msg.document_notes}  " rendered="#{s:hasPermission('notes', 'documentView')}"/>  
-        <s:formattedText escape="false" id="notes#{entityId}" rendered="#{s:hasPermission('notes', 'documentView')}" value="#{documentAction.document.notes}"/> 
-      </h:panelGrid> 
-    </s:validateAll> 
-  </h:panelGroup> 
+  <rich:panel> 
+    <f:facet name="header"> 
+      <h:outputText value="Document "/> 
+    </f:facet>  
+    <h:panelGroup> 
+      <s:validateAll> 
+        <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{documentAction.load(documentId )  }"> 
+          <h:outputText value="#{msg.id}"/>  
+          <h:outputText value="#{documentAction.document.id}"/>  
+          <h:outputText value="#{msg.document_patient}  " rendered="#{s:hasPermission('patient', 'documentView')}"/>  
+          <s:link value="#{documentAction.document.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+            <f:param name="patientId" value="#{documentAction.document.patient.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/>  
+            <rich:toolTip> 
+              <span>#{documentAction.document.patient.popupInfo}</span> 
+            </rich:toolTip> 
+          </s:link>  
+          <h:outputText value="#{msg.document_name}  " rendered="#{s:hasPermission('name', 'documentView')}"/>  
+          <h:outputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'documentView')}" value="#{documentAction.document.name}"/>  
+          <h:outputText value="#{msg.document_file}  " rendered="#{s:hasPermission('file', 'documentView')}"/>  
+          <c:choose> 
+            <c:when test="${documentAction.document.file.contentType.startsWith('image')}"> 
+              <s:graphicImage value="#{documentAction.document.file.data}"/> 
+            </c:when>  
+            <c:otherwise> 
+              <s:link value="#{documentAction.document.file.name}" action="#{documentAction.downloadFile(null)}" propagation="none"> 
+                <f:param name="currentEntityId" value="#{documentAction.instance.id}"/> 
+              </s:link> 
+            </c:otherwise> 
+          </c:choose>  
+          <h:outputText value="#{msg.document_notes}  " rendered="#{s:hasPermission('notes', 'documentView')}"/>  
+          <s:formattedText escape="false" id="notes#{entityId}" rendered="#{s:hasPermission('notes', 'documentView')}" value="#{documentAction.document.notes}"/> 
+        </h:panelGrid> 
+      </s:validateAll> 
+    </h:panelGroup> 
+  </rich:panel> 
 </ui:composition>

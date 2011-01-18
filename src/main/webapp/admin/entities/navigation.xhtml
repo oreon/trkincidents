@@ -15,7 +15,7 @@
           </h:commandLink> 
         </rich:panelMenuItem> 
       </rich:panelMenuGroup>  
-      <rich:panelMenuGroup label="Unusualoccurences" expanded="true"> 
+      <rich:panelMenuGroup label="Incidents" expanded="true"> 
         <rich:panelMenuItem> 
           <h:commandLink value="Incident" action="incident"> 
             <s:conversationPropagation type="none"/> 
@@ -33,6 +33,26 @@
         </rich:panelMenuItem>  
         <rich:panelMenuItem> 
           <h:commandLink value="FormFieldInstance" action="formFieldInstance"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="Drug" action="drug"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="Severity" action="severity"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="Proccedure" action="proccedure"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="ReferenceField" action="referenceField"> 
             <s:conversationPropagation type="none"/> 
           </h:commandLink> 
         </rich:panelMenuItem> 
@@ -91,28 +111,6 @@
         </rich:panelMenuItem>  
         <rich:panelMenuItem> 
           <h:commandLink value="PrescribedTest" action="prescribedTest"> 
-            <s:conversationPropagation type="none"/> 
-          </h:commandLink> 
-        </rich:panelMenuItem> 
-      </rich:panelMenuGroup>  
-      <rich:panelMenuGroup label="Incidents" expanded="true"> 
-        <rich:panelMenuItem> 
-          <h:commandLink value="BaseIncident" action="baseIncident"> 
-            <s:conversationPropagation type="none"/> 
-          </h:commandLink> 
-        </rich:panelMenuItem>  
-        <rich:panelMenuItem> 
-          <h:commandLink value="Severity" action="severity"> 
-            <s:conversationPropagation type="none"/> 
-          </h:commandLink> 
-        </rich:panelMenuItem>  
-        <rich:panelMenuItem> 
-          <h:commandLink value="PatientIncident" action="patientIncident"> 
-            <s:conversationPropagation type="none"/> 
-          </h:commandLink> 
-        </rich:panelMenuItem>  
-        <rich:panelMenuItem> 
-          <h:commandLink value="PrivacyBreech" action="privacyBreech"> 
             <s:conversationPropagation type="none"/> 
           </h:commandLink> 
         </rich:panelMenuItem> 

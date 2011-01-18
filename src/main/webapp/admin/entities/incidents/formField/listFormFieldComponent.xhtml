@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="FormFieldModalPanel"/> 
+  </c:if>  
+  <rich:panel> 
+    <f:facet name="header">FormField Search Results (#{empty records ? 0 : (formFieldList.paginated ? formFieldList.resultCount : records.size)})</f:facet>  
+    <a:form> 
+      <rich:dataTable var="_formField" value="#{records}" id="formFieldList" rowClasses="odd, even" styleClass="dataTable"> 
+        <h:column rendered="#{s:hasPermission('id', 'formFieldView' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{formFieldList}"/>  
+              <ui:param name="propertyLabel" value="Id"/>  
+              <ui:param name="propertyPath" value="formField.id"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_formField.id}"></h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('name', 'formFieldView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{formFieldList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.formField_name}"/>  
+              <ui:param name="propertyPath" value="formField.name"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_formField.name}"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('type', 'formFieldView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{formFieldList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.formField_type}"/>  
+              <ui:param name="propertyPath" value="formField.type"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_formField.type}"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('required', 'formFieldView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{formFieldList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.formField_required}"/>  
+              <ui:param name="propertyPath" value="formField.required"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_formField.required? msg.yes : msg.no }"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('choiceValues', 'formFieldView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{formFieldList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.formField_choiceValues}"/>  
+              <ui:param name="propertyPath" value="formField.choiceValues"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_formField.choiceValues}"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('creationDate', 'formFieldView' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{formFieldList}"/>  
+              <ui:param name="propertyLabel" value="Creation Date"/>  
+              <ui:param name="propertyPath" value="formField.dateCreated"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_formField.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_formField', 'view')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/incidents/formField/viewFormField.xhtml" rendered="#{s:hasPermission(_formField, 'view')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="formFieldId" value="#{_formField.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_formField', 'edit')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/incidents/formField/editFormField.xhtml" rendered="#{s:hasPermission(_formField, 'edit')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="formFieldId" value="#{_formField.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('formFieldAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <s:link action="#{formFieldAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_formField.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="idToArchive" value="#{_formField.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <a:commandLink action="#{formFieldAction.setFormFieldIdForModalDlg(_formField.id)}" rendered="#{s:hasPermission(_formField, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});"> 
+            <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
+            <s:conversationPropagation type="join"/> 
+          </a:commandLink> 
+        </h:column> 
+      </rich:dataTable> 
+    </a:form> 
+  </rich:panel>  
+  <div class="tableControl"> 
+    <s:link view="#{request.servletPath}" rendered="#{formFieldList.previousExists}" value="#{messages.left}#{messages.left} First Page"> 
+      <f:param name="firstResult" value="0"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{formFieldList.previousExists}" value="#{messages.left} Previous Page"> 
+      <f:param name="firstResult" value="#{formFieldList.previousFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{formFieldList.nextExists}" value="Next Page #{messages.right}"> 
+      <f:param name="firstResult" value="#{formFieldList.nextFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{formFieldList.nextExists}" value="Last Page #{messages.right}#{messages.right}"> 
+      <f:param name="firstResult" value="#{formFieldList.lastFirstResult}"/> 
+    </s:link> 
+  </div> 
+</ui:composition>

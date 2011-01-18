@@ -1,28 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <h:panelGroup> 
-    <s:validateAll> 
-      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{filledFieldAction.load(filledFieldId )  }"> 
-        <f:facet name="header"> 
-          <h:outputText value="FilledField "/> 
-        </f:facet>  
-        <h:outputText value="#{msg.filledField_customField}  " rendered="#{s:hasPermission('customField', 'filledFieldEdit')}"/>  
-        <h:selectOneMenu id="customField" label="#{msg.filledField_customField}" value="#{filledFieldAction.filledField.customField}" required="true" rendered="#{s:hasPermission('customField', 'filledFieldEdit')}"> 
-          <s:selectItems value="#{customFieldList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <s:convertEntity/> 
-        </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="customField" rendered="#{s:hasPermission('customField', 'filledFieldEdit')}"/>  
-        <h:outputText value="#{msg.filledField_filledForm}  " rendered="#{s:hasPermission('filledForm', 'filledFieldEdit')}"/>  
-        <h:selectOneMenu id="filledForm" label="#{msg.filledField_filledForm}" value="#{filledFieldAction.filledField.filledForm}" required="true" rendered="#{s:hasPermission('filledForm', 'filledFieldEdit')}"> 
-          <s:selectItems value="#{filledFormList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <s:convertEntity/> 
-        </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="filledForm" rendered="#{s:hasPermission('filledForm', 'filledFieldEdit')}"/>  
-        <h:outputText value="#{msg.filledField_value}  " rendered="#{s:hasPermission('value', 'filledFieldEdit')}"/>  
-        <h:inputText id="value#{entityId}" rendered="#{s:hasPermission('value', 'filledFieldEdit')}" label="#{msg.filledField_value}" required="false" value="#{filledFieldAction.filledField.value}"/>  
-        <h:message styleClass="error errors" for="value" rendered="#{s:hasPermission('value', 'filledFieldEdit')}"/> 
-      </h:panelGrid> 
-    </s:validateAll> 
-  </h:panelGroup> 
+  <rich:panel> 
+    <f:facet name="header"> 
+      <h:outputText value="FilledField "/> 
+    </f:facet>  
+    <h:panelGroup> 
+      <s:validateAll> 
+        <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{filledFieldAction.load(filledFieldId )  }"> 
+          <h:outputText value="#{msg.filledField_customField}  " rendered="#{s:hasPermission('customField', 'filledFieldEdit')}"/>  
+          <h:selectOneMenu id="customField" label="#{msg.filledField_customField}" value="#{filledFieldAction.filledField.customField}" required="true" rendered="#{s:hasPermission('customField', 'filledFieldEdit')}"> 
+            <s:selectItems value="#{customFieldList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu>  
+          <h:message styleClass="error errors" for="customField" rendered="#{s:hasPermission('customField', 'filledFieldEdit')}"/>  
+          <h:outputText value="#{msg.filledField_filledForm}  " rendered="#{s:hasPermission('filledForm', 'filledFieldEdit')}"/>  
+          <h:selectOneMenu id="filledForm" label="#{msg.filledField_filledForm}" value="#{filledFieldAction.filledField.filledForm}" required="true" rendered="#{s:hasPermission('filledForm', 'filledFieldEdit')}"> 
+            <s:selectItems value="#{filledFormList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu>  
+          <h:message styleClass="error errors" for="filledForm" rendered="#{s:hasPermission('filledForm', 'filledFieldEdit')}"/>  
+          <h:outputText value="#{msg.filledField_value}  " rendered="#{s:hasPermission('value', 'filledFieldEdit')}"/>  
+          <h:inputText id="value#{entityId}" rendered="#{s:hasPermission('value', 'filledFieldEdit')}" label="#{msg.filledField_value}" required="false" value="#{filledFieldAction.filledField.value}"/>  
+          <h:message styleClass="error errors" for="value" rendered="#{s:hasPermission('value', 'filledFieldEdit')}"/> 
+        </h:panelGrid> 
+      </s:validateAll> 
+    </h:panelGroup> 
+  </rich:panel> 
 </ui:composition>

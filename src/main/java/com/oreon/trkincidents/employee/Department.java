@@ -68,7 +68,7 @@ public class Department extends BusinessEntity implements java.io.Serializable {
 	@JoinColumn(name = "department_ID", nullable = true)
 	@OrderBy("dateCreated DESC")
 	@IndexedEmbedded
-	private Set<com.oreon.trkincidents.unusualoccurences.Incident> incidents = new HashSet<com.oreon.trkincidents.unusualoccurences.Incident>();
+	private Set<com.oreon.trkincidents.incidents.Incident> incidents = new HashSet<com.oreon.trkincidents.incidents.Incident>();
 
 	public void setName(String name) {
 		this.name = name;
@@ -87,11 +87,11 @@ public class Department extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public void setIncidents(
-			Set<com.oreon.trkincidents.unusualoccurences.Incident> incidents) {
+			Set<com.oreon.trkincidents.incidents.Incident> incidents) {
 		this.incidents = incidents;
 	}
 
-	public Set<com.oreon.trkincidents.unusualoccurences.Incident> getIncidents() {
+	public Set<com.oreon.trkincidents.incidents.Incident> getIncidents() {
 		return incidents;
 	}
 

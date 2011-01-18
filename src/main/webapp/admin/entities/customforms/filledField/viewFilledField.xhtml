@@ -14,13 +14,13 @@
             </h:commandButton> 
           </div> 
         </rich:tab>  
-        <rich:tab label="CustomField"> 
+        <rich:tab label="CustomField" rendered="#{filledFieldAction.instance.customField != null}"> 
           <ui:include src="/admin/entities/customforms/customField/viewCustomFieldComponent.xhtml"> 
             <ui:param name="entityId" value="1"/>  
             <ui:param name="customFieldId" value="#{filledFieldAction.instance.customField.id}"/> 
           </ui:include> 
         </rich:tab>  
-        <rich:tab label="FilledForm"> 
+        <rich:tab label="FilledForm" rendered="#{filledFieldAction.instance.filledForm != null}"> 
           <ui:include src="/admin/entities/customforms/filledForm/viewFilledFormComponent.xhtml"> 
             <ui:param name="entityId" value="2"/>  
             <ui:param name="filledFormId" value="#{filledFieldAction.instance.filledForm.id}"/> 

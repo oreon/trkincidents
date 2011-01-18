@@ -35,7 +35,8 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
-import com.oreon.trkincidents.unusualoccurences.Incident;
+import com.oreon.trkincidents.incidents.Incident;
+import com.oreon.trkincidents.incidents.Incident;
 
 public abstract class EmployeeActionBase
 		extends
@@ -55,7 +56,10 @@ public abstract class EmployeeActionBase
 	com.nas.recovery.web.action.employee.DepartmentAction departmentAction;
 
 	@In(create = true, value = "incidentAction")
-	com.nas.recovery.web.action.unusualoccurences.IncidentAction incidentsAction;
+	com.nas.recovery.web.action.incidents.IncidentAction incidentsCreatedAction;
+
+	@In(create = true, value = "incidentAction")
+	com.nas.recovery.web.action.incidents.IncidentAction incidentsResponsibleForAction;
 
 	@DataModel
 	private List<Employee> employeeRecordList;
@@ -201,66 +205,118 @@ public abstract class EmployeeActionBase
 			departmentAction.setInstance(getInstance().getDepartment());
 		}
 
-		initListIncidents();
+		initListIncidentsCreated();
+
+		initListIncidentsResponsibleFor();
 
 	}
 
 	public void updateAssociations() {
 
-		com.oreon.trkincidents.unusualoccurences.Incident incident = (com.oreon.trkincidents.unusualoccurences.Incident) org.jboss.seam.Component
+		com.oreon.trkincidents.incidents.Incident incidentsCreated = (com.oreon.trkincidents.incidents.Incident) org.jboss.seam.Component
 				.getInstance("incident");
-		incident.setCreatedBy(employee);
+		incidentsCreated.setCreatedBy(employee);
+		events.raiseTransactionSuccessEvent("archivedIncident");
+
+		com.oreon.trkincidents.incidents.Incident incidentsResponsibleFor = (com.oreon.trkincidents.incidents.Incident) org.jboss.seam.Component
+				.getInstance("incident");
+		incidentsResponsibleFor.setResponsibleEmployee(employee);
 		events.raiseTransactionSuccessEvent("archivedIncident");
 
 	}
 
-	protected List<com.oreon.trkincidents.unusualoccurences.Incident> listIncidents = new ArrayList<com.oreon.trkincidents.unusualoccurences.Incident>();
+	protected List<com.oreon.trkincidents.incidents.Incident> listIncidentsCreated = new ArrayList<com.oreon.trkincidents.incidents.Incident>();
 
-	void initListIncidents() {
+	void initListIncidentsCreated() {
 
-		if (listIncidents.isEmpty())
-			listIncidents.addAll(getInstance().getIncidents());
+		if (listIncidentsCreated.isEmpty())
+			listIncidentsCreated.addAll(getInstance().getIncidentsCreated());
 
 	}
 
-	public List<com.oreon.trkincidents.unusualoccurences.Incident> getListIncidents() {
+	public List<com.oreon.trkincidents.incidents.Incident> getListIncidentsCreated() {
 
-		prePopulateListIncidents();
-		return listIncidents;
+		prePopulateListIncidentsCreated();
+		return listIncidentsCreated;
 	}
 
-	public void prePopulateListIncidents() {
+	public void prePopulateListIncidentsCreated() {
 	}
 
-	public void setListIncidents(
-			List<com.oreon.trkincidents.unusualoccurences.Incident> listIncidents) {
-		this.listIncidents = listIncidents;
+	public void setListIncidentsCreated(
+			List<com.oreon.trkincidents.incidents.Incident> listIncidentsCreated) {
+		this.listIncidentsCreated = listIncidentsCreated;
 	}
 
-	public void deleteIncidents(int index) {
-		listIncidents.remove(index);
+	public void deleteIncidentsCreated(int index) {
+		listIncidentsCreated.remove(index);
 	}
 
 	@Begin(join = true)
-	public void addIncidents() {
-		initListIncidents();
-		Incident incidents = new Incident();
+	public void addIncidentsCreated() {
+		initListIncidentsCreated();
+		Incident incidentsCreated = new Incident();
 
-		incidents.setCreatedBy(getInstance());
+		incidentsCreated.setCreatedBy(getInstance());
 
-		getListIncidents().add(incidents);
+		getListIncidentsCreated().add(incidentsCreated);
+	}
+
+	protected List<com.oreon.trkincidents.incidents.Incident> listIncidentsResponsibleFor = new ArrayList<com.oreon.trkincidents.incidents.Incident>();
+
+	void initListIncidentsResponsibleFor() {
+
+		if (listIncidentsResponsibleFor.isEmpty())
+			listIncidentsResponsibleFor.addAll(getInstance()
+					.getIncidentsResponsibleFor());
+
+	}
+
+	public List<com.oreon.trkincidents.incidents.Incident> getListIncidentsResponsibleFor() {
+
+		prePopulateListIncidentsResponsibleFor();
+		return listIncidentsResponsibleFor;
+	}
+
+	public void prePopulateListIncidentsResponsibleFor() {
+	}
+
+	public void setListIncidentsResponsibleFor(
+			List<com.oreon.trkincidents.incidents.Incident> listIncidentsResponsibleFor) {
+		this.listIncidentsResponsibleFor = listIncidentsResponsibleFor;
+	}
+
+	public void deleteIncidentsResponsibleFor(int index) {
+		listIncidentsResponsibleFor.remove(index);
+	}
+
+	@Begin(join = true)
+	public void addIncidentsResponsibleFor() {
+		initListIncidentsResponsibleFor();
+		Incident incidentsResponsibleFor = new Incident();
+
+		incidentsResponsibleFor.setResponsibleEmployee(getInstance());
+
+		getListIncidentsResponsibleFor().add(incidentsResponsibleFor);
 	}
 
 	public void updateComposedAssociations() {
 
-		if (listIncidents != null) {
-			getInstance().getIncidents().clear();
-			getInstance().getIncidents().addAll(listIncidents);
+		if (listIncidentsCreated != null) {
+			getInstance().getIncidentsCreated().clear();
+			getInstance().getIncidentsCreated().addAll(listIncidentsCreated);
+		}
+
+		if (listIncidentsResponsibleFor != null) {
+			getInstance().getIncidentsResponsibleFor().clear();
+			getInstance().getIncidentsResponsibleFor().addAll(
+					listIncidentsResponsibleFor);
 		}
 	}
 
 	public void clearLists() {
-		listIncidents.clear();
+		listIncidentsCreated.clear();
+		listIncidentsResponsibleFor.clear();
 
 	}
 

@@ -14,7 +14,7 @@
             </h:commandButton> 
           </div> 
         </rich:tab>  
-        <rich:tab label="CustomForm"> 
+        <rich:tab label="CustomForm" rendered="#{filledFormAction.instance.customForm != null}"> 
           <ui:include src="/admin/entities/customforms/customForm/viewCustomFormComponent.xhtml"> 
             <ui:param name="entityId" value="1"/>  
             <ui:param name="customFormId" value="#{filledFormAction.instance.customForm.id}"/> 

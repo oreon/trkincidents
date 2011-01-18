@@ -14,13 +14,13 @@
             </h:commandButton> 
           </div> 
         </rich:tab>  
-        <rich:tab label="User"> 
+        <rich:tab label="User" rendered="#{employeeAction.instance.user != null}"> 
           <ui:include src="/admin/entities/users/user/viewUserComponent.xhtml"> 
             <ui:param name="entityId" value="1"/>  
             <ui:param name="userId" value="#{employeeAction.instance.user.id}"/> 
           </ui:include> 
         </rich:tab>  
-        <rich:tab label="Department"> 
+        <rich:tab label="Department" rendered="#{employeeAction.instance.department != null}"> 
           <ui:include src="/admin/entities/employee/department/viewDepartmentComponent.xhtml"> 
             <ui:param name="entityId" value="2"/>  
             <ui:param name="departmentId" value="#{employeeAction.instance.department.id}"/> 
@@ -30,21 +30,45 @@
     </h:form>  
     <br/>  
     <rich:tabPanel> 
-      <rich:tab label="Incidents" icon="/images/icons/bricks.png"> 
-        <ui:include src="/admin/entities/unusualoccurences/incident/listIncidentComponent.xhtml"> 
-          <ui:param name="records" value="#{incidentList.getIncidentsByCreatedBy(employeeAction.instance)}"/> 
+      <rich:tab label="IncidentsCreated" icon="/images/icons/bricks.png"> 
+        <c:set var="modalId" value="EmployeeModalPanel-incidentsCreated"/>  
+        <ui:include src="/admin/entities/incidents/incident/listIncidentComponent.xhtml"> 
+          <ui:param name="records" value="#{incidentList.getIncidentsCreatedByCreatedBy(employeeAction.instance)}"/>  
+          <ui:param name="modalId" value="${modalId}"/> 
         </ui:include>  
         <a:form> 
-          <s:button value="Create New" view="/admin/entities/unusualoccurences/incident/editIncident.xhtml"> 
+          <s:button value="Create New" view="/admin/entities/incidents/incident/editIncident.xhtml"> 
             <f:param name="employeeId" value="#{employeeAction.instance.id}"/>  
             <f:param name="incidentId" value="0"/> 
           </s:button>  
-          <a:commandButton oncomplete="Richfaces.showModalPanel('IncidentModalPanel',{});" value="Quick Create"> 
+          <a:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"> 
             <a:actionparam name="incidentId" assignTo="#{incidentAction.incidentId}" value="0"/>  
             <a:actionparam name="employeeId" assignTo="#{incidentAction.createdById}" value="#{employeeAction.instance.id}"/> 
           </a:commandButton> 
         </a:form>  
-        <ui:include src="/admin/entities/unusualoccurences/incident/modalDlgIncidentComponent.xhtml"/> 
+        <ui:include src="/admin/entities/incidents/incident/modalDlgIncidentComponent.xhtml"> 
+          <ui:param name="modalId" value="${modalId}"/> 
+        </ui:include> 
+      </rich:tab>  
+      <rich:tab label="IncidentsResponsibleFor" icon="/images/icons/bricks.png"> 
+        <c:set var="modalId" value="EmployeeModalPanel-incidentsResponsibleFor"/>  
+        <ui:include src="/admin/entities/incidents/incident/listIncidentComponent.xhtml"> 
+          <ui:param name="records" value="#{incidentList.getIncidentsResponsibleForByResponsibleEmployee(employeeAction.instance)}"/>  
+          <ui:param name="modalId" value="${modalId}"/> 
+        </ui:include>  
+        <a:form> 
+          <s:button value="Create New" view="/admin/entities/incidents/incident/editIncident.xhtml"> 
+            <f:param name="employeeId" value="#{employeeAction.instance.id}"/>  
+            <f:param name="incidentId" value="0"/> 
+          </s:button>  
+          <a:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"> 
+            <a:actionparam name="incidentId" assignTo="#{incidentAction.incidentId}" value="0"/>  
+            <a:actionparam name="employeeId" assignTo="#{incidentAction.responsibleEmployeeId}" value="#{employeeAction.instance.id}"/> 
+          </a:commandButton> 
+        </a:form>  
+        <ui:include src="/admin/entities/incidents/incident/modalDlgIncidentComponent.xhtml"> 
+          <ui:param name="modalId" value="${modalId}"/> 
+        </ui:include> 
       </rich:tab> 
     </rich:tabPanel>  
     <br/>  

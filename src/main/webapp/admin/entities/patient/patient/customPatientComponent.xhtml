@@ -19,46 +19,6 @@
         <h:message styleClass="error errors" for="lastName" rendered="#{s:hasPermission('lastName', 'patientEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.person_dateOfBirth}  " rendered="#{s:hasPermission('dateOfBirth', 'patientEdit')}"/>  
-        <br/>  
-        <rich:calendar id="dateOfBirth" value="#{patientAction.patient.dateOfBirth}"/>  
-        <h:message styleClass="error errors" for="dateOfBirth" rendered="#{s:hasPermission('dateOfBirth', 'patientEdit')}"/> 
-      </h:panelGroup>  
-      <h:panelGroup> 
-        <h:outputText value="#{msg.person_gender}  " rendered="#{s:hasPermission('gender', 'patientEdit')}"/>  
-        <br/>  
-        <h:selectOneMenu id="gender" value="#{patientAction.patient.gender}" required="false"> 
-          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
-          <f:selectItem itemValue="F" itemLabel="F"/>  
-          <f:selectItem itemValue="M" itemLabel="M"/> 
-        </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="gender" rendered="#{s:hasPermission('gender', 'patientEdit')}"/> 
-      </h:panelGroup>  
-      <h:panelGroup> 
-        <h:outputText value="#{msg.contactDetails_primaryPhone}  " rendered="#{s:hasPermission('primaryPhone', 'patientEdit')}"/>  
-        <br/>  
-        <h:inputText id="contactDetails_primaryPhone" value="#{patientAction.patient.contactDetails.primaryPhone}"/>  
-        <h:message styleClass="error errors" for="contactDetails_primaryPhone" rendered="#{s:hasPermission('primaryPhone', 'patientEdit')}"/> 
-      </h:panelGroup>  
-      <h:panelGroup> 
-        <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{s:hasPermission('secondaryPhone', 'patientEdit')}"/>  
-        <br/>  
-        <h:inputText id="contactDetails_secondaryPhone" value="#{patientAction.patient.contactDetails.secondaryPhone}"/>  
-        <h:message styleClass="error errors" for="contactDetails_secondaryPhone" rendered="#{s:hasPermission('secondaryPhone', 'patientEdit')}"/> 
-      </h:panelGroup>  
-      <h:panelGroup> 
-        <h:outputText value="#{msg.contactDetails_email}  " rendered="#{s:hasPermission('email', 'patientEdit')}"/>  
-        <br/>  
-        <h:inputText id="contactDetails_email" value="#{patientAction.patient.contactDetails.email}"/>  
-        <h:message styleClass="error errors" for="contactDetails_email" rendered="#{s:hasPermission('email', 'patientEdit')}"/> 
-      </h:panelGroup>  
-      <h:panelGroup> 
-        <h:outputText value="#{msg.person_age}  " rendered="#{s:hasPermission('age', 'patientEdit')}"/>  
-        <br/>  
-        <h:inputText id="age" value="#{patientAction.patient.age}"/>  
-        <h:message styleClass="error errors" for="age" rendered="#{s:hasPermission('age', 'patientEdit')}"/> 
-      </h:panelGroup>  
-      <h:panelGroup> 
         <h:outputText value="#{msg.address_streetAddress}  " rendered="#{s:hasPermission('streetAddress', 'patientEdit')}"/>  
         <br/>  
         <h:inputText id="address_streetAddress" value="#{patientAction.patient.address.streetAddress}"/>  
@@ -87,6 +47,28 @@
         <br/>  
         <h:inputText id="healthNumber" value="#{patientAction.patient.healthNumber}"/>  
         <h:message styleClass="error errors" for="healthNumber" rendered="#{s:hasPermission('healthNumber', 'patientEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.patient_dateOfBirth}  " rendered="#{s:hasPermission('dateOfBirth', 'patientEdit')}"/>  
+        <br/>  
+        <rich:calendar id="dateOfBirth" value="#{patientAction.patient.dateOfBirth}"/>  
+        <h:message styleClass="error errors" for="dateOfBirth" rendered="#{s:hasPermission('dateOfBirth', 'patientEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.patient_gender}  " rendered="#{s:hasPermission('gender', 'patientEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="gender" value="#{patientAction.patient.gender}" required="false"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="F" itemLabel="F"/>  
+          <f:selectItem itemValue="M" itemLabel="M"/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="gender" rendered="#{s:hasPermission('gender', 'patientEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.patient_age}  " rendered="#{s:hasPermission('age', 'patientEdit')}"/>  
+        <br/>  
+        <h:inputText id="age" value="#{patientAction.patient.age}"/>  
+        <h:message styleClass="error errors" for="age" rendered="#{s:hasPermission('age', 'patientEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

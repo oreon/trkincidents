@@ -74,11 +74,6 @@ public class Document extends BusinessEntity implements java.io.Serializable {
 	@ContainedIn
 	protected Patient patient;
 
-	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "baseIncident_id", nullable = false, updatable = true)
-	@ContainedIn
-	protected com.oreon.trkincidents.incidents.BaseIncident baseIncident;
-
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -109,15 +104,6 @@ public class Document extends BusinessEntity implements java.io.Serializable {
 
 	public Patient getPatient() {
 		return patient;
-	}
-
-	public void setBaseIncident(
-			com.oreon.trkincidents.incidents.BaseIncident baseIncident) {
-		this.baseIncident = baseIncident;
-	}
-
-	public com.oreon.trkincidents.incidents.BaseIncident getBaseIncident() {
-		return baseIncident;
 	}
 
 	@Transient
