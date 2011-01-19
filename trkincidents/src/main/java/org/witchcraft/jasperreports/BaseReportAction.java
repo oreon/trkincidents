@@ -5,12 +5,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.JasperRunManager;
+import net.sf.jasperreports.engine.export.JRHtmlExporter;
+import net.sf.jasperreports.engine.export.JRHtmlExporterParameter;
 import net.sf.jasperreports.engine.query.JRJpaQueryExecuterFactory;
+import net.sf.jasperreports.j2ee.servlets.ImageServlet;
 
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.jboss.seam.annotations.In;
@@ -39,9 +46,13 @@ public abstract class BaseReportAction {
 	public void setEntityManager(FullTextEntityManager entityManager) {
 		this.entityManager = entityManager;
 	}
+	
+	public enum REPORT_TYPE{
+		PDF, HTML
+	}
 
 	// ///// Jasper Reports //////////////////////////////////////////////
-	public void runReport(String reportName) {
+	public void runReport(String reportName, String reportType) {
 
 		JasperReport jasperReport;
 
@@ -54,8 +65,12 @@ public abstract class BaseReportAction {
 			InputStream reportStreamXML = this.getClass().getResourceAsStream(
 					"/reports/" + reportName + ".jrxml");
 			jasperReport = JasperCompileManager.compileReport(reportStreamXML);
-			// new JRHtmlExporter().exportReport()
-			sendReportToPdf(jasperReport, parameters);
+			if(reportType != null && reportType.equalsIgnoreCase(REPORT_TYPE.HTML.toString())){
+				sendReportToHtml(jasperReport, parameters);
+			}else{//Default PDF
+				
+				sendReportToPdf(jasperReport, parameters);
+			}
 			// JasperRunManager.runReportToHtmlFile(jasperReport, parameters);
 		} catch (Exception e) {
 			statusMessages.add(Severity.ERROR, "Error Running Report: " + e.getMessage() );
@@ -83,6 +98,43 @@ public abstract class BaseReportAction {
 		} catch (Exception e) {
 			log.error("running report " , e);
 			throw new ContractViolationException(e.getMessage());
+		}
+
+	}
+	
+	public void sendReportToHtml(JasperReport jasperReport,
+			Map<String, Object> parameters) {
+		try {
+			HttpServletResponse response = (HttpServletResponse) javax.faces.context.FacesContext
+					.getCurrentInstance().getExternalContext().getResponse();
+
+			HttpServletRequest request = (HttpServletRequest) javax.faces.context.FacesContext
+					.getCurrentInstance().getExternalContext().getRequest();
+
+			JasperPrint jasperPrint = JasperFillManager.fillReport(
+					jasperReport, parameters);
+
+			JRHtmlExporter exporter = new JRHtmlExporter();
+		
+			request.getSession().setAttribute(
+					ImageServlet.DEFAULT_JASPER_PRINT_SESSION_ATTRIBUTE,
+					jasperPrint);
+
+			exporter
+					.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+			exporter.setParameter(JRExporterParameter.OUTPUT_WRITER,
+					response.getWriter());
+			
+			exporter.setParameter(JRHtmlExporterParameter.IMAGES_URI,
+					request.getContextPath() + "/servlets/image?image=");
+
+			exporter.exportReport();
+			
+			javax.faces.context.FacesContext.getCurrentInstance()
+					.responseComplete();
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
 		}
 
 	}
