@@ -14,9 +14,9 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.referenceField_references}  " rendered="#{s:hasPermission('references', 'referenceFieldEdit')}"/>  
+      <h:outputText value="#{msg.referenceField_referencesEntity}  " rendered="#{s:hasPermission('referencesEntity', 'referenceFieldEdit')}"/>  
       <br/>  
-      <h:selectOneMenu id="references" value="#{referenceFieldList.referenceField.references}" required="false"> 
+      <h:selectOneMenu id="referencesEntity" value="#{referenceFieldList.referenceField.referencesEntity}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  
         <f:selectItem itemLabel="None" itemValue=""/>  
         <f:selectItem itemValue="Patient" itemLabel="Patient"/>  

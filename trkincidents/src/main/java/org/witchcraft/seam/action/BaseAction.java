@@ -689,7 +689,7 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 		return id != getInstance().getId().longValue();
 	}
 
-	protected boolean isNew() {
+	public boolean isNew() {
 		boolean isNew = getInstance().getId() == null;
 		return isNew;
 	}

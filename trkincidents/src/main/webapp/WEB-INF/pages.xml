@@ -53,12 +53,20 @@
         <redirect view-id="/admin/entities/patient/patient/viewPatient.xhtml"/>  
         <end-conversation/> 
       </rule>  
+      <rule if-outcome="editPatient"> 
+        <redirect view-id="/admin/entities/patient/patient/editPatient.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
       <rule if-outcome="document"> 
         <redirect view-id="/admin/entities/patient/document/listDocument.xhtml"/>  
         <end-conversation/> 
       </rule>  
       <rule if-outcome="viewDocument"> 
         <redirect view-id="/admin/entities/patient/document/viewDocument.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editDocument"> 
+        <redirect view-id="/admin/entities/patient/document/editDocument.xhtml"/>  
         <end-conversation/> 
       </rule>  
       <rule if-outcome="incident"> 
@@ -69,12 +77,20 @@
         <redirect view-id="/admin/entities/incidents/incident/viewIncident.xhtml"/>  
         <end-conversation/> 
       </rule>  
+      <rule if-outcome="editIncident"> 
+        <redirect view-id="/admin/entities/incidents/incident/editIncident.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
       <rule if-outcome="incidentType"> 
         <redirect view-id="/admin/entities/incidents/incidentType/listIncidentType.xhtml"/>  
         <end-conversation/> 
       </rule>  
       <rule if-outcome="viewIncidentType"> 
         <redirect view-id="/admin/entities/incidents/incidentType/viewIncidentType.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editIncidentType"> 
+        <redirect view-id="/admin/entities/incidents/incidentType/editIncidentType.xhtml"/>  
         <end-conversation/> 
       </rule>  
       <rule if-outcome="formField"> 
@@ -85,12 +101,20 @@
         <redirect view-id="/admin/entities/incidents/formField/viewFormField.xhtml"/>  
         <end-conversation/> 
       </rule>  
+      <rule if-outcome="editFormField"> 
+        <redirect view-id="/admin/entities/incidents/formField/editFormField.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
       <rule if-outcome="formFieldInstance"> 
         <redirect view-id="/admin/entities/incidents/formFieldInstance/listFormFieldInstance.xhtml"/>  
         <end-conversation/> 
       </rule>  
       <rule if-outcome="viewFormFieldInstance"> 
         <redirect view-id="/admin/entities/incidents/formFieldInstance/viewFormFieldInstance.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editFormFieldInstance"> 
+        <redirect view-id="/admin/entities/incidents/formFieldInstance/editFormFieldInstance.xhtml"/>  
         <end-conversation/> 
       </rule>  
       <rule if-outcome="drug"> 
@@ -101,12 +125,20 @@
         <redirect view-id="/admin/entities/incidents/drug/viewDrug.xhtml"/>  
         <end-conversation/> 
       </rule>  
+      <rule if-outcome="editDrug"> 
+        <redirect view-id="/admin/entities/incidents/drug/editDrug.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
       <rule if-outcome="severity"> 
         <redirect view-id="/admin/entities/incidents/severity/listSeverity.xhtml"/>  
         <end-conversation/> 
       </rule>  
       <rule if-outcome="viewSeverity"> 
         <redirect view-id="/admin/entities/incidents/severity/viewSeverity.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editSeverity"> 
+        <redirect view-id="/admin/entities/incidents/severity/editSeverity.xhtml"/>  
         <end-conversation/> 
       </rule>  
       <rule if-outcome="proccedure"> 
@@ -117,12 +149,20 @@
         <redirect view-id="/admin/entities/incidents/proccedure/viewProccedure.xhtml"/>  
         <end-conversation/> 
       </rule>  
+      <rule if-outcome="editProccedure"> 
+        <redirect view-id="/admin/entities/incidents/proccedure/editProccedure.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
       <rule if-outcome="referenceField"> 
         <redirect view-id="/admin/entities/incidents/referenceField/listReferenceField.xhtml"/>  
         <end-conversation/> 
       </rule>  
       <rule if-outcome="viewReferenceField"> 
         <redirect view-id="/admin/entities/incidents/referenceField/viewReferenceField.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editReferenceField"> 
+        <redirect view-id="/admin/entities/incidents/referenceField/editReferenceField.xhtml"/>  
         <end-conversation/> 
       </rule>  
       <rule if-outcome="employee"> 
@@ -133,12 +173,20 @@
         <redirect view-id="/admin/entities/employee/employee/viewEmployee.xhtml"/>  
         <end-conversation/> 
       </rule>  
+      <rule if-outcome="editEmployee"> 
+        <redirect view-id="/admin/entities/employee/employee/editEmployee.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
       <rule if-outcome="department"> 
         <redirect view-id="/admin/entities/employee/department/listDepartment.xhtml"/>  
         <end-conversation/> 
       </rule>  
       <rule if-outcome="viewDepartment"> 
         <redirect view-id="/admin/entities/employee/department/viewDepartment.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editDepartment"> 
+        <redirect view-id="/admin/entities/employee/department/editDepartment.xhtml"/>  
         <end-conversation/> 
       </rule>  
       <rule if-outcome="user"> 
@@ -149,12 +197,20 @@
         <redirect view-id="/admin/entities/users/user/viewUser.xhtml"/>  
         <end-conversation/> 
       </rule>  
+      <rule if-outcome="editUser"> 
+        <redirect view-id="/admin/entities/users/user/editUser.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
       <rule if-outcome="role"> 
         <redirect view-id="/admin/entities/users/role/listRole.xhtml"/>  
         <end-conversation/> 
       </rule>  
       <rule if-outcome="viewRole"> 
         <redirect view-id="/admin/entities/users/role/viewRole.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editRole"> 
+        <redirect view-id="/admin/entities/users/role/editRole.xhtml"/>  
         <end-conversation/> 
       </rule>  
       <rule if-outcome="facility"> 
@@ -165,12 +221,20 @@
         <redirect view-id="/admin/entities/facility/facility/viewFacility.xhtml"/>  
         <end-conversation/> 
       </rule>  
+      <rule if-outcome="editFacility"> 
+        <redirect view-id="/admin/entities/facility/facility/editFacility.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
       <rule if-outcome="appointment"> 
         <redirect view-id="/admin/entities/appointment/appointment/listAppointment.xhtml"/>  
         <end-conversation/> 
       </rule>  
       <rule if-outcome="viewAppointment"> 
         <redirect view-id="/admin/entities/appointment/appointment/viewAppointment.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editAppointment"> 
+        <redirect view-id="/admin/entities/appointment/appointment/editAppointment.xhtml"/>  
         <end-conversation/> 
       </rule>  
       <rule if-outcome="encounter"> 
@@ -181,12 +245,20 @@
         <redirect view-id="/admin/entities/appointment/encounter/viewEncounter.xhtml"/>  
         <end-conversation/> 
       </rule>  
+      <rule if-outcome="editEncounter"> 
+        <redirect view-id="/admin/entities/appointment/encounter/editEncounter.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
       <rule if-outcome="history"> 
         <redirect view-id="/admin/entities/appointment/history/listHistory.xhtml"/>  
         <end-conversation/> 
       </rule>  
       <rule if-outcome="viewHistory"> 
         <redirect view-id="/admin/entities/appointment/history/viewHistory.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editHistory"> 
+        <redirect view-id="/admin/entities/appointment/history/editHistory.xhtml"/>  
         <end-conversation/> 
       </rule>  
       <rule if-outcome="dxTest"> 
@@ -197,12 +269,20 @@
         <redirect view-id="/admin/entities/appointment/dxTest/viewDxTest.xhtml"/>  
         <end-conversation/> 
       </rule>  
+      <rule if-outcome="editDxTest"> 
+        <redirect view-id="/admin/entities/appointment/dxTest/editDxTest.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
       <rule if-outcome="prescribedTest"> 
         <redirect view-id="/admin/entities/appointment/prescribedTest/listPrescribedTest.xhtml"/>  
         <end-conversation/> 
       </rule>  
       <rule if-outcome="viewPrescribedTest"> 
         <redirect view-id="/admin/entities/appointment/prescribedTest/viewPrescribedTest.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editPrescribedTest"> 
+        <redirect view-id="/admin/entities/appointment/prescribedTest/editPrescribedTest.xhtml"/>  
         <end-conversation/> 
       </rule>  
       <rule if-outcome="customForm"> 
@@ -213,12 +293,20 @@
         <redirect view-id="/admin/entities/customforms/customForm/viewCustomForm.xhtml"/>  
         <end-conversation/> 
       </rule>  
+      <rule if-outcome="editCustomForm"> 
+        <redirect view-id="/admin/entities/customforms/customForm/editCustomForm.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
       <rule if-outcome="customField"> 
         <redirect view-id="/admin/entities/customforms/customField/listCustomField.xhtml"/>  
         <end-conversation/> 
       </rule>  
       <rule if-outcome="viewCustomField"> 
         <redirect view-id="/admin/entities/customforms/customField/viewCustomField.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editCustomField"> 
+        <redirect view-id="/admin/entities/customforms/customField/editCustomField.xhtml"/>  
         <end-conversation/> 
       </rule>  
       <rule if-outcome="filledForm"> 
@@ -229,12 +317,20 @@
         <redirect view-id="/admin/entities/customforms/filledForm/viewFilledForm.xhtml"/>  
         <end-conversation/> 
       </rule>  
+      <rule if-outcome="editFilledForm"> 
+        <redirect view-id="/admin/entities/customforms/filledForm/editFilledForm.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
       <rule if-outcome="filledField"> 
         <redirect view-id="/admin/entities/customforms/filledField/listFilledField.xhtml"/>  
         <end-conversation/> 
       </rule>  
       <rule if-outcome="viewFilledField"> 
         <redirect view-id="/admin/entities/customforms/filledField/viewFilledField.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editFilledField"> 
+        <redirect view-id="/admin/entities/customforms/filledField/editFilledField.xhtml"/>  
         <end-conversation/> 
       </rule> 
     </navigation> 
@@ -682,7 +778,7 @@
     <param name="from"/>  
     <param name="id" value="#{referenceFieldList.referenceField.id}"/>  
     <param name="incidentType" value="#{referenceFieldList.referenceField.incidentType.id}" validateModel="false"/>  
-    <param name="references" value="#{referenceFieldList.referenceField.references}" validateModel="false"/>  
+    <param name="referencesEntity" value="#{referenceFieldList.referenceField.referencesEntity}" validateModel="false"/>  
     <param name="required" value="#{referenceFieldList.referenceField.required}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/employee/employee/editEmployee.xhtml"> 

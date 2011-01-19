@@ -16,7 +16,7 @@
         <h:message styleClass="error errors" for="incidentType" rendered="#{s:hasPermission('incidentType', 'incidentEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.incident_title}  " rendered="#{s:hasPermission('title', 'incidentEdit')}"/>  
+        <h:outputText value="#{msg.incident_title} * " rendered="#{s:hasPermission('title', 'incidentEdit')}"/>  
         <br/>  
         <h:inputText id="title" value="#{incidentAction.incident.title}"/>  
         <h:message styleClass="error errors" for="title" rendered="#{s:hasPermission('title', 'incidentEdit')}"/> 

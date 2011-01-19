@@ -10,7 +10,7 @@
       <ui:param name="records" value="#{encounterList.resultList}"/> 
     </ui:include>  
     <a:form> 
-      <s:button value="Create New" view="/admin/entities/appointment/encounter/editEncounter.xhtml" propagation="none"> 
+      <s:button value="Create New" action="/admin/entities/appointment/encounter/editEncounter.xhtml" propagation="none"> 
         <f:param name="encounterId" value="0"/> 
       </s:button>  
       <a:commandButton action="#{encounterAction.setEncounterId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"></a:commandButton> 

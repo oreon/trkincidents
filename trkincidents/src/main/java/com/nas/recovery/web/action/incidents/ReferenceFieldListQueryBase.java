@@ -56,7 +56,7 @@ public abstract class ReferenceFieldListQueryBase
 
 			"referenceField.incidentType.id = #{referenceFieldList.referenceField.incidentType.id}",
 
-			"referenceField.references = #{referenceFieldList.referenceField.references}",
+			"referenceField.referencesEntity = #{referenceFieldList.referenceField.referencesEntity}",
 
 			"referenceField.required = #{referenceFieldList.referenceField.required}",
 

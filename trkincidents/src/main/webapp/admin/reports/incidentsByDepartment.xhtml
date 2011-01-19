@@ -18,6 +18,14 @@
 			<h:outputText value="IncidentsByDepartment" />
 		</f:facet>
 	
+		<h:outputText value="#{msg.incidentsByDepartment_fromDate}  " rendered="#{s:hasPermission('fromDate', 'nullView')}"/>
+<rich:calendar  id="fromDate"  label="#{msg.incidentsByDepartment_fromDate}"  required="true"  value="#{incidentsByDepartmentAction.fromDate}" />
+		<h:message styleClass="error errors" for="fromDate" rendered="#{s:hasPermission('fromDate', 'nullEdit')}"/>
+	
+		<h:outputText value="#{msg.incidentsByDepartment_toDate}  " rendered="#{s:hasPermission('toDate', 'nullView')}"/>
+<rich:calendar  id="toDate"  label="#{msg.incidentsByDepartment_toDate}"  required="true"  value="#{incidentsByDepartmentAction.toDate}" />
+		<h:message styleClass="error errors" for="toDate" rendered="#{s:hasPermission('toDate', 'nullEdit')}"/>
+	
 	</h:panelGrid>
 	</s:validateAll>
 	<h:commandButton propagation="none" value="Run Report"

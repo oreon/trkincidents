@@ -16,15 +16,15 @@
         <h:message styleClass="error errors" for="incidentType" rendered="#{s:hasPermission('incidentType', 'referenceFieldEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.referenceField_references}  " rendered="#{s:hasPermission('references', 'referenceFieldEdit')}"/>  
+        <h:outputText value="#{msg.referenceField_referencesEntity}  " rendered="#{s:hasPermission('referencesEntity', 'referenceFieldEdit')}"/>  
         <br/>  
-        <h:selectOneMenu id="references" value="#{referenceFieldAction.referenceField.references}" required="false"> 
+        <h:selectOneMenu id="referencesEntity" value="#{referenceFieldAction.referenceField.referencesEntity}" required="false"> 
           <f:selectItem itemLabel="Please Select..." itemValue=""/>  
           <f:selectItem itemValue="Patient" itemLabel="Patient"/>  
           <f:selectItem itemValue="Drug" itemLabel="Drug"/>  
           <f:selectItem itemValue="Procedure" itemLabel="Procedure"/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="references" rendered="#{s:hasPermission('references', 'referenceFieldEdit')}"/> 
+        <h:message styleClass="error errors" for="referencesEntity" rendered="#{s:hasPermission('referencesEntity', 'referenceFieldEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.referenceField_required}  " rendered="#{s:hasPermission('required', 'referenceFieldEdit')}"/>  

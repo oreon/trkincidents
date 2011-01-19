@@ -56,6 +56,8 @@ public class Incident extends BusinessEntity implements java.io.Serializable {
 	@ContainedIn
 	protected IncidentType incidentType;
 
+	@NotNull
+	@Length(min = 2, max = 250)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "customanalyzer")
 	protected String title;
@@ -76,7 +78,7 @@ public class Incident extends BusinessEntity implements java.io.Serializable {
 	protected com.oreon.trkincidents.employee.Department department;
 
 	@Column(name = "dateOfIncident", unique = false)
-	protected Date dateOfIncident;
+	protected Date dateOfIncident = new Date();;
 
 	@OneToMany(mappedBy = "incident", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "incident_ID", nullable = true)
