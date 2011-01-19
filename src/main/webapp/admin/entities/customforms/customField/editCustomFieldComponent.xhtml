@@ -1,38 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <rich:panel> 
-    <f:facet name="header"> 
-      <h:outputText value="CustomField "/> 
-    </f:facet>  
-    <h:panelGroup> 
-      <s:validateAll> 
-        <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{customFieldAction.load(customFieldId )  }"> 
-          <h:outputText value="#{msg.customField_customForm}  " rendered="#{s:hasPermission('customForm', 'customFieldEdit')}"/>  
-          <h:selectOneMenu id="customForm" label="#{msg.customField_customForm}" value="#{customFieldAction.customField.customForm}" required="true" rendered="#{s:hasPermission('customForm', 'customFieldEdit')}"> 
-            <s:selectItems value="#{customFormList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-            <s:convertEntity/> 
-          </h:selectOneMenu>  
-          <h:message styleClass="error errors" for="customForm" rendered="#{s:hasPermission('customForm', 'customFieldEdit')}"/>  
-          <h:outputText value="#{msg.customField_required}  " rendered="#{s:hasPermission('required', 'customFieldEdit')}"/>  
-          <h:selectBooleanCheckbox id="required#{entityId}" rendered="#{s:hasPermission('required', 'customFieldEdit')}" label="#{msg.customField_required}" required="false" value="#{customFieldAction.customField.required}"/>  
-          <h:message styleClass="error errors" for="required" rendered="#{s:hasPermission('required', 'customFieldEdit')}"/>  
-          <h:outputText value="#{msg.customField_type}  " rendered="#{s:hasPermission('type', 'customFieldEdit')}"/>  
-          <h:selectOneMenu id="type" rendered="#{s:hasPermission('type', 'customFieldEdit')}" value="#{customFieldAction.customField.type}" required="false" label="#{msg.customField_type}"> 
-            <f:selectItem itemLabel="Please Select..." itemValue=""/>  
-            <f:selectItem itemValue="TEXT" itemLabel="Text"/>  
-            <f:selectItem itemValue="LARGE_TEXT" itemLabel="Large_text"/>  
-            <f:selectItem itemValue="CHOICE" itemLabel="Choice"/>  
-            <f:selectItem itemValue="YES_NO" itemLabel="Yes_no"/>  
-            <f:selectItem itemValue="DATE" itemLabel="Date"/>  
-            <f:selectItem itemValue="REFERENCE" itemLabel="Reference"/> 
-          </h:selectOneMenu>  
-          <h:message styleClass="error errors" for="type" rendered="#{s:hasPermission('type', 'customFieldEdit')}"/>  
-          <h:outputText value="#{msg.customField_name} * " rendered="#{s:hasPermission('name', 'customFieldEdit')}"/>  
-          <h:inputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'customFieldEdit')}" label="#{msg.customField_name}" required="true" value="#{customFieldAction.customField.name}"/>  
-          <h:message styleClass="error errors" for="name" rendered="#{s:hasPermission('name', 'customFieldEdit')}"/> 
-        </h:panelGrid> 
-      </s:validateAll> 
-    </h:panelGroup> 
-  </rich:panel> 
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{customFieldAction.load(customFieldId )  }"> 
+        <h:outputText value="#{msg.customField_customForm}  " rendered="#{s:hasPermission('customForm', 'customFieldEdit')}"/>  
+        <h:selectOneMenu id="customForm" label="#{msg.customField_customForm}" value="#{customFieldAction.customField.customForm}" required="true" rendered="#{s:hasPermission('customForm', 'customFieldEdit')}"> 
+          <s:selectItems value="#{customFormList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="customForm" rendered="#{s:hasPermission('customForm', 'customFieldEdit')}"/>  
+        <h:outputText value="#{msg.customField_required}  " rendered="#{s:hasPermission('required', 'customFieldEdit')}"/>  
+        <h:selectBooleanCheckbox id="required#{entityId}" rendered="#{s:hasPermission('required', 'customFieldEdit')}" label="#{msg.customField_required}" required="false" value="#{customFieldAction.customField.required}"/>  
+        <h:message styleClass="error errors" for="required" rendered="#{s:hasPermission('required', 'customFieldEdit')}"/>  
+        <h:outputText value="#{msg.customField_type}  " rendered="#{s:hasPermission('type', 'customFieldEdit')}"/>  
+        <h:selectOneMenu id="type" rendered="#{s:hasPermission('type', 'customFieldEdit')}" value="#{customFieldAction.customField.type}" required="false" label="#{msg.customField_type}"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="TEXT" itemLabel="Text"/>  
+          <f:selectItem itemValue="LARGE_TEXT" itemLabel="Large_text"/>  
+          <f:selectItem itemValue="CHOICE" itemLabel="Choice"/>  
+          <f:selectItem itemValue="YES_NO" itemLabel="Yes_no"/>  
+          <f:selectItem itemValue="DATE" itemLabel="Date"/>  
+          <f:selectItem itemValue="REFERENCE" itemLabel="Reference"/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="type" rendered="#{s:hasPermission('type', 'customFieldEdit')}"/>  
+        <h:outputText value="#{msg.customField_name} * " rendered="#{s:hasPermission('name', 'customFieldEdit')}"/>  
+        <h:inputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'customFieldEdit')}" label="#{msg.customField_name}" required="true" value="#{customFieldAction.customField.name}"/>  
+        <h:message styleClass="error errors" for="name" rendered="#{s:hasPermission('name', 'customFieldEdit')}"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
 </ui:composition>

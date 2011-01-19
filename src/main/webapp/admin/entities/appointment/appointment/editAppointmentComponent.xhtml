@@ -1,30 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <rich:panel> 
-    <f:facet name="header"> 
-      <h:outputText value="Appointment "/> 
-    </f:facet>  
-    <h:panelGroup> 
-      <s:validateAll> 
-        <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{appointmentAction.load(appointmentId )  }"> 
-          <h:outputText value="#{msg.appointment_patient}  " rendered="#{s:hasPermission('patient', 'appointmentEdit')}"/>  
-          <h:selectOneMenu id="patient" label="#{msg.appointment_patient}" value="#{appointmentAction.appointment.patient}" required="true" rendered="#{s:hasPermission('patient', 'appointmentEdit')}"> 
-            <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-            <s:convertEntity/> 
-          </h:selectOneMenu>  
-          <h:message styleClass="error errors" for="patient" rendered="#{s:hasPermission('patient', 'appointmentEdit')}"/>  
-          <h:outputText value="#{msg.appointment_start} * " rendered="#{s:hasPermission('start', 'appointmentEdit')}"/>  
-          <rich:calendar id="start#{entityId}" rendered="#{s:hasPermission('start', 'appointmentEdit')}" label="#{msg.appointment_start}" required="true" value="#{appointmentAction.appointment.start}"/>  
-          <h:message styleClass="error errors" for="start" rendered="#{s:hasPermission('start', 'appointmentEdit')}"/>  
-          <h:outputText value="#{msg.appointment_end}  " rendered="#{s:hasPermission('end', 'appointmentEdit')}"/>  
-          <rich:calendar id="end#{entityId}" rendered="#{s:hasPermission('end', 'appointmentEdit')}" label="#{msg.appointment_end}" required="false" value="#{appointmentAction.appointment.end}"/>  
-          <h:message styleClass="error errors" for="end" rendered="#{s:hasPermission('end', 'appointmentEdit')}"/>  
-          <h:outputText value="#{msg.appointment_remarks}  " rendered="#{s:hasPermission('remarks', 'appointmentEdit')}"/>  
-          <rich:editor useSeamText="true" id="remarks#{entityId}" rendered="#{s:hasPermission('remarks', 'appointmentEdit')}" label="#{msg.appointment_remarks}" required="false" value="#{appointmentAction.appointment.remarks}"/>  
-          <h:message styleClass="error errors" for="remarks" rendered="#{s:hasPermission('remarks', 'appointmentEdit')}"/> 
-        </h:panelGrid> 
-      </s:validateAll> 
-    </h:panelGroup> 
-  </rich:panel> 
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{appointmentAction.load(appointmentId )  }"> 
+        <h:outputText value="#{msg.appointment_patient}  " rendered="#{s:hasPermission('patient', 'appointmentEdit')}"/>  
+        <h:selectOneMenu id="patient" label="#{msg.appointment_patient}" value="#{appointmentAction.appointment.patient}" required="true" rendered="#{s:hasPermission('patient', 'appointmentEdit')}"> 
+          <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="patient" rendered="#{s:hasPermission('patient', 'appointmentEdit')}"/>  
+        <h:outputText value="#{msg.appointment_start} * " rendered="#{s:hasPermission('start', 'appointmentEdit')}"/>  
+        <rich:calendar id="start#{entityId}" rendered="#{s:hasPermission('start', 'appointmentEdit')}" label="#{msg.appointment_start}" required="true" value="#{appointmentAction.appointment.start}"/>  
+        <h:message styleClass="error errors" for="start" rendered="#{s:hasPermission('start', 'appointmentEdit')}"/>  
+        <h:outputText value="#{msg.appointment_end}  " rendered="#{s:hasPermission('end', 'appointmentEdit')}"/>  
+        <rich:calendar id="end#{entityId}" rendered="#{s:hasPermission('end', 'appointmentEdit')}" label="#{msg.appointment_end}" required="false" value="#{appointmentAction.appointment.end}"/>  
+        <h:message styleClass="error errors" for="end" rendered="#{s:hasPermission('end', 'appointmentEdit')}"/>  
+        <h:outputText value="#{msg.appointment_remarks}  " rendered="#{s:hasPermission('remarks', 'appointmentEdit')}"/>  
+        <rich:editor useSeamText="true" id="remarks#{entityId}" rendered="#{s:hasPermission('remarks', 'appointmentEdit')}" label="#{msg.appointment_remarks}" required="false" value="#{appointmentAction.appointment.remarks}"/>  
+        <h:message styleClass="error errors" for="remarks" rendered="#{s:hasPermission('remarks', 'appointmentEdit')}"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
 </ui:composition>

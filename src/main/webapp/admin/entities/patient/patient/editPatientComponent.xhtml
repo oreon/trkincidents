@@ -1,46 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <rich:panel> 
-    <f:facet name="header"> 
-      <h:outputText value="Patient "/> 
-    </f:facet>  
-    <h:panelGroup> 
-      <s:validateAll> 
-        <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{patientAction.load(patientId )  }"> 
-          <h:outputText value="#{msg.address_streetAddress}  " rendered="#{s:hasPermission('streetAddress', 'patientEdit')}"/>  
-          <h:inputText id="address_streetAddress#{entityId}" rendered="#{s:hasPermission('streetAddress', 'patientEdit')}" label="#{msg.address_streetAddress}" required="false" value="#{patientAction.patient.address.streetAddress}"/>  
-          <h:message styleClass="error errors" for="address_streetAddress" rendered="#{s:hasPermission('streetAddress', 'patientEdit')}"/>  
-          <h:outputText value="#{msg.address_city}  " rendered="#{s:hasPermission('city', 'patientEdit')}"/>  
-          <h:inputText id="address_city#{entityId}" rendered="#{s:hasPermission('city', 'patientEdit')}" label="#{msg.address_city}" required="false" value="#{patientAction.patient.address.city}"/>  
-          <h:message styleClass="error errors" for="address_city" rendered="#{s:hasPermission('city', 'patientEdit')}"/>  
-          <h:outputText value="#{msg.address_State}  " rendered="#{s:hasPermission('State', 'patientEdit')}"/>  
-          <h:inputText id="address_State#{entityId}" rendered="#{s:hasPermission('State', 'patientEdit')}" label="#{msg.address_State}" required="false" value="#{patientAction.patient.address.state}"/>  
-          <h:message styleClass="error errors" for="address_State" rendered="#{s:hasPermission('State', 'patientEdit')}"/>  
-          <h:outputText value="#{msg.address_phone}  " rendered="#{s:hasPermission('phone', 'patientEdit')}"/>  
-          <h:inputText id="address_phone#{entityId}" rendered="#{s:hasPermission('phone', 'patientEdit')}" label="#{msg.address_phone}" required="false" value="#{patientAction.patient.address.phone}"/>  
-          <h:message styleClass="error errors" for="address_phone" rendered="#{s:hasPermission('phone', 'patientEdit')}"/>  
-          <h:outputText value="#{msg.person_firstName} * " rendered="#{s:hasPermission('firstName', 'patientEdit')}"/>  
-          <h:inputText id="firstName#{entityId}" rendered="#{s:hasPermission('firstName', 'patientEdit')}" label="#{msg.person_firstName}" required="true" value="#{patientAction.patient.firstName}"/>  
-          <h:message styleClass="error errors" for="firstName" rendered="#{s:hasPermission('firstName', 'patientEdit')}"/>  
-          <h:outputText value="#{msg.person_lastName} * " rendered="#{s:hasPermission('lastName', 'patientEdit')}"/>  
-          <h:inputText id="lastName#{entityId}" rendered="#{s:hasPermission('lastName', 'patientEdit')}" label="#{msg.person_lastName}" required="true" value="#{patientAction.patient.lastName}"/>  
-          <h:message styleClass="error errors" for="lastName" rendered="#{s:hasPermission('lastName', 'patientEdit')}"/>  
-          <h:outputText value="#{msg.patient_healthNumber}  " rendered="#{s:hasPermission('healthNumber', 'patientEdit')}"/>  
-          <h:inputText id="healthNumber#{entityId}" rendered="#{s:hasPermission('healthNumber', 'patientEdit')}" label="#{msg.patient_healthNumber}" required="false" value="#{patientAction.patient.healthNumber}"/>  
-          <h:message styleClass="error errors" for="healthNumber" rendered="#{s:hasPermission('healthNumber', 'patientEdit')}"/>  
-          <h:outputText value="#{msg.patient_dateOfBirth}  " rendered="#{s:hasPermission('dateOfBirth', 'patientEdit')}"/>  
-          <rich:calendar id="dateOfBirth#{entityId}" rendered="#{s:hasPermission('dateOfBirth', 'patientEdit')}" label="#{msg.patient_dateOfBirth}" required="false" value="#{patientAction.patient.dateOfBirth}"/>  
-          <h:message styleClass="error errors" for="dateOfBirth" rendered="#{s:hasPermission('dateOfBirth', 'patientEdit')}"/>  
-          <h:outputText value="#{msg.patient_gender}  " rendered="#{s:hasPermission('gender', 'patientEdit')}"/>  
-          <h:selectOneMenu id="gender" rendered="#{s:hasPermission('gender', 'patientEdit')}" value="#{patientAction.patient.gender}" required="false" label="#{msg.patient_gender}"> 
-            <f:selectItem itemLabel="Please Select..." itemValue=""/>  
-            <f:selectItem itemValue="F" itemLabel="F"/>  
-            <f:selectItem itemValue="M" itemLabel="M"/> 
-          </h:selectOneMenu>  
-          <h:message styleClass="error errors" for="gender" rendered="#{s:hasPermission('gender', 'patientEdit')}"/> 
-        </h:panelGrid> 
-      </s:validateAll> 
-    </h:panelGroup> 
-  </rich:panel> 
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{patientAction.load(patientId )  }"> 
+        <h:outputText value="#{msg.address_streetAddress}  " rendered="#{s:hasPermission('streetAddress', 'patientEdit')}"/>  
+        <h:inputText id="address_streetAddress#{entityId}" rendered="#{s:hasPermission('streetAddress', 'patientEdit')}" label="#{msg.address_streetAddress}" required="false" value="#{patientAction.patient.address.streetAddress}"/>  
+        <h:message styleClass="error errors" for="address_streetAddress" rendered="#{s:hasPermission('streetAddress', 'patientEdit')}"/>  
+        <h:outputText value="#{msg.address_city}  " rendered="#{s:hasPermission('city', 'patientEdit')}"/>  
+        <h:inputText id="address_city#{entityId}" rendered="#{s:hasPermission('city', 'patientEdit')}" label="#{msg.address_city}" required="false" value="#{patientAction.patient.address.city}"/>  
+        <h:message styleClass="error errors" for="address_city" rendered="#{s:hasPermission('city', 'patientEdit')}"/>  
+        <h:outputText value="#{msg.address_State}  " rendered="#{s:hasPermission('State', 'patientEdit')}"/>  
+        <h:inputText id="address_State#{entityId}" rendered="#{s:hasPermission('State', 'patientEdit')}" label="#{msg.address_State}" required="false" value="#{patientAction.patient.address.state}"/>  
+        <h:message styleClass="error errors" for="address_State" rendered="#{s:hasPermission('State', 'patientEdit')}"/>  
+        <h:outputText value="#{msg.address_phone}  " rendered="#{s:hasPermission('phone', 'patientEdit')}"/>  
+        <h:inputText id="address_phone#{entityId}" rendered="#{s:hasPermission('phone', 'patientEdit')}" label="#{msg.address_phone}" required="false" value="#{patientAction.patient.address.phone}"/>  
+        <h:message styleClass="error errors" for="address_phone" rendered="#{s:hasPermission('phone', 'patientEdit')}"/>  
+        <h:outputText value="#{msg.person_firstName} * " rendered="#{s:hasPermission('firstName', 'patientEdit')}"/>  
+        <h:inputText id="firstName#{entityId}" rendered="#{s:hasPermission('firstName', 'patientEdit')}" label="#{msg.person_firstName}" required="true" value="#{patientAction.patient.firstName}"/>  
+        <h:message styleClass="error errors" for="firstName" rendered="#{s:hasPermission('firstName', 'patientEdit')}"/>  
+        <h:outputText value="#{msg.person_lastName} * " rendered="#{s:hasPermission('lastName', 'patientEdit')}"/>  
+        <h:inputText id="lastName#{entityId}" rendered="#{s:hasPermission('lastName', 'patientEdit')}" label="#{msg.person_lastName}" required="true" value="#{patientAction.patient.lastName}"/>  
+        <h:message styleClass="error errors" for="lastName" rendered="#{s:hasPermission('lastName', 'patientEdit')}"/>  
+        <h:outputText value="#{msg.patient_healthNumber}  " rendered="#{s:hasPermission('healthNumber', 'patientEdit')}"/>  
+        <h:inputText id="healthNumber#{entityId}" rendered="#{s:hasPermission('healthNumber', 'patientEdit')}" label="#{msg.patient_healthNumber}" required="false" value="#{patientAction.patient.healthNumber}"/>  
+        <h:message styleClass="error errors" for="healthNumber" rendered="#{s:hasPermission('healthNumber', 'patientEdit')}"/>  
+        <h:outputText value="#{msg.patient_dateOfBirth}  " rendered="#{s:hasPermission('dateOfBirth', 'patientEdit')}"/>  
+        <rich:calendar id="dateOfBirth#{entityId}" rendered="#{s:hasPermission('dateOfBirth', 'patientEdit')}" label="#{msg.patient_dateOfBirth}" required="false" value="#{patientAction.patient.dateOfBirth}"/>  
+        <h:message styleClass="error errors" for="dateOfBirth" rendered="#{s:hasPermission('dateOfBirth', 'patientEdit')}"/>  
+        <h:outputText value="#{msg.patient_gender}  " rendered="#{s:hasPermission('gender', 'patientEdit')}"/>  
+        <h:selectOneMenu id="gender" rendered="#{s:hasPermission('gender', 'patientEdit')}" value="#{patientAction.patient.gender}" required="false" label="#{msg.patient_gender}"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="F" itemLabel="F"/>  
+          <f:selectItem itemValue="M" itemLabel="M"/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="gender" rendered="#{s:hasPermission('gender', 'patientEdit')}"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
 </ui:composition>

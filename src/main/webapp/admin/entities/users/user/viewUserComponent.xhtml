@@ -1,29 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <rich:panel> 
-    <f:facet name="header"> 
-      <h:outputText value="User "/> 
-    </f:facet>  
-    <h:panelGroup> 
-      <s:validateAll> 
-        <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{userAction.load(userId )  }"> 
-          <h:outputText value="#{msg.id}"/>  
-          <h:outputText value="#{userAction.user.id}"/>  
-          <h:outputText value="#{msg.user_userName}  " rendered="#{s:hasPermission('userName', 'userView')}"/>  
-          <h:outputText id="userName#{entityId}" rendered="#{s:hasPermission('userName', 'userView')}" value="#{userAction.user.userName}"/>  
-          <h:outputText value="#{msg.user_enabled}  " rendered="#{s:hasPermission('enabled', 'userView')}"/>  
-          <h:outputText id="enabled#{entityId}" rendered="#{s:hasPermission('enabled', 'userView')}" value="#{userAction.user.enabled}"/>  
-          <h:outputText value="#{msg.user_email}  " rendered="#{s:hasPermission('email', 'userView')}"/>  
-          <h:outputText id="email#{entityId}" rendered="#{s:hasPermission('email', 'userView')}" value="#{userAction.user.email}"/> 
-        </h:panelGrid>  
-        <br/>  
-        <rich:simpleTogglePanel label="#{msg.user_roles}" switchType="client"> 
-          <rich:dataTable value="#{userAction.listRoles}" var="item"> 
-            <rich:column>#{item.displayName}</rich:column> 
-          </rich:dataTable> 
-        </rich:simpleTogglePanel> 
-      </s:validateAll> 
-    </h:panelGroup> 
-  </rich:panel> 
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{userAction.load(userId )  }"> 
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{userAction.user.id}"/>  
+        <h:outputText value="#{msg.user_userName}  " rendered="#{s:hasPermission('userName', 'userView')}"/>  
+        <h:outputText id="userName#{entityId}" rendered="#{s:hasPermission('userName', 'userView')}" value="#{userAction.user.userName}"/>  
+        <h:outputText value="#{msg.user_enabled}  " rendered="#{s:hasPermission('enabled', 'userView')}"/>  
+        <h:outputText id="enabled#{entityId}" rendered="#{s:hasPermission('enabled', 'userView')}" value="#{userAction.user.enabled}"/>  
+        <h:outputText value="#{msg.user_email}  " rendered="#{s:hasPermission('email', 'userView')}"/>  
+        <h:outputText id="email#{entityId}" rendered="#{s:hasPermission('email', 'userView')}" value="#{userAction.user.email}"/> 
+      </h:panelGrid>  
+      <br/>  
+      <rich:simpleTogglePanel label="#{msg.user_roles}" switchType="client"> 
+        <rich:dataTable value="#{userAction.listRoles}" var="item"> 
+          <rich:column>#{item.displayName}</rich:column> 
+        </rich:dataTable> 
+      </rich:simpleTogglePanel> 
+    </s:validateAll> 
+  </h:panelGroup> 
 </ui:composition>

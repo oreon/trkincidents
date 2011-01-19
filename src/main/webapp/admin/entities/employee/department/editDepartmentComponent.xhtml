@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <rich:panel> 
-    <f:facet name="header"> 
-      <h:outputText value="Department "/> 
-    </f:facet>  
-    <h:panelGroup> 
-      <s:validateAll> 
-        <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{departmentAction.load(departmentId )  }"> 
-          <h:outputText value="#{msg.department_name} * " rendered="#{s:hasPermission('name', 'departmentEdit')}"/>  
-          <h:inputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'departmentEdit')}" label="#{msg.department_name}" required="true" value="#{departmentAction.department.name}"/>  
-          <h:message styleClass="error errors" for="name" rendered="#{s:hasPermission('name', 'departmentEdit')}"/> 
-        </h:panelGrid> 
-      </s:validateAll> 
-    </h:panelGroup> 
-  </rich:panel> 
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{departmentAction.load(departmentId )  }"> 
+        <h:outputText value="#{msg.department_name} * " rendered="#{s:hasPermission('name', 'departmentEdit')}"/>  
+        <h:inputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'departmentEdit')}" label="#{msg.department_name}" required="true" value="#{departmentAction.department.name}"/>  
+        <h:message styleClass="error errors" for="name" rendered="#{s:hasPermission('name', 'departmentEdit')}"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
 </ui:composition>
