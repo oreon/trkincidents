@@ -73,6 +73,10 @@
 		<servlet-class>org.jboss.seam.servlet.SeamResourceServlet</servlet-class>
 	</servlet>
 
+ 	<servlet>
+        <servlet-name>ImageServlet</servlet-name>
+        <servlet-class>net.sf.jasperreports.j2ee.servlets.ImageServlet</servlet-class>
+    </servlet>
 
 	<servlet>
 		<servlet-name>Document Store Servlet</servlet-name>
@@ -84,6 +88,11 @@
 	</servlet-mapping>
 
 
+	<servlet-mapping>
+        <servlet-name>ImageServlet</servlet-name>
+        <url-pattern>/servlets/image</url-pattern>
+    </servlet-mapping>
+  
 
 	
 	<servlet-mapping>
