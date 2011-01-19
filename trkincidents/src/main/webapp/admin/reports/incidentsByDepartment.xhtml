@@ -28,8 +28,11 @@
 	
 	</h:panelGrid>
 	</s:validateAll>
-	<h:commandButton propagation="none" value="Run Report"
-				action="#{incidentsByDepartmentAction.runReport('IncidentsByDepartment')}" />
+	<h:commandButton propagation="none" value="Run Report as PDF"
+				action="#{incidentsByDepartmentAction.runReport('IncidentsByDepartment', 'PDF')}" />
+				
+	<h:commandButton propagation="none" value="Run Report as HTML"
+				action="#{incidentsByDepartmentAction.runReport('IncidentsByDepartment', 'HTML')}" />			
 	</h:form>
 	</ui:define>
 </ui:composition>

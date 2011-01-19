@@ -45,7 +45,7 @@
     <groupHeader> 
       <band height="20"> 
         <textField evaluationTime="Group" evaluationGroup="GroupincidentType.name" bookmarkLevel="2"> 
-          <reportElement mode="Opaque" x="10" y="5" width="540" height="15" backcolor="#e1e1d1"/>  
+          <reportElement mode="Opaque" x="10" y="5" width="530" height="15" backcolor="#e1e1d1"/>  
           <box leftPadding="10" bottomBorder="1Point"/>  
           <textFieldExpression class="java.lang.String"> <![CDATA[String.valueOf($F{incidentType.name})]]> </textFieldExpression>  
           <anchorNameExpression><![CDATA[String.valueOf($F{incidentType.name})]]></anchorNameExpression> 
@@ -65,11 +65,11 @@
   <title> 
     <band height="70"> 
       <line> 
-        <reportElement x="0" y="0" width="900" height="1"/>  
+        <reportElement x="0" y="0" width="540" height="1"/>  
         <graphicElement/> 
       </line>  
       <textField> 
-        <reportElement x="0" y="10" width="900" height="30"/>  
+        <reportElement x="0" y="10" width="540" height="30"/>  
         <textElement textAlignment="Center"> 
           <font size="13"/> 
         </textElement>  
@@ -80,27 +80,27 @@
   <pageHeader> 
     <band height="20"> 
       <rectangle> 
-        <reportElement x="0" y="5" width="900" height="15" forecolor="#333333" backcolor="#333333"/>  
+        <reportElement x="0" y="5" width="540" height="15" forecolor="#333333" backcolor="#333333"/>  
         <graphicElement/> 
       </rectangle>  
       <staticText> 
-        <reportElement mode="Opaque" x="0" y="5" width="90" height="15" forecolor="#ffffff" backcolor="#333333"/>  
-        <textElement textAlignment="Center"/>  
+        <reportElement mode="Opaque" x="0" y="5" width="135" height="15" forecolor="#ffffff" backcolor="#333333"/>  
+        <textElement textAlignment="Left"/>  
         <text><![CDATA[Title]]></text> 
       </staticText>  
       <staticText> 
-        <reportElement mode="Opaque" x="90" y="5" width="90" height="15" forecolor="#ffffff" backcolor="#333333"/>  
-        <textElement textAlignment="Center"/>  
+        <reportElement mode="Opaque" x="135" y="5" width="135" height="15" forecolor="#ffffff" backcolor="#333333"/>  
+        <textElement textAlignment="Left"/>  
         <text><![CDATA[Description]]></text> 
       </staticText>  
       <staticText> 
-        <reportElement mode="Opaque" x="180" y="5" width="90" height="15" forecolor="#ffffff" backcolor="#333333"/>  
-        <textElement textAlignment="Center"/>  
+        <reportElement mode="Opaque" x="270" y="5" width="135" height="15" forecolor="#ffffff" backcolor="#333333"/>  
+        <textElement textAlignment="Left"/>  
         <text><![CDATA[Severity]]></text> 
       </staticText>  
       <staticText> 
-        <reportElement mode="Opaque" x="270" y="5" width="90" height="15" forecolor="#ffffff" backcolor="#333333"/>  
-        <textElement textAlignment="Center"/>  
+        <reportElement mode="Opaque" x="405" y="5" width="135" height="15" forecolor="#ffffff" backcolor="#333333"/>  
+        <textElement textAlignment="Left"/>  
         <text><![CDATA[Date]]></text> 
       </staticText> 
     </band> 
@@ -108,23 +108,23 @@
   <detail> 
     <band height="30"> 
       <textField isBlankWhenNull="true" isStretchWithOverflow="true"> 
-        <reportElement x="0" y="0" width="90" height="24"/>  
-        <textElement/>  
+        <reportElement x="0" y="0" width="135" height="24"/>  
+        <textElement textAlignment="Left"/>  
         <textFieldExpression class="java.lang.String"> <![CDATA[$F{title}]]> </textFieldExpression> 
       </textField>  
       <textField isBlankWhenNull="true" isStretchWithOverflow="true"> 
-        <reportElement x="90" y="0" width="90" height="24"/>  
-        <textElement/>  
+        <reportElement x="135" y="0" width="135" height="24"/>  
+        <textElement textAlignment="Left"/>  
         <textFieldExpression class="java.lang.String"> <![CDATA[$F{description}]]> </textFieldExpression> 
       </textField>  
       <textField isBlankWhenNull="true" isStretchWithOverflow="true"> 
-        <reportElement x="180" y="0" width="90" height="24"/>  
-        <textElement/>  
+        <reportElement x="270" y="0" width="135" height="24"/>  
+        <textElement textAlignment="Left"/>  
         <textFieldExpression class="java.lang.String"> <![CDATA[$F{severity.name}]]> </textFieldExpression> 
       </textField>  
       <textField isBlankWhenNull="true" isStretchWithOverflow="true"> 
-        <reportElement x="270" y="0" width="90" height="24"/>  
-        <textElement/>  
+        <reportElement x="405" y="0" width="135" height="24"/>  
+        <textElement textAlignment="Left"/>  
         <textFieldExpression class="java.util.Date"> <![CDATA[$F{dateOfIncident}]]> </textFieldExpression> 
       </textField> 
     </band> 
@@ -132,7 +132,7 @@
   <summary> 
     <band height="320"> 
       <staticText> 
-        <reportElement mode="Opaque" x="0" y="1" width="900" height="15" backcolor="#c0c0c0"/>  
+        <reportElement mode="Opaque" x="0" y="1" width="540" height="15" backcolor="#c0c0c0"/>  
         <box leftPadding="10" bottomBorder="1Point"/>  
         <text><![CDATA[Summary]]> </text> 
       </staticText>  
@@ -148,7 +148,7 @@
       </textField>  
       <pieChart> 
         <chart evaluationTime="Report"> 
-          <reportElement x="235" y="0" width="240" height="240"/> 
+          <reportElement x="250" y="20" width="280" height="272"/> 
         </chart>  
         <pieDataset> 
           <keyExpression><![CDATA[$F{department.name}]]></keyExpression>  
@@ -161,7 +161,7 @@
       </pieChart>  
       <barChart> 
         <chart evaluationTime="Report"> 
-          <reportElement positionType="Float" x="0" y="0" width="270" height="275"/>  
+          <reportElement positionType="Float" x="0" y="20" width="250" height="275"/>  
           <chartTitle/>  
           <chartSubtitle/>  
           <chartLegend/> 
