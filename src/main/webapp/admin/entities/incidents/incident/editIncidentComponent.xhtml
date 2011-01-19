@@ -58,8 +58,8 @@
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <h:message styleClass="error errors" for="severity" rendered="#{s:hasPermission('severity', 'incidentEdit')}"/>  
-        <h:outputText value="#{msg.incident_title}  " rendered="#{s:hasPermission('title', 'incidentEdit')}"/>  
-        <h:inputText id="title#{entityId}" rendered="#{s:hasPermission('title', 'incidentEdit')}" label="#{msg.incident_title}" required="false" value="#{incidentAction.incident.title}"/>  
+        <h:outputText value="#{msg.incident_title} * " rendered="#{s:hasPermission('title', 'incidentEdit')}"/>  
+        <h:inputText id="title#{entityId}" rendered="#{s:hasPermission('title', 'incidentEdit')}" label="#{msg.incident_title}" required="true" value="#{incidentAction.incident.title}"/>  
         <h:message styleClass="error errors" for="title" rendered="#{s:hasPermission('title', 'incidentEdit')}"/>  
         <h:outputText value="#{msg.incident_dateOfIncident}  " rendered="#{s:hasPermission('dateOfIncident', 'incidentEdit')}"/>  
         <rich:calendar id="dateOfIncident#{entityId}" rendered="#{s:hasPermission('dateOfIncident', 'incidentEdit')}" label="#{msg.incident_dateOfIncident}" required="false" value="#{incidentAction.incident.dateOfIncident}"/>  

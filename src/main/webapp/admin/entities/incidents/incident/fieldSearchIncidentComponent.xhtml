@@ -14,7 +14,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.incident_title}  " rendered="#{s:hasPermission('title', 'incidentEdit')}"/>  
+      <h:outputText value="#{msg.incident_title} * " rendered="#{s:hasPermission('title', 'incidentEdit')}"/>  
       <br/>  
       <h:inputText id="title" value="#{incidentList.incident.title}"/> 
     </h:panelGroup>  

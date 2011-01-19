@@ -10,7 +10,7 @@
       <ui:param name="records" value="#{dxTestList.resultList}"/> 
     </ui:include>  
     <a:form> 
-      <s:button value="Create New" view="/admin/entities/appointment/dxTest/editDxTest.xhtml" propagation="none"> 
+      <s:button value="Create New" action="/admin/entities/appointment/dxTest/editDxTest.xhtml" propagation="none"> 
         <f:param name="dxTestId" value="0"/> 
       </s:button>  
       <a:commandButton action="#{dxTestAction.setDxTestId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"></a:commandButton> 

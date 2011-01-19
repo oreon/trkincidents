@@ -31,15 +31,15 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('references', 'referenceFieldView'  )}"> 
+        <h:column rendered="#{s:hasPermission('referencesEntity', 'referenceFieldView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{referenceFieldList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.referenceField_references}"/>  
-              <ui:param name="propertyPath" value="referenceField.references"/> 
+              <ui:param name="propertyLabel" value="#{msg.referenceField_referencesEntity}"/>  
+              <ui:param name="propertyPath" value="referenceField.referencesEntity"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_referenceField.references}"/> 
+          <h:outputText value="#{_referenceField.referencesEntity}"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('required', 'referenceFieldView'  )}"> 
           <f:facet name="header"> 

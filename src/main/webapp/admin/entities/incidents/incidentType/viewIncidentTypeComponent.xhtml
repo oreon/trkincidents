@@ -38,9 +38,9 @@
       <rich:dataTable id="referenceFields" var="_referenceField" rendered="#{not empty incidentTypeAction.listReferenceFields and s:hasPermission('referenceFields', 'formFieldView') }" value="#{incidentTypeAction.listReferenceFields}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
         <h:column style="text-align:right">
           <f:facet name="header">
-            <h:outputText value="#{msg.referenceField_references}  " rendered="#{s:hasPermission('references', 'referenceFieldView')}"/>
+            <h:outputText value="#{msg.referenceField_referencesEntity}  " rendered="#{s:hasPermission('referencesEntity', 'referenceFieldView')}"/>
           </f:facet>  
-          <h:outputText value="#{_referenceField.references}"/> 
+          <h:outputText value="#{_referenceField.referencesEntity}"/> 
         </h:column>  
         <h:column style="text-align:right">
           <f:facet name="header">

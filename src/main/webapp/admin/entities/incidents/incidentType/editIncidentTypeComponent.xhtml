@@ -65,15 +65,15 @@
       <rich:dataTable id="referenceFields" var="_referenceField" rendered="#{s:hasPermission('referenceFields', 'formFieldEdit')}" value="#{incidentTypeAction.listReferenceFields}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
         <h:column style="text-align:right">
           <f:facet name="header">
-            <h:outputText value="#{msg.referenceField_references}  " rendered="#{s:hasPermission('references', 'referenceFieldEdit')}"/>
+            <h:outputText value="#{msg.referenceField_referencesEntity}  " rendered="#{s:hasPermission('referencesEntity', 'referenceFieldEdit')}"/>
           </f:facet>  
-          <h:selectOneMenu id="references" rendered="#{s:hasPermission('references', 'referenceFieldEdit')}" value="#{_referenceField.references}" required="false" label="#{msg.referenceField_references}"> 
+          <h:selectOneMenu id="referencesEntity" rendered="#{s:hasPermission('referencesEntity', 'referenceFieldEdit')}" value="#{_referenceField.referencesEntity}" required="false" label="#{msg.referenceField_referencesEntity}"> 
             <f:selectItem itemLabel="Please Select..." itemValue=""/>  
             <f:selectItem itemValue="Patient" itemLabel="Patient"/>  
             <f:selectItem itemValue="Drug" itemLabel="Drug"/>  
             <f:selectItem itemValue="Procedure" itemLabel="Procedure"/> 
           </h:selectOneMenu>  
-          <h:message styleClass="error errors" for="references" rendered="#{s:hasPermission('references', 'referenceFieldEdit')}"/> 
+          <h:message styleClass="error errors" for="referencesEntity" rendered="#{s:hasPermission('referencesEntity', 'referenceFieldEdit')}"/> 
         </h:column>  
         <h:column style="text-align:right">
           <f:facet name="header">

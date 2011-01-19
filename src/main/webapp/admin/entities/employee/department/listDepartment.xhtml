@@ -10,7 +10,7 @@
       <ui:param name="records" value="#{departmentList.resultList}"/> 
     </ui:include>  
     <a:form> 
-      <s:button value="Create New" view="/admin/entities/employee/department/editDepartment.xhtml" propagation="none"> 
+      <s:button value="Create New" action="/admin/entities/employee/department/editDepartment.xhtml" propagation="none"> 
         <f:param name="departmentId" value="0"/> 
       </s:button>  
       <a:commandButton action="#{departmentAction.setDepartmentId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"></a:commandButton> 

@@ -58,7 +58,7 @@ public class ReferenceField extends BusinessEntity
 	@ContainedIn
 	protected IncidentType incidentType;
 
-	protected ReferenceEntity references;
+	protected ReferenceEntity referencesEntity;
 
 	protected Boolean required;
 
@@ -70,12 +70,12 @@ public class ReferenceField extends BusinessEntity
 		return incidentType;
 	}
 
-	public void setReferences(ReferenceEntity references) {
-		this.references = references;
+	public void setReferencesEntity(ReferenceEntity referencesEntity) {
+		this.referencesEntity = referencesEntity;
 	}
 
-	public ReferenceEntity getReferences() {
-		return references;
+	public ReferenceEntity getReferencesEntity() {
+		return referencesEntity;
 	}
 
 	public void setRequired(Boolean required) {

@@ -11,8 +11,8 @@
           <f:param name="incidentTypeId" value="#{referenceFieldAction.referenceField.incidentType.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
-        <h:outputText value="#{msg.referenceField_references}  " rendered="#{s:hasPermission('references', 'referenceFieldView')}"/>  
-        <h:outputText value="#{referenceFieldAction.referenceField.references}"/>  
+        <h:outputText value="#{msg.referenceField_referencesEntity}  " rendered="#{s:hasPermission('referencesEntity', 'referenceFieldView')}"/>  
+        <h:outputText value="#{referenceFieldAction.referenceField.referencesEntity}"/>  
         <h:outputText value="#{msg.referenceField_required}  " rendered="#{s:hasPermission('required', 'referenceFieldView')}"/>  
         <h:outputText id="required#{entityId}" rendered="#{s:hasPermission('required', 'referenceFieldView')}" value="#{referenceFieldAction.referenceField.required}"/> 
       </h:panelGrid> 

@@ -10,7 +10,7 @@
       <ui:param name="records" value="#{userList.resultList}"/> 
     </ui:include>  
     <a:form> 
-      <s:button value="Create New" view="/admin/entities/users/user/editUser.xhtml" propagation="none"> 
+      <s:button value="Create New" action="/admin/entities/users/user/editUser.xhtml" propagation="none"> 
         <f:param name="userId" value="0"/> 
       </s:button>  
       <a:commandButton action="#{userAction.setUserId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"></a:commandButton> 
