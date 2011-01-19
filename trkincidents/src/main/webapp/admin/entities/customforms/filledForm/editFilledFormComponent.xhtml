@@ -1,56 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <rich:panel> 
-    <f:facet name="header"> 
-      <h:outputText value="FilledForm "/> 
-    </f:facet>  
-    <h:panelGroup> 
-      <s:validateAll> 
-        <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{filledFormAction.load(filledFormId )  }"> 
-          <h:outputText value="#{msg.filledForm_customForm}  " rendered="#{s:hasPermission('customForm', 'filledFormEdit')}"/>  
-          <h:selectOneMenu id="customForm" label="#{msg.filledForm_customForm}" value="#{filledFormAction.filledForm.customForm}" required="true" rendered="#{s:hasPermission('customForm', 'filledFormEdit')}"> 
-            <s:selectItems value="#{customFormList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{filledFormAction.load(filledFormId )  }"> 
+        <h:outputText value="#{msg.filledForm_customForm}  " rendered="#{s:hasPermission('customForm', 'filledFormEdit')}"/>  
+        <h:selectOneMenu id="customForm" label="#{msg.filledForm_customForm}" value="#{filledFormAction.filledForm.customForm}" required="true" rendered="#{s:hasPermission('customForm', 'filledFormEdit')}"> 
+          <s:selectItems value="#{customFormList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="customForm" rendered="#{s:hasPermission('customForm', 'filledFormEdit')}"/>  
+        <h:outputText value="#{msg.filledForm_entityId}  " rendered="#{s:hasPermission('entityId', 'filledFormEdit')}"/>  
+        <h:inputText id="entityId#{entityId}" rendered="#{s:hasPermission('entityId', 'filledFormEdit')}" label="#{msg.filledForm_entityId}" required="false" value="#{filledFormAction.filledForm.entityId}"/>  
+        <h:message styleClass="error errors" for="entityId" rendered="#{s:hasPermission('entityId', 'filledFormEdit')}"/> 
+      </h:panelGrid>  
+      <a:commandButton value="New FilledField" action="#{filledFormAction.addFilledFields}" reRender="filledFields" rendered="#{s:hasPermission('filledFields', 'filledFormEdit')}"> 
+        <s:conversationId/> 
+      </a:commandButton>  
+      <rich:dataTable id="filledFields" var="_filledField" rendered="#{s:hasPermission('filledFields', 'filledFormEdit')}" value="#{filledFormAction.listFilledFields}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.filledField_customField}  " rendered="#{s:hasPermission('customField', 'filledFieldEdit')}"/>
+          </f:facet>  
+          <h:selectOneMenu id="customField" label="#{msg.filledField_customField}" value="#{_filledField.customField}" required="true" rendered="#{s:hasPermission('customField', 'filledFieldEdit')}"> 
+            <s:selectItems value="#{customFieldList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <s:convertEntity/> 
           </h:selectOneMenu>  
-          <h:message styleClass="error errors" for="customForm" rendered="#{s:hasPermission('customForm', 'filledFormEdit')}"/>  
-          <h:outputText value="#{msg.filledForm_entityId}  " rendered="#{s:hasPermission('entityId', 'filledFormEdit')}"/>  
-          <h:inputText id="entityId#{entityId}" rendered="#{s:hasPermission('entityId', 'filledFormEdit')}" label="#{msg.filledForm_entityId}" required="false" value="#{filledFormAction.filledForm.entityId}"/>  
-          <h:message styleClass="error errors" for="entityId" rendered="#{s:hasPermission('entityId', 'filledFormEdit')}"/> 
-        </h:panelGrid>  
-        <a:commandButton value="New FilledField" action="#{filledFormAction.addFilledFields}" reRender="filledFields" rendered="#{s:hasPermission('filledFields', 'filledFormEdit')}"> 
-          <s:conversationId/> 
-        </a:commandButton>  
-        <rich:dataTable id="filledFields" var="_filledField" rendered="#{s:hasPermission('filledFields', 'filledFormEdit')}" value="#{filledFormAction.listFilledFields}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
-          <h:column style="text-align:right">
-            <f:facet name="header">
-              <h:outputText value="#{msg.filledField_customField}  " rendered="#{s:hasPermission('customField', 'filledFieldEdit')}"/>
-            </f:facet>  
-            <h:selectOneMenu id="customField" label="#{msg.filledField_customField}" value="#{_filledField.customField}" required="true" rendered="#{s:hasPermission('customField', 'filledFieldEdit')}"> 
-              <s:selectItems value="#{customFieldList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-              <s:convertEntity/> 
-            </h:selectOneMenu>  
-            <h:message styleClass="error errors" for="customField" rendered="#{s:hasPermission('customField', 'filledFieldEdit')}"/> 
-          </h:column>  
-          <h:column style="text-align:left">
-            <f:facet name="header">
-              <h:outputText value="#{msg.filledField_value}  " rendered="#{s:hasPermission('value', 'filledFieldEdit')}"/>
-            </f:facet>  
-            <h:inputText id="value#{entityId}" rendered="#{s:hasPermission('value', 'filledFieldEdit')}" label="#{msg.filledField_value}" required="false" value="#{_filledField.value}"/>  
-            <h:message styleClass="error errors" for="value" rendered="#{s:hasPermission('value', 'filledFieldEdit')}"/> 
-          </h:column>  
-          <h:column> 
-            <a:commandButton value="New FilledField" action="#{filledFormAction.addFilledFields}" reRender="filledFields" rendered="#{s:hasPermission('filledFields', 'filledFieldEdit')}"> 
-              <s:conversationId/> 
-            </a:commandButton> 
-          </h:column>  
-          <h:column> 
-            <a:commandButton value="Delete" immediate="true" action="#{filledFormAction.deleteFilledFields(rowIndex)}" reRender="filledFields"> 
-              <s:conversationId/> 
-            </a:commandButton> 
-          </h:column> 
-        </rich:dataTable> 
-      </s:validateAll> 
-    </h:panelGroup> 
-  </rich:panel> 
+          <h:message styleClass="error errors" for="customField" rendered="#{s:hasPermission('customField', 'filledFieldEdit')}"/> 
+        </h:column>  
+        <h:column style="text-align:left">
+          <f:facet name="header">
+            <h:outputText value="#{msg.filledField_value}  " rendered="#{s:hasPermission('value', 'filledFieldEdit')}"/>
+          </f:facet>  
+          <h:inputText id="value#{entityId}" rendered="#{s:hasPermission('value', 'filledFieldEdit')}" label="#{msg.filledField_value}" required="false" value="#{_filledField.value}"/>  
+          <h:message styleClass="error errors" for="value" rendered="#{s:hasPermission('value', 'filledFieldEdit')}"/> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="New FilledField" action="#{filledFormAction.addFilledFields}" reRender="filledFields" rendered="#{s:hasPermission('filledFields', 'filledFieldEdit')}"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="Delete" immediate="true" action="#{filledFormAction.deleteFilledFields(rowIndex)}" reRender="filledFields"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column> 
+      </rich:dataTable> 
+    </s:validateAll> 
+  </h:panelGroup> 
 </ui:composition>

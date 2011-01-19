@@ -39,6 +39,8 @@ import org.hibernate.annotations.Filter;
 
 import org.witchcraft.utils.*;
 
+import edu.emory.mathcs.backport.java.util.Arrays;
+
 @Entity
 @Table(name = "formfield")
 @Filter(name = "archiveFilterDef")
@@ -124,5 +126,7 @@ public class FormField extends BusinessEntity implements java.io.Serializable {
 
 		return listSearchableFields;
 	}
+	
+	
 
 }

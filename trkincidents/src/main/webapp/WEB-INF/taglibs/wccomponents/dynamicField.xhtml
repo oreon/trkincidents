@@ -44,7 +44,7 @@
 		value="${fld.value}" required="${fld.formField.required}" 
 		id="${fld.formField.name}Choice" >
 		
-		<s:selectItems value="${fld.choiceValues}" var="itemIter"
+		<s:selectItems value="${utilsAction.getChoiceValues(fld.formField.choiceValues)}" var="itemIter"
 						label="#{itemIter}"
 						noSelectionLabel="Please Select..." />
 	</h:selectOneMenu>

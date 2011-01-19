@@ -1,57 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <rich:panel> 
-    <f:facet name="header"> 
-      <h:outputText value="Employee "/> 
-    </f:facet>  
-    <h:panelGroup> 
-      <s:validateAll> 
-        <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{employeeAction.load(employeeId )  }"> 
-          <h:outputText value="#{msg.user_userName} * " rendered="#{s:hasPermission('userName', 'employeeEdit')}"/>  
-          <h:inputText id="user_userName#{entityId}" rendered="#{s:hasPermission('userName', 'employeeEdit')}" label="#{msg.user_userName}" required="true" value="#{employeeAction.employee.user.userName}"/>  
-          <h:message styleClass="error errors" for="user_userName" rendered="#{s:hasPermission('userName', 'employeeEdit')}"/>  
-          <h:outputText value="#{msg.user_password} * " rendered="#{s:hasPermission('password', 'employeeEdit')}"/>  
-          <h:inputSecret redisplay="true" id="user_password#{entityId}" rendered="#{s:hasPermission('password', 'employeeEdit')}" label="#{msg.user_password}" required="true" value="#{employeeAction.employee.user.password}"/>  
-          <h:message styleClass="error errors" for="user_password" rendered="#{s:hasPermission('password', 'employeeEdit')}"/>  
-          <h:outputText value="#{msg.user_enabled}  " rendered="#{s:hasPermission('enabled', 'employeeEdit')}"/>  
-          <h:selectBooleanCheckbox id="user_enabled#{entityId}" rendered="#{s:hasPermission('enabled', 'employeeEdit')}" label="#{msg.user_enabled}" required="false" value="#{employeeAction.employee.user.enabled}"/>  
-          <h:message styleClass="error errors" for="user_enabled" rendered="#{s:hasPermission('enabled', 'employeeEdit')}"/>  
-          <h:outputText value="#{msg.user_email} * " rendered="#{s:hasPermission('email', 'employeeEdit')}"/>  
-          <h:inputText id="user_email#{entityId}" rendered="#{s:hasPermission('email', 'employeeEdit')}" label="#{msg.user_email}" required="true" value="#{employeeAction.employee.user.email}"/>  
-          <h:message styleClass="error errors" for="user_email" rendered="#{s:hasPermission('email', 'employeeEdit')}"/>  
-          <h:outputText value="#{msg.employee_department}  " rendered="#{s:hasPermission('department', 'employeeEdit')}"/>  
-          <h:selectOneMenu id="department" label="#{msg.employee_department}" value="#{employeeAction.employee.department}" required="true" rendered="#{s:hasPermission('department', 'employeeEdit')}"> 
-            <s:selectItems value="#{departmentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-            <s:convertEntity/> 
-          </h:selectOneMenu>  
-          <h:message styleClass="error errors" for="department" rendered="#{s:hasPermission('department', 'employeeEdit')}"/>  
-          <h:outputText value="#{msg.contactDetails_primaryPhone}  " rendered="#{s:hasPermission('primaryPhone', 'employeeEdit')}"/>  
-          <h:inputText id="contactDetails_primaryPhone#{entityId}" rendered="#{s:hasPermission('primaryPhone', 'employeeEdit')}" label="#{msg.contactDetails_primaryPhone}" required="false" value="#{employeeAction.employee.contactDetails.primaryPhone}"/>  
-          <h:message styleClass="error errors" for="contactDetails_primaryPhone" rendered="#{s:hasPermission('primaryPhone', 'employeeEdit')}"/>  
-          <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{s:hasPermission('secondaryPhone', 'employeeEdit')}"/>  
-          <h:inputText id="contactDetails_secondaryPhone#{entityId}" rendered="#{s:hasPermission('secondaryPhone', 'employeeEdit')}" label="#{msg.contactDetails_secondaryPhone}" required="false" value="#{employeeAction.employee.contactDetails.secondaryPhone}"/>  
-          <h:message styleClass="error errors" for="contactDetails_secondaryPhone" rendered="#{s:hasPermission('secondaryPhone', 'employeeEdit')}"/>  
-          <h:outputText value="#{msg.contactDetails_streetAddress}  " rendered="#{s:hasPermission('streetAddress', 'employeeEdit')}"/>  
-          <h:inputText id="contactDetails_streetAddress#{entityId}" rendered="#{s:hasPermission('streetAddress', 'employeeEdit')}" label="#{msg.contactDetails_streetAddress}" required="false" value="#{employeeAction.employee.contactDetails.streetAddress}"/>  
-          <h:message styleClass="error errors" for="contactDetails_streetAddress" rendered="#{s:hasPermission('streetAddress', 'employeeEdit')}"/>  
-          <h:outputText value="#{msg.contactDetails_city}  " rendered="#{s:hasPermission('city', 'employeeEdit')}"/>  
-          <h:inputText id="contactDetails_city#{entityId}" rendered="#{s:hasPermission('city', 'employeeEdit')}" label="#{msg.contactDetails_city}" required="false" value="#{employeeAction.employee.contactDetails.city}"/>  
-          <h:message styleClass="error errors" for="contactDetails_city" rendered="#{s:hasPermission('city', 'employeeEdit')}"/>  
-          <h:outputText value="#{msg.contactDetails_zip}  " rendered="#{s:hasPermission('zip', 'employeeEdit')}"/>  
-          <h:inputText id="contactDetails_zip#{entityId}" rendered="#{s:hasPermission('zip', 'employeeEdit')}" label="#{msg.contactDetails_zip}" required="false" value="#{employeeAction.employee.contactDetails.zip}"/>  
-          <h:message styleClass="error errors" for="contactDetails_zip" rendered="#{s:hasPermission('zip', 'employeeEdit')}"/>  
-          <h:outputText value="#{msg.person_firstName} * " rendered="#{s:hasPermission('firstName', 'employeeEdit')}"/>  
-          <h:inputText id="firstName#{entityId}" rendered="#{s:hasPermission('firstName', 'employeeEdit')}" label="#{msg.person_firstName}" required="true" value="#{employeeAction.employee.firstName}"/>  
-          <h:message styleClass="error errors" for="firstName" rendered="#{s:hasPermission('firstName', 'employeeEdit')}"/>  
-          <h:outputText value="#{msg.person_lastName} * " rendered="#{s:hasPermission('lastName', 'employeeEdit')}"/>  
-          <h:inputText id="lastName#{entityId}" rendered="#{s:hasPermission('lastName', 'employeeEdit')}" label="#{msg.person_lastName}" required="true" value="#{employeeAction.employee.lastName}"/>  
-          <h:message styleClass="error errors" for="lastName" rendered="#{s:hasPermission('lastName', 'employeeEdit')}"/>  
-          <h:outputText value="#{msg.employee_employeeNumber} * " rendered="#{s:hasPermission('employeeNumber', 'employeeEdit')}"/>  
-          <h:inputText id="employeeNumber#{entityId}" rendered="#{s:hasPermission('employeeNumber', 'employeeEdit')}" label="#{msg.employee_employeeNumber}" required="true" value="#{employeeAction.employee.employeeNumber}"/>  
-          <h:message styleClass="error errors" for="employeeNumber" rendered="#{s:hasPermission('employeeNumber', 'employeeEdit')}"/> 
-        </h:panelGrid> 
-      </s:validateAll> 
-    </h:panelGroup> 
-  </rich:panel> 
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{employeeAction.load(employeeId )  }"> 
+        <h:outputText value="#{msg.user_userName} * " rendered="#{s:hasPermission('userName', 'employeeEdit')}"/>  
+        <h:inputText id="user_userName#{entityId}" rendered="#{s:hasPermission('userName', 'employeeEdit')}" label="#{msg.user_userName}" required="true" value="#{employeeAction.employee.user.userName}"/>  
+        <h:message styleClass="error errors" for="user_userName" rendered="#{s:hasPermission('userName', 'employeeEdit')}"/>  
+        <h:outputText value="#{msg.user_password} * " rendered="#{s:hasPermission('password', 'employeeEdit')}"/>  
+        <h:inputSecret redisplay="true" id="user_password#{entityId}" rendered="#{s:hasPermission('password', 'employeeEdit')}" label="#{msg.user_password}" required="true" value="#{employeeAction.employee.user.password}"/>  
+        <h:message styleClass="error errors" for="user_password" rendered="#{s:hasPermission('password', 'employeeEdit')}"/>  
+        <h:outputText value="#{msg.user_enabled}  " rendered="#{s:hasPermission('enabled', 'employeeEdit')}"/>  
+        <h:selectBooleanCheckbox id="user_enabled#{entityId}" rendered="#{s:hasPermission('enabled', 'employeeEdit')}" label="#{msg.user_enabled}" required="false" value="#{employeeAction.employee.user.enabled}"/>  
+        <h:message styleClass="error errors" for="user_enabled" rendered="#{s:hasPermission('enabled', 'employeeEdit')}"/>  
+        <h:outputText value="#{msg.user_email} * " rendered="#{s:hasPermission('email', 'employeeEdit')}"/>  
+        <h:inputText id="user_email#{entityId}" rendered="#{s:hasPermission('email', 'employeeEdit')}" label="#{msg.user_email}" required="true" value="#{employeeAction.employee.user.email}"/>  
+        <h:message styleClass="error errors" for="user_email" rendered="#{s:hasPermission('email', 'employeeEdit')}"/>  
+        <h:outputText value="#{msg.employee_department}  " rendered="#{s:hasPermission('department', 'employeeEdit')}"/>  
+        <h:selectOneMenu id="department" label="#{msg.employee_department}" value="#{employeeAction.employee.department}" required="true" rendered="#{s:hasPermission('department', 'employeeEdit')}"> 
+          <s:selectItems value="#{departmentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <h:message styleClass="error errors" for="department" rendered="#{s:hasPermission('department', 'employeeEdit')}"/>  
+        <h:outputText value="#{msg.contactDetails_primaryPhone}  " rendered="#{s:hasPermission('primaryPhone', 'employeeEdit')}"/>  
+        <h:inputText id="contactDetails_primaryPhone#{entityId}" rendered="#{s:hasPermission('primaryPhone', 'employeeEdit')}" label="#{msg.contactDetails_primaryPhone}" required="false" value="#{employeeAction.employee.contactDetails.primaryPhone}"/>  
+        <h:message styleClass="error errors" for="contactDetails_primaryPhone" rendered="#{s:hasPermission('primaryPhone', 'employeeEdit')}"/>  
+        <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{s:hasPermission('secondaryPhone', 'employeeEdit')}"/>  
+        <h:inputText id="contactDetails_secondaryPhone#{entityId}" rendered="#{s:hasPermission('secondaryPhone', 'employeeEdit')}" label="#{msg.contactDetails_secondaryPhone}" required="false" value="#{employeeAction.employee.contactDetails.secondaryPhone}"/>  
+        <h:message styleClass="error errors" for="contactDetails_secondaryPhone" rendered="#{s:hasPermission('secondaryPhone', 'employeeEdit')}"/>  
+        <h:outputText value="#{msg.contactDetails_streetAddress}  " rendered="#{s:hasPermission('streetAddress', 'employeeEdit')}"/>  
+        <h:inputText id="contactDetails_streetAddress#{entityId}" rendered="#{s:hasPermission('streetAddress', 'employeeEdit')}" label="#{msg.contactDetails_streetAddress}" required="false" value="#{employeeAction.employee.contactDetails.streetAddress}"/>  
+        <h:message styleClass="error errors" for="contactDetails_streetAddress" rendered="#{s:hasPermission('streetAddress', 'employeeEdit')}"/>  
+        <h:outputText value="#{msg.contactDetails_city}  " rendered="#{s:hasPermission('city', 'employeeEdit')}"/>  
+        <h:inputText id="contactDetails_city#{entityId}" rendered="#{s:hasPermission('city', 'employeeEdit')}" label="#{msg.contactDetails_city}" required="false" value="#{employeeAction.employee.contactDetails.city}"/>  
+        <h:message styleClass="error errors" for="contactDetails_city" rendered="#{s:hasPermission('city', 'employeeEdit')}"/>  
+        <h:outputText value="#{msg.contactDetails_zip}  " rendered="#{s:hasPermission('zip', 'employeeEdit')}"/>  
+        <h:inputText id="contactDetails_zip#{entityId}" rendered="#{s:hasPermission('zip', 'employeeEdit')}" label="#{msg.contactDetails_zip}" required="false" value="#{employeeAction.employee.contactDetails.zip}"/>  
+        <h:message styleClass="error errors" for="contactDetails_zip" rendered="#{s:hasPermission('zip', 'employeeEdit')}"/>  
+        <h:outputText value="#{msg.person_firstName} * " rendered="#{s:hasPermission('firstName', 'employeeEdit')}"/>  
+        <h:inputText id="firstName#{entityId}" rendered="#{s:hasPermission('firstName', 'employeeEdit')}" label="#{msg.person_firstName}" required="true" value="#{employeeAction.employee.firstName}"/>  
+        <h:message styleClass="error errors" for="firstName" rendered="#{s:hasPermission('firstName', 'employeeEdit')}"/>  
+        <h:outputText value="#{msg.person_lastName} * " rendered="#{s:hasPermission('lastName', 'employeeEdit')}"/>  
+        <h:inputText id="lastName#{entityId}" rendered="#{s:hasPermission('lastName', 'employeeEdit')}" label="#{msg.person_lastName}" required="true" value="#{employeeAction.employee.lastName}"/>  
+        <h:message styleClass="error errors" for="lastName" rendered="#{s:hasPermission('lastName', 'employeeEdit')}"/>  
+        <h:outputText value="#{msg.employee_employeeNumber} * " rendered="#{s:hasPermission('employeeNumber', 'employeeEdit')}"/>  
+        <h:inputText id="employeeNumber#{entityId}" rendered="#{s:hasPermission('employeeNumber', 'employeeEdit')}" label="#{msg.employee_employeeNumber}" required="true" value="#{employeeAction.employee.employeeNumber}"/>  
+        <h:message styleClass="error errors" for="employeeNumber" rendered="#{s:hasPermission('employeeNumber', 'employeeEdit')}"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
 </ui:composition>

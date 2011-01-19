@@ -26,7 +26,6 @@
 				
 				<h:outputText value="#{msg.incident_incidentType}  "
 					rendered="#{s:hasPermission('incidentType', 'incidentEdit')}" />
-					
 				<h:selectOneMenu id="incidentType" disabled="#{incidentAction.instance.id != null}"
 					label="#{msg.incident_incidentType}"
 					value="#{incidentAction.incident.incidentType}" required="true"

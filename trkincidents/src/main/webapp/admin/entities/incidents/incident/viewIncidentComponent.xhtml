@@ -1,123 +1,118 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <rich:panel> 
-    <f:facet name="header"> 
-      <h:outputText value="Incident "/> 
-    </f:facet>  
-    <h:panelGroup> 
-      <s:validateAll> 
-        <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{incidentAction.load(incidentId )  }"> 
-          <h:outputText value="#{msg.id}"/>  
-          <h:outputText value="#{incidentAction.incident.id}"/>  
-          <h:outputText value="#{msg.incident_incidentType}  " rendered="#{s:hasPermission('incidentType', 'incidentView')}"/>  
-          <s:link value="#{incidentAction.incident.incidentType.displayName}" view="/admin/entities/incidents/incidentType/viewIncidentType.xhtml" propagation="none"> 
-            <f:param name="incidentTypeId" value="#{incidentAction.incident.incidentType.id}"/>  
-            <f:param name="from" value="#{request.servletPath}"/> 
-          </s:link>  
-          <h:outputText value="#{msg.incident_patient}  " rendered="#{s:hasPermission('patient', 'incidentView')}"/>  
-          <s:link value="#{incidentAction.incident.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
-            <f:param name="patientId" value="#{incidentAction.incident.patient.id}"/>  
-            <f:param name="from" value="#{request.servletPath}"/>  
-            <rich:toolTip> 
-              <span>#{incidentAction.incident.patient.popupInfo}</span> 
-            </rich:toolTip> 
-          </s:link>  
-          <h:outputText value="#{msg.incident_createdBy}  " rendered="#{s:hasPermission('createdBy', 'incidentView')}"/>  
-          <s:link value="#{incidentAction.incident.createdBy.displayName}" view="/admin/entities/employee/employee/viewEmployee.xhtml" propagation="none"> 
-            <f:param name="createdById" value="#{incidentAction.incident.createdBy.id}"/>  
-            <f:param name="from" value="#{request.servletPath}"/> 
-          </s:link>  
-          <h:outputText value="#{msg.incident_department}  " rendered="#{s:hasPermission('department', 'incidentView')}"/>  
-          <s:link value="#{incidentAction.incident.department.displayName}" view="/admin/entities/employee/department/viewDepartment.xhtml" propagation="none"> 
-            <f:param name="departmentId" value="#{incidentAction.incident.department.id}"/>  
-            <f:param name="from" value="#{request.servletPath}"/> 
-          </s:link>  
-          <h:outputText value="#{msg.incident_reportedTo}  " rendered="#{s:hasPermission('reportedTo', 'incidentView')}"/>  
-          <s:link value="#{incidentAction.incident.reportedTo.displayName}" view="/admin/entities/employee/employee/viewEmployee.xhtml" propagation="none"> 
-            <f:param name="reportedToId" value="#{incidentAction.incident.reportedTo.id}"/>  
-            <f:param name="from" value="#{request.servletPath}"/> 
-          </s:link>  
-          <h:outputText value="#{msg.incident_drug}  " rendered="#{s:hasPermission('drug', 'incidentView')}"/>  
-          <s:link value="#{incidentAction.incident.drug.displayName}" view="/admin/entities/incidents/drug/viewDrug.xhtml" propagation="none"> 
-            <f:param name="drugId" value="#{incidentAction.incident.drug.id}"/>  
-            <f:param name="from" value="#{request.servletPath}"/> 
-          </s:link>  
-          <h:outputText value="#{msg.incident_proccedure}  " rendered="#{s:hasPermission('proccedure', 'incidentView')}"/>  
-          <s:link value="#{incidentAction.incident.proccedure.displayName}" view="/admin/entities/incidents/proccedure/viewProccedure.xhtml" propagation="none"> 
-            <f:param name="proccedureId" value="#{incidentAction.incident.proccedure.id}"/>  
-            <f:param name="from" value="#{request.servletPath}"/> 
-          </s:link>  
-          <h:outputText value="#{msg.incident_responsibleEmployee}  " rendered="#{s:hasPermission('responsibleEmployee', 'incidentView')}"/>  
-          <s:link value="#{incidentAction.incident.responsibleEmployee.displayName}" view="/admin/entities/employee/employee/viewEmployee.xhtml" propagation="none"> 
-            <f:param name="responsibleEmployeeId" value="#{incidentAction.incident.responsibleEmployee.id}"/>  
-            <f:param name="from" value="#{request.servletPath}"/> 
-          </s:link>  
-          <h:outputText value="#{msg.incident_severity}  " rendered="#{s:hasPermission('severity', 'incidentView')}"/>  
-          <s:link value="#{incidentAction.incident.severity.displayName}" view="/admin/entities/incidents/severity/viewSeverity.xhtml" propagation="none"> 
-            <f:param name="severityId" value="#{incidentAction.incident.severity.id}"/>  
-            <f:param name="from" value="#{request.servletPath}"/> 
-          </s:link>  
-          <h:outputText value="#{msg.incident_title}  " rendered="#{s:hasPermission('title', 'incidentView')}"/>  
-          <h:outputText id="title#{entityId}" rendered="#{s:hasPermission('title', 'incidentView')}" value="#{incidentAction.incident.title}"/>  
-          <h:outputText value="#{msg.incident_dateOfIncident}  " rendered="#{s:hasPermission('dateOfIncident', 'incidentView')}"/>  
-          <h:outputText id="dateOfIncident#{entityId}" rendered="#{s:hasPermission('dateOfIncident', 'incidentView')}" value="#{incidentAction.incident.dateOfIncident}"/>  
-          <h:outputText value="#{msg.incident_document}  " rendered="#{s:hasPermission('document', 'incidentView')}"/>  
-          <c:choose> 
-            <c:when test="${incidentAction.incident.document.contentType.startsWith('image')}"> 
-              <s:graphicImage value="#{incidentAction.incident.document.data}"/> 
-            </c:when>  
-            <c:otherwise> 
-              <s:link value="#{incidentAction.incident.document.name}" action="#{incidentAction.downloadDocument(null)}" propagation="none"> 
-                <f:param name="currentEntityId" value="#{incidentAction.instance.id}"/> 
-              </s:link> 
-            </c:otherwise> 
-          </c:choose>  
-          <h:outputText value="#{msg.incident_description}  " rendered="#{s:hasPermission('description', 'incidentView')}"/>  
-          <s:formattedText escape="false" id="description#{entityId}" rendered="#{s:hasPermission('description', 'incidentView')}" value="#{incidentAction.incident.description}"/> 
-        </h:panelGrid>  
-        <rich:dataTable id="formFieldInstances" var="_formFieldInstance" rendered="#{not empty incidentAction.listFormFieldInstances and s:hasPermission('formFieldInstances', 'incidentView') }" value="#{incidentAction.listFormFieldInstances}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
-          <h:column style="text-align:right">
-            <f:facet name="header">
-              <h:outputText value="#{msg.formFieldInstance_formField}  " rendered="#{s:hasPermission('formField', 'formFieldInstanceView')}"/>
-            </f:facet>  
-            <s:link value="#{_formFieldInstance.formField.displayName}" view="/admin/entities/incidents/formField/viewFormField.xhtml" propagation="none"> 
-              <f:param name="formFieldId" value="#{_formFieldInstance.formField.id}"/>  
-              <f:param name="from" value="#{request.servletPath}"/> 
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{incidentAction.load(incidentId )  }"> 
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{incidentAction.incident.id}"/>  
+        <h:outputText value="#{msg.incident_incidentType}  " rendered="#{s:hasPermission('incidentType', 'incidentView')}"/>  
+        <s:link value="#{incidentAction.incident.incidentType.displayName}" view="/admin/entities/incidents/incidentType/viewIncidentType.xhtml" propagation="none"> 
+          <f:param name="incidentTypeId" value="#{incidentAction.incident.incidentType.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.incident_patient}  " rendered="#{s:hasPermission('patient', 'incidentView')}"/>  
+        <s:link value="#{incidentAction.incident.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+          <f:param name="patientId" value="#{incidentAction.incident.patient.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/>  
+          <rich:toolTip> 
+            <span>#{incidentAction.incident.patient.popupInfo}</span> 
+          </rich:toolTip> 
+        </s:link>  
+        <h:outputText value="#{msg.incident_createdBy}  " rendered="#{s:hasPermission('createdBy', 'incidentView')}"/>  
+        <s:link value="#{incidentAction.incident.createdBy.displayName}" view="/admin/entities/employee/employee/viewEmployee.xhtml" propagation="none"> 
+          <f:param name="createdById" value="#{incidentAction.incident.createdBy.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.incident_department}  " rendered="#{s:hasPermission('department', 'incidentView')}"/>  
+        <s:link value="#{incidentAction.incident.department.displayName}" view="/admin/entities/employee/department/viewDepartment.xhtml" propagation="none"> 
+          <f:param name="departmentId" value="#{incidentAction.incident.department.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.incident_reportedTo}  " rendered="#{s:hasPermission('reportedTo', 'incidentView')}"/>  
+        <s:link value="#{incidentAction.incident.reportedTo.displayName}" view="/admin/entities/employee/employee/viewEmployee.xhtml" propagation="none"> 
+          <f:param name="reportedToId" value="#{incidentAction.incident.reportedTo.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.incident_drug}  " rendered="#{s:hasPermission('drug', 'incidentView')}"/>  
+        <s:link value="#{incidentAction.incident.drug.displayName}" view="/admin/entities/incidents/drug/viewDrug.xhtml" propagation="none"> 
+          <f:param name="drugId" value="#{incidentAction.incident.drug.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.incident_proccedure}  " rendered="#{s:hasPermission('proccedure', 'incidentView')}"/>  
+        <s:link value="#{incidentAction.incident.proccedure.displayName}" view="/admin/entities/incidents/proccedure/viewProccedure.xhtml" propagation="none"> 
+          <f:param name="proccedureId" value="#{incidentAction.incident.proccedure.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.incident_responsibleEmployee}  " rendered="#{s:hasPermission('responsibleEmployee', 'incidentView')}"/>  
+        <s:link value="#{incidentAction.incident.responsibleEmployee.displayName}" view="/admin/entities/employee/employee/viewEmployee.xhtml" propagation="none"> 
+          <f:param name="responsibleEmployeeId" value="#{incidentAction.incident.responsibleEmployee.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.incident_severity}  " rendered="#{s:hasPermission('severity', 'incidentView')}"/>  
+        <s:link value="#{incidentAction.incident.severity.displayName}" view="/admin/entities/incidents/severity/viewSeverity.xhtml" propagation="none"> 
+          <f:param name="severityId" value="#{incidentAction.incident.severity.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.incident_title}  " rendered="#{s:hasPermission('title', 'incidentView')}"/>  
+        <h:outputText id="title#{entityId}" rendered="#{s:hasPermission('title', 'incidentView')}" value="#{incidentAction.incident.title}"/>  
+        <h:outputText value="#{msg.incident_dateOfIncident}  " rendered="#{s:hasPermission('dateOfIncident', 'incidentView')}"/>  
+        <h:outputText id="dateOfIncident#{entityId}" rendered="#{s:hasPermission('dateOfIncident', 'incidentView')}" value="#{incidentAction.incident.dateOfIncident}"/>  
+        <h:outputText value="#{msg.incident_document}  " rendered="#{s:hasPermission('document', 'incidentView')}"/>  
+        <c:choose> 
+          <c:when test="${incidentAction.incident.document.contentType.startsWith('image')}"> 
+            <s:graphicImage value="#{incidentAction.incident.document.data}"/> 
+          </c:when>  
+          <c:otherwise> 
+            <s:link value="#{incidentAction.incident.document.name}" action="#{incidentAction.downloadDocument(null)}" propagation="none"> 
+              <f:param name="currentEntityId" value="#{incidentAction.instance.id}"/> 
             </s:link> 
-          </h:column>  
-          <h:column style="text-align:left">
-            <f:facet name="header">
-              <h:outputText value="#{msg.formFieldInstance_value}  " rendered="#{s:hasPermission('value', 'formFieldInstanceView')}"/>
-            </f:facet>  
-            <h:outputText id="value#{entityId}" rendered="#{s:hasPermission('value', 'formFieldInstanceView')}" value="#{_formFieldInstance.value}"/> 
-          </h:column>  
-          <h:column style="text-align:right">
-            <f:facet name="header">
-              <h:outputText value="#{msg.formFieldInstance_boolValue}  " rendered="#{s:hasPermission('boolValue', 'formFieldInstanceView')}"/>
-            </f:facet>  
-            <h:outputText id="boolValue#{entityId}" rendered="#{s:hasPermission('boolValue', 'formFieldInstanceView')}" value="#{_formFieldInstance.boolValue}"/> 
-          </h:column>  
-          <h:column style="text-align:right">
-            <f:facet name="header">
-              <h:outputText value="#{msg.formFieldInstance_dateValue}  " rendered="#{s:hasPermission('dateValue', 'formFieldInstanceView')}"/>
-            </f:facet>  
-            <h:outputText id="dateValue#{entityId}" rendered="#{s:hasPermission('dateValue', 'formFieldInstanceView')}" value="#{_formFieldInstance.dateValue}"/> 
-          </h:column>  
-          <h:column style="text-align:right">
-            <f:facet name="header">
-              <h:outputText value="#{msg.formFieldInstance_enumOrdinal}  " rendered="#{s:hasPermission('enumOrdinal', 'formFieldInstanceView')}"/>
-            </f:facet>  
-            <h:outputText id="enumOrdinal#{entityId}" rendered="#{s:hasPermission('enumOrdinal', 'formFieldInstanceView')}" value="#{_formFieldInstance.enumOrdinal}"/> 
-          </h:column>  
-          <h:column style="text-align:right">
-            <f:facet name="header">
-              <h:outputText value="#{msg.formFieldInstance_description}  " rendered="#{s:hasPermission('description', 'formFieldInstanceView')}"/>
-            </f:facet>  
-            <s:formattedText escape="false" id="description#{entityId}" rendered="#{s:hasPermission('description', 'formFieldInstanceView')}" value="#{_formFieldInstance.description}"/> 
-          </h:column> 
-        </rich:dataTable> 
-      </s:validateAll> 
-    </h:panelGroup> 
-  </rich:panel> 
+          </c:otherwise> 
+        </c:choose>  
+        <h:outputText value="#{msg.incident_description}  " rendered="#{s:hasPermission('description', 'incidentView')}"/>  
+        <s:formattedText escape="false" id="description#{entityId}" rendered="#{s:hasPermission('description', 'incidentView')}" value="#{incidentAction.incident.description}"/> 
+      </h:panelGrid>  
+      <rich:dataTable id="formFieldInstances" var="_formFieldInstance" rendered="#{not empty incidentAction.listFormFieldInstances and s:hasPermission('formFieldInstances', 'incidentView') }" value="#{incidentAction.listFormFieldInstances}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.formFieldInstance_formField}  " rendered="#{s:hasPermission('formField', 'formFieldInstanceView')}"/>
+          </f:facet>  
+          <s:link value="#{_formFieldInstance.formField.displayName}" view="/admin/entities/incidents/formField/viewFormField.xhtml" propagation="none"> 
+            <f:param name="formFieldId" value="#{_formFieldInstance.formField.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column style="text-align:left">
+          <f:facet name="header">
+            <h:outputText value="#{msg.formFieldInstance_value}  " rendered="#{s:hasPermission('value', 'formFieldInstanceView')}"/>
+          </f:facet>  
+          <h:outputText id="value#{entityId}" rendered="#{s:hasPermission('value', 'formFieldInstanceView')}" value="#{_formFieldInstance.value}"/> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.formFieldInstance_boolValue}  " rendered="#{s:hasPermission('boolValue', 'formFieldInstanceView')}"/>
+          </f:facet>  
+          <h:outputText id="boolValue#{entityId}" rendered="#{s:hasPermission('boolValue', 'formFieldInstanceView')}" value="#{_formFieldInstance.boolValue}"/> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.formFieldInstance_dateValue}  " rendered="#{s:hasPermission('dateValue', 'formFieldInstanceView')}"/>
+          </f:facet>  
+          <h:outputText id="dateValue#{entityId}" rendered="#{s:hasPermission('dateValue', 'formFieldInstanceView')}" value="#{_formFieldInstance.dateValue}"/> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.formFieldInstance_enumOrdinal}  " rendered="#{s:hasPermission('enumOrdinal', 'formFieldInstanceView')}"/>
+          </f:facet>  
+          <h:outputText id="enumOrdinal#{entityId}" rendered="#{s:hasPermission('enumOrdinal', 'formFieldInstanceView')}" value="#{_formFieldInstance.enumOrdinal}"/> 
+        </h:column>  
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.formFieldInstance_description}  " rendered="#{s:hasPermission('description', 'formFieldInstanceView')}"/>
+          </f:facet>  
+          <s:formattedText escape="false" id="description#{entityId}" rendered="#{s:hasPermission('description', 'formFieldInstanceView')}" value="#{_formFieldInstance.description}"/> 
+        </h:column> 
+      </rich:dataTable> 
+    </s:validateAll> 
+  </h:panelGroup> 
 </ui:composition>
