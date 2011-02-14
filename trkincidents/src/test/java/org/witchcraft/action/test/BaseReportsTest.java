@@ -27,6 +27,8 @@ public class BaseReportsTest extends BaseTest<Object> {
 	// @Test
 	public void runReportTest(String reportName) throws Exception {
 		Map<String, Object> parameters = new HashMap<String, Object>();
+		
+		updateParameters(parameters);
 
 		parameters.put(JRJpaQueryExecuterFactory.PARAMETER_JPA_ENTITY_MANAGER,
 				em);
@@ -54,6 +56,10 @@ public class BaseReportsTest extends BaseTest<Object> {
 	public Object getAction() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public  void updateParameters(Map params){
+		
 	}
 
 }
