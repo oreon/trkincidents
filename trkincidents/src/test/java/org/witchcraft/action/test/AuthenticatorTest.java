@@ -97,6 +97,7 @@ public class AuthenticatorTest extends BaseTest<User> {
 		User admin = new User();
 		admin.setUserName(username);
 		admin.setPassword(password);
+		admin.setEmail(username + "@gmail.com");
 
 		Role adminRole = new Role();
 		adminRole.setName(role);
