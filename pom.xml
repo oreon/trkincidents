@@ -386,7 +386,7 @@
 		</dependency>
 
 
-		
+
 		<dependency>
 			<groupId>net.sf.jasperreports</groupId>
 			<artifactId>jasperreports</artifactId>
@@ -399,7 +399,7 @@
 			</exclusions>
 		</dependency>
 
-		
+
 
 		<dependency>
 			<groupId>org.drools</groupId>
@@ -418,6 +418,28 @@
 			<groupId>org.jbpm.jbpm3</groupId>
 			<artifactId>jbpm-identity</artifactId>
 			<version>3.2.6.SP1</version>
+		</dependency>
+
+		<dependency>		<dependency>
+			  <groupId>ar.com.fdvs</groupId>
+   			 <artifactId>DynamicJasper</artifactId>
+    			<version>3.0.13</version>
+			<exclusions>
+				<exclusion>
+					<groupId>eclipse</groupId>
+					<artifactId>jdtcore</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+			<groupId>ar.com.fdvs</groupId>
+			<artifactId>DynamicJasper</artifactId>
+			<version>3.0.13</version>
+			<exclusions>
+				<exclusion>
+					<groupId>eclipse</groupId>
+					<artifactId>jdtcore</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 
