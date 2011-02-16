@@ -420,17 +420,8 @@
 			<version>3.2.6.SP1</version>
 		</dependency>
 
-		<dependency>		<dependency>
-			  <groupId>ar.com.fdvs</groupId>
-   			 <artifactId>DynamicJasper</artifactId>
-    			<version>3.0.13</version>
-			<exclusions>
-				<exclusion>
-					<groupId>eclipse</groupId>
-					<artifactId>jdtcore</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
+
+		<dependency>
 			<groupId>ar.com.fdvs</groupId>
 			<artifactId>DynamicJasper</artifactId>
 			<version>3.0.13</version>
