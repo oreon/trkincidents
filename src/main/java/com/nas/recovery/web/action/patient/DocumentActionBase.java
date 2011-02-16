@@ -35,6 +35,12 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
+import org.witchcraft.base.entity.FileAttachment;
+
+import org.apache.commons.io.FileUtils;
+import org.richfaces.event.UploadEvent;
+import org.richfaces.model.UploadItem;
+
 public abstract class DocumentActionBase extends BaseAction<Document>
 		implements
 			java.io.Serializable {
@@ -53,6 +59,7 @@ public abstract class DocumentActionBase extends BaseAction<Document>
 	public void setDocumentId(Long id) {
 		if (id == 0) {
 			clearInstance();
+			clearLists();
 			loadAssociations();
 			return;
 		}
@@ -66,6 +73,7 @@ public abstract class DocumentActionBase extends BaseAction<Document>
 	 */
 	public void setDocumentIdForModalDlg(Long id) {
 		setId(id);
+		clearLists();
 		loadAssociations();
 	}
 
@@ -146,6 +154,16 @@ public abstract class DocumentActionBase extends BaseAction<Document>
 		setId(id);
 		downloadAttachment(getInstance().getFile());
 		return "success";
+	}
+
+	public void fileUploadListener(UploadEvent event) throws Exception {
+		UploadItem uploadItem = event.getUploadItem();
+		if (getInstance().getFile() == null)
+			getInstance().setFile(new FileAttachment());
+		getInstance().getFile().setName(uploadItem.getFileName());
+		getInstance().getFile().setContentType(uploadItem.getContentType());
+		getInstance().getFile().setData(
+				FileUtils.readFileToByteArray(uploadItem.getFile()));
 	}
 
 	/** This function adds associated entities to an example criterion

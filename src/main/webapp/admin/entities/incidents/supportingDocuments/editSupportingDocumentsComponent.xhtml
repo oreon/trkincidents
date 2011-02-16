@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{supportingDocumentsAction.load(supportingDocumentsId )  }"> 
+        <h:outputText value="#{msg.supportingDocuments_incident} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'supportingDocumentsEdit')}"/>  
+        <h:selectOneMenu id="incident" label="#{msg.supportingDocuments_incident}" value="#{supportingDocumentsAction.supportingDocuments.incident}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'supportingDocumentsEdit')}"> 
+          <s:selectItems value="#{incidentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onsubmit"/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="incident" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'supportingDocumentsEdit')}"/>  
+        <h:outputText value="#{msg.supportingDocuments_file}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('file', 'supportingDocumentsEdit')}"/>  
+        <h:panelGroup> 
+          <h:outputText value="Current File:"/>  
+          <s:link value="#{supportingDocumentsAction.supportingDocuments.file.name}" id="file_file" action="#{supportingDocumentsAction.downloadFile(null)}" propagation="none"> 
+            <f:param name="currentEntityId" value="#{supportingDocumentsAction.instance.id}"/> 
+          </s:link>  
+          <rich:fileUpload fileUploadListener="#{supportingDocumentsAction.fileUploadListener}" immediateUpload="true" ajaxSingle="true" autoclear="false" listHeight="50"> 
+            <s:conversationPropagation type="join"/>  
+            <a:support event="onuploadcomplete" reRender="file_file"/> 
+          </rich:fileUpload> 
+        </h:panelGroup>  
+        <rich:message styleClass="error errors" for="file" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('file', 'supportingDocumentsEdit')}"/>  
+        <h:outputText value="#{msg.supportingDocuments_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('title', 'supportingDocumentsEdit')}"/>  
+        <h:inputText id="title#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('title', 'supportingDocumentsEdit')}" label="#{msg.supportingDocuments_title}" required="false" value="#{supportingDocumentsAction.supportingDocuments.title}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="title" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('title', 'supportingDocumentsEdit')}"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

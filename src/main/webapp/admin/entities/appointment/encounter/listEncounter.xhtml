@@ -6,6 +6,13 @@
     <ui:include src="searchEncounter.xhtml"/>  
     <br/>  
     <br/>  
+    <a:form> 
+      <s:button value="Create New" action="/admin/entities/appointment/encounter/editEncounter.xhtml" propagation="none"> 
+        <f:param name="encounterId" value="0"/> 
+      </s:button>  
+      <a:commandButton action="#{encounterAction.setEncounterId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"></a:commandButton>  
+      <s:button value="Export to Excel" action="#{encounterList.exportToCsv}"/> 
+    </a:form>  
     <ui:include src="listEncounterComponent.xhtml"> 
       <ui:param name="records" value="#{encounterList.resultList}"/> 
     </ui:include>  
@@ -13,7 +20,8 @@
       <s:button value="Create New" action="/admin/entities/appointment/encounter/editEncounter.xhtml" propagation="none"> 
         <f:param name="encounterId" value="0"/> 
       </s:button>  
-      <a:commandButton action="#{encounterAction.setEncounterId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"></a:commandButton> 
+      <a:commandButton action="#{encounterAction.setEncounterId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"></a:commandButton>  
+      <s:button value="Export to Excel" action="#{encounterList.exportToCsv}"/> 
     </a:form>  
     <ui:include src="/admin/entities/appointment/encounter/modalDlgEncounterComponent.xhtml"> 
       <ui:param name="modalId" value="${modalId}"/> 

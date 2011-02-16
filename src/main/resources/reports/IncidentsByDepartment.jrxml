@@ -5,7 +5,13 @@
   <parameter name="ReportTitle" class="java.lang.String"/>  
   <parameter name="fromDate" class="java.util.Date"/>  
   <parameter name="toDate" class="java.util.Date"/>  
-  <queryString language="ejbql"> <![CDATA[select e from Incident e order by e.department, e.incidentType]]> </queryString>  
+  <parameter name="incidentType" class="java.lang.String"> 
+    <defaultValueExpression><![CDATA[($P{incidentType} != null ?  $P{incidentType} : " e.incidentType.id " )]]></defaultValueExpression> 
+  </parameter>  
+  <queryString language="ejbql"> <![CDATA[select e from Incident e where e.incidentType.id = $P!{incidentType} and
+e.dateOfIncident <= $P{toDate} and
+e.dateOfIncident >=  $P{fromDate}
+order by e.department, e.incidentType]]> </queryString>  
   <field name="title" class="java.lang.String"/>  
   <field name="description" class="java.lang.String"/>  
   <field name="severity.name" class="java.lang.String"/>  

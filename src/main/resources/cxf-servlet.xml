@@ -1,0 +1,90 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:simple="http://cxf.apache.org/simple"
+      xmlns:soap="http://cxf.apache.org/bindings/soap"
+      xmlns:jaxws="http://cxf.apache.org/jaxws"
+      xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+http://cxf.apache.org/bindings/soap http://cxf.apache.org/schemas/configuration/soap.xsd
+http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
+http://cxf.apache.org/simple http://cxf.apache.org/schemas/simple.xsd">
+
+	
+		<jaxws:endpoint id="patientWebSvc"  implementor="com.nas.recovery.websvc.patient.PatientWebServiceImpl"
+	 	address="/patientService" />
+	
+		<jaxws:endpoint id="documentWebSvc"  implementor="com.nas.recovery.websvc.patient.DocumentWebServiceImpl"
+	 	address="/documentService" />
+	
+		<jaxws:endpoint id="incidentWebSvc"  implementor="com.nas.recovery.websvc.incidents.IncidentWebServiceImpl"
+	 	address="/incidentService" />
+	
+		<jaxws:endpoint id="incidentTypeWebSvc"  implementor="com.nas.recovery.websvc.incidents.IncidentTypeWebServiceImpl"
+	 	address="/incidentTypeService" />
+	
+		<jaxws:endpoint id="formFieldWebSvc"  implementor="com.nas.recovery.websvc.incidents.FormFieldWebServiceImpl"
+	 	address="/formFieldService" />
+	
+		<jaxws:endpoint id="formFieldInstanceWebSvc"  implementor="com.nas.recovery.websvc.incidents.FormFieldInstanceWebServiceImpl"
+	 	address="/formFieldInstanceService" />
+	
+		<jaxws:endpoint id="drugWebSvc"  implementor="com.nas.recovery.websvc.incidents.DrugWebServiceImpl"
+	 	address="/drugService" />
+	
+		<jaxws:endpoint id="severityWebSvc"  implementor="com.nas.recovery.websvc.incidents.SeverityWebServiceImpl"
+	 	address="/severityService" />
+	
+		<jaxws:endpoint id="proccedureWebSvc"  implementor="com.nas.recovery.websvc.incidents.ProccedureWebServiceImpl"
+	 	address="/proccedureService" />
+	
+		<jaxws:endpoint id="referenceFieldWebSvc"  implementor="com.nas.recovery.websvc.incidents.ReferenceFieldWebServiceImpl"
+	 	address="/referenceFieldService" />
+	
+		<jaxws:endpoint id="supportingDocumentsWebSvc"  implementor="com.nas.recovery.websvc.incidents.SupportingDocumentsWebServiceImpl"
+	 	address="/supportingDocumentsService" />
+	
+		<jaxws:endpoint id="employeeWebSvc"  implementor="com.nas.recovery.websvc.employee.EmployeeWebServiceImpl"
+	 	address="/employeeService" />
+	
+		<jaxws:endpoint id="departmentWebSvc"  implementor="com.nas.recovery.websvc.employee.DepartmentWebServiceImpl"
+	 	address="/departmentService" />
+	
+		<jaxws:endpoint id="userWebSvc"  implementor="com.nas.recovery.websvc.users.UserWebServiceImpl"
+	 	address="/userService" />
+	
+		<jaxws:endpoint id="roleWebSvc"  implementor="com.nas.recovery.websvc.users.RoleWebServiceImpl"
+	 	address="/roleService" />
+	
+		<jaxws:endpoint id="facilityWebSvc"  implementor="com.nas.recovery.websvc.facility.FacilityWebServiceImpl"
+	 	address="/facilityService" />
+	
+		<jaxws:endpoint id="appointmentWebSvc"  implementor="com.nas.recovery.websvc.appointment.AppointmentWebServiceImpl"
+	 	address="/appointmentService" />
+	
+		<jaxws:endpoint id="encounterWebSvc"  implementor="com.nas.recovery.websvc.appointment.EncounterWebServiceImpl"
+	 	address="/encounterService" />
+	
+		<jaxws:endpoint id="historyWebSvc"  implementor="com.nas.recovery.websvc.appointment.HistoryWebServiceImpl"
+	 	address="/historyService" />
+	
+		<jaxws:endpoint id="dxTestWebSvc"  implementor="com.nas.recovery.websvc.appointment.DxTestWebServiceImpl"
+	 	address="/dxTestService" />
+	
+		<jaxws:endpoint id="prescribedTestWebSvc"  implementor="com.nas.recovery.websvc.appointment.PrescribedTestWebServiceImpl"
+	 	address="/prescribedTestService" />
+	
+		<jaxws:endpoint id="customFormWebSvc"  implementor="com.nas.recovery.websvc.customforms.CustomFormWebServiceImpl"
+	 	address="/customFormService" />
+	
+		<jaxws:endpoint id="customFieldWebSvc"  implementor="com.nas.recovery.websvc.customforms.CustomFieldWebServiceImpl"
+	 	address="/customFieldService" />
+	
+		<jaxws:endpoint id="filledFormWebSvc"  implementor="com.nas.recovery.websvc.customforms.FilledFormWebServiceImpl"
+	 	address="/filledFormService" />
+	
+		<jaxws:endpoint id="filledFieldWebSvc"  implementor="com.nas.recovery.websvc.customforms.FilledFieldWebServiceImpl"
+	 	address="/filledFieldService" />
+	
+    
+</beans>
+	

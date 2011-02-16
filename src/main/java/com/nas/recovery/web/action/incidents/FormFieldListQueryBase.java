@@ -20,8 +20,8 @@ import org.jboss.seam.annotations.Observer;
 import com.oreon.trkincidents.incidents.FormField;
 
 /**
- * D
- * @author WitchcraftMDA Seam Cartridge
+ * 
+ * @author WitchcraftMDA Seam Cartridge - 
  *
  */
 public abstract class FormFieldListQueryBase extends BaseQuery<FormField, Long> {
@@ -68,4 +68,40 @@ public abstract class FormFieldListQueryBase extends BaseQuery<FormField, Long> 
 		refresh();
 	}
 
+	/** create comma delimited row 
+	 * @param builder
+	 */
+	//@Override
+	public void createCsvString(StringBuilder builder, FormField e) {
+
+		builder.append("\"" + (e.getName() != null ? e.getName() : "") + "\",");
+
+		builder.append("\"" + (e.getType() != null ? e.getType() : "") + "\",");
+
+		builder.append("\"" + (e.getRequired() != null ? e.getRequired() : "")
+				+ "\",");
+
+		builder.append("\""
+				+ (e.getChoiceValues() != null ? e.getChoiceValues() : "")
+				+ "\",");
+
+		builder.append("\r\n");
+	}
+
+	/** create the headings 
+	 * @param builder
+	 */
+	//@Override
+	public void createCSvTitles(StringBuilder builder) {
+
+		builder.append("Name" + ",");
+
+		builder.append("Type" + ",");
+
+		builder.append("Required" + ",");
+
+		builder.append("ChoiceValues" + ",");
+
+		builder.append("\r\n");
+	}
 }

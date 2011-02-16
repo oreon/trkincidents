@@ -20,8 +20,8 @@ import org.jboss.seam.annotations.Observer;
 import com.oreon.trkincidents.incidents.Incident;
 
 /**
- * D
- * @author WitchcraftMDA Seam Cartridge
+ * 
+ * @author WitchcraftMDA Seam Cartridge - 
  *
  */
 public abstract class IncidentListQueryBase extends BaseQuery<Incident, Long> {
@@ -135,4 +135,96 @@ public abstract class IncidentListQueryBase extends BaseQuery<Incident, Long> {
 		refresh();
 	}
 
+	/** create comma delimited row 
+	 * @param builder
+	 */
+	//@Override
+	public void createCsvString(StringBuilder builder, Incident e) {
+
+		builder.append("\""
+				+ (e.getIncidentType() != null ? e.getIncidentType()
+						.getDisplayName() : "") + "\",");
+
+		builder.append("\"" + (e.getTitle() != null ? e.getTitle() : "")
+				+ "\",");
+
+		builder.append("\""
+				+ (e.getPatient() != null
+						? e.getPatient().getDisplayName()
+						: "") + "\",");
+
+		builder.append("\""
+				+ (e.getCreatedBy() != null
+						? e.getCreatedBy().getDisplayName()
+						: "") + "\",");
+
+		builder.append("\""
+				+ (e.getDepartment() != null ? e.getDepartment()
+						.getDisplayName() : "") + "\",");
+
+		builder.append("\""
+				+ (e.getDateOfIncident() != null ? e.getDateOfIncident() : "")
+				+ "\",");
+
+		builder.append("\""
+				+ (e.getReportedTo() != null ? e.getReportedTo()
+						.getDisplayName() : "") + "\",");
+
+		builder.append("\""
+				+ (e.getDrug() != null ? e.getDrug().getDisplayName() : "")
+				+ "\",");
+
+		builder.append("\""
+				+ (e.getProccedure() != null ? e.getProccedure()
+						.getDisplayName() : "") + "\",");
+
+		builder.append("\""
+				+ (e.getResponsibleEmployee() != null ? e
+						.getResponsibleEmployee().getDisplayName() : "")
+				+ "\",");
+
+		builder.append("\""
+				+ (e.getDescription() != null ? e.getDescription() : "")
+				+ "\",");
+
+		builder.append("\""
+				+ (e.getSeverity() != null
+						? e.getSeverity().getDisplayName()
+						: "") + "\",");
+
+		builder.append("\r\n");
+	}
+
+	/** create the headings 
+	 * @param builder
+	 */
+	//@Override
+	public void createCSvTitles(StringBuilder builder) {
+
+		builder.append("IncidentType" + ",");
+
+		builder.append("Title" + ",");
+
+		builder.append("Patient" + ",");
+
+		builder.append("CreatedBy" + ",");
+
+		builder.append("Department" + ",");
+
+		builder.append("DateOfIncident" + ",");
+
+		builder.append("ReportedTo" + ",");
+
+		builder.append("Drug" + ",");
+
+		builder.append("Proccedure" + ",");
+
+		builder.append("ResponsibleEmployee" + ",");
+
+		builder.append("Description" + ",");
+
+		builder.append("Severity" + ",");
+
+		builder.append("\r\n");
+	}
 }

@@ -20,8 +20,8 @@ import org.jboss.seam.annotations.Observer;
 import com.oreon.trkincidents.customforms.CustomField;
 
 /**
- * D
- * @author WitchcraftMDA Seam Cartridge
+ * 
+ * @author WitchcraftMDA Seam Cartridge - 
  *
  */
 public abstract class CustomFieldListQueryBase
@@ -77,4 +77,40 @@ public abstract class CustomFieldListQueryBase
 		refresh();
 	}
 
+	/** create comma delimited row 
+	 * @param builder
+	 */
+	//@Override
+	public void createCsvString(StringBuilder builder, CustomField e) {
+
+		builder.append("\""
+				+ (e.getCustomForm() != null ? e.getCustomForm()
+						.getDisplayName() : "") + "\",");
+
+		builder.append("\"" + (e.getRequired() != null ? e.getRequired() : "")
+				+ "\",");
+
+		builder.append("\"" + (e.getType() != null ? e.getType() : "") + "\",");
+
+		builder.append("\"" + (e.getName() != null ? e.getName() : "") + "\",");
+
+		builder.append("\r\n");
+	}
+
+	/** create the headings 
+	 * @param builder
+	 */
+	//@Override
+	public void createCSvTitles(StringBuilder builder) {
+
+		builder.append("CustomForm" + ",");
+
+		builder.append("Required" + ",");
+
+		builder.append("Type" + ",");
+
+		builder.append("Name" + ",");
+
+		builder.append("\r\n");
+	}
 }

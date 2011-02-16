@@ -29,13 +29,16 @@ import org.hibernate.search.annotations.TokenizerDef;
 import org.hibernate.search.annotations.ContainedIn;
 import org.hibernate.search.annotations.IndexedEmbedded;
 
+import org.hibernate.annotations.Filter;
+
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
+
 import org.jboss.seam.annotations.Name;
+
 import org.witchcraft.base.entity.BusinessEntity;
 import org.witchcraft.model.support.audit.Auditable;
 import org.witchcraft.base.entity.FileAttachment;
-import org.hibernate.annotations.Filter;
 
 import org.witchcraft.utils.*;
 
@@ -87,7 +90,6 @@ public class Patient extends com.oreon.trkincidents.patient.Person
 
 	protected Gender gender;
 
-	@Column(name = "age", unique = false)
 	@Transient
 	protected Integer age;
 
@@ -96,7 +98,9 @@ public class Patient extends com.oreon.trkincidents.patient.Person
 	}
 
 	public Address getAddress() {
+
 		return address;
+
 	}
 
 	public void setIncidents(
@@ -121,7 +125,9 @@ public class Patient extends com.oreon.trkincidents.patient.Person
 	}
 
 	public String getHealthNumber() {
+
 		return healthNumber;
+
 	}
 
 	public void setDateOfBirth(Date dateOfBirth) {
@@ -129,7 +135,9 @@ public class Patient extends com.oreon.trkincidents.patient.Person
 	}
 
 	public Date getDateOfBirth() {
+
 		return dateOfBirth;
+
 	}
 
 	public void setGender(Gender gender) {
@@ -137,7 +145,9 @@ public class Patient extends com.oreon.trkincidents.patient.Person
 	}
 
 	public Gender getGender() {
+
 		return gender;
+
 	}
 
 	public void setAge(Integer age) {
@@ -145,7 +155,15 @@ public class Patient extends com.oreon.trkincidents.patient.Person
 	}
 
 	public Integer getAge() {
-		return DateUtils.calcAge(dateOfBirth);
+
+		try {
+			return DateUtils.calcAge(dateOfBirth);
+		} catch (Exception e) {
+
+			return 0.0;
+
+		}
+
 	}
 
 	@Transient

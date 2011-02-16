@@ -6,13 +6,13 @@
       <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{historyAction.load(historyId )  }"> 
         <h:outputText value="#{msg.id}"/>  
         <h:outputText value="#{historyAction.history.id}"/>  
-        <h:outputText value="#{msg.history_encounter}  " rendered="#{s:hasPermission('encounter', 'historyView')}"/>  
+        <h:outputText value="#{msg.history_encounter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'historyView')}"/>  
         <s:link value="#{historyAction.history.encounter.displayName}" view="/admin/entities/appointment/encounter/viewEncounter.xhtml" propagation="none"> 
           <f:param name="encounterId" value="#{historyAction.history.encounter.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
-        <h:outputText value="#{msg.history_history}  " rendered="#{s:hasPermission('history', 'historyView')}"/>  
-        <h:outputText id="history#{entityId}" rendered="#{s:hasPermission('history', 'historyView')}" value="#{historyAction.history.history}"/> 
+        <h:outputText value="#{msg.history_history}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'historyView')}"/>  
+        <h:outputText id="history#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'historyView')}" value="#{historyAction.history.history}"></h:outputText> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

@@ -4,10 +4,13 @@
   <c:if test="${empty modalId}"> 
     <c:set var="modalId" value="DocumentModalPanel"/> 
   </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="Document Search Results (#{empty records ? 0 : (documentList.paginated ? documentList.resultCount : records.size)})"/> 
+  </c:if>  
   <rich:panel> 
-    <f:facet name="header">Document Search Results (#{empty records ? 0 : (documentList.paginated ? documentList.resultCount : records.size)})</f:facet>  
+    <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
-      <rich:dataTable var="_document" value="#{records}" id="documentList" rowClasses="odd, even" styleClass="dataTable"> 
+      <rich:dataTable var="_document" value="#{records}" id="documentList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
         <h:column rendered="#{s:hasPermission('id', 'documentView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
@@ -26,7 +29,7 @@
               <ui:param name="propertyPath" value="document.name"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_document.name}"/> 
+          <h:outputText value="#{_document.name}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('file', 'documentView'  )}"> 
           <f:facet name="header"> 
@@ -48,7 +51,7 @@
               <ui:param name="propertyPath" value="document.notes"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_document.notes}"/> 
+          <h:outputText value="#{_document.notes}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('patient', 'documentView'  )}"> 
           <f:facet name="header"> 
@@ -58,7 +61,7 @@
               <ui:param name="propertyPath" value="document.patient"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_document.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+          <s:link value="#{_document.patient.displayName}" action="viewPatient" propagation="none"> 
             <f:param name="patientId" value="#{_document.patient.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/>  
             <rich:toolTip> 
@@ -109,7 +112,7 @@
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
-          <a:commandLink action="#{documentAction.setDocumentIdForModalDlg(_document.id)}" rendered="#{s:hasPermission(_document, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});"> 
+          <a:commandLink action="#{documentAction.setDocumentIdForModalDlg(_document.id)}" rendered="#{s:hasPermission(_document, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" reRender="${modalId}"> 
             <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
             <s:conversationPropagation type="join"/> 
           </a:commandLink> 

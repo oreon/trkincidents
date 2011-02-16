@@ -7,10 +7,10 @@
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.incidentType_name} * " rendered="#{s:hasPermission('name', 'incidentTypeEdit')}"/>  
+        <h:outputText value="#{msg.incidentType_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'incidentTypeEdit')}"/>  
         <br/>  
         <h:inputText id="name" value="#{incidentTypeAction.incidentType.name}"/>  
-        <h:message styleClass="error errors" for="name" rendered="#{s:hasPermission('name', 'incidentTypeEdit')}"/> 
+        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'incidentTypeEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

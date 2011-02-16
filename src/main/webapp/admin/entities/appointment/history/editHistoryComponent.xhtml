@@ -4,15 +4,18 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{historyAction.load(historyId )  }"> 
-        <h:outputText value="#{msg.history_encounter}  " rendered="#{s:hasPermission('encounter', 'historyEdit')}"/>  
-        <h:selectOneMenu id="encounter" label="#{msg.history_encounter}" value="#{historyAction.history.encounter}" required="true" rendered="#{s:hasPermission('encounter', 'historyEdit')}"> 
+        <h:outputText value="#{msg.history_encounter} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'historyEdit')}"/>  
+        <h:selectOneMenu id="encounter" label="#{msg.history_encounter}" value="#{historyAction.history.encounter}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'historyEdit')}"> 
           <s:selectItems value="#{encounterList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onsubmit"/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="encounter" rendered="#{s:hasPermission('encounter', 'historyEdit')}"/>  
-        <h:outputText value="#{msg.history_history}  " rendered="#{s:hasPermission('history', 'historyEdit')}"/>  
-        <h:inputText id="history#{entityId}" rendered="#{s:hasPermission('history', 'historyEdit')}" label="#{msg.history_history}" required="false" value="#{historyAction.history.history}"/>  
-        <h:message styleClass="error errors" for="history" rendered="#{s:hasPermission('history', 'historyEdit')}"/> 
+        <rich:message styleClass="error errors" for="encounter" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'historyEdit')}"/>  
+        <h:outputText value="#{msg.history_history}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'historyEdit')}"/>  
+        <h:inputText id="history#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'historyEdit')}" label="#{msg.history_history}" required="false" value="#{historyAction.history.history}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="history" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'historyEdit')}"/> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

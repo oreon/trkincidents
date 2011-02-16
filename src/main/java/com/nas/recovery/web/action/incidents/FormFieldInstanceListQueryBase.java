@@ -20,8 +20,8 @@ import org.jboss.seam.annotations.Observer;
 import com.oreon.trkincidents.incidents.FormFieldInstance;
 
 /**
- * D
- * @author WitchcraftMDA Seam Cartridge
+ * 
+ * @author WitchcraftMDA Seam Cartridge - 
  *
  */
 public abstract class FormFieldInstanceListQueryBase
@@ -101,4 +101,62 @@ public abstract class FormFieldInstanceListQueryBase
 		refresh();
 	}
 
+	/** create comma delimited row 
+	 * @param builder
+	 */
+	//@Override
+	public void createCsvString(StringBuilder builder, FormFieldInstance e) {
+
+		builder.append("\"" + (e.getValue() != null ? e.getValue() : "")
+				+ "\",");
+
+		builder.append("\""
+				+ (e.getIncident() != null
+						? e.getIncident().getDisplayName()
+						: "") + "\",");
+
+		builder.append("\""
+				+ (e.getFormField() != null
+						? e.getFormField().getDisplayName()
+						: "") + "\",");
+
+		builder.append("\""
+				+ (e.getBoolValue() != null ? e.getBoolValue() : "") + "\",");
+
+		builder.append("\""
+				+ (e.getDateValue() != null ? e.getDateValue() : "") + "\",");
+
+		builder.append("\""
+				+ (e.getEnumOrdinal() != null ? e.getEnumOrdinal() : "")
+				+ "\",");
+
+		builder.append("\""
+				+ (e.getDescription() != null ? e.getDescription() : "")
+				+ "\",");
+
+		builder.append("\r\n");
+	}
+
+	/** create the headings 
+	 * @param builder
+	 */
+	//@Override
+	public void createCSvTitles(StringBuilder builder) {
+
+		builder.append("Value" + ",");
+
+		builder.append("Incident" + ",");
+
+		builder.append("FormField" + ",");
+
+		builder.append("BoolValue" + ",");
+
+		builder.append("DateValue" + ",");
+
+		builder.append("EnumOrdinal" + ",");
+
+		builder.append("Description" + ",");
+
+		builder.append("\r\n");
+	}
 }

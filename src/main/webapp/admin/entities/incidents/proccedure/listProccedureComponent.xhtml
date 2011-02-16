@@ -4,10 +4,13 @@
   <c:if test="${empty modalId}"> 
     <c:set var="modalId" value="ProccedureModalPanel"/> 
   </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="Proccedure Search Results (#{empty records ? 0 : (proccedureList.paginated ? proccedureList.resultCount : records.size)})"/> 
+  </c:if>  
   <rich:panel> 
-    <f:facet name="header">Proccedure Search Results (#{empty records ? 0 : (proccedureList.paginated ? proccedureList.resultCount : records.size)})</f:facet>  
+    <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
-      <rich:dataTable var="_proccedure" value="#{records}" id="proccedureList" rowClasses="odd, even" styleClass="dataTable"> 
+      <rich:dataTable var="_proccedure" value="#{records}" id="proccedureList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
         <h:column rendered="#{s:hasPermission('id', 'proccedureView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
@@ -26,7 +29,7 @@
               <ui:param name="propertyPath" value="proccedure.name"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_proccedure.name}"/> 
+          <h:outputText value="#{_proccedure.name}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'proccedureView' )}"> 
           <f:facet name="header"> 
@@ -71,7 +74,7 @@
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
-          <a:commandLink action="#{proccedureAction.setProccedureIdForModalDlg(_proccedure.id)}" rendered="#{s:hasPermission(_proccedure, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});"> 
+          <a:commandLink action="#{proccedureAction.setProccedureIdForModalDlg(_proccedure.id)}" rendered="#{s:hasPermission(_proccedure, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" reRender="${modalId}"> 
             <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
             <s:conversationPropagation type="join"/> 
           </a:commandLink> 

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.supportingDocuments_file}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('file', 'supportingDocumentsEdit')}"/>  
+        <br/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.supportingDocuments_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('title', 'supportingDocumentsEdit')}"/>  
+        <br/>  
+        <h:inputText id="title" value="#{supportingDocumentsAction.supportingDocuments.title}"/>  
+        <rich:message styleClass="error errors" for="title" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('title', 'supportingDocumentsEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.supportingDocuments_incident} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'supportingDocumentsEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="incident" value="#{supportingDocumentsAction.supportingDocuments.incident}"> 
+          <s:selectItems value="#{incidentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="incident" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'supportingDocumentsEdit')}"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

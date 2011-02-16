@@ -16,7 +16,12 @@
   </entity>  
   <!--  IncidentType  JPA Configurations -->  
   <entity class="com.oreon.trkincidents.incidents.IncidentType" name="IncidentType"> 
-    <table name="incidenttype"></table> 
+    <table name="incidenttype"></table>  
+    <named-query name="incidentType.findByUnqName"> 
+      <query> <![CDATA[
+			select u from IncidentType u where u.name = ?1
+			]]> </query> 
+    </named-query> 
   </entity>  
   <!--  FormField  JPA Configurations -->  
   <entity class="com.oreon.trkincidents.incidents.FormField" name="FormField"> 
@@ -28,32 +33,61 @@
   </entity>  
   <!--  Drug  JPA Configurations -->  
   <entity class="com.oreon.trkincidents.incidents.Drug" name="Drug"> 
-    <table name="drug"></table> 
+    <table name="drug"></table>  
+    <named-query name="drug.findByUnqName"> 
+      <query> <![CDATA[
+			select u from Drug u where u.name = ?1
+			]]> </query> 
+    </named-query> 
   </entity>  
   <!--  Severity  JPA Configurations -->  
   <entity class="com.oreon.trkincidents.incidents.Severity" name="Severity"> 
-    <table name="severity"></table> 
+    <table name="severity"></table>  
+    <named-query name="severity.findByUnqName"> 
+      <query> <![CDATA[
+			select u from Severity u where u.name = ?1
+			]]> </query> 
+    </named-query> 
   </entity>  
   <!--  Proccedure  JPA Configurations -->  
   <entity class="com.oreon.trkincidents.incidents.Proccedure" name="Proccedure"> 
-    <table name="proccedure"></table> 
+    <table name="proccedure"></table>  
+    <named-query name="proccedure.findByUnqName"> 
+      <query> <![CDATA[
+			select u from Proccedure u where u.name = ?1
+			]]> </query> 
+    </named-query> 
   </entity>  
   <!--  ReferenceField  JPA Configurations -->  
   <entity class="com.oreon.trkincidents.incidents.ReferenceField" name="ReferenceField"> 
     <table name="referencefield"></table> 
   </entity>  
+  <!--  SupportingDocuments  JPA Configurations -->  
+  <entity class="com.oreon.trkincidents.incidents.SupportingDocuments" name="SupportingDocuments"> 
+    <table name="supportingdocuments"></table> 
+  </entity>  
   <!--  Employee  JPA Configurations -->  
   <entity class="com.oreon.trkincidents.employee.Employee" name="Employee"> 
-    <table name="employee"></table> 
+    <table name="employee"></table>  
+    <named-query name="employee.findByUnqEmployeeNumber"> 
+      <query> <![CDATA[
+			select u from Employee u where u.employeeNumber = ?1
+			]]> </query> 
+    </named-query> 
   </entity>  
   <!--  Department  JPA Configurations -->  
   <entity class="com.oreon.trkincidents.employee.Department" name="Department"> 
-    <table name="department"></table> 
+    <table name="department"></table>  
+    <named-query name="department.findByUnqName"> 
+      <query> <![CDATA[
+			select u from Department u where u.name = ?1
+			]]> </query> 
+    </named-query> 
   </entity>  
   <!--  User  JPA Configurations -->  
   <entity class="com.oreon.trkincidents.users.User" name="User"> 
     <table name="user"></table>  
-    <named-query name="findByUnqUserName"> 
+    <named-query name="user.findByUnqUserName"> 
       <query> <![CDATA[
 			select u from User u where u.userName = ?1
 			]]> </query> 
@@ -62,7 +96,7 @@
   <!--  Role  JPA Configurations -->  
   <entity class="com.oreon.trkincidents.users.Role" name="Role"> 
     <table name="role"></table>  
-    <named-query name="findByUnqName"> 
+    <named-query name="role.findByUnqName"> 
       <query> <![CDATA[
 			select u from Role u where u.name = ?1
 			]]> </query> 
@@ -94,7 +128,12 @@
   </entity>  
   <!--  CustomForm  JPA Configurations -->  
   <entity class="com.oreon.trkincidents.customforms.CustomForm" name="CustomForm"> 
-    <table name="customform"></table> 
+    <table name="customform"></table>  
+    <named-query name="customForm.findByUnqName"> 
+      <query> <![CDATA[
+			select u from CustomForm u where u.name = ?1
+			]]> </query> 
+    </named-query> 
   </entity>  
   <!--  CustomField  JPA Configurations -->  
   <entity class="com.oreon.trkincidents.customforms.CustomField" name="CustomField"> 

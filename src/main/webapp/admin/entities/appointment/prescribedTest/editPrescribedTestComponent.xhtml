@@ -4,21 +4,25 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{prescribedTestAction.load(prescribedTestId )  }"> 
-        <h:outputText value="#{msg.prescribedTest_dxTest}  " rendered="#{s:hasPermission('dxTest', 'prescribedTestEdit')}"/>  
-        <h:selectOneMenu id="dxTest" label="#{msg.prescribedTest_dxTest}" value="#{prescribedTestAction.prescribedTest.dxTest}" required="true" rendered="#{s:hasPermission('dxTest', 'prescribedTestEdit')}"> 
+        <h:outputText value="#{msg.prescribedTest_dxTest} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dxTest', 'prescribedTestEdit')}"/>  
+        <h:selectOneMenu id="dxTest" label="#{msg.prescribedTest_dxTest}" value="#{prescribedTestAction.prescribedTest.dxTest}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dxTest', 'prescribedTestEdit')}"> 
           <s:selectItems value="#{dxTestList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onsubmit"/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="dxTest" rendered="#{s:hasPermission('dxTest', 'prescribedTestEdit')}"/>  
-        <h:outputText value="#{msg.prescribedTest_encounter}  " rendered="#{s:hasPermission('encounter', 'prescribedTestEdit')}"/>  
-        <h:selectOneMenu id="encounter" label="#{msg.prescribedTest_encounter}" value="#{prescribedTestAction.prescribedTest.encounter}" required="true" rendered="#{s:hasPermission('encounter', 'prescribedTestEdit')}"> 
+        <rich:message styleClass="error errors" for="dxTest" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dxTest', 'prescribedTestEdit')}"/>  
+        <h:outputText value="#{msg.prescribedTest_encounter} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'prescribedTestEdit')}"/>  
+        <h:selectOneMenu id="encounter" label="#{msg.prescribedTest_encounter}" value="#{prescribedTestAction.prescribedTest.encounter}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'prescribedTestEdit')}"> 
           <s:selectItems value="#{encounterList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onsubmit"/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="encounter" rendered="#{s:hasPermission('encounter', 'prescribedTestEdit')}"/>  
-        <h:outputText value="#{msg.prescribedTest_remarks}  " rendered="#{s:hasPermission('remarks', 'prescribedTestEdit')}"/>  
-        <h:inputText id="remarks#{entityId}" rendered="#{s:hasPermission('remarks', 'prescribedTestEdit')}" label="#{msg.prescribedTest_remarks}" required="false" value="#{prescribedTestAction.prescribedTest.remarks}"/>  
-        <h:message styleClass="error errors" for="remarks" rendered="#{s:hasPermission('remarks', 'prescribedTestEdit')}"/> 
+        <rich:message styleClass="error errors" for="encounter" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'prescribedTestEdit')}"/>  
+        <h:outputText value="#{msg.prescribedTest_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('remarks', 'prescribedTestEdit')}"/>  
+        <h:inputText id="remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('remarks', 'prescribedTestEdit')}" label="#{msg.prescribedTest_remarks}" required="false" value="#{prescribedTestAction.prescribedTest.remarks}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="remarks" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('remarks', 'prescribedTestEdit')}"/> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

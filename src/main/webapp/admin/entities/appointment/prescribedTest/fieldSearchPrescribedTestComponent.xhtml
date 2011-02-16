@@ -6,12 +6,12 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.prescribedTest_remarks}  " rendered="#{s:hasPermission('remarks', 'prescribedTestEdit')}"/>  
+      <h:outputText value="#{msg.prescribedTest_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('remarks', 'prescribedTestEdit')}"/>  
       <br/>  
       <h:inputText id="remarks" value="#{prescribedTestList.prescribedTest.remarks}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.prescribedTest_dxTest}  " rendered="#{s:hasPermission('dxTest', 'prescribedTestEdit')}"/>  
+      <h:outputText value="#{msg.prescribedTest_dxTest} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dxTest', 'prescribedTestEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="dxTest" value="#{ prescribedTestList.prescribedTest.dxTest}"> 
         <s:selectItems value="#{dxTestList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -19,7 +19,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.prescribedTest_encounter}  " rendered="#{s:hasPermission('encounter', 'prescribedTestEdit')}"/>  
+      <h:outputText value="#{msg.prescribedTest_encounter} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'prescribedTestEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="encounter" value="#{ prescribedTestList.prescribedTest.encounter}"> 
         <s:selectItems value="#{encounterList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -30,7 +30,7 @@
   <h:panelGrid columns="2"> 
     <h:outputText value="Creation Date From"/>  
     <h:outputText value="Creation Date To"/>  
-    <rich:calendar id="from" value="#{severityList.dateCreatedRange.begin}"/>  
-    <rich:calendar id="to" value="#{severityList.dateCreatedRange.end}"/> 
+    <rich:calendar id="from" value="#{prescribedTestList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{prescribedTestList.dateCreatedRange.end}"/> 
   </h:panelGrid> 
 </ui:composition>

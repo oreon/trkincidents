@@ -4,9 +4,11 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{facilityAction.load(facilityId )  }"> 
-        <h:outputText value="#{msg.facility_name}  " rendered="#{s:hasPermission('name', 'facilityEdit')}"/>  
-        <h:inputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'facilityEdit')}" label="#{msg.facility_name}" required="false" value="#{facilityAction.facility.name}"/>  
-        <h:message styleClass="error errors" for="name" rendered="#{s:hasPermission('name', 'facilityEdit')}"/> 
+        <h:outputText value="#{msg.facility_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'facilityEdit')}"/>  
+        <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'facilityEdit')}" label="#{msg.facility_name}" required="false" value="#{facilityAction.facility.name}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'facilityEdit')}"/> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

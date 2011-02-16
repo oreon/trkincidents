@@ -6,7 +6,7 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.history_encounter}  " rendered="#{s:hasPermission('encounter', 'historyEdit')}"/>  
+      <h:outputText value="#{msg.history_encounter} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'historyEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="encounter" value="#{ historyList.history.encounter}"> 
         <s:selectItems value="#{encounterList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -14,7 +14,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.history_history}  " rendered="#{s:hasPermission('history', 'historyEdit')}"/>  
+      <h:outputText value="#{msg.history_history}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'historyEdit')}"/>  
       <br/>  
       <h:inputText id="history" value="#{historyList.history.history}"/> 
     </h:panelGroup> 
@@ -22,7 +22,7 @@
   <h:panelGrid columns="2"> 
     <h:outputText value="Creation Date From"/>  
     <h:outputText value="Creation Date To"/>  
-    <rich:calendar id="from" value="#{severityList.dateCreatedRange.begin}"/>  
-    <rich:calendar id="to" value="#{severityList.dateCreatedRange.end}"/> 
+    <rich:calendar id="from" value="#{historyList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{historyList.dateCreatedRange.end}"/> 
   </h:panelGrid> 
 </ui:composition>

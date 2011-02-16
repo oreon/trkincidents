@@ -29,13 +29,16 @@ import org.hibernate.search.annotations.TokenizerDef;
 import org.hibernate.search.annotations.ContainedIn;
 import org.hibernate.search.annotations.IndexedEmbedded;
 
+import org.hibernate.annotations.Filter;
+
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
+
 import org.jboss.seam.annotations.Name;
+
 import org.witchcraft.base.entity.BusinessEntity;
 import org.witchcraft.model.support.audit.Auditable;
 import org.witchcraft.base.entity.FileAttachment;
-import org.hibernate.annotations.Filter;
 
 import org.witchcraft.utils.*;
 
@@ -69,7 +72,9 @@ public class ContactDetails implements java.io.Serializable {
 	}
 
 	public String getPrimaryPhone() {
+
 		return primaryPhone;
+
 	}
 
 	public void setSecondaryPhone(String secondaryPhone) {
@@ -77,7 +82,9 @@ public class ContactDetails implements java.io.Serializable {
 	}
 
 	public String getSecondaryPhone() {
+
 		return secondaryPhone;
+
 	}
 
 	public void setStreetAddress(String streetAddress) {
@@ -85,7 +92,9 @@ public class ContactDetails implements java.io.Serializable {
 	}
 
 	public String getStreetAddress() {
+
 		return streetAddress;
+
 	}
 
 	public void setCity(String city) {
@@ -93,7 +102,9 @@ public class ContactDetails implements java.io.Serializable {
 	}
 
 	public String getCity() {
+
 		return city;
+
 	}
 
 	public void setZip(String zip) {
@@ -101,7 +112,9 @@ public class ContactDetails implements java.io.Serializable {
 	}
 
 	public String getZip() {
+
 		return zip;
+
 	}
 
 }

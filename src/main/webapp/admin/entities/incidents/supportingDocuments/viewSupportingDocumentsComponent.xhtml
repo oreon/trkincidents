@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{supportingDocumentsAction.load(supportingDocumentsId )  }"> 
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{supportingDocumentsAction.supportingDocuments.id}"/>  
+        <h:outputText value="#{msg.supportingDocuments_incident}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'supportingDocumentsView')}"/>  
+        <s:link value="#{supportingDocumentsAction.supportingDocuments.incident.displayName}" view="/admin/entities/incidents/incident/viewIncident.xhtml" propagation="none"> 
+          <f:param name="incidentId" value="#{supportingDocumentsAction.supportingDocuments.incident.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.supportingDocuments_file}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('file', 'supportingDocumentsView')}"/>  
+        <c:choose> 
+          <c:when test="${supportingDocumentsAction.supportingDocuments.file.contentType.startsWith('image')}"> 
+            <s:graphicImage value="#{supportingDocumentsAction.supportingDocuments.file.data}"/> 
+          </c:when>  
+          <c:otherwise> 
+            <s:link value="#{supportingDocumentsAction.supportingDocuments.file.name}" action="#{supportingDocumentsAction.downloadFile(null)}" propagation="none"> 
+              <f:param name="currentEntityId" value="#{supportingDocumentsAction.instance.id}"/> 
+            </s:link> 
+          </c:otherwise> 
+        </c:choose>  
+        <h:outputText value="#{msg.supportingDocuments_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('title', 'supportingDocumentsView')}"/>  
+        <h:outputText id="title#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('title', 'supportingDocumentsView')}" value="#{supportingDocumentsAction.supportingDocuments.title}"></h:outputText> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

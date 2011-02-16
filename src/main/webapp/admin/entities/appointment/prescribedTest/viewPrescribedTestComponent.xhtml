@@ -6,18 +6,18 @@
       <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{prescribedTestAction.load(prescribedTestId )  }"> 
         <h:outputText value="#{msg.id}"/>  
         <h:outputText value="#{prescribedTestAction.prescribedTest.id}"/>  
-        <h:outputText value="#{msg.prescribedTest_dxTest}  " rendered="#{s:hasPermission('dxTest', 'prescribedTestView')}"/>  
+        <h:outputText value="#{msg.prescribedTest_dxTest}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dxTest', 'prescribedTestView')}"/>  
         <s:link value="#{prescribedTestAction.prescribedTest.dxTest.displayName}" view="/admin/entities/appointment/dxTest/viewDxTest.xhtml" propagation="none"> 
           <f:param name="dxTestId" value="#{prescribedTestAction.prescribedTest.dxTest.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
-        <h:outputText value="#{msg.prescribedTest_encounter}  " rendered="#{s:hasPermission('encounter', 'prescribedTestView')}"/>  
+        <h:outputText value="#{msg.prescribedTest_encounter}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('encounter', 'prescribedTestView')}"/>  
         <s:link value="#{prescribedTestAction.prescribedTest.encounter.displayName}" view="/admin/entities/appointment/encounter/viewEncounter.xhtml" propagation="none"> 
           <f:param name="encounterId" value="#{prescribedTestAction.prescribedTest.encounter.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
-        <h:outputText value="#{msg.prescribedTest_remarks}  " rendered="#{s:hasPermission('remarks', 'prescribedTestView')}"/>  
-        <h:outputText id="remarks#{entityId}" rendered="#{s:hasPermission('remarks', 'prescribedTestView')}" value="#{prescribedTestAction.prescribedTest.remarks}"/> 
+        <h:outputText value="#{msg.prescribedTest_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('remarks', 'prescribedTestView')}"/>  
+        <h:outputText id="remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('remarks', 'prescribedTestView')}" value="#{prescribedTestAction.prescribedTest.remarks}"></h:outputText> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

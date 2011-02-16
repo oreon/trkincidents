@@ -6,6 +6,13 @@
     <ui:include src="searchDrug.xhtml"/>  
     <br/>  
     <br/>  
+    <a:form> 
+      <s:button value="Create New" action="/admin/entities/incidents/drug/editDrug.xhtml" propagation="none"> 
+        <f:param name="drugId" value="0"/> 
+      </s:button>  
+      <a:commandButton action="#{drugAction.setDrugId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"></a:commandButton>  
+      <s:button value="Export to Excel" action="#{drugList.exportToCsv}"/> 
+    </a:form>  
     <ui:include src="listDrugComponent.xhtml"> 
       <ui:param name="records" value="#{drugList.resultList}"/> 
     </ui:include>  
@@ -13,7 +20,8 @@
       <s:button value="Create New" action="/admin/entities/incidents/drug/editDrug.xhtml" propagation="none"> 
         <f:param name="drugId" value="0"/> 
       </s:button>  
-      <a:commandButton action="#{drugAction.setDrugId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"></a:commandButton> 
+      <a:commandButton action="#{drugAction.setDrugId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"></a:commandButton>  
+      <s:button value="Export to Excel" action="#{drugList.exportToCsv}"/> 
     </a:form>  
     <ui:include src="/admin/entities/incidents/drug/modalDlgDrugComponent.xhtml"> 
       <ui:param name="modalId" value="${modalId}"/> 

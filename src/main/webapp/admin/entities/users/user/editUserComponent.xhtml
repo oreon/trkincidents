@@ -4,18 +4,26 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{userAction.load(userId )  }"> 
-        <h:outputText value="#{msg.user_userName} * " rendered="#{s:hasPermission('userName', 'userEdit')}"/>  
-        <h:inputText id="userName#{entityId}" rendered="#{s:hasPermission('userName', 'userEdit')}" label="#{msg.user_userName}" required="true" value="#{userAction.user.userName}"/>  
-        <h:message styleClass="error errors" for="userName" rendered="#{s:hasPermission('userName', 'userEdit')}"/>  
-        <h:outputText value="#{msg.user_password} * " rendered="#{s:hasPermission('password', 'userEdit')}"/>  
-        <h:inputSecret redisplay="true" id="password#{entityId}" rendered="#{s:hasPermission('password', 'userEdit')}" label="#{msg.user_password}" required="true" value="#{userAction.user.password}"/>  
-        <h:message styleClass="error errors" for="password" rendered="#{s:hasPermission('password', 'userEdit')}"/>  
-        <h:outputText value="#{msg.user_enabled}  " rendered="#{s:hasPermission('enabled', 'userEdit')}"/>  
-        <h:selectBooleanCheckbox id="enabled#{entityId}" rendered="#{s:hasPermission('enabled', 'userEdit')}" label="#{msg.user_enabled}" required="false" value="#{userAction.user.enabled}"/>  
-        <h:message styleClass="error errors" for="enabled" rendered="#{s:hasPermission('enabled', 'userEdit')}"/>  
-        <h:outputText value="#{msg.user_email} * " rendered="#{s:hasPermission('email', 'userEdit')}"/>  
-        <h:inputText id="email#{entityId}" rendered="#{s:hasPermission('email', 'userEdit')}" label="#{msg.user_email}" required="true" value="#{userAction.user.email}"/>  
-        <h:message styleClass="error errors" for="email" rendered="#{s:hasPermission('email', 'userEdit')}"/> 
+        <h:outputText value="#{msg.user_userName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('userName', 'userEdit')}"/>  
+        <h:inputText id="userName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('userName', 'userEdit')}" label="#{msg.user_userName}" required="true" value="#{userAction.user.userName}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="userName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('userName', 'userEdit')}"/>  
+        <h:outputText value="#{msg.user_password} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('password', 'userEdit')}"/>  
+        <h:inputSecret redisplay="true" id="password#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('password', 'userEdit')}" label="#{msg.user_password}" required="true" value="#{userAction.user.password}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputSecret>  
+        <rich:message styleClass="error errors" for="password" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('password', 'userEdit')}"/>  
+        <h:outputText value="#{msg.user_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enabled', 'userEdit')}"/>  
+        <h:selectBooleanCheckbox id="enabled#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enabled', 'userEdit')}" label="#{msg.user_enabled}" required="false" value="#{userAction.user.enabled}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:selectBooleanCheckbox>  
+        <rich:message styleClass="error errors" for="enabled" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enabled', 'userEdit')}"/>  
+        <h:outputText value="#{msg.user_email} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('email', 'userEdit')}"/>  
+        <h:inputText id="email#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('email', 'userEdit')}" label="#{msg.user_email}" required="true" value="#{userAction.user.email}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="email" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('email', 'userEdit')}"/> 
       </h:panelGrid>  
       <br/>  
       <rich:simpleTogglePanel label="#{msg.user_roles}" switchType="client"> 

@@ -6,42 +6,42 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.person_firstName} * " rendered="#{s:hasPermission('firstName', 'patientEdit')}"/>  
+      <h:outputText value="#{msg.person_firstName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'patientEdit')}"/>  
       <br/>  
       <h:inputText id="firstName" value="#{patientList.patient.firstName}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.person_lastName} * " rendered="#{s:hasPermission('lastName', 'patientEdit')}"/>  
+      <h:outputText value="#{msg.person_lastName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('lastName', 'patientEdit')}"/>  
       <br/>  
       <h:inputText id="lastName" value="#{patientList.patient.lastName}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.address_streetAddress}  " rendered="#{s:hasPermission('streetAddress', 'patientEdit')}"/>  
+      <h:outputText value="#{msg.address_streetAddress}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('streetAddress', 'patientEdit')}"/>  
       <br/>  
       <h:inputText id="address_streetAddress" value="#{patientList.patient.address.streetAddress}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.address_city}  " rendered="#{s:hasPermission('city', 'patientEdit')}"/>  
+      <h:outputText value="#{msg.address_city}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('city', 'patientEdit')}"/>  
       <br/>  
       <h:inputText id="address_city" value="#{patientList.patient.address.city}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.address_State}  " rendered="#{s:hasPermission('State', 'patientEdit')}"/>  
+      <h:outputText value="#{msg.address_State}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('State', 'patientEdit')}"/>  
       <br/>  
       <h:inputText id="address_State" value="#{patientList.patient.address.state}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.address_phone}  " rendered="#{s:hasPermission('phone', 'patientEdit')}"/>  
+      <h:outputText value="#{msg.address_phone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('phone', 'patientEdit')}"/>  
       <br/>  
       <h:inputText id="address_phone" value="#{patientList.patient.address.phone}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.patient_healthNumber}  " rendered="#{s:hasPermission('healthNumber', 'patientEdit')}"/>  
+      <h:outputText value="#{msg.patient_healthNumber}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('healthNumber', 'patientEdit')}"/>  
       <br/>  
       <h:inputText id="healthNumber" value="#{patientList.patient.healthNumber}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.patient_dateOfBirth}  " rendered="#{s:hasPermission('dateOfBirth', 'patientEdit')}"/>  
+      <h:outputText value="#{msg.patient_dateOfBirth}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateOfBirth', 'patientEdit')}"/>  
       <br/>  
       <h:outputText value="From"/>  
       <br/>  
@@ -50,7 +50,7 @@
       <rich:calendar value="#{patientList.dateOfBirthRange.end}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.patient_gender}  " rendered="#{s:hasPermission('gender', 'patientEdit')}"/>  
+      <h:outputText value="#{msg.patient_gender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gender', 'patientEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="gender" value="#{patientList.patient.gender}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  
@@ -60,7 +60,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.patient_age}  " rendered="#{s:hasPermission('age', 'patientEdit')}"/>  
+      <h:outputText value="#{msg.patient_age}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('age', 'patientEdit')}"/>  
       <br/>  
       <h:inputText id="age_begin" value="#{patientList.ageRange.begin}"> 
         <f:converter converterId="javax.faces.Integer"/> 
@@ -73,7 +73,7 @@
   <h:panelGrid columns="2"> 
     <h:outputText value="Creation Date From"/>  
     <h:outputText value="Creation Date To"/>  
-    <rich:calendar id="from" value="#{severityList.dateCreatedRange.begin}"/>  
-    <rich:calendar id="to" value="#{severityList.dateCreatedRange.end}"/> 
+    <rich:calendar id="from" value="#{patientList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{patientList.dateCreatedRange.end}"/> 
   </h:panelGrid> 
 </ui:composition>

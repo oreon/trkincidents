@@ -4,10 +4,13 @@
   <c:if test="${empty modalId}"> 
     <c:set var="modalId" value="PrescribedTestModalPanel"/> 
   </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="PrescribedTest Search Results (#{empty records ? 0 : (prescribedTestList.paginated ? prescribedTestList.resultCount : records.size)})"/> 
+  </c:if>  
   <rich:panel> 
-    <f:facet name="header">PrescribedTest Search Results (#{empty records ? 0 : (prescribedTestList.paginated ? prescribedTestList.resultCount : records.size)})</f:facet>  
+    <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
-      <rich:dataTable var="_prescribedTest" value="#{records}" id="prescribedTestList" rowClasses="odd, even" styleClass="dataTable"> 
+      <rich:dataTable var="_prescribedTest" value="#{records}" id="prescribedTestList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
         <h:column rendered="#{s:hasPermission('id', 'prescribedTestView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
@@ -26,7 +29,7 @@
               <ui:param name="propertyPath" value="prescribedTest.remarks"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_prescribedTest.remarks}"/> 
+          <h:outputText value="#{_prescribedTest.remarks}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('dxTest', 'prescribedTestView'  )}"> 
           <f:facet name="header"> 
@@ -36,7 +39,7 @@
               <ui:param name="propertyPath" value="prescribedTest.dxTest"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_prescribedTest.dxTest.displayName}" view="/admin/entities/appointment/dxTest/viewDxTest.xhtml" propagation="none"> 
+          <s:link value="#{_prescribedTest.dxTest.displayName}" action="viewDxTest" propagation="none"> 
             <f:param name="dxTestId" value="#{_prescribedTest.dxTest.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
@@ -49,7 +52,7 @@
               <ui:param name="propertyPath" value="prescribedTest.encounter"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_prescribedTest.encounter.displayName}" view="/admin/entities/appointment/encounter/viewEncounter.xhtml" propagation="none"> 
+          <s:link value="#{_prescribedTest.encounter.displayName}" action="viewEncounter" propagation="none"> 
             <f:param name="encounterId" value="#{_prescribedTest.encounter.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
@@ -97,7 +100,7 @@
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
-          <a:commandLink action="#{prescribedTestAction.setPrescribedTestIdForModalDlg(_prescribedTest.id)}" rendered="#{s:hasPermission(_prescribedTest, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});"> 
+          <a:commandLink action="#{prescribedTestAction.setPrescribedTestIdForModalDlg(_prescribedTest.id)}" rendered="#{s:hasPermission(_prescribedTest, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" reRender="${modalId}"> 
             <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
             <s:conversationPropagation type="join"/> 
           </a:commandLink> 

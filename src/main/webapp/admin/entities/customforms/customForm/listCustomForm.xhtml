@@ -6,6 +6,13 @@
     <ui:include src="searchCustomForm.xhtml"/>  
     <br/>  
     <br/>  
+    <a:form> 
+      <s:button value="Create New" action="/admin/entities/customforms/customForm/editCustomForm.xhtml" propagation="none"> 
+        <f:param name="customFormId" value="0"/> 
+      </s:button>  
+      <a:commandButton action="#{customFormAction.setCustomFormId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"></a:commandButton>  
+      <s:button value="Export to Excel" action="#{customFormList.exportToCsv}"/> 
+    </a:form>  
     <ui:include src="listCustomFormComponent.xhtml"> 
       <ui:param name="records" value="#{customFormList.resultList}"/> 
     </ui:include>  
@@ -13,7 +20,8 @@
       <s:button value="Create New" action="/admin/entities/customforms/customForm/editCustomForm.xhtml" propagation="none"> 
         <f:param name="customFormId" value="0"/> 
       </s:button>  
-      <a:commandButton action="#{customFormAction.setCustomFormId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"></a:commandButton> 
+      <a:commandButton action="#{customFormAction.setCustomFormId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"></a:commandButton>  
+      <s:button value="Export to Excel" action="#{customFormList.exportToCsv}"/> 
     </a:form>  
     <ui:include src="/admin/entities/customforms/customForm/modalDlgCustomFormComponent.xhtml"> 
       <ui:param name="modalId" value="${modalId}"/> 

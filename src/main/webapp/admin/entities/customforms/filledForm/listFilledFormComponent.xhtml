@@ -4,10 +4,13 @@
   <c:if test="${empty modalId}"> 
     <c:set var="modalId" value="FilledFormModalPanel"/> 
   </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="FilledForm Search Results (#{empty records ? 0 : (filledFormList.paginated ? filledFormList.resultCount : records.size)})"/> 
+  </c:if>  
   <rich:panel> 
-    <f:facet name="header">FilledForm Search Results (#{empty records ? 0 : (filledFormList.paginated ? filledFormList.resultCount : records.size)})</f:facet>  
+    <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
-      <rich:dataTable var="_filledForm" value="#{records}" id="filledFormList" rowClasses="odd, even" styleClass="dataTable"> 
+      <rich:dataTable var="_filledForm" value="#{records}" id="filledFormList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
         <h:column rendered="#{s:hasPermission('id', 'filledFormView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
@@ -26,7 +29,7 @@
               <ui:param name="propertyPath" value="filledForm.customForm"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_filledForm.customForm.displayName}" view="/admin/entities/customforms/customForm/viewCustomForm.xhtml" propagation="none"> 
+          <s:link value="#{_filledForm.customForm.displayName}" action="viewCustomForm" propagation="none"> 
             <f:param name="customFormId" value="#{_filledForm.customForm.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
@@ -39,7 +42,7 @@
               <ui:param name="propertyPath" value="filledForm.entityId"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_filledForm.entityId}"/> 
+          <h:outputText value="#{_filledForm.entityId}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'filledFormView' )}"> 
           <f:facet name="header"> 
@@ -84,7 +87,7 @@
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
-          <a:commandLink action="#{filledFormAction.setFilledFormIdForModalDlg(_filledForm.id)}" rendered="#{s:hasPermission(_filledForm, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});"> 
+          <a:commandLink action="#{filledFormAction.setFilledFormIdForModalDlg(_filledForm.id)}" rendered="#{s:hasPermission(_filledForm, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" reRender="${modalId}"> 
             <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
             <s:conversationPropagation type="join"/> 
           </a:commandLink> 

@@ -7,10 +7,10 @@
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.drug_name} * " rendered="#{s:hasPermission('name', 'drugEdit')}"/>  
+        <h:outputText value="#{msg.drug_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'drugEdit')}"/>  
         <br/>  
         <h:inputText id="name" value="#{drugAction.drug.name}"/>  
-        <h:message styleClass="error errors" for="name" rendered="#{s:hasPermission('name', 'drugEdit')}"/> 
+        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'drugEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

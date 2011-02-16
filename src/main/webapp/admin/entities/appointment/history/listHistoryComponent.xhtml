@@ -4,10 +4,13 @@
   <c:if test="${empty modalId}"> 
     <c:set var="modalId" value="HistoryModalPanel"/> 
   </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="History Search Results (#{empty records ? 0 : (historyList.paginated ? historyList.resultCount : records.size)})"/> 
+  </c:if>  
   <rich:panel> 
-    <f:facet name="header">History Search Results (#{empty records ? 0 : (historyList.paginated ? historyList.resultCount : records.size)})</f:facet>  
+    <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
-      <rich:dataTable var="_history" value="#{records}" id="historyList" rowClasses="odd, even" styleClass="dataTable"> 
+      <rich:dataTable var="_history" value="#{records}" id="historyList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
         <h:column rendered="#{s:hasPermission('id', 'historyView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
@@ -26,7 +29,7 @@
               <ui:param name="propertyPath" value="history.encounter"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_history.encounter.displayName}" view="/admin/entities/appointment/encounter/viewEncounter.xhtml" propagation="none"> 
+          <s:link value="#{_history.encounter.displayName}" action="viewEncounter" propagation="none"> 
             <f:param name="encounterId" value="#{_history.encounter.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
@@ -39,7 +42,7 @@
               <ui:param name="propertyPath" value="history.history"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_history.history}"/> 
+          <h:outputText value="#{_history.history}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'historyView' )}"> 
           <f:facet name="header"> 
@@ -84,7 +87,7 @@
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
-          <a:commandLink action="#{historyAction.setHistoryIdForModalDlg(_history.id)}" rendered="#{s:hasPermission(_history, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});"> 
+          <a:commandLink action="#{historyAction.setHistoryIdForModalDlg(_history.id)}" rendered="#{s:hasPermission(_history, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" reRender="${modalId}"> 
             <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
             <s:conversationPropagation type="join"/> 
           </a:commandLink> 

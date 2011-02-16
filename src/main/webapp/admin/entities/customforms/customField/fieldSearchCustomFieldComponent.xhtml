@@ -6,7 +6,7 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.customField_customForm}  " rendered="#{s:hasPermission('customForm', 'customFieldEdit')}"/>  
+      <h:outputText value="#{msg.customField_customForm} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customForm', 'customFieldEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="customForm" value="#{ customFieldList.customField.customForm}"> 
         <s:selectItems value="#{customFormList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -14,7 +14,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.customField_required}  " rendered="#{s:hasPermission('required', 'customFieldEdit')}"/>  
+      <h:outputText value="#{msg.customField_required}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('required', 'customFieldEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="required" value="#{customFieldList.customField.required}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  
@@ -23,7 +23,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.customField_type}  " rendered="#{s:hasPermission('type', 'customFieldEdit')}"/>  
+      <h:outputText value="#{msg.customField_type}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('type', 'customFieldEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="type" value="#{customFieldList.customField.type}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  
@@ -37,7 +37,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.customField_name} * " rendered="#{s:hasPermission('name', 'customFieldEdit')}"/>  
+      <h:outputText value="#{msg.customField_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'customFieldEdit')}"/>  
       <br/>  
       <h:inputText id="name" value="#{customFieldList.customField.name}"/> 
     </h:panelGroup> 
@@ -45,7 +45,7 @@
   <h:panelGrid columns="2"> 
     <h:outputText value="Creation Date From"/>  
     <h:outputText value="Creation Date To"/>  
-    <rich:calendar id="from" value="#{severityList.dateCreatedRange.begin}"/>  
-    <rich:calendar id="to" value="#{severityList.dateCreatedRange.end}"/> 
+    <rich:calendar id="from" value="#{customFieldList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{customFieldList.dateCreatedRange.end}"/> 
   </h:panelGrid> 
 </ui:composition>

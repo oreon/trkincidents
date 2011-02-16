@@ -35,6 +35,12 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
+import org.witchcraft.base.entity.FileAttachment;
+
+import org.apache.commons.io.FileUtils;
+import org.richfaces.event.UploadEvent;
+import org.richfaces.model.UploadItem;
+
 public abstract class DxTestActionBase extends BaseAction<DxTest>
 		implements
 			java.io.Serializable {
@@ -50,6 +56,7 @@ public abstract class DxTestActionBase extends BaseAction<DxTest>
 	public void setDxTestId(Long id) {
 		if (id == 0) {
 			clearInstance();
+			clearLists();
 			loadAssociations();
 			return;
 		}
@@ -63,6 +70,7 @@ public abstract class DxTestActionBase extends BaseAction<DxTest>
 	 */
 	public void setDxTestIdForModalDlg(Long id) {
 		setId(id);
+		clearLists();
 		loadAssociations();
 	}
 

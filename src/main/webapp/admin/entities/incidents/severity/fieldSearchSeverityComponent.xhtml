@@ -6,7 +6,7 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.severity_name} * " rendered="#{s:hasPermission('name', 'severityEdit')}"/>  
+      <h:outputText value="#{msg.severity_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'severityEdit')}"/>  
       <br/>  
       <h:inputText id="name" value="#{severityList.severity.name}"/> 
     </h:panelGroup> 

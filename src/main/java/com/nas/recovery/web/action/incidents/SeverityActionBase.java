@@ -35,6 +35,12 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
+import org.witchcraft.base.entity.FileAttachment;
+
+import org.apache.commons.io.FileUtils;
+import org.richfaces.event.UploadEvent;
+import org.richfaces.model.UploadItem;
+
 public abstract class SeverityActionBase extends BaseAction<Severity>
 		implements
 			java.io.Serializable {
@@ -50,6 +56,7 @@ public abstract class SeverityActionBase extends BaseAction<Severity>
 	public void setSeverityId(Long id) {
 		if (id == 0) {
 			clearInstance();
+			clearLists();
 			loadAssociations();
 			return;
 		}
@@ -63,6 +70,7 @@ public abstract class SeverityActionBase extends BaseAction<Severity>
 	 */
 	public void setSeverityIdForModalDlg(Long id) {
 		setId(id);
+		clearLists();
 		loadAssociations();
 	}
 
@@ -116,6 +124,10 @@ public abstract class SeverityActionBase extends BaseAction<Severity>
 	@Override
 	public Class<Severity> getEntityClass() {
 		return Severity.class;
+	}
+
+	public com.oreon.trkincidents.incidents.Severity findByUnqName(String name) {
+		return executeSingleResultNamedQuery("severity.findByUnqName", name);
 	}
 
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so

@@ -29,13 +29,16 @@ import org.hibernate.search.annotations.TokenizerDef;
 import org.hibernate.search.annotations.ContainedIn;
 import org.hibernate.search.annotations.IndexedEmbedded;
 
+import org.hibernate.annotations.Filter;
+
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
+
 import org.jboss.seam.annotations.Name;
+
 import org.witchcraft.base.entity.BusinessEntity;
 import org.witchcraft.model.support.audit.Auditable;
 import org.witchcraft.base.entity.FileAttachment;
-import org.hibernate.annotations.Filter;
 
 import org.witchcraft.utils.*;
 
@@ -83,7 +86,9 @@ public class User extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public String getUserName() {
+
 		return userName;
+
 	}
 
 	public void setPassword(String password) {
@@ -91,7 +96,9 @@ public class User extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public String getPassword() {
+
 		return password;
+
 	}
 
 	public void setEnabled(Boolean enabled) {
@@ -99,7 +106,9 @@ public class User extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public Boolean getEnabled() {
+
 		return enabled;
+
 	}
 
 	public void setRoles(Set<Role> roles) {
@@ -115,7 +124,9 @@ public class User extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public String getEmail() {
+
 		return email;
+
 	}
 
 	@Transient

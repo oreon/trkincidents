@@ -18,19 +18,28 @@
 			<h:outputText value="IncidentsByDepartment" />
 		</f:facet>
 	
-		<h:outputText value="#{msg.incidentsByDepartment_fromDate}  " rendered="#{s:hasPermission('fromDate', 'nullView')}"/>
+		<h:panelGroup> <h:outputText value="#{msg.incidentsByDepartment_fromDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('fromDate', 'nullView')}"/> * </h:panelGroup>
 <rich:calendar  id="fromDate"  label="#{msg.incidentsByDepartment_fromDate}"  required="true"  value="#{incidentsByDepartmentAction.fromDate}" />
-		<h:message styleClass="error errors" for="fromDate" rendered="#{s:hasPermission('fromDate', 'nullEdit')}"/>
+		<rich:message styleClass="error errors" for="fromDate" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('fromDate', 'nullEdit')}"/>
 	
-		<h:outputText value="#{msg.incidentsByDepartment_toDate}  " rendered="#{s:hasPermission('toDate', 'nullView')}"/>
+		<h:panelGroup> <h:outputText value="#{msg.incidentsByDepartment_toDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('toDate', 'nullView')}"/> * </h:panelGroup>
 <rich:calendar  id="toDate"  label="#{msg.incidentsByDepartment_toDate}"  required="true"  value="#{incidentsByDepartmentAction.toDate}" />
-		<h:message styleClass="error errors" for="toDate" rendered="#{s:hasPermission('toDate', 'nullEdit')}"/>
+		<rich:message styleClass="error errors" for="toDate" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('toDate', 'nullEdit')}"/>
+	
+		<h:panelGroup> <h:outputText value="#{msg.incidentsByDepartment_incidentType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incidentType', 'nullView')}"/>  </h:panelGroup>
+	<h:selectOneMenu id="incidentType"   label="#{msg.incidentsByDepartment_incidentType}" value="#{incidentsByDepartmentAction.incidentType}"  
+		required="false">
+		<s:selectItems value="#{incidentTypeList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+		<rich:message styleClass="error errors" for="incidentType" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incidentType', 'nullEdit')}"/>
 	
 	</h:panelGrid>
 	</s:validateAll>
 	<h:commandButton propagation="none" value="Run Report as PDF"
 				action="#{incidentsByDepartmentAction.runReport('IncidentsByDepartment', 'PDF')}" />
-				
 	<h:commandButton propagation="none" value="Run Report as HTML"
 				action="#{incidentsByDepartmentAction.runReport('IncidentsByDepartment', 'HTML')}" />			
 	</h:form>

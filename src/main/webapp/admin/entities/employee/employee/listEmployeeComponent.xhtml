@@ -4,10 +4,13 @@
   <c:if test="${empty modalId}"> 
     <c:set var="modalId" value="EmployeeModalPanel"/> 
   </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="Employee Search Results (#{empty records ? 0 : (employeeList.paginated ? employeeList.resultCount : records.size)})"/> 
+  </c:if>  
   <rich:panel> 
-    <f:facet name="header">Employee Search Results (#{empty records ? 0 : (employeeList.paginated ? employeeList.resultCount : records.size)})</f:facet>  
+    <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
-      <rich:dataTable var="_employee" value="#{records}" id="employeeList" rowClasses="odd, even" styleClass="dataTable"> 
+      <rich:dataTable var="_employee" value="#{records}" id="employeeList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
         <h:column rendered="#{s:hasPermission('id', 'employeeView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
@@ -26,7 +29,7 @@
               <ui:param name="propertyPath" value="employee.firstName"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_employee.firstName}"/> 
+          <h:outputText value="#{_employee.firstName}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('lastName', 'employeeView'  )}"> 
           <f:facet name="header"> 
@@ -36,7 +39,7 @@
               <ui:param name="propertyPath" value="employee.lastName"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_employee.lastName}"/> 
+          <h:outputText value="#{_employee.lastName}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('employeeNumber', 'employeeView'  )}"> 
           <f:facet name="header"> 
@@ -46,7 +49,7 @@
               <ui:param name="propertyPath" value="employee.employeeNumber"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_employee.employeeNumber}"/> 
+          <h:outputText value="#{_employee.employeeNumber}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('userName', 'employeeView'  )}"> 
           <f:facet name="header"> 
@@ -56,7 +59,7 @@
               <ui:param name="propertyPath" value="employee.user.userName"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_employee.user.userName}"/> 
+          <h:outputText value="#{_employee.user.userName}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('enabled', 'employeeView'  )}"> 
           <f:facet name="header"> 
@@ -76,7 +79,7 @@
               <ui:param name="propertyPath" value="employee.user.email"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_employee.user.email}"/> 
+          <h:outputText value="#{_employee.user.email}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('department', 'employeeView'  )}"> 
           <f:facet name="header"> 
@@ -86,7 +89,7 @@
               <ui:param name="propertyPath" value="employee.department"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_employee.department.displayName}" view="/admin/entities/employee/department/viewDepartment.xhtml" propagation="none"> 
+          <s:link value="#{_employee.department.displayName}" action="viewDepartment" propagation="none"> 
             <f:param name="departmentId" value="#{_employee.department.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
@@ -99,7 +102,7 @@
               <ui:param name="propertyPath" value="employee.contactDetails.primaryPhone"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_employee.contactDetails.primaryPhone}"/> 
+          <h:outputText value="#{_employee.contactDetails.primaryPhone}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('secondaryPhone', 'employeeView'  )}"> 
           <f:facet name="header"> 
@@ -109,7 +112,7 @@
               <ui:param name="propertyPath" value="employee.contactDetails.secondaryPhone"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_employee.contactDetails.secondaryPhone}"/> 
+          <h:outputText value="#{_employee.contactDetails.secondaryPhone}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('streetAddress', 'employeeView'  )}"> 
           <f:facet name="header"> 
@@ -119,7 +122,7 @@
               <ui:param name="propertyPath" value="employee.contactDetails.streetAddress"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_employee.contactDetails.streetAddress}"/> 
+          <h:outputText value="#{_employee.contactDetails.streetAddress}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('city', 'employeeView'  )}"> 
           <f:facet name="header"> 
@@ -129,7 +132,7 @@
               <ui:param name="propertyPath" value="employee.contactDetails.city"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_employee.contactDetails.city}"/> 
+          <h:outputText value="#{_employee.contactDetails.city}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('zip', 'employeeView'  )}"> 
           <f:facet name="header"> 
@@ -139,7 +142,7 @@
               <ui:param name="propertyPath" value="employee.contactDetails.zip"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_employee.contactDetails.zip}"/> 
+          <h:outputText value="#{_employee.contactDetails.zip}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'employeeView' )}"> 
           <f:facet name="header"> 
@@ -184,7 +187,7 @@
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
-          <a:commandLink action="#{employeeAction.setEmployeeIdForModalDlg(_employee.id)}" rendered="#{s:hasPermission(_employee, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});"> 
+          <a:commandLink action="#{employeeAction.setEmployeeIdForModalDlg(_employee.id)}" rendered="#{s:hasPermission(_employee, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" reRender="${modalId}"> 
             <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
             <s:conversationPropagation type="join"/> 
           </a:commandLink> 

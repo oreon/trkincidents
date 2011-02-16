@@ -4,33 +4,45 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{formFieldInstanceAction.load(formFieldInstanceId )  }"> 
-        <h:outputText value="#{msg.formFieldInstance_incident}  " rendered="#{s:hasPermission('incident', 'formFieldInstanceEdit')}"/>  
-        <h:selectOneMenu id="incident" label="#{msg.formFieldInstance_incident}" value="#{formFieldInstanceAction.formFieldInstance.incident}" required="true" rendered="#{s:hasPermission('incident', 'formFieldInstanceEdit')}"> 
+        <h:outputText value="#{msg.formFieldInstance_incident} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'formFieldInstanceEdit')}"/>  
+        <h:selectOneMenu id="incident" label="#{msg.formFieldInstance_incident}" value="#{formFieldInstanceAction.formFieldInstance.incident}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'formFieldInstanceEdit')}"> 
           <s:selectItems value="#{incidentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onsubmit"/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="incident" rendered="#{s:hasPermission('incident', 'formFieldInstanceEdit')}"/>  
-        <h:outputText value="#{msg.formFieldInstance_formField}  " rendered="#{s:hasPermission('formField', 'formFieldInstanceEdit')}"/>  
-        <h:selectOneMenu id="formField" label="#{msg.formFieldInstance_formField}" value="#{formFieldInstanceAction.formFieldInstance.formField}" required="true" rendered="#{s:hasPermission('formField', 'formFieldInstanceEdit')}"> 
+        <rich:message styleClass="error errors" for="incident" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'formFieldInstanceEdit')}"/>  
+        <h:outputText value="#{msg.formFieldInstance_formField} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'formFieldInstanceEdit')}"/>  
+        <h:selectOneMenu id="formField" label="#{msg.formFieldInstance_formField}" value="#{formFieldInstanceAction.formFieldInstance.formField}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'formFieldInstanceEdit')}"> 
           <s:selectItems value="#{formFieldList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onsubmit"/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="formField" rendered="#{s:hasPermission('formField', 'formFieldInstanceEdit')}"/>  
-        <h:outputText value="#{msg.formFieldInstance_value}  " rendered="#{s:hasPermission('value', 'formFieldInstanceEdit')}"/>  
-        <h:inputText id="value#{entityId}" rendered="#{s:hasPermission('value', 'formFieldInstanceEdit')}" label="#{msg.formFieldInstance_value}" required="false" value="#{formFieldInstanceAction.formFieldInstance.value}"/>  
-        <h:message styleClass="error errors" for="value" rendered="#{s:hasPermission('value', 'formFieldInstanceEdit')}"/>  
-        <h:outputText value="#{msg.formFieldInstance_boolValue}  " rendered="#{s:hasPermission('boolValue', 'formFieldInstanceEdit')}"/>  
-        <h:selectBooleanCheckbox id="boolValue#{entityId}" rendered="#{s:hasPermission('boolValue', 'formFieldInstanceEdit')}" label="#{msg.formFieldInstance_boolValue}" required="false" value="#{formFieldInstanceAction.formFieldInstance.boolValue}"/>  
-        <h:message styleClass="error errors" for="boolValue" rendered="#{s:hasPermission('boolValue', 'formFieldInstanceEdit')}"/>  
-        <h:outputText value="#{msg.formFieldInstance_dateValue}  " rendered="#{s:hasPermission('dateValue', 'formFieldInstanceEdit')}"/>  
-        <rich:calendar id="dateValue#{entityId}" rendered="#{s:hasPermission('dateValue', 'formFieldInstanceEdit')}" label="#{msg.formFieldInstance_dateValue}" required="false" value="#{formFieldInstanceAction.formFieldInstance.dateValue}"/>  
-        <h:message styleClass="error errors" for="dateValue" rendered="#{s:hasPermission('dateValue', 'formFieldInstanceEdit')}"/>  
-        <h:outputText value="#{msg.formFieldInstance_enumOrdinal}  " rendered="#{s:hasPermission('enumOrdinal', 'formFieldInstanceEdit')}"/>  
-        <h:inputText id="enumOrdinal#{entityId}" rendered="#{s:hasPermission('enumOrdinal', 'formFieldInstanceEdit')}" label="#{msg.formFieldInstance_enumOrdinal}" required="false" value="#{formFieldInstanceAction.formFieldInstance.enumOrdinal}"/>  
-        <h:message styleClass="error errors" for="enumOrdinal" rendered="#{s:hasPermission('enumOrdinal', 'formFieldInstanceEdit')}"/>  
-        <h:outputText value="#{msg.formFieldInstance_description}  " rendered="#{s:hasPermission('description', 'formFieldInstanceEdit')}"/>  
-        <rich:editor useSeamText="true" id="description#{entityId}" rendered="#{s:hasPermission('description', 'formFieldInstanceEdit')}" label="#{msg.formFieldInstance_description}" required="false" value="#{formFieldInstanceAction.formFieldInstance.description}"/>  
-        <h:message styleClass="error errors" for="description" rendered="#{s:hasPermission('description', 'formFieldInstanceEdit')}"/> 
+        <rich:message styleClass="error errors" for="formField" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'formFieldInstanceEdit')}"/>  
+        <h:outputText value="#{msg.formFieldInstance_value}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('value', 'formFieldInstanceEdit')}"/>  
+        <h:inputText id="value#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('value', 'formFieldInstanceEdit')}" label="#{msg.formFieldInstance_value}" required="false" value="#{formFieldInstanceAction.formFieldInstance.value}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="value" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('value', 'formFieldInstanceEdit')}"/>  
+        <h:outputText value="#{msg.formFieldInstance_boolValue}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('boolValue', 'formFieldInstanceEdit')}"/>  
+        <h:selectBooleanCheckbox id="boolValue#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('boolValue', 'formFieldInstanceEdit')}" label="#{msg.formFieldInstance_boolValue}" required="false" value="#{formFieldInstanceAction.formFieldInstance.boolValue}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:selectBooleanCheckbox>  
+        <rich:message styleClass="error errors" for="boolValue" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('boolValue', 'formFieldInstanceEdit')}"/>  
+        <h:outputText value="#{msg.formFieldInstance_dateValue}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateValue', 'formFieldInstanceEdit')}"/>  
+        <rich:calendar id="dateValue#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateValue', 'formFieldInstanceEdit')}" label="#{msg.formFieldInstance_dateValue}" required="false" value="#{formFieldInstanceAction.formFieldInstance.dateValue}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </rich:calendar>  
+        <rich:message styleClass="error errors" for="dateValue" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateValue', 'formFieldInstanceEdit')}"/>  
+        <h:outputText value="#{msg.formFieldInstance_enumOrdinal}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enumOrdinal', 'formFieldInstanceEdit')}"/>  
+        <h:inputText id="enumOrdinal#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enumOrdinal', 'formFieldInstanceEdit')}" label="#{msg.formFieldInstance_enumOrdinal}" required="false" value="#{formFieldInstanceAction.formFieldInstance.enumOrdinal}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="enumOrdinal" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enumOrdinal', 'formFieldInstanceEdit')}"/>  
+        <h:outputText value="#{msg.formFieldInstance_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'formFieldInstanceEdit')}"/>  
+        <rich:editor useSeamText="true" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'formFieldInstanceEdit')}" label="#{msg.formFieldInstance_description}" required="false" value="#{formFieldInstanceAction.formFieldInstance.description}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </rich:editor>  
+        <rich:message styleClass="error errors" for="description" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'formFieldInstanceEdit')}"/> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

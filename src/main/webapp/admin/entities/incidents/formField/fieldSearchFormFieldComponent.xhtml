@@ -6,12 +6,12 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.formField_name} * " rendered="#{s:hasPermission('name', 'formFieldEdit')}"/>  
+      <h:outputText value="#{msg.formField_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'formFieldEdit')}"/>  
       <br/>  
       <h:inputText id="name" value="#{formFieldList.formField.name}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.formField_type}  " rendered="#{s:hasPermission('type', 'formFieldEdit')}"/>  
+      <h:outputText value="#{msg.formField_type}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('type', 'formFieldEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="type" value="#{formFieldList.formField.type}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  
@@ -25,7 +25,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.formField_required}  " rendered="#{s:hasPermission('required', 'formFieldEdit')}"/>  
+      <h:outputText value="#{msg.formField_required}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('required', 'formFieldEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="required" value="#{formFieldList.formField.required}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  
@@ -34,7 +34,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.formField_choiceValues}  " rendered="#{s:hasPermission('choiceValues', 'formFieldEdit')}"/>  
+      <h:outputText value="#{msg.formField_choiceValues}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('choiceValues', 'formFieldEdit')}"/>  
       <br/>  
       <h:inputText id="choiceValues" value="#{formFieldList.formField.choiceValues}"/> 
     </h:panelGroup> 
@@ -42,7 +42,7 @@
   <h:panelGrid columns="2"> 
     <h:outputText value="Creation Date From"/>  
     <h:outputText value="Creation Date To"/>  
-    <rich:calendar id="from" value="#{severityList.dateCreatedRange.begin}"/>  
-    <rich:calendar id="to" value="#{severityList.dateCreatedRange.end}"/> 
+    <rich:calendar id="from" value="#{formFieldList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{formFieldList.dateCreatedRange.end}"/> 
   </h:panelGrid> 
 </ui:composition>

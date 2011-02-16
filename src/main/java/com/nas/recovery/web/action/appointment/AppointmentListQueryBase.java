@@ -20,8 +20,8 @@ import org.jboss.seam.annotations.Observer;
 import com.oreon.trkincidents.appointment.Appointment;
 
 /**
- * D
- * @author WitchcraftMDA Seam Cartridge
+ * 
+ * @author WitchcraftMDA Seam Cartridge - 
  *
  */
 public abstract class AppointmentListQueryBase
@@ -88,4 +88,42 @@ public abstract class AppointmentListQueryBase
 		refresh();
 	}
 
+	/** create comma delimited row 
+	 * @param builder
+	 */
+	//@Override
+	public void createCsvString(StringBuilder builder, Appointment e) {
+
+		builder.append("\"" + (e.getStart() != null ? e.getStart() : "")
+				+ "\",");
+
+		builder.append("\"" + (e.getEnd() != null ? e.getEnd() : "") + "\",");
+
+		builder.append("\""
+				+ (e.getPatient() != null
+						? e.getPatient().getDisplayName()
+						: "") + "\",");
+
+		builder.append("\"" + (e.getRemarks() != null ? e.getRemarks() : "")
+				+ "\",");
+
+		builder.append("\r\n");
+	}
+
+	/** create the headings 
+	 * @param builder
+	 */
+	//@Override
+	public void createCSvTitles(StringBuilder builder) {
+
+		builder.append("Start" + ",");
+
+		builder.append("End" + ",");
+
+		builder.append("Patient" + ",");
+
+		builder.append("Remarks" + ",");
+
+		builder.append("\r\n");
+	}
 }

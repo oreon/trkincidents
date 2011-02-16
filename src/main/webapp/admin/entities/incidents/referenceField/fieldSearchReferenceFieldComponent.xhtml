@@ -6,7 +6,7 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.referenceField_incidentType}  " rendered="#{s:hasPermission('incidentType', 'referenceFieldEdit')}"/>  
+      <h:outputText value="#{msg.referenceField_incidentType} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incidentType', 'referenceFieldEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="incidentType" value="#{ referenceFieldList.referenceField.incidentType}"> 
         <s:selectItems value="#{incidentTypeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -14,7 +14,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.referenceField_referencesEntity}  " rendered="#{s:hasPermission('referencesEntity', 'referenceFieldEdit')}"/>  
+      <h:outputText value="#{msg.referenceField_referencesEntity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('referencesEntity', 'referenceFieldEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="referencesEntity" value="#{referenceFieldList.referenceField.referencesEntity}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  
@@ -25,7 +25,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.referenceField_required}  " rendered="#{s:hasPermission('required', 'referenceFieldEdit')}"/>  
+      <h:outputText value="#{msg.referenceField_required}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('required', 'referenceFieldEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="required" value="#{referenceFieldList.referenceField.required}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  
@@ -37,7 +37,7 @@
   <h:panelGrid columns="2"> 
     <h:outputText value="Creation Date From"/>  
     <h:outputText value="Creation Date To"/>  
-    <rich:calendar id="from" value="#{severityList.dateCreatedRange.begin}"/>  
-    <rich:calendar id="to" value="#{severityList.dateCreatedRange.end}"/> 
+    <rich:calendar id="from" value="#{referenceFieldList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{referenceFieldList.dateCreatedRange.end}"/> 
   </h:panelGrid> 
 </ui:composition>

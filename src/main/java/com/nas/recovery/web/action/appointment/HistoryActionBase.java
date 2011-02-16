@@ -35,6 +35,12 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
+import org.witchcraft.base.entity.FileAttachment;
+
+import org.apache.commons.io.FileUtils;
+import org.richfaces.event.UploadEvent;
+import org.richfaces.model.UploadItem;
+
 public abstract class HistoryActionBase extends BaseAction<History>
 		implements
 			java.io.Serializable {
@@ -53,6 +59,7 @@ public abstract class HistoryActionBase extends BaseAction<History>
 	public void setHistoryId(Long id) {
 		if (id == 0) {
 			clearInstance();
+			clearLists();
 			loadAssociations();
 			return;
 		}
@@ -66,6 +73,7 @@ public abstract class HistoryActionBase extends BaseAction<History>
 	 */
 	public void setHistoryIdForModalDlg(Long id) {
 		setId(id);
+		clearLists();
 		loadAssociations();
 	}
 

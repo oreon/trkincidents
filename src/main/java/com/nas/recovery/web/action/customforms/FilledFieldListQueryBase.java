@@ -20,8 +20,8 @@ import org.jboss.seam.annotations.Observer;
 import com.oreon.trkincidents.customforms.FilledField;
 
 /**
- * D
- * @author WitchcraftMDA Seam Cartridge
+ * 
+ * @author WitchcraftMDA Seam Cartridge - 
  *
  */
 public abstract class FilledFieldListQueryBase
@@ -75,4 +75,38 @@ public abstract class FilledFieldListQueryBase
 		refresh();
 	}
 
+	/** create comma delimited row 
+	 * @param builder
+	 */
+	//@Override
+	public void createCsvString(StringBuilder builder, FilledField e) {
+
+		builder.append("\""
+				+ (e.getCustomField() != null ? e.getCustomField()
+						.getDisplayName() : "") + "\",");
+
+		builder.append("\""
+				+ (e.getFilledForm() != null ? e.getFilledForm()
+						.getDisplayName() : "") + "\",");
+
+		builder.append("\"" + (e.getValue() != null ? e.getValue() : "")
+				+ "\",");
+
+		builder.append("\r\n");
+	}
+
+	/** create the headings 
+	 * @param builder
+	 */
+	//@Override
+	public void createCSvTitles(StringBuilder builder) {
+
+		builder.append("CustomField" + ",");
+
+		builder.append("FilledForm" + ",");
+
+		builder.append("Value" + ",");
+
+		builder.append("\r\n");
+	}
 }

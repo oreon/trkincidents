@@ -7,19 +7,25 @@ import java.util.Map;
 
 import org.jboss.seam.annotations.Name;
 
+import org.witchcraft.utils.DateUtils;
+
 @Name("incidentsByDepartmentAction")
 public class IncidentsByDepartmentAction extends BaseReportAction {
 
-	Date fromDate;
+	Date fromDate = DateUtils.createDefaultDate();
 
-	Date toDate;
+	Date toDate = new Date();
+
+	com.oreon.trkincidents.incidents.IncidentType incidentType;
 
 	public void setFromDate(Date fromDate) {
 		this.fromDate = fromDate;
 	}
 
 	public Date getFromDate() {
+
 		return fromDate;
+
 	}
 
 	public void setToDate(Date toDate) {
@@ -27,7 +33,20 @@ public class IncidentsByDepartmentAction extends BaseReportAction {
 	}
 
 	public Date getToDate() {
+
 		return toDate;
+
+	}
+
+	public void setIncidentType(
+			com.oreon.trkincidents.incidents.IncidentType incidentType) {
+		this.incidentType = incidentType;
+	}
+
+	public com.oreon.trkincidents.incidents.IncidentType getIncidentType() {
+
+		return incidentType;
+
 	}
 
 	@SuppressWarnings("unchecked")
@@ -37,6 +56,9 @@ public class IncidentsByDepartmentAction extends BaseReportAction {
 		map.put("fromDate", fromDate);
 
 		map.put("toDate", toDate);
+
+		if (incidentType != null)
+			map.put("incidentType", incidentType.getId() + "");
 
 	}
 

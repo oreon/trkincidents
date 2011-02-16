@@ -4,29 +4,34 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{encounterAction.load(encounterId )  }"> 
-        <h:outputText value="#{msg.encounter_patient}  " rendered="#{s:hasPermission('patient', 'encounterEdit')}"/>  
-        <h:selectOneMenu id="patient" label="#{msg.encounter_patient}" value="#{encounterAction.encounter.patient}" required="true" rendered="#{s:hasPermission('patient', 'encounterEdit')}"> 
+        <h:outputText value="#{msg.encounter_patient} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'encounterEdit')}"/>  
+        <h:selectOneMenu id="patient" label="#{msg.encounter_patient}" value="#{encounterAction.encounter.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'encounterEdit')}"> 
           <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onsubmit"/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="patient" rendered="#{s:hasPermission('patient', 'encounterEdit')}"/>  
-        <h:outputText value="#{msg.encounter_notes}  " rendered="#{s:hasPermission('notes', 'encounterEdit')}"/>  
-        <rich:editor useSeamText="true" id="notes#{entityId}" rendered="#{s:hasPermission('notes', 'encounterEdit')}" label="#{msg.encounter_notes}" required="false" value="#{encounterAction.encounter.notes}"/>  
-        <h:message styleClass="error errors" for="notes" rendered="#{s:hasPermission('notes', 'encounterEdit')}"/> 
+        <rich:message styleClass="error errors" for="patient" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'encounterEdit')}"/>  
+        <h:outputText value="#{msg.encounter_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('notes', 'encounterEdit')}"/>  
+        <rich:editor useSeamText="true" id="notes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('notes', 'encounterEdit')}" label="#{msg.encounter_notes}" required="false" value="#{encounterAction.encounter.notes}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </rich:editor>  
+        <rich:message styleClass="error errors" for="notes" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('notes', 'encounterEdit')}"/> 
       </h:panelGrid>  
-      <a:commandButton value="New History" action="#{encounterAction.addHistorys}" reRender="historys" rendered="#{s:hasPermission('historys', 'encounterEdit')}"> 
+      <a:commandButton value="New History" action="#{encounterAction.addHistorys}" reRender="historys" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('historys', 'encounterEdit')}"> 
         <s:conversationId/> 
       </a:commandButton>  
-      <rich:dataTable id="historys" var="_history" rendered="#{s:hasPermission('historys', 'encounterEdit')}" value="#{encounterAction.listHistorys}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+      <rich:dataTable id="historys" var="_history" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('historys', 'encounterEdit')}" value="#{encounterAction.listHistorys}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
         <h:column style="text-align:left">
           <f:facet name="header">
-            <h:outputText value="#{msg.history_history}  " rendered="#{s:hasPermission('history', 'historyEdit')}"/>
+            <h:outputText value="#{msg.history_history}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'historyEdit')}"/>
           </f:facet>  
-          <h:inputText id="history#{entityId}" rendered="#{s:hasPermission('history', 'historyEdit')}" label="#{msg.history_history}" required="false" value="#{_history.history}"/>  
-          <h:message styleClass="error errors" for="history" rendered="#{s:hasPermission('history', 'historyEdit')}"/> 
+          <h:inputText id="history#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'historyEdit')}" label="#{msg.history_history}" required="false" value="#{_history.history}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText>  
+          <rich:message styleClass="error errors" for="history" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('history', 'historyEdit')}"/> 
         </h:column>  
         <h:column> 
-          <a:commandButton value="New History" action="#{encounterAction.addHistorys}" reRender="historys" rendered="#{s:hasPermission('historys', 'historyEdit')}"> 
+          <a:commandButton value="New History" action="#{encounterAction.addHistorys}" reRender="historys" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('historys', 'historyEdit')}"> 
             <s:conversationId/> 
           </a:commandButton> 
         </h:column>  
@@ -36,29 +41,32 @@
           </a:commandButton> 
         </h:column> 
       </rich:dataTable>  
-      <a:commandButton value="New PrescribedTest" action="#{encounterAction.addPrescribedTests}" reRender="prescribedTests" rendered="#{s:hasPermission('prescribedTests', 'historyEdit')}"> 
+      <a:commandButton value="New PrescribedTest" action="#{encounterAction.addPrescribedTests}" reRender="prescribedTests" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTests', 'historyEdit')}"> 
         <s:conversationId/> 
       </a:commandButton>  
-      <rich:dataTable id="prescribedTests" var="_prescribedTest" rendered="#{s:hasPermission('prescribedTests', 'historyEdit')}" value="#{encounterAction.listPrescribedTests}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+      <rich:dataTable id="prescribedTests" var="_prescribedTest" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTests', 'historyEdit')}" value="#{encounterAction.listPrescribedTests}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
         <h:column style="text-align:right">
           <f:facet name="header">
-            <h:outputText value="#{msg.prescribedTest_dxTest}  " rendered="#{s:hasPermission('dxTest', 'prescribedTestEdit')}"/>
+            <h:outputText value="#{msg.prescribedTest_dxTest} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dxTest', 'prescribedTestEdit')}"/>
           </f:facet>  
-          <h:selectOneMenu id="dxTest" label="#{msg.prescribedTest_dxTest}" value="#{_prescribedTest.dxTest}" required="true" rendered="#{s:hasPermission('dxTest', 'prescribedTestEdit')}"> 
+          <h:selectOneMenu id="dxTest" label="#{msg.prescribedTest_dxTest}" value="#{_prescribedTest.dxTest}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dxTest', 'prescribedTestEdit')}"> 
             <s:selectItems value="#{dxTestList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 
           </h:selectOneMenu>  
-          <h:message styleClass="error errors" for="dxTest" rendered="#{s:hasPermission('dxTest', 'prescribedTestEdit')}"/> 
+          <rich:message styleClass="error errors" for="dxTest" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dxTest', 'prescribedTestEdit')}"/> 
         </h:column>  
         <h:column style="text-align:left">
           <f:facet name="header">
-            <h:outputText value="#{msg.prescribedTest_remarks}  " rendered="#{s:hasPermission('remarks', 'prescribedTestEdit')}"/>
+            <h:outputText value="#{msg.prescribedTest_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('remarks', 'prescribedTestEdit')}"/>
           </f:facet>  
-          <h:inputText id="remarks#{entityId}" rendered="#{s:hasPermission('remarks', 'prescribedTestEdit')}" label="#{msg.prescribedTest_remarks}" required="false" value="#{_prescribedTest.remarks}"/>  
-          <h:message styleClass="error errors" for="remarks" rendered="#{s:hasPermission('remarks', 'prescribedTestEdit')}"/> 
+          <h:inputText id="remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('remarks', 'prescribedTestEdit')}" label="#{msg.prescribedTest_remarks}" required="false" value="#{_prescribedTest.remarks}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText>  
+          <rich:message styleClass="error errors" for="remarks" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('remarks', 'prescribedTestEdit')}"/> 
         </h:column>  
         <h:column> 
-          <a:commandButton value="New PrescribedTest" action="#{encounterAction.addPrescribedTests}" reRender="prescribedTests" rendered="#{s:hasPermission('prescribedTests', 'prescribedTestEdit')}"> 
+          <a:commandButton value="New PrescribedTest" action="#{encounterAction.addPrescribedTests}" reRender="prescribedTests" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('prescribedTests', 'prescribedTestEdit')}"> 
             <s:conversationId/> 
           </a:commandButton> 
         </h:column>  

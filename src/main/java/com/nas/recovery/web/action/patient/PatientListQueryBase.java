@@ -20,8 +20,8 @@ import org.jboss.seam.annotations.Observer;
 import com.oreon.trkincidents.patient.Patient;
 
 /**
- * D
- * @author WitchcraftMDA Seam Cartridge
+ * 
+ * @author WitchcraftMDA Seam Cartridge - 
  *
  */
 public abstract class PatientListQueryBase extends BaseQuery<Patient, Long> {
@@ -109,4 +109,47 @@ public abstract class PatientListQueryBase extends BaseQuery<Patient, Long> {
 
 	}
 
+	/** create comma delimited row 
+	 * @param builder
+	 */
+	//@Override
+	public void createCsvString(StringBuilder builder, Patient e) {
+
+		builder.append("\"" + (e.getAddress() != null ? e.getAddress() : "")
+				+ "\",");
+
+		builder.append("\""
+				+ (e.getHealthNumber() != null ? e.getHealthNumber() : "")
+				+ "\",");
+
+		builder.append("\""
+				+ (e.getDateOfBirth() != null ? e.getDateOfBirth() : "")
+				+ "\",");
+
+		builder.append("\"" + (e.getGender() != null ? e.getGender() : "")
+				+ "\",");
+
+		builder.append("\"" + (e.getAge() != null ? e.getAge() : "") + "\",");
+
+		builder.append("\r\n");
+	}
+
+	/** create the headings 
+	 * @param builder
+	 */
+	//@Override
+	public void createCSvTitles(StringBuilder builder) {
+
+		builder.append("Address" + ",");
+
+		builder.append("HealthNumber" + ",");
+
+		builder.append("DateOfBirth" + ",");
+
+		builder.append("Gender" + ",");
+
+		builder.append("Age" + ",");
+
+		builder.append("\r\n");
+	}
 }

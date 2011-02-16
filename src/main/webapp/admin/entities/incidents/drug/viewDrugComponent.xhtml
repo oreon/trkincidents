@@ -6,8 +6,8 @@
       <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{drugAction.load(drugId )  }"> 
         <h:outputText value="#{msg.id}"/>  
         <h:outputText value="#{drugAction.drug.id}"/>  
-        <h:outputText value="#{msg.drug_name}  " rendered="#{s:hasPermission('name', 'drugView')}"/>  
-        <h:outputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'drugView')}" value="#{drugAction.drug.name}"/> 
+        <h:outputText value="#{msg.drug_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'drugView')}"/>  
+        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'drugView')}" value="#{drugAction.drug.name}"></h:outputText> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

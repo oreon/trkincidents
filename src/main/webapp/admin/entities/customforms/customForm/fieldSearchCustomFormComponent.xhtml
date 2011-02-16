@@ -6,7 +6,7 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.customForm_name} * " rendered="#{s:hasPermission('name', 'customFormEdit')}"/>  
+      <h:outputText value="#{msg.customForm_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'customFormEdit')}"/>  
       <br/>  
       <h:inputText id="name" value="#{customFormList.customForm.name}"/> 
     </h:panelGroup> 
@@ -14,7 +14,7 @@
   <h:panelGrid columns="2"> 
     <h:outputText value="Creation Date From"/>  
     <h:outputText value="Creation Date To"/>  
-    <rich:calendar id="from" value="#{severityList.dateCreatedRange.begin}"/>  
-    <rich:calendar id="to" value="#{severityList.dateCreatedRange.end}"/> 
+    <rich:calendar id="from" value="#{customFormList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{customFormList.dateCreatedRange.end}"/> 
   </h:panelGrid> 
 </ui:composition>

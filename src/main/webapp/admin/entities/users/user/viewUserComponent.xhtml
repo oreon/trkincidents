@@ -6,12 +6,12 @@
       <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{userAction.load(userId )  }"> 
         <h:outputText value="#{msg.id}"/>  
         <h:outputText value="#{userAction.user.id}"/>  
-        <h:outputText value="#{msg.user_userName}  " rendered="#{s:hasPermission('userName', 'userView')}"/>  
-        <h:outputText id="userName#{entityId}" rendered="#{s:hasPermission('userName', 'userView')}" value="#{userAction.user.userName}"/>  
-        <h:outputText value="#{msg.user_enabled}  " rendered="#{s:hasPermission('enabled', 'userView')}"/>  
-        <h:outputText id="enabled#{entityId}" rendered="#{s:hasPermission('enabled', 'userView')}" value="#{userAction.user.enabled}"/>  
-        <h:outputText value="#{msg.user_email}  " rendered="#{s:hasPermission('email', 'userView')}"/>  
-        <h:outputText id="email#{entityId}" rendered="#{s:hasPermission('email', 'userView')}" value="#{userAction.user.email}"/> 
+        <h:outputText value="#{msg.user_userName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('userName', 'userView')}"/>  
+        <h:outputText id="userName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('userName', 'userView')}" value="#{userAction.user.userName}"></h:outputText>  
+        <h:outputText value="#{msg.user_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enabled', 'userView')}"/>  
+        <h:outputText id="enabled#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enabled', 'userView')}" value="#{userAction.user.enabled}"></h:outputText>  
+        <h:outputText value="#{msg.user_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('email', 'userView')}"/>  
+        <h:outputText id="email#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('email', 'userView')}" value="#{userAction.user.email}"></h:outputText> 
       </h:panelGrid>  
       <br/>  
       <rich:simpleTogglePanel label="#{msg.user_roles}" switchType="client"> 

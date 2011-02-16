@@ -6,12 +6,12 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.formFieldInstance_value}  " rendered="#{s:hasPermission('value', 'formFieldInstanceEdit')}"/>  
+      <h:outputText value="#{msg.formFieldInstance_value}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('value', 'formFieldInstanceEdit')}"/>  
       <br/>  
       <h:inputText id="value" value="#{formFieldInstanceList.formFieldInstance.value}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.formFieldInstance_incident}  " rendered="#{s:hasPermission('incident', 'formFieldInstanceEdit')}"/>  
+      <h:outputText value="#{msg.formFieldInstance_incident} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'formFieldInstanceEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="incident" value="#{ formFieldInstanceList.formFieldInstance.incident}"> 
         <s:selectItems value="#{incidentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -19,7 +19,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.formFieldInstance_formField}  " rendered="#{s:hasPermission('formField', 'formFieldInstanceEdit')}"/>  
+      <h:outputText value="#{msg.formFieldInstance_formField} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'formFieldInstanceEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="formField" value="#{ formFieldInstanceList.formFieldInstance.formField}"> 
         <s:selectItems value="#{formFieldList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -27,7 +27,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.formFieldInstance_boolValue}  " rendered="#{s:hasPermission('boolValue', 'formFieldInstanceEdit')}"/>  
+      <h:outputText value="#{msg.formFieldInstance_boolValue}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('boolValue', 'formFieldInstanceEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="boolValue" value="#{formFieldInstanceList.formFieldInstance.boolValue}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  
@@ -36,7 +36,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.formFieldInstance_dateValue}  " rendered="#{s:hasPermission('dateValue', 'formFieldInstanceEdit')}"/>  
+      <h:outputText value="#{msg.formFieldInstance_dateValue}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateValue', 'formFieldInstanceEdit')}"/>  
       <br/>  
       <h:outputText value="From"/>  
       <br/>  
@@ -45,7 +45,7 @@
       <rich:calendar value="#{formFieldInstanceList.dateValueRange.end}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.formFieldInstance_enumOrdinal}  " rendered="#{s:hasPermission('enumOrdinal', 'formFieldInstanceEdit')}"/>  
+      <h:outputText value="#{msg.formFieldInstance_enumOrdinal}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enumOrdinal', 'formFieldInstanceEdit')}"/>  
       <br/>  
       <h:inputText id="enumOrdinal_begin" value="#{formFieldInstanceList.enumOrdinalRange.begin}"> 
         <f:converter converterId="javax.faces.Integer"/> 
@@ -55,7 +55,7 @@
       </h:inputText> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.formFieldInstance_description}  " rendered="#{s:hasPermission('description', 'formFieldInstanceEdit')}"/>  
+      <h:outputText value="#{msg.formFieldInstance_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'formFieldInstanceEdit')}"/>  
       <br/>  
       <h:inputText id="description" value="#{formFieldInstanceList.formFieldInstance.description}"/> 
     </h:panelGroup> 
@@ -63,7 +63,7 @@
   <h:panelGrid columns="2"> 
     <h:outputText value="Creation Date From"/>  
     <h:outputText value="Creation Date To"/>  
-    <rich:calendar id="from" value="#{severityList.dateCreatedRange.begin}"/>  
-    <rich:calendar id="to" value="#{severityList.dateCreatedRange.end}"/> 
+    <rich:calendar id="from" value="#{formFieldInstanceList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{formFieldInstanceList.dateCreatedRange.end}"/> 
   </h:panelGrid> 
 </ui:composition>

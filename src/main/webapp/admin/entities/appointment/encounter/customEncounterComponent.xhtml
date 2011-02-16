@@ -7,19 +7,19 @@
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.encounter_patient}  " rendered="#{s:hasPermission('patient', 'encounterEdit')}"/>  
+        <h:outputText value="#{msg.encounter_patient} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'encounterEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="patient" value="#{encounterAction.encounter.patient}"> 
           <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="patient" rendered="#{s:hasPermission('patient', 'encounterEdit')}"/> 
+        <rich:message styleClass="error errors" for="patient" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'encounterEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.encounter_notes}  " rendered="#{s:hasPermission('notes', 'encounterEdit')}"/>  
+        <h:outputText value="#{msg.encounter_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('notes', 'encounterEdit')}"/>  
         <br/>  
-        <rich:editor useSeamText="true" id="notes" value="#{encounterAction.encounter.notes}"/>  
-        <h:message styleClass="error errors" for="notes" rendered="#{s:hasPermission('notes', 'encounterEdit')}"/> 
+        <rich:editor id="notes" value="#{encounterAction.encounter.notes}"/>  
+        <rich:message styleClass="error errors" for="notes" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('notes', 'encounterEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

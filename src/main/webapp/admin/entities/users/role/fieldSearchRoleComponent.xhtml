@@ -6,12 +6,12 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.role_name} * " rendered="#{s:hasPermission('name', 'roleEdit')}"/>  
+      <h:outputText value="#{msg.role_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'roleEdit')}"/>  
       <br/>  
       <h:inputText id="name" value="#{roleList.role.name}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.role_users}  " rendered="#{s:hasPermission('users', 'roleEdit')}"/>  
+      <h:outputText value="#{msg.role_users}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('users', 'roleEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="users" value="#{ roleList.userToSearch}"> 
         <s:selectItems value="#{userList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -23,7 +23,7 @@
   <h:panelGrid columns="2"> 
     <h:outputText value="Creation Date From"/>  
     <h:outputText value="Creation Date To"/>  
-    <rich:calendar id="from" value="#{severityList.dateCreatedRange.begin}"/>  
-    <rich:calendar id="to" value="#{severityList.dateCreatedRange.end}"/> 
+    <rich:calendar id="from" value="#{roleList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{roleList.dateCreatedRange.end}"/> 
   </h:panelGrid> 
 </ui:composition>

@@ -29,13 +29,16 @@ import org.hibernate.search.annotations.TokenizerDef;
 import org.hibernate.search.annotations.ContainedIn;
 import org.hibernate.search.annotations.IndexedEmbedded;
 
+import org.hibernate.annotations.Filter;
+
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
+
 import org.jboss.seam.annotations.Name;
+
 import org.witchcraft.base.entity.BusinessEntity;
 import org.witchcraft.model.support.audit.Auditable;
 import org.witchcraft.base.entity.FileAttachment;
-import org.hibernate.annotations.Filter;
 
 import org.witchcraft.utils.*;
 
@@ -83,7 +86,9 @@ public class FormFieldInstance extends BusinessEntity
 	}
 
 	public String getValue() {
+
 		return value;
+
 	}
 
 	public void setIncident(Incident incident) {
@@ -91,7 +96,9 @@ public class FormFieldInstance extends BusinessEntity
 	}
 
 	public Incident getIncident() {
+
 		return incident;
+
 	}
 
 	public void setFormField(FormField formField) {
@@ -99,7 +106,9 @@ public class FormFieldInstance extends BusinessEntity
 	}
 
 	public FormField getFormField() {
+
 		return formField;
+
 	}
 
 	public void setBoolValue(Boolean boolValue) {
@@ -107,7 +116,9 @@ public class FormFieldInstance extends BusinessEntity
 	}
 
 	public Boolean getBoolValue() {
+
 		return boolValue;
+
 	}
 
 	public void setDateValue(Date dateValue) {
@@ -115,7 +126,9 @@ public class FormFieldInstance extends BusinessEntity
 	}
 
 	public Date getDateValue() {
+
 		return dateValue;
+
 	}
 
 	public void setEnumOrdinal(Integer enumOrdinal) {
@@ -123,7 +136,9 @@ public class FormFieldInstance extends BusinessEntity
 	}
 
 	public Integer getEnumOrdinal() {
+
 		return enumOrdinal;
+
 	}
 
 	public void setDescription(String description) {
@@ -131,7 +146,9 @@ public class FormFieldInstance extends BusinessEntity
 	}
 
 	public String getDescription() {
+
 		return description;
+
 	}
 
 	@Transient

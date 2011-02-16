@@ -165,6 +165,18 @@
         <redirect view-id="/admin/entities/incidents/referenceField/editReferenceField.xhtml"/>  
         <end-conversation/> 
       </rule>  
+      <rule if-outcome="supportingDocuments"> 
+        <redirect view-id="/admin/entities/incidents/supportingDocuments/listSupportingDocuments.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="viewSupportingDocuments"> 
+        <redirect view-id="/admin/entities/incidents/supportingDocuments/viewSupportingDocuments.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editSupportingDocuments"> 
+        <redirect view-id="/admin/entities/incidents/supportingDocuments/editSupportingDocuments.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
       <rule if-outcome="employee"> 
         <redirect view-id="/admin/entities/employee/employee/listEmployee.xhtml"/>  
         <end-conversation/> 
@@ -780,6 +792,48 @@
     <param name="incidentType" value="#{referenceFieldList.referenceField.incidentType.id}" validateModel="false"/>  
     <param name="referencesEntity" value="#{referenceFieldList.referenceField.referencesEntity}" validateModel="false"/>  
     <param name="required" value="#{referenceFieldList.referenceField.required}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/incidents/supportingDocuments/editSupportingDocuments.xhtml"> 
+    <!-- <description>Edit SupportingDocuments: #{supportingDocuments.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <redirect view-id="/admin/entities/incidents/supportingDocuments/viewSupportingDocuments.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/incidents/supportingDocuments/listSupportingDocuments.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="supportingDocumentsId" value="#{supportingDocumentsAction.supportingDocumentsId}"/>  
+    <param name="incidentId" value="#{supportingDocumentsAction.incidentId}"/> 
+  </page>  
+  <page view-id="/admin/entities/incidents/supportingDocuments/viewSupportingDocuments.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View SupportingDocuments: #{supportingDocuments.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/incidents/supportingDocuments/editSupportingDocuments.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/incidents/supportingDocuments/listSupportingDocuments.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="supportingDocumentsId" value="#{supportingDocumentsAction.supportingDocumentsId}"/> 
+  </page>  
+  <page view-id="/admin/entities/incidents/supportingDocuments/listSupportingDocuments.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <navigation> 
+      <rule if-outcome="viewSupportingDocuments"> 
+        <redirect view-id="/admin/entities/incidents/supportingDocuments/viewSupportingDocuments.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/incidents/supportingDocuments/editSupportingDocuments.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{supportingDocumentsList.firstResult}"/>  
+    <param name="sort" value="#{supportingDocumentsList.orderColumn}"/>  
+    <param name="dir" value="#{supportingDocumentsList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{supportingDocumentsList.supportingDocuments.id}"/>  
+    <param name="title" value="#{supportingDocumentsList.supportingDocuments.title}" validateModel="false"/>  
+    <param name="incident" value="#{supportingDocumentsList.supportingDocuments.incident.id}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/employee/employee/editEmployee.xhtml"> 
     <!-- <description>Edit Employee: #{employee.displayName}</description> -->  

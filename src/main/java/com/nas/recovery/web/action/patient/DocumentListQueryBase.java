@@ -20,8 +20,8 @@ import org.jboss.seam.annotations.Observer;
 import com.oreon.trkincidents.patient.Document;
 
 /**
- * D
- * @author WitchcraftMDA Seam Cartridge
+ * 
+ * @author WitchcraftMDA Seam Cartridge - 
  *
  */
 public abstract class DocumentListQueryBase extends BaseQuery<Document, Long> {
@@ -73,4 +73,37 @@ public abstract class DocumentListQueryBase extends BaseQuery<Document, Long> {
 		refresh();
 	}
 
+	/** create comma delimited row 
+	 * @param builder
+	 */
+	//@Override
+	public void createCsvString(StringBuilder builder, Document e) {
+
+		builder.append("\"" + (e.getName() != null ? e.getName() : "") + "\",");
+
+		builder.append("\"" + (e.getNotes() != null ? e.getNotes() : "")
+				+ "\",");
+
+		builder.append("\""
+				+ (e.getPatient() != null
+						? e.getPatient().getDisplayName()
+						: "") + "\",");
+
+		builder.append("\r\n");
+	}
+
+	/** create the headings 
+	 * @param builder
+	 */
+	//@Override
+	public void createCSvTitles(StringBuilder builder) {
+
+		builder.append("Name" + ",");
+
+		builder.append("Notes" + ",");
+
+		builder.append("Patient" + ",");
+
+		builder.append("\r\n");
+	}
 }

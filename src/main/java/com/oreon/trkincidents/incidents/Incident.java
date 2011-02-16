@@ -29,13 +29,16 @@ import org.hibernate.search.annotations.TokenizerDef;
 import org.hibernate.search.annotations.ContainedIn;
 import org.hibernate.search.annotations.IndexedEmbedded;
 
+import org.hibernate.annotations.Filter;
+
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
+
 import org.jboss.seam.annotations.Name;
+
 import org.witchcraft.base.entity.BusinessEntity;
 import org.witchcraft.model.support.audit.Auditable;
 import org.witchcraft.base.entity.FileAttachment;
-import org.hibernate.annotations.Filter;
 
 import org.witchcraft.utils.*;
 
@@ -123,12 +126,20 @@ public class Incident extends BusinessEntity implements java.io.Serializable {
 	@ContainedIn
 	protected Severity severity;
 
+	@OneToMany(mappedBy = "incident", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "incident_ID", nullable = true)
+	@OrderBy("dateCreated DESC")
+	@IndexedEmbedded
+	private Set<SupportingDocuments> supportingDocumentses = new HashSet<SupportingDocuments>();
+
 	public void setIncidentType(IncidentType incidentType) {
 		this.incidentType = incidentType;
 	}
 
 	public IncidentType getIncidentType() {
+
 		return incidentType;
+
 	}
 
 	public void setTitle(String title) {
@@ -136,7 +147,9 @@ public class Incident extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public String getTitle() {
+
 		return title;
+
 	}
 
 	public void setPatient(com.oreon.trkincidents.patient.Patient patient) {
@@ -144,7 +157,9 @@ public class Incident extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public com.oreon.trkincidents.patient.Patient getPatient() {
+
 		return patient;
+
 	}
 
 	public void setCreatedBy(com.oreon.trkincidents.employee.Employee createdBy) {
@@ -152,7 +167,9 @@ public class Incident extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public com.oreon.trkincidents.employee.Employee getCreatedBy() {
+
 		return createdBy;
+
 	}
 
 	public void setDepartment(
@@ -161,7 +178,9 @@ public class Incident extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public com.oreon.trkincidents.employee.Department getDepartment() {
+
 		return department;
+
 	}
 
 	public void setDateOfIncident(Date dateOfIncident) {
@@ -169,7 +188,9 @@ public class Incident extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public Date getDateOfIncident() {
+
 		return dateOfIncident;
+
 	}
 
 	public void setFormFieldInstances(Set<FormFieldInstance> formFieldInstances) {
@@ -186,7 +207,9 @@ public class Incident extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public com.oreon.trkincidents.employee.Employee getReportedTo() {
+
 		return reportedTo;
+
 	}
 
 	public void setDocument(FileAttachment document) {
@@ -194,7 +217,9 @@ public class Incident extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public FileAttachment getDocument() {
+
 		return document;
+
 	}
 
 	public void setDrug(Drug drug) {
@@ -202,7 +227,9 @@ public class Incident extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public Drug getDrug() {
+
 		return drug;
+
 	}
 
 	public void setProccedure(Proccedure proccedure) {
@@ -210,7 +237,9 @@ public class Incident extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public Proccedure getProccedure() {
+
 		return proccedure;
+
 	}
 
 	public void setResponsibleEmployee(
@@ -219,7 +248,9 @@ public class Incident extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public com.oreon.trkincidents.employee.Employee getResponsibleEmployee() {
+
 		return responsibleEmployee;
+
 	}
 
 	public void setDescription(String description) {
@@ -227,7 +258,9 @@ public class Incident extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public String getDescription() {
+
 		return description;
+
 	}
 
 	public void setSeverity(Severity severity) {
@@ -235,7 +268,18 @@ public class Incident extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public Severity getSeverity() {
+
 		return severity;
+
+	}
+
+	public void setSupportingDocumentses(
+			Set<SupportingDocuments> supportingDocumentses) {
+		this.supportingDocumentses = supportingDocumentses;
+	}
+
+	public Set<SupportingDocuments> getSupportingDocumentses() {
+		return supportingDocumentses;
 	}
 
 	@Transient
@@ -266,6 +310,8 @@ public class Incident extends BusinessEntity implements java.io.Serializable {
 		listSearchableFields.add("formFieldInstances.value");
 
 		listSearchableFields.add("formFieldInstances.description");
+
+		listSearchableFields.add("supportingDocumentses.title");
 
 		return listSearchableFields;
 	}

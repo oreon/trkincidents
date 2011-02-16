@@ -4,10 +4,13 @@
   <c:if test="${empty modalId}"> 
     <c:set var="modalId" value="SeverityModalPanel"/> 
   </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="Severity Search Results (#{empty records ? 0 : (severityList.paginated ? severityList.resultCount : records.size)})"/> 
+  </c:if>  
   <rich:panel> 
-    <f:facet name="header">Severity Search Results (#{empty records ? 0 : (severityList.paginated ? severityList.resultCount : records.size)})</f:facet>  
+    <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
-      <rich:dataTable var="_severity" value="#{records}" id="severityList" rowClasses="odd, even" styleClass="dataTable"> 
+      <rich:dataTable var="_severity" value="#{records}" id="severityList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
         <h:column rendered="#{s:hasPermission('id', 'severityView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
@@ -26,7 +29,7 @@
               <ui:param name="propertyPath" value="severity.name"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_severity.name}"/> 
+          <h:outputText value="#{_severity.name}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'severityView' )}"> 
           <f:facet name="header"> 
@@ -71,7 +74,7 @@
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
-          <a:commandLink action="#{severityAction.setSeverityIdForModalDlg(_severity.id)}" rendered="#{s:hasPermission(_severity, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});"> 
+          <a:commandLink action="#{severityAction.setSeverityIdForModalDlg(_severity.id)}" rendered="#{s:hasPermission(_severity, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" reRender="${modalId}"> 
             <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
             <s:conversationPropagation type="join"/> 
           </a:commandLink> 
