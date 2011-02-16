@@ -20,8 +20,8 @@ import org.jboss.seam.annotations.Observer;
 import com.oreon.trkincidents.appointment.History;
 
 /**
- * D
- * @author WitchcraftMDA Seam Cartridge
+ * 
+ * @author WitchcraftMDA Seam Cartridge - 
  *
  */
 public abstract class HistoryListQueryBase extends BaseQuery<History, Long> {
@@ -71,4 +71,33 @@ public abstract class HistoryListQueryBase extends BaseQuery<History, Long> {
 		refresh();
 	}
 
+	/** create comma delimited row 
+	 * @param builder
+	 */
+	//@Override
+	public void createCsvString(StringBuilder builder, History e) {
+
+		builder.append("\""
+				+ (e.getEncounter() != null
+						? e.getEncounter().getDisplayName()
+						: "") + "\",");
+
+		builder.append("\"" + (e.getHistory() != null ? e.getHistory() : "")
+				+ "\",");
+
+		builder.append("\r\n");
+	}
+
+	/** create the headings 
+	 * @param builder
+	 */
+	//@Override
+	public void createCSvTitles(StringBuilder builder) {
+
+		builder.append("Encounter" + ",");
+
+		builder.append("History" + ",");
+
+		builder.append("\r\n");
+	}
 }

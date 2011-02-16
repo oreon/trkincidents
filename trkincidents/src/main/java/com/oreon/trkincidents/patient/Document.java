@@ -29,13 +29,16 @@ import org.hibernate.search.annotations.TokenizerDef;
 import org.hibernate.search.annotations.ContainedIn;
 import org.hibernate.search.annotations.IndexedEmbedded;
 
+import org.hibernate.annotations.Filter;
+
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
+
 import org.jboss.seam.annotations.Name;
+
 import org.witchcraft.base.entity.BusinessEntity;
 import org.witchcraft.model.support.audit.Auditable;
 import org.witchcraft.base.entity.FileAttachment;
-import org.hibernate.annotations.Filter;
 
 import org.witchcraft.utils.*;
 
@@ -79,7 +82,9 @@ public class Document extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public String getName() {
+
 		return name;
+
 	}
 
 	public void setFile(FileAttachment file) {
@@ -87,7 +92,9 @@ public class Document extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public FileAttachment getFile() {
+
 		return file;
+
 	}
 
 	public void setNotes(String notes) {
@@ -95,7 +102,9 @@ public class Document extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public String getNotes() {
+
 		return notes;
+
 	}
 
 	public void setPatient(Patient patient) {
@@ -103,7 +112,9 @@ public class Document extends BusinessEntity implements java.io.Serializable {
 	}
 
 	public Patient getPatient() {
+
 		return patient;
+
 	}
 
 	@Transient

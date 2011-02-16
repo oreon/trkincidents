@@ -7,19 +7,19 @@
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.filledForm_customForm}  " rendered="#{s:hasPermission('customForm', 'filledFormEdit')}"/>  
+        <h:outputText value="#{msg.filledForm_customForm} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customForm', 'filledFormEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="customForm" value="#{filledFormAction.filledForm.customForm}"> 
           <s:selectItems value="#{customFormList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="customForm" rendered="#{s:hasPermission('customForm', 'filledFormEdit')}"/> 
+        <rich:message styleClass="error errors" for="customForm" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customForm', 'filledFormEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.filledForm_entityId}  " rendered="#{s:hasPermission('entityId', 'filledFormEdit')}"/>  
+        <h:outputText value="#{msg.filledForm_entityId}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityId', 'filledFormEdit')}"/>  
         <br/>  
         <h:inputText id="entityId" value="#{filledFormAction.filledForm.entityId}"/>  
-        <h:message styleClass="error errors" for="entityId" rendered="#{s:hasPermission('entityId', 'filledFormEdit')}"/> 
+        <rich:message styleClass="error errors" for="entityId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityId', 'filledFormEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

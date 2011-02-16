@@ -6,6 +6,13 @@
     <ui:include src="searchRole.xhtml"/>  
     <br/>  
     <br/>  
+    <a:form> 
+      <s:button value="Create New" action="/admin/entities/users/role/editRole.xhtml" propagation="none"> 
+        <f:param name="roleId" value="0"/> 
+      </s:button>  
+      <a:commandButton action="#{roleAction.setRoleId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"></a:commandButton>  
+      <s:button value="Export to Excel" action="#{roleList.exportToCsv}"/> 
+    </a:form>  
     <ui:include src="listRoleComponent.xhtml"> 
       <ui:param name="records" value="#{roleList.resultList}"/> 
     </ui:include>  
@@ -13,7 +20,8 @@
       <s:button value="Create New" action="/admin/entities/users/role/editRole.xhtml" propagation="none"> 
         <f:param name="roleId" value="0"/> 
       </s:button>  
-      <a:commandButton action="#{roleAction.setRoleId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"></a:commandButton> 
+      <a:commandButton action="#{roleAction.setRoleId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"></a:commandButton>  
+      <s:button value="Export to Excel" action="#{roleList.exportToCsv}"/> 
     </a:form>  
     <ui:include src="/admin/entities/users/role/modalDlgRoleComponent.xhtml"> 
       <ui:param name="modalId" value="${modalId}"/> 

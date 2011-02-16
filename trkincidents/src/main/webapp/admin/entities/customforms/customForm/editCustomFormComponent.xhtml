@@ -4,45 +4,52 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{customFormAction.load(customFormId )  }"> 
-        <h:outputText value="#{msg.customForm_name} * " rendered="#{s:hasPermission('name', 'customFormEdit')}"/>  
-        <h:inputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'customFormEdit')}" label="#{msg.customForm_name}" required="true" value="#{customFormAction.customForm.name}"/>  
-        <h:message styleClass="error errors" for="name" rendered="#{s:hasPermission('name', 'customFormEdit')}"/> 
+        <h:outputText value="#{msg.customForm_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'customFormEdit')}"/>  
+        <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'customFormEdit')}" label="#{msg.customForm_name}" required="true" value="#{customFormAction.customForm.name}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'customFormEdit')}"/> 
       </h:panelGrid>  
-      <a:commandButton value="New CustomField" action="#{customFormAction.addCustomFields}" reRender="customFields" rendered="#{s:hasPermission('customFields', 'customFormEdit')}"> 
+      <a:commandButton value="New CustomField" action="#{customFormAction.addCustomFields}" reRender="customFields" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customFields', 'customFormEdit')}"> 
         <s:conversationId/> 
       </a:commandButton>  
-      <rich:dataTable id="customFields" var="_customField" rendered="#{s:hasPermission('customFields', 'customFormEdit')}" value="#{customFormAction.listCustomFields}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+      <rich:dataTable id="customFields" var="_customField" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customFields', 'customFormEdit')}" value="#{customFormAction.listCustomFields}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
         <h:column style="text-align:right">
           <f:facet name="header">
-            <h:outputText value="#{msg.customField_required}  " rendered="#{s:hasPermission('required', 'customFieldEdit')}"/>
+            <h:outputText value="#{msg.customField_required}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('required', 'customFieldEdit')}"/>
           </f:facet>  
-          <h:selectBooleanCheckbox id="required#{entityId}" rendered="#{s:hasPermission('required', 'customFieldEdit')}" label="#{msg.customField_required}" required="false" value="#{_customField.required}"/>  
-          <h:message styleClass="error errors" for="required" rendered="#{s:hasPermission('required', 'customFieldEdit')}"/> 
+          <h:selectBooleanCheckbox id="required#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('required', 'customFieldEdit')}" label="#{msg.customField_required}" required="false" value="#{_customField.required}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:selectBooleanCheckbox>  
+          <rich:message styleClass="error errors" for="required" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('required', 'customFieldEdit')}"/> 
         </h:column>  
         <h:column style="text-align:right">
           <f:facet name="header">
-            <h:outputText value="#{msg.customField_type}  " rendered="#{s:hasPermission('type', 'customFieldEdit')}"/>
+            <h:outputText value="#{msg.customField_type}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('type', 'customFieldEdit')}"/>
           </f:facet>  
-          <h:selectOneMenu id="type" rendered="#{s:hasPermission('type', 'customFieldEdit')}" value="#{_customField.type}" required="false" label="#{msg.customField_type}"> 
+          <h:selectOneMenu id="type" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('type', 'customFieldEdit')}" value="#{_customField.type}" required="false" label="#{msg.customField_type}"> 
             <f:selectItem itemLabel="Please Select..." itemValue=""/>  
-            <f:selectItem itemValue="TEXT" itemLabel="Text"/>  
-            <f:selectItem itemValue="LARGE_TEXT" itemLabel="Large_text"/>  
-            <f:selectItem itemValue="CHOICE" itemLabel="Choice"/>  
-            <f:selectItem itemValue="YES_NO" itemLabel="Yes_no"/>  
-            <f:selectItem itemValue="DATE" itemLabel="Date"/>  
-            <f:selectItem itemValue="REFERENCE" itemLabel="Reference"/> 
+            <f:selectItem itemValue="TEXT" itemLabel="#{msg.TEXT}"/>  
+            <f:selectItem itemValue="LARGE_TEXT" itemLabel="#{msg.LARGE_TEXT}"/>  
+            <f:selectItem itemValue="CHOICE" itemLabel="#{msg.CHOICE}"/>  
+            <f:selectItem itemValue="YES_NO" itemLabel="#{msg.YES_NO}"/>  
+            <f:selectItem itemValue="DATE" itemLabel="#{msg.DATE}"/>  
+            <f:selectItem itemValue="REFERENCE" itemLabel="#{msg.REFERENCE}"/>  
+            <rich:ajaxValidator event="onsubmit"/> 
           </h:selectOneMenu>  
-          <h:message styleClass="error errors" for="type" rendered="#{s:hasPermission('type', 'customFieldEdit')}"/> 
+          <rich:message styleClass="error errors" for="type" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('type', 'customFieldEdit')}"/> 
         </h:column>  
         <h:column style="text-align:right">
           <f:facet name="header">
-            <h:outputText value="#{msg.customField_name} * " rendered="#{s:hasPermission('name', 'customFieldEdit')}"/>
+            <h:outputText value="#{msg.customField_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'customFieldEdit')}"/>
           </f:facet>  
-          <h:inputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'customFieldEdit')}" label="#{msg.customField_name}" required="true" value="#{_customField.name}"/>  
-          <h:message styleClass="error errors" for="name" rendered="#{s:hasPermission('name', 'customFieldEdit')}"/> 
+          <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'customFieldEdit')}" label="#{msg.customField_name}" required="true" value="#{_customField.name}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText>  
+          <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'customFieldEdit')}"/> 
         </h:column>  
         <h:column> 
-          <a:commandButton value="New CustomField" action="#{customFormAction.addCustomFields}" reRender="customFields" rendered="#{s:hasPermission('customFields', 'customFieldEdit')}"> 
+          <a:commandButton value="New CustomField" action="#{customFormAction.addCustomFields}" reRender="customFields" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customFields', 'customFieldEdit')}"> 
             <s:conversationId/> 
           </a:commandButton> 
         </h:column>  

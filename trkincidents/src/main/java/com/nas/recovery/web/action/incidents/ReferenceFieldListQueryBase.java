@@ -20,8 +20,8 @@ import org.jboss.seam.annotations.Observer;
 import com.oreon.trkincidents.incidents.ReferenceField;
 
 /**
- * D
- * @author WitchcraftMDA Seam Cartridge
+ * 
+ * @author WitchcraftMDA Seam Cartridge - 
  *
  */
 public abstract class ReferenceFieldListQueryBase
@@ -75,4 +75,39 @@ public abstract class ReferenceFieldListQueryBase
 		refresh();
 	}
 
+	/** create comma delimited row 
+	 * @param builder
+	 */
+	//@Override
+	public void createCsvString(StringBuilder builder, ReferenceField e) {
+
+		builder.append("\""
+				+ (e.getIncidentType() != null ? e.getIncidentType()
+						.getDisplayName() : "") + "\",");
+
+		builder.append("\""
+				+ (e.getReferencesEntity() != null
+						? e.getReferencesEntity()
+						: "") + "\",");
+
+		builder.append("\"" + (e.getRequired() != null ? e.getRequired() : "")
+				+ "\",");
+
+		builder.append("\r\n");
+	}
+
+	/** create the headings 
+	 * @param builder
+	 */
+	//@Override
+	public void createCSvTitles(StringBuilder builder) {
+
+		builder.append("IncidentType" + ",");
+
+		builder.append("ReferencesEntity" + ",");
+
+		builder.append("Required" + ",");
+
+		builder.append("\r\n");
+	}
 }

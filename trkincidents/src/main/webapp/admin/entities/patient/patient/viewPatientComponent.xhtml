@@ -6,26 +6,26 @@
       <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{patientAction.load(patientId )  }"> 
         <h:outputText value="#{msg.id}"/>  
         <h:outputText value="#{patientAction.patient.id}"/>  
-        <h:outputText value="#{msg.address_streetAddress}  " rendered="#{s:hasPermission('streetAddress', 'patientView')}"/>  
-        <h:outputText id="address_streetAddress#{entityId}" rendered="#{s:hasPermission('streetAddress', 'patientView')}" value="#{patientAction.patient.address.streetAddress}"/>  
-        <h:outputText value="#{msg.address_city}  " rendered="#{s:hasPermission('city', 'patientView')}"/>  
-        <h:outputText id="address_city#{entityId}" rendered="#{s:hasPermission('city', 'patientView')}" value="#{patientAction.patient.address.city}"/>  
-        <h:outputText value="#{msg.address_State}  " rendered="#{s:hasPermission('State', 'patientView')}"/>  
-        <h:outputText id="address_State#{entityId}" rendered="#{s:hasPermission('State', 'patientView')}" value="#{patientAction.patient.address.state}"/>  
-        <h:outputText value="#{msg.address_phone}  " rendered="#{s:hasPermission('phone', 'patientView')}"/>  
-        <h:outputText id="address_phone#{entityId}" rendered="#{s:hasPermission('phone', 'patientView')}" value="#{patientAction.patient.address.phone}"/>  
-        <h:outputText value="#{msg.person_firstName}  " rendered="#{s:hasPermission('firstName', 'patientView')}"/>  
-        <h:outputText id="firstName#{entityId}" rendered="#{s:hasPermission('firstName', 'patientView')}" value="#{patientAction.patient.firstName}"/>  
-        <h:outputText value="#{msg.person_lastName}  " rendered="#{s:hasPermission('lastName', 'patientView')}"/>  
-        <h:outputText id="lastName#{entityId}" rendered="#{s:hasPermission('lastName', 'patientView')}" value="#{patientAction.patient.lastName}"/>  
-        <h:outputText value="#{msg.patient_healthNumber}  " rendered="#{s:hasPermission('healthNumber', 'patientView')}"/>  
-        <h:outputText id="healthNumber#{entityId}" rendered="#{s:hasPermission('healthNumber', 'patientView')}" value="#{patientAction.patient.healthNumber}"/>  
-        <h:outputText value="#{msg.patient_dateOfBirth}  " rendered="#{s:hasPermission('dateOfBirth', 'patientView')}"/>  
-        <h:outputText id="dateOfBirth#{entityId}" rendered="#{s:hasPermission('dateOfBirth', 'patientView')}" value="#{patientAction.patient.dateOfBirth}"/>  
-        <h:outputText value="#{msg.patient_gender}  " rendered="#{s:hasPermission('gender', 'patientView')}"/>  
+        <h:outputText value="#{msg.address_streetAddress}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('streetAddress', 'patientView')}"/>  
+        <h:outputText id="address_streetAddress#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('streetAddress', 'patientView')}" value="#{patientAction.patient.address.streetAddress}"></h:outputText>  
+        <h:outputText value="#{msg.address_city}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('city', 'patientView')}"/>  
+        <h:outputText id="address_city#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('city', 'patientView')}" value="#{patientAction.patient.address.city}"></h:outputText>  
+        <h:outputText value="#{msg.address_State}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('State', 'patientView')}"/>  
+        <h:outputText id="address_State#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('State', 'patientView')}" value="#{patientAction.patient.address.state}"></h:outputText>  
+        <h:outputText value="#{msg.address_phone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('phone', 'patientView')}"/>  
+        <h:outputText id="address_phone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('phone', 'patientView')}" value="#{patientAction.patient.address.phone}"></h:outputText>  
+        <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'patientView')}"/>  
+        <h:outputText id="firstName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'patientView')}" value="#{patientAction.patient.firstName}"></h:outputText>  
+        <h:outputText value="#{msg.person_lastName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('lastName', 'patientView')}"/>  
+        <h:outputText id="lastName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('lastName', 'patientView')}" value="#{patientAction.patient.lastName}"></h:outputText>  
+        <h:outputText value="#{msg.patient_healthNumber}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('healthNumber', 'patientView')}"/>  
+        <h:outputText id="healthNumber#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('healthNumber', 'patientView')}" value="#{patientAction.patient.healthNumber}"></h:outputText>  
+        <h:outputText value="#{msg.patient_dateOfBirth}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateOfBirth', 'patientView')}"/>  
+        <h:outputText id="dateOfBirth#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateOfBirth', 'patientView')}" value="#{patientAction.patient.dateOfBirth}"></h:outputText>  
+        <h:outputText value="#{msg.patient_gender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gender', 'patientView')}"/>  
         <h:outputText value="#{patientAction.patient.gender}"/>  
-        <h:outputText value="#{msg.patient_age}  " rendered="#{s:hasPermission('age', 'patientView')}"/>  
-        <h:outputText id="age#{entityId}" rendered="#{s:hasPermission('age', 'patientView')}" value="#{patientAction.patient.age}"/> 
+        <h:outputText value="#{msg.patient_age}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('age', 'patientView')}"/>  
+        <h:outputText id="age#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('age', 'patientView')}" value="#{patientAction.patient.age}"></h:outputText> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

@@ -4,10 +4,13 @@
   <c:if test="${empty modalId}"> 
     <c:set var="modalId" value="ReferenceFieldModalPanel"/> 
   </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="ReferenceField Search Results (#{empty records ? 0 : (referenceFieldList.paginated ? referenceFieldList.resultCount : records.size)})"/> 
+  </c:if>  
   <rich:panel> 
-    <f:facet name="header">ReferenceField Search Results (#{empty records ? 0 : (referenceFieldList.paginated ? referenceFieldList.resultCount : records.size)})</f:facet>  
+    <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
-      <rich:dataTable var="_referenceField" value="#{records}" id="referenceFieldList" rowClasses="odd, even" styleClass="dataTable"> 
+      <rich:dataTable var="_referenceField" value="#{records}" id="referenceFieldList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
         <h:column rendered="#{s:hasPermission('id', 'referenceFieldView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
@@ -26,7 +29,7 @@
               <ui:param name="propertyPath" value="referenceField.incidentType"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_referenceField.incidentType.displayName}" view="/admin/entities/incidents/incidentType/viewIncidentType.xhtml" propagation="none"> 
+          <s:link value="#{_referenceField.incidentType.displayName}" action="viewIncidentType" propagation="none"> 
             <f:param name="incidentTypeId" value="#{_referenceField.incidentType.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
@@ -39,7 +42,7 @@
               <ui:param name="propertyPath" value="referenceField.referencesEntity"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_referenceField.referencesEntity}"/> 
+          <h:outputText value="#{_referenceField.referencesEntity}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('required', 'referenceFieldView'  )}"> 
           <f:facet name="header"> 
@@ -94,7 +97,7 @@
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
-          <a:commandLink action="#{referenceFieldAction.setReferenceFieldIdForModalDlg(_referenceField.id)}" rendered="#{s:hasPermission(_referenceField, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});"> 
+          <a:commandLink action="#{referenceFieldAction.setReferenceFieldIdForModalDlg(_referenceField.id)}" rendered="#{s:hasPermission(_referenceField, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" reRender="${modalId}"> 
             <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
             <s:conversationPropagation type="join"/> 
           </a:commandLink> 

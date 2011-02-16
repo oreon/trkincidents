@@ -4,21 +4,25 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{filledFieldAction.load(filledFieldId )  }"> 
-        <h:outputText value="#{msg.filledField_customField}  " rendered="#{s:hasPermission('customField', 'filledFieldEdit')}"/>  
-        <h:selectOneMenu id="customField" label="#{msg.filledField_customField}" value="#{filledFieldAction.filledField.customField}" required="true" rendered="#{s:hasPermission('customField', 'filledFieldEdit')}"> 
+        <h:outputText value="#{msg.filledField_customField} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customField', 'filledFieldEdit')}"/>  
+        <h:selectOneMenu id="customField" label="#{msg.filledField_customField}" value="#{filledFieldAction.filledField.customField}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customField', 'filledFieldEdit')}"> 
           <s:selectItems value="#{customFieldList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onsubmit"/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="customField" rendered="#{s:hasPermission('customField', 'filledFieldEdit')}"/>  
-        <h:outputText value="#{msg.filledField_filledForm}  " rendered="#{s:hasPermission('filledForm', 'filledFieldEdit')}"/>  
-        <h:selectOneMenu id="filledForm" label="#{msg.filledField_filledForm}" value="#{filledFieldAction.filledField.filledForm}" required="true" rendered="#{s:hasPermission('filledForm', 'filledFieldEdit')}"> 
+        <rich:message styleClass="error errors" for="customField" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customField', 'filledFieldEdit')}"/>  
+        <h:outputText value="#{msg.filledField_filledForm} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('filledForm', 'filledFieldEdit')}"/>  
+        <h:selectOneMenu id="filledForm" label="#{msg.filledField_filledForm}" value="#{filledFieldAction.filledField.filledForm}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('filledForm', 'filledFieldEdit')}"> 
           <s:selectItems value="#{filledFormList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onsubmit"/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="filledForm" rendered="#{s:hasPermission('filledForm', 'filledFieldEdit')}"/>  
-        <h:outputText value="#{msg.filledField_value}  " rendered="#{s:hasPermission('value', 'filledFieldEdit')}"/>  
-        <h:inputText id="value#{entityId}" rendered="#{s:hasPermission('value', 'filledFieldEdit')}" label="#{msg.filledField_value}" required="false" value="#{filledFieldAction.filledField.value}"/>  
-        <h:message styleClass="error errors" for="value" rendered="#{s:hasPermission('value', 'filledFieldEdit')}"/> 
+        <rich:message styleClass="error errors" for="filledForm" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('filledForm', 'filledFieldEdit')}"/>  
+        <h:outputText value="#{msg.filledField_value}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('value', 'filledFieldEdit')}"/>  
+        <h:inputText id="value#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('value', 'filledFieldEdit')}" label="#{msg.filledField_value}" required="false" value="#{filledFieldAction.filledField.value}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="value" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('value', 'filledFieldEdit')}"/> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

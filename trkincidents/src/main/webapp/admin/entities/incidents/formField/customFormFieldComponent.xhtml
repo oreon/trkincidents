@@ -7,13 +7,13 @@
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.formField_name} * " rendered="#{s:hasPermission('name', 'formFieldEdit')}"/>  
+        <h:outputText value="#{msg.formField_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'formFieldEdit')}"/>  
         <br/>  
         <h:inputText id="name" value="#{formFieldAction.formField.name}"/>  
-        <h:message styleClass="error errors" for="name" rendered="#{s:hasPermission('name', 'formFieldEdit')}"/> 
+        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'formFieldEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.formField_type}  " rendered="#{s:hasPermission('type', 'formFieldEdit')}"/>  
+        <h:outputText value="#{msg.formField_type}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('type', 'formFieldEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="type" value="#{formFieldAction.formField.type}" required="false"> 
           <f:selectItem itemLabel="Please Select..." itemValue=""/>  
@@ -24,19 +24,19 @@
           <f:selectItem itemValue="DATE" itemLabel="Date"/>  
           <f:selectItem itemValue="REFERENCE" itemLabel="Reference"/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="type" rendered="#{s:hasPermission('type', 'formFieldEdit')}"/> 
+        <rich:message styleClass="error errors" for="type" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('type', 'formFieldEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.formField_required}  " rendered="#{s:hasPermission('required', 'formFieldEdit')}"/>  
+        <h:outputText value="#{msg.formField_required}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('required', 'formFieldEdit')}"/>  
         <br/>  
         <h:selectBooleanCheckbox id="required" value="#{formFieldAction.formField.required}"/>  
-        <h:message styleClass="error errors" for="required" rendered="#{s:hasPermission('required', 'formFieldEdit')}"/> 
+        <rich:message styleClass="error errors" for="required" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('required', 'formFieldEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.formField_choiceValues}  " rendered="#{s:hasPermission('choiceValues', 'formFieldEdit')}"/>  
+        <h:outputText value="#{msg.formField_choiceValues}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('choiceValues', 'formFieldEdit')}"/>  
         <br/>  
         <h:inputText id="choiceValues" value="#{formFieldAction.formField.choiceValues}"/>  
-        <h:message styleClass="error errors" for="choiceValues" rendered="#{s:hasPermission('choiceValues', 'formFieldEdit')}"/> 
+        <rich:message styleClass="error errors" for="choiceValues" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('choiceValues', 'formFieldEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

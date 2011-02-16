@@ -6,7 +6,7 @@
       <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{documentAction.load(documentId )  }"> 
         <h:outputText value="#{msg.id}"/>  
         <h:outputText value="#{documentAction.document.id}"/>  
-        <h:outputText value="#{msg.document_patient}  " rendered="#{s:hasPermission('patient', 'documentView')}"/>  
+        <h:outputText value="#{msg.document_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'documentView')}"/>  
         <s:link value="#{documentAction.document.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
           <f:param name="patientId" value="#{documentAction.document.patient.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/>  
@@ -14,9 +14,9 @@
             <span>#{documentAction.document.patient.popupInfo}</span> 
           </rich:toolTip> 
         </s:link>  
-        <h:outputText value="#{msg.document_name}  " rendered="#{s:hasPermission('name', 'documentView')}"/>  
-        <h:outputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'documentView')}" value="#{documentAction.document.name}"/>  
-        <h:outputText value="#{msg.document_file}  " rendered="#{s:hasPermission('file', 'documentView')}"/>  
+        <h:outputText value="#{msg.document_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'documentView')}"/>  
+        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'documentView')}" value="#{documentAction.document.name}"></h:outputText>  
+        <h:outputText value="#{msg.document_file}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('file', 'documentView')}"/>  
         <c:choose> 
           <c:when test="${documentAction.document.file.contentType.startsWith('image')}"> 
             <s:graphicImage value="#{documentAction.document.file.data}"/> 
@@ -27,8 +27,8 @@
             </s:link> 
           </c:otherwise> 
         </c:choose>  
-        <h:outputText value="#{msg.document_notes}  " rendered="#{s:hasPermission('notes', 'documentView')}"/>  
-        <s:formattedText escape="false" id="notes#{entityId}" rendered="#{s:hasPermission('notes', 'documentView')}" value="#{documentAction.document.notes}"/> 
+        <h:outputText value="#{msg.document_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('notes', 'documentView')}"/>  
+        <h:outputText escape="false" id="notes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('notes', 'documentView')}" value="#{documentAction.document.notes}"></h:outputText> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

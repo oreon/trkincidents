@@ -6,10 +6,10 @@
       <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{dxTestAction.load(dxTestId )  }"> 
         <h:outputText value="#{msg.id}"/>  
         <h:outputText value="#{dxTestAction.dxTest.id}"/>  
-        <h:outputText value="#{msg.dxTest_name}  " rendered="#{s:hasPermission('name', 'dxTestView')}"/>  
-        <h:outputText id="name#{entityId}" rendered="#{s:hasPermission('name', 'dxTestView')}" value="#{dxTestAction.dxTest.name}"/>  
-        <h:outputText value="#{msg.dxTest_description}  " rendered="#{s:hasPermission('description', 'dxTestView')}"/>  
-        <s:formattedText escape="false" id="description#{entityId}" rendered="#{s:hasPermission('description', 'dxTestView')}" value="#{dxTestAction.dxTest.description}"/> 
+        <h:outputText value="#{msg.dxTest_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'dxTestView')}"/>  
+        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'dxTestView')}" value="#{dxTestAction.dxTest.name}"></h:outputText>  
+        <h:outputText value="#{msg.dxTest_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'dxTestView')}"/>  
+        <h:outputText escape="false" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'dxTestView')}" value="#{dxTestAction.dxTest.description}"></h:outputText> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

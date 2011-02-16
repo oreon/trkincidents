@@ -20,8 +20,8 @@ import org.jboss.seam.annotations.Observer;
 import com.oreon.trkincidents.users.User;
 
 /**
- * D
- * @author WitchcraftMDA Seam Cartridge
+ * 
+ * @author WitchcraftMDA Seam Cartridge - 
  *
  */
 public abstract class UserListQueryBase extends BaseQuery<User, Long> {
@@ -78,4 +78,41 @@ public abstract class UserListQueryBase extends BaseQuery<User, Long> {
 		refresh();
 	}
 
+	/** create comma delimited row 
+	 * @param builder
+	 */
+	//@Override
+	public void createCsvString(StringBuilder builder, User e) {
+
+		builder.append("\"" + (e.getUserName() != null ? e.getUserName() : "")
+				+ "\",");
+
+		builder.append("\"" + (e.getEnabled() != null ? e.getEnabled() : "")
+				+ "\",");
+
+		builder.append("\"" + (e.getRoles() != null ? e.getRoles() : "")
+				+ "\",");
+
+		builder.append("\"" + (e.getEmail() != null ? e.getEmail() : "")
+				+ "\",");
+
+		builder.append("\r\n");
+	}
+
+	/** create the headings 
+	 * @param builder
+	 */
+	//@Override
+	public void createCSvTitles(StringBuilder builder) {
+
+		builder.append("UserName" + ",");
+
+		builder.append("Enabled" + ",");
+
+		builder.append("Roles" + ",");
+
+		builder.append("Email" + ",");
+
+		builder.append("\r\n");
+	}
 }

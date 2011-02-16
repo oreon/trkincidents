@@ -29,13 +29,16 @@ import org.hibernate.search.annotations.TokenizerDef;
 import org.hibernate.search.annotations.ContainedIn;
 import org.hibernate.search.annotations.IndexedEmbedded;
 
+import org.hibernate.annotations.Filter;
+
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
+
 import org.jboss.seam.annotations.Name;
+
 import org.witchcraft.base.entity.BusinessEntity;
 import org.witchcraft.model.support.audit.Auditable;
 import org.witchcraft.base.entity.FileAttachment;
-import org.hibernate.annotations.Filter;
 
 import org.witchcraft.utils.*;
 
@@ -103,7 +106,9 @@ public class Employee extends com.oreon.trkincidents.patient.Person
 	}
 
 	public String getEmployeeNumber() {
+
 		return employeeNumber;
+
 	}
 
 	public void setIncidentsCreated(
@@ -120,7 +125,9 @@ public class Employee extends com.oreon.trkincidents.patient.Person
 	}
 
 	public com.oreon.trkincidents.users.User getUser() {
+
 		return user;
+
 	}
 
 	public void setDepartment(Department department) {
@@ -128,7 +135,9 @@ public class Employee extends com.oreon.trkincidents.patient.Person
 	}
 
 	public Department getDepartment() {
+
 		return department;
+
 	}
 
 	public void setIncidentsResponsibleFor(
@@ -145,7 +154,9 @@ public class Employee extends com.oreon.trkincidents.patient.Person
 	}
 
 	public ContactDetails getContactDetails() {
+
 		return contactDetails;
+
 	}
 
 	@Transient

@@ -4,21 +4,28 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{appointmentAction.load(appointmentId )  }"> 
-        <h:outputText value="#{msg.appointment_patient}  " rendered="#{s:hasPermission('patient', 'appointmentEdit')}"/>  
-        <h:selectOneMenu id="patient" label="#{msg.appointment_patient}" value="#{appointmentAction.appointment.patient}" required="true" rendered="#{s:hasPermission('patient', 'appointmentEdit')}"> 
+        <h:outputText value="#{msg.appointment_patient} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'appointmentEdit')}"/>  
+        <h:selectOneMenu id="patient" label="#{msg.appointment_patient}" value="#{appointmentAction.appointment.patient}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'appointmentEdit')}"> 
           <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onsubmit"/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="patient" rendered="#{s:hasPermission('patient', 'appointmentEdit')}"/>  
-        <h:outputText value="#{msg.appointment_start} * " rendered="#{s:hasPermission('start', 'appointmentEdit')}"/>  
-        <rich:calendar id="start#{entityId}" rendered="#{s:hasPermission('start', 'appointmentEdit')}" label="#{msg.appointment_start}" required="true" value="#{appointmentAction.appointment.start}"/>  
-        <h:message styleClass="error errors" for="start" rendered="#{s:hasPermission('start', 'appointmentEdit')}"/>  
-        <h:outputText value="#{msg.appointment_end}  " rendered="#{s:hasPermission('end', 'appointmentEdit')}"/>  
-        <rich:calendar id="end#{entityId}" rendered="#{s:hasPermission('end', 'appointmentEdit')}" label="#{msg.appointment_end}" required="false" value="#{appointmentAction.appointment.end}"/>  
-        <h:message styleClass="error errors" for="end" rendered="#{s:hasPermission('end', 'appointmentEdit')}"/>  
-        <h:outputText value="#{msg.appointment_remarks}  " rendered="#{s:hasPermission('remarks', 'appointmentEdit')}"/>  
-        <rich:editor useSeamText="true" id="remarks#{entityId}" rendered="#{s:hasPermission('remarks', 'appointmentEdit')}" label="#{msg.appointment_remarks}" required="false" value="#{appointmentAction.appointment.remarks}"/>  
-        <h:message styleClass="error errors" for="remarks" rendered="#{s:hasPermission('remarks', 'appointmentEdit')}"/> 
+        <rich:message styleClass="error errors" for="patient" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'appointmentEdit')}"/>  
+        <h:outputText value="#{msg.appointment_start} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('start', 'appointmentEdit')}"/>  
+        <rich:calendar id="start#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('start', 'appointmentEdit')}" label="#{msg.appointment_start}" required="true" value="#{appointmentAction.appointment.start}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </rich:calendar>  
+        <rich:message styleClass="error errors" for="start" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('start', 'appointmentEdit')}"/>  
+        <h:outputText value="#{msg.appointment_end}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('end', 'appointmentEdit')}"/>  
+        <rich:calendar id="end#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('end', 'appointmentEdit')}" label="#{msg.appointment_end}" required="false" value="#{appointmentAction.appointment.end}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </rich:calendar>  
+        <rich:message styleClass="error errors" for="end" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('end', 'appointmentEdit')}"/>  
+        <h:outputText value="#{msg.appointment_remarks}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('remarks', 'appointmentEdit')}"/>  
+        <rich:editor useSeamText="true" id="remarks#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('remarks', 'appointmentEdit')}" label="#{msg.appointment_remarks}" required="false" value="#{appointmentAction.appointment.remarks}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </rich:editor>  
+        <rich:message styleClass="error errors" for="remarks" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('remarks', 'appointmentEdit')}"/> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

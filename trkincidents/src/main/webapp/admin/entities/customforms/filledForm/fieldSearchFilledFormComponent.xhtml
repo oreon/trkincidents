@@ -6,7 +6,7 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.filledForm_customForm}  " rendered="#{s:hasPermission('customForm', 'filledFormEdit')}"/>  
+      <h:outputText value="#{msg.filledForm_customForm} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customForm', 'filledFormEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="customForm" value="#{ filledFormList.filledForm.customForm}"> 
         <s:selectItems value="#{customFormList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -14,7 +14,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.filledForm_entityId}  " rendered="#{s:hasPermission('entityId', 'filledFormEdit')}"/>  
+      <h:outputText value="#{msg.filledForm_entityId}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('entityId', 'filledFormEdit')}"/>  
       <br/>  
       <h:inputText id="entityId" value="#{filledFormList.filledForm.entityId}"/> 
     </h:panelGroup> 
@@ -22,7 +22,7 @@
   <h:panelGrid columns="2"> 
     <h:outputText value="Creation Date From"/>  
     <h:outputText value="Creation Date To"/>  
-    <rich:calendar id="from" value="#{severityList.dateCreatedRange.begin}"/>  
-    <rich:calendar id="to" value="#{severityList.dateCreatedRange.end}"/> 
+    <rich:calendar id="from" value="#{filledFormList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{filledFormList.dateCreatedRange.end}"/> 
   </h:panelGrid> 
 </ui:composition>

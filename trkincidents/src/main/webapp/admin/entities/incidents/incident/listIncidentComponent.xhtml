@@ -4,10 +4,13 @@
   <c:if test="${empty modalId}"> 
     <c:set var="modalId" value="IncidentModalPanel"/> 
   </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="Incident Search Results (#{empty records ? 0 : (incidentList.paginated ? incidentList.resultCount : records.size)})"/> 
+  </c:if>  
   <rich:panel> 
-    <f:facet name="header">Incident Search Results (#{empty records ? 0 : (incidentList.paginated ? incidentList.resultCount : records.size)})</f:facet>  
+    <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
-      <rich:dataTable var="_incident" value="#{records}" id="incidentList" rowClasses="odd, even" styleClass="dataTable"> 
+      <rich:dataTable var="_incident" value="#{records}" id="incidentList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
         <h:column rendered="#{s:hasPermission('id', 'incidentView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
@@ -26,7 +29,7 @@
               <ui:param name="propertyPath" value="incident.incidentType"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_incident.incidentType.displayName}" view="/admin/entities/incidents/incidentType/viewIncidentType.xhtml" propagation="none"> 
+          <s:link value="#{_incident.incidentType.displayName}" action="viewIncidentType" propagation="none"> 
             <f:param name="incidentTypeId" value="#{_incident.incidentType.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
@@ -39,7 +42,7 @@
               <ui:param name="propertyPath" value="incident.title"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_incident.title}"/> 
+          <h:outputText value="#{_incident.title}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('patient', 'incidentView'  )}"> 
           <f:facet name="header"> 
@@ -49,7 +52,7 @@
               <ui:param name="propertyPath" value="incident.patient"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_incident.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+          <s:link value="#{_incident.patient.displayName}" action="viewPatient" propagation="none"> 
             <f:param name="patientId" value="#{_incident.patient.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/>  
             <rich:toolTip> 
@@ -65,7 +68,7 @@
               <ui:param name="propertyPath" value="incident.createdBy"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_incident.createdBy.displayName}" view="/admin/entities/employee/employee/viewEmployee.xhtml" propagation="none"> 
+          <s:link value="#{_incident.createdBy.displayName}" action="viewEmployee" propagation="none"> 
             <f:param name="createdById" value="#{_incident.createdBy.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
@@ -78,7 +81,7 @@
               <ui:param name="propertyPath" value="incident.department"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_incident.department.displayName}" view="/admin/entities/employee/department/viewDepartment.xhtml" propagation="none"> 
+          <s:link value="#{_incident.department.displayName}" action="viewDepartment" propagation="none"> 
             <f:param name="departmentId" value="#{_incident.department.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
@@ -103,7 +106,7 @@
               <ui:param name="propertyPath" value="incident.reportedTo"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_incident.reportedTo.displayName}" view="/admin/entities/employee/employee/viewEmployee.xhtml" propagation="none"> 
+          <s:link value="#{_incident.reportedTo.displayName}" action="viewEmployee" propagation="none"> 
             <f:param name="reportedToId" value="#{_incident.reportedTo.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
@@ -128,7 +131,7 @@
               <ui:param name="propertyPath" value="incident.drug"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_incident.drug.displayName}" view="/admin/entities/incidents/drug/viewDrug.xhtml" propagation="none"> 
+          <s:link value="#{_incident.drug.displayName}" action="viewDrug" propagation="none"> 
             <f:param name="drugId" value="#{_incident.drug.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
@@ -141,7 +144,7 @@
               <ui:param name="propertyPath" value="incident.proccedure"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_incident.proccedure.displayName}" view="/admin/entities/incidents/proccedure/viewProccedure.xhtml" propagation="none"> 
+          <s:link value="#{_incident.proccedure.displayName}" action="viewProccedure" propagation="none"> 
             <f:param name="proccedureId" value="#{_incident.proccedure.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
@@ -154,7 +157,7 @@
               <ui:param name="propertyPath" value="incident.responsibleEmployee"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_incident.responsibleEmployee.displayName}" view="/admin/entities/employee/employee/viewEmployee.xhtml" propagation="none"> 
+          <s:link value="#{_incident.responsibleEmployee.displayName}" action="viewEmployee" propagation="none"> 
             <f:param name="responsibleEmployeeId" value="#{_incident.responsibleEmployee.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
@@ -167,7 +170,7 @@
               <ui:param name="propertyPath" value="incident.description"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_incident.description}"/> 
+          <h:outputText value="#{_incident.description}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('severity', 'incidentView'  )}"> 
           <f:facet name="header"> 
@@ -177,7 +180,7 @@
               <ui:param name="propertyPath" value="incident.severity"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_incident.severity.displayName}" view="/admin/entities/incidents/severity/viewSeverity.xhtml" propagation="none"> 
+          <s:link value="#{_incident.severity.displayName}" action="viewSeverity" propagation="none"> 
             <f:param name="severityId" value="#{_incident.severity.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
@@ -225,7 +228,7 @@
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
-          <a:commandLink action="#{incidentAction.setIncidentIdForModalDlg(_incident.id)}" rendered="#{s:hasPermission(_incident, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});"> 
+          <a:commandLink action="#{incidentAction.setIncidentIdForModalDlg(_incident.id)}" rendered="#{s:hasPermission(_incident, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" reRender="${modalId}"> 
             <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
             <s:conversationPropagation type="join"/> 
           </a:commandLink> 

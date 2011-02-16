@@ -6,18 +6,18 @@
       <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{filledFieldAction.load(filledFieldId )  }"> 
         <h:outputText value="#{msg.id}"/>  
         <h:outputText value="#{filledFieldAction.filledField.id}"/>  
-        <h:outputText value="#{msg.filledField_customField}  " rendered="#{s:hasPermission('customField', 'filledFieldView')}"/>  
+        <h:outputText value="#{msg.filledField_customField}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customField', 'filledFieldView')}"/>  
         <s:link value="#{filledFieldAction.filledField.customField.displayName}" view="/admin/entities/customforms/customField/viewCustomField.xhtml" propagation="none"> 
           <f:param name="customFieldId" value="#{filledFieldAction.filledField.customField.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
-        <h:outputText value="#{msg.filledField_filledForm}  " rendered="#{s:hasPermission('filledForm', 'filledFieldView')}"/>  
+        <h:outputText value="#{msg.filledField_filledForm}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('filledForm', 'filledFieldView')}"/>  
         <s:link value="#{filledFieldAction.filledField.filledForm.displayName}" view="/admin/entities/customforms/filledForm/viewFilledForm.xhtml" propagation="none"> 
           <f:param name="filledFormId" value="#{filledFieldAction.filledField.filledForm.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
-        <h:outputText value="#{msg.filledField_value}  " rendered="#{s:hasPermission('value', 'filledFieldView')}"/>  
-        <h:outputText id="value#{entityId}" rendered="#{s:hasPermission('value', 'filledFieldView')}" value="#{filledFieldAction.filledField.value}"/> 
+        <h:outputText value="#{msg.filledField_value}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('value', 'filledFieldView')}"/>  
+        <h:outputText id="value#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('value', 'filledFieldView')}" value="#{filledFieldAction.filledField.value}"></h:outputText> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

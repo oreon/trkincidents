@@ -35,6 +35,12 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
+import org.witchcraft.base.entity.FileAttachment;
+
+import org.apache.commons.io.FileUtils;
+import org.richfaces.event.UploadEvent;
+import org.richfaces.model.UploadItem;
+
 import com.oreon.trkincidents.customforms.FilledField;
 
 public abstract class FilledFormActionBase extends BaseAction<FilledForm>
@@ -55,6 +61,7 @@ public abstract class FilledFormActionBase extends BaseAction<FilledForm>
 	public void setFilledFormId(Long id) {
 		if (id == 0) {
 			clearInstance();
+			clearLists();
 			loadAssociations();
 			return;
 		}
@@ -68,6 +75,7 @@ public abstract class FilledFormActionBase extends BaseAction<FilledForm>
 	 */
 	public void setFilledFormIdForModalDlg(Long id) {
 		setId(id);
+		clearLists();
 		loadAssociations();
 	}
 

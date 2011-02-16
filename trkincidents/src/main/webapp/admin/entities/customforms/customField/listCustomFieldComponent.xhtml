@@ -4,10 +4,13 @@
   <c:if test="${empty modalId}"> 
     <c:set var="modalId" value="CustomFieldModalPanel"/> 
   </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="CustomField Search Results (#{empty records ? 0 : (customFieldList.paginated ? customFieldList.resultCount : records.size)})"/> 
+  </c:if>  
   <rich:panel> 
-    <f:facet name="header">CustomField Search Results (#{empty records ? 0 : (customFieldList.paginated ? customFieldList.resultCount : records.size)})</f:facet>  
+    <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
-      <rich:dataTable var="_customField" value="#{records}" id="customFieldList" rowClasses="odd, even" styleClass="dataTable"> 
+      <rich:dataTable var="_customField" value="#{records}" id="customFieldList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
         <h:column rendered="#{s:hasPermission('id', 'customFieldView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
@@ -26,7 +29,7 @@
               <ui:param name="propertyPath" value="customField.customForm"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_customField.customForm.displayName}" view="/admin/entities/customforms/customForm/viewCustomForm.xhtml" propagation="none"> 
+          <s:link value="#{_customField.customForm.displayName}" action="viewCustomForm" propagation="none"> 
             <f:param name="customFormId" value="#{_customField.customForm.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
@@ -49,7 +52,7 @@
               <ui:param name="propertyPath" value="customField.type"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_customField.type}"/> 
+          <h:outputText value="#{_customField.type}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('name', 'customFieldView'  )}"> 
           <f:facet name="header"> 
@@ -59,7 +62,7 @@
               <ui:param name="propertyPath" value="customField.name"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_customField.name}"/> 
+          <h:outputText value="#{_customField.name}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'customFieldView' )}"> 
           <f:facet name="header"> 
@@ -104,7 +107,7 @@
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
-          <a:commandLink action="#{customFieldAction.setCustomFieldIdForModalDlg(_customField.id)}" rendered="#{s:hasPermission(_customField, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});"> 
+          <a:commandLink action="#{customFieldAction.setCustomFieldIdForModalDlg(_customField.id)}" rendered="#{s:hasPermission(_customField, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" reRender="${modalId}"> 
             <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
             <s:conversationPropagation type="join"/> 
           </a:commandLink> 

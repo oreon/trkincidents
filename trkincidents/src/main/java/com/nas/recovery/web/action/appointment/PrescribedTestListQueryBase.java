@@ -20,8 +20,8 @@ import org.jboss.seam.annotations.Observer;
 import com.oreon.trkincidents.appointment.PrescribedTest;
 
 /**
- * D
- * @author WitchcraftMDA Seam Cartridge
+ * 
+ * @author WitchcraftMDA Seam Cartridge - 
  *
  */
 public abstract class PrescribedTestListQueryBase
@@ -75,4 +75,39 @@ public abstract class PrescribedTestListQueryBase
 		refresh();
 	}
 
+	/** create comma delimited row 
+	 * @param builder
+	 */
+	//@Override
+	public void createCsvString(StringBuilder builder, PrescribedTest e) {
+
+		builder.append("\"" + (e.getRemarks() != null ? e.getRemarks() : "")
+				+ "\",");
+
+		builder.append("\""
+				+ (e.getDxTest() != null ? e.getDxTest().getDisplayName() : "")
+				+ "\",");
+
+		builder.append("\""
+				+ (e.getEncounter() != null
+						? e.getEncounter().getDisplayName()
+						: "") + "\",");
+
+		builder.append("\r\n");
+	}
+
+	/** create the headings 
+	 * @param builder
+	 */
+	//@Override
+	public void createCSvTitles(StringBuilder builder) {
+
+		builder.append("Remarks" + ",");
+
+		builder.append("DxTest" + ",");
+
+		builder.append("Encounter" + ",");
+
+		builder.append("\r\n");
+	}
 }

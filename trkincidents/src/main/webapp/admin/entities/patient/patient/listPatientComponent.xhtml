@@ -4,10 +4,13 @@
   <c:if test="${empty modalId}"> 
     <c:set var="modalId" value="PatientModalPanel"/> 
   </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="Patient Search Results (#{empty records ? 0 : (patientList.paginated ? patientList.resultCount : records.size)})"/> 
+  </c:if>  
   <rich:panel> 
-    <f:facet name="header">Patient Search Results (#{empty records ? 0 : (patientList.paginated ? patientList.resultCount : records.size)})</f:facet>  
+    <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
-      <rich:dataTable var="_patient" value="#{records}" id="patientList" rowClasses="odd, even" styleClass="dataTable"> 
+      <rich:dataTable var="_patient" value="#{records}" id="patientList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
         <h:column rendered="#{s:hasPermission('id', 'patientView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
@@ -26,7 +29,7 @@
               <ui:param name="propertyPath" value="patient.firstName"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_patient.firstName}"/> 
+          <h:outputText value="#{_patient.firstName}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('lastName', 'patientView'  )}"> 
           <f:facet name="header"> 
@@ -36,7 +39,7 @@
               <ui:param name="propertyPath" value="patient.lastName"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_patient.lastName}"/> 
+          <h:outputText value="#{_patient.lastName}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('streetAddress', 'patientView'  )}"> 
           <f:facet name="header"> 
@@ -46,7 +49,7 @@
               <ui:param name="propertyPath" value="patient.address.streetAddress"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_patient.address.streetAddress}"/> 
+          <h:outputText value="#{_patient.address.streetAddress}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('city', 'patientView'  )}"> 
           <f:facet name="header"> 
@@ -56,7 +59,7 @@
               <ui:param name="propertyPath" value="patient.address.city"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_patient.address.city}"/> 
+          <h:outputText value="#{_patient.address.city}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('State', 'patientView'  )}"> 
           <f:facet name="header"> 
@@ -66,7 +69,7 @@
               <ui:param name="propertyPath" value="patient.address.state"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_patient.address.state}"/> 
+          <h:outputText value="#{_patient.address.state}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('phone', 'patientView'  )}"> 
           <f:facet name="header"> 
@@ -76,7 +79,7 @@
               <ui:param name="propertyPath" value="patient.address.phone"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_patient.address.phone}"/> 
+          <h:outputText value="#{_patient.address.phone}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('healthNumber', 'patientView'  )}"> 
           <f:facet name="header"> 
@@ -86,7 +89,7 @@
               <ui:param name="propertyPath" value="patient.healthNumber"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_patient.healthNumber}"/> 
+          <h:outputText value="#{_patient.healthNumber}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('dateOfBirth', 'patientView'  )}"> 
           <f:facet name="header"> 
@@ -108,7 +111,7 @@
               <ui:param name="propertyPath" value="patient.gender"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_patient.gender}"/> 
+          <h:outputText value="#{_patient.gender}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('age', 'patientView'  )}"> 
           <f:facet name="header"> 
@@ -118,7 +121,7 @@
               <ui:param name="propertyPath" value="patient.age"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_patient.age}"/> 
+          <h:outputText value="#{_patient.age}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'patientView' )}"> 
           <f:facet name="header"> 
@@ -163,7 +166,7 @@
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
-          <a:commandLink action="#{patientAction.setPatientIdForModalDlg(_patient.id)}" rendered="#{s:hasPermission(_patient, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});"> 
+          <a:commandLink action="#{patientAction.setPatientIdForModalDlg(_patient.id)}" rendered="#{s:hasPermission(_patient, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" reRender="${modalId}"> 
             <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
             <s:conversationPropagation type="join"/> 
           </a:commandLink> 

@@ -4,10 +4,13 @@
   <c:if test="${empty modalId}"> 
     <c:set var="modalId" value="FormFieldInstanceModalPanel"/> 
   </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="FormFieldInstance Search Results (#{empty records ? 0 : (formFieldInstanceList.paginated ? formFieldInstanceList.resultCount : records.size)})"/> 
+  </c:if>  
   <rich:panel> 
-    <f:facet name="header">FormFieldInstance Search Results (#{empty records ? 0 : (formFieldInstanceList.paginated ? formFieldInstanceList.resultCount : records.size)})</f:facet>  
+    <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
-      <rich:dataTable var="_formFieldInstance" value="#{records}" id="formFieldInstanceList" rowClasses="odd, even" styleClass="dataTable"> 
+      <rich:dataTable var="_formFieldInstance" value="#{records}" id="formFieldInstanceList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
         <h:column rendered="#{s:hasPermission('id', 'formFieldInstanceView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
@@ -26,7 +29,7 @@
               <ui:param name="propertyPath" value="formFieldInstance.value"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_formFieldInstance.value}"/> 
+          <h:outputText value="#{_formFieldInstance.value}" escape="false"/> 
         </h:column>  
         <h:column groupOn="#{formFieldInstance.incident.displayName}" rendered="#{s:hasPermission('incident', 'formFieldInstanceView'  )}"> 
           <f:facet name="header"> 
@@ -36,7 +39,7 @@
               <ui:param name="propertyPath" value="formFieldInstance.incident"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_formFieldInstance.incident.displayName}" view="/admin/entities/incidents/incident/viewIncident.xhtml" propagation="none"> 
+          <s:link value="#{_formFieldInstance.incident.displayName}" action="viewIncident" propagation="none"> 
             <f:param name="incidentId" value="#{_formFieldInstance.incident.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
@@ -49,7 +52,7 @@
               <ui:param name="propertyPath" value="formFieldInstance.formField"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_formFieldInstance.formField.displayName}" view="/admin/entities/incidents/formField/viewFormField.xhtml" propagation="none"> 
+          <s:link value="#{_formFieldInstance.formField.displayName}" action="viewFormField" propagation="none"> 
             <f:param name="formFieldId" value="#{_formFieldInstance.formField.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
@@ -84,7 +87,7 @@
               <ui:param name="propertyPath" value="formFieldInstance.enumOrdinal"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_formFieldInstance.enumOrdinal}"/> 
+          <h:outputText value="#{_formFieldInstance.enumOrdinal}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('description', 'formFieldInstanceView'  )}"> 
           <f:facet name="header"> 
@@ -94,7 +97,7 @@
               <ui:param name="propertyPath" value="formFieldInstance.description"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_formFieldInstance.description}"/> 
+          <h:outputText value="#{_formFieldInstance.description}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'formFieldInstanceView' )}"> 
           <f:facet name="header"> 
@@ -139,7 +142,7 @@
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
-          <a:commandLink action="#{formFieldInstanceAction.setFormFieldInstanceIdForModalDlg(_formFieldInstance.id)}" rendered="#{s:hasPermission(_formFieldInstance, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});"> 
+          <a:commandLink action="#{formFieldInstanceAction.setFormFieldInstanceIdForModalDlg(_formFieldInstance.id)}" rendered="#{s:hasPermission(_formFieldInstance, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" reRender="${modalId}"> 
             <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
             <s:conversationPropagation type="join"/> 
           </a:commandLink> 

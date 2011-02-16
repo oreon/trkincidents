@@ -35,6 +35,12 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
+import org.witchcraft.base.entity.FileAttachment;
+
+import org.apache.commons.io.FileUtils;
+import org.richfaces.event.UploadEvent;
+import org.richfaces.model.UploadItem;
+
 import com.oreon.trkincidents.incidents.Incident;
 import com.oreon.trkincidents.incidents.Incident;
 
@@ -67,6 +73,7 @@ public abstract class EmployeeActionBase
 	public void setEmployeeId(Long id) {
 		if (id == 0) {
 			clearInstance();
+			clearLists();
 			loadAssociations();
 			return;
 		}
@@ -80,6 +87,7 @@ public abstract class EmployeeActionBase
 	 */
 	public void setEmployeeIdForModalDlg(Long id) {
 		setId(id);
+		clearLists();
 		loadAssociations();
 	}
 
@@ -171,6 +179,12 @@ public abstract class EmployeeActionBase
 	@Override
 	public Class<Employee> getEntityClass() {
 		return Employee.class;
+	}
+
+	public com.oreon.trkincidents.employee.Employee findByUnqEmployeeNumber(
+			String employeeNumber) {
+		return executeSingleResultNamedQuery(
+				"employee.findByUnqEmployeeNumber", employeeNumber);
 	}
 
 	/** This function adds associated entities to an example criterion

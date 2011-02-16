@@ -14,11 +14,11 @@
   <task-node name="reviewOccurence"> 
     <task name="reviewOccurence" swimlane="incidentReviewer" notify="false"></task>  
     <transition to="provideInfo" name="requestMoreInfo"></transition>  
-    <transition to="" name="closeOccurence"></transition> 
+    <transition to="endState1" name="closeOccurence"></transition> 
   </task-node>  
   <task-node name="provideInfo"> 
     <task name="provideInfo" swimlane="initiator" notify="false"></task>  
     <transition to="reviewOccurence" name="done"></transition> 
   </task-node>  
-  <end-state name=""/> 
+  <end-state name="endState1"/> 
 </process-definition>

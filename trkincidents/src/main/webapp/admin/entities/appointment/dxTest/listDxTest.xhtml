@@ -6,6 +6,13 @@
     <ui:include src="searchDxTest.xhtml"/>  
     <br/>  
     <br/>  
+    <a:form> 
+      <s:button value="Create New" action="/admin/entities/appointment/dxTest/editDxTest.xhtml" propagation="none"> 
+        <f:param name="dxTestId" value="0"/> 
+      </s:button>  
+      <a:commandButton action="#{dxTestAction.setDxTestId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"></a:commandButton>  
+      <s:button value="Export to Excel" action="#{dxTestList.exportToCsv}"/> 
+    </a:form>  
     <ui:include src="listDxTestComponent.xhtml"> 
       <ui:param name="records" value="#{dxTestList.resultList}"/> 
     </ui:include>  
@@ -13,7 +20,8 @@
       <s:button value="Create New" action="/admin/entities/appointment/dxTest/editDxTest.xhtml" propagation="none"> 
         <f:param name="dxTestId" value="0"/> 
       </s:button>  
-      <a:commandButton action="#{dxTestAction.setDxTestId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"></a:commandButton> 
+      <a:commandButton action="#{dxTestAction.setDxTestId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"></a:commandButton>  
+      <s:button value="Export to Excel" action="#{dxTestList.exportToCsv}"/> 
     </a:form>  
     <ui:include src="/admin/entities/appointment/dxTest/modalDlgDxTestComponent.xhtml"> 
       <ui:param name="modalId" value="${modalId}"/> 

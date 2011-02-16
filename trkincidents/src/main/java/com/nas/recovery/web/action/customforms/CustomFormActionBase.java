@@ -35,6 +35,12 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
+import org.witchcraft.base.entity.FileAttachment;
+
+import org.apache.commons.io.FileUtils;
+import org.richfaces.event.UploadEvent;
+import org.richfaces.model.UploadItem;
+
 import com.oreon.trkincidents.customforms.CustomField;
 
 public abstract class CustomFormActionBase extends BaseAction<CustomForm>
@@ -52,6 +58,7 @@ public abstract class CustomFormActionBase extends BaseAction<CustomForm>
 	public void setCustomFormId(Long id) {
 		if (id == 0) {
 			clearInstance();
+			clearLists();
 			loadAssociations();
 			return;
 		}
@@ -65,6 +72,7 @@ public abstract class CustomFormActionBase extends BaseAction<CustomForm>
 	 */
 	public void setCustomFormIdForModalDlg(Long id) {
 		setId(id);
+		clearLists();
 		loadAssociations();
 	}
 
@@ -118,6 +126,11 @@ public abstract class CustomFormActionBase extends BaseAction<CustomForm>
 	@Override
 	public Class<CustomForm> getEntityClass() {
 		return CustomForm.class;
+	}
+
+	public com.oreon.trkincidents.customforms.CustomForm findByUnqName(
+			String name) {
+		return executeSingleResultNamedQuery("customForm.findByUnqName", name);
 	}
 
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so

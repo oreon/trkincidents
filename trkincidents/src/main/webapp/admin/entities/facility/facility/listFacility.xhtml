@@ -6,6 +6,13 @@
     <ui:include src="searchFacility.xhtml"/>  
     <br/>  
     <br/>  
+    <a:form> 
+      <s:button value="Create New" action="/admin/entities/facility/facility/editFacility.xhtml" propagation="none"> 
+        <f:param name="facilityId" value="0"/> 
+      </s:button>  
+      <a:commandButton action="#{facilityAction.setFacilityId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"></a:commandButton>  
+      <s:button value="Export to Excel" action="#{facilityList.exportToCsv}"/> 
+    </a:form>  
     <ui:include src="listFacilityComponent.xhtml"> 
       <ui:param name="records" value="#{facilityList.resultList}"/> 
     </ui:include>  
@@ -13,7 +20,8 @@
       <s:button value="Create New" action="/admin/entities/facility/facility/editFacility.xhtml" propagation="none"> 
         <f:param name="facilityId" value="0"/> 
       </s:button>  
-      <a:commandButton action="#{facilityAction.setFacilityId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"></a:commandButton> 
+      <a:commandButton action="#{facilityAction.setFacilityId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"></a:commandButton>  
+      <s:button value="Export to Excel" action="#{facilityList.exportToCsv}"/> 
     </a:form>  
     <ui:include src="/admin/entities/facility/facility/modalDlgFacilityComponent.xhtml"> 
       <ui:param name="modalId" value="${modalId}"/> 

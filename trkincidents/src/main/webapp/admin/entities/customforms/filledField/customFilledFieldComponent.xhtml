@@ -7,28 +7,28 @@
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.filledField_customField}  " rendered="#{s:hasPermission('customField', 'filledFieldEdit')}"/>  
+        <h:outputText value="#{msg.filledField_customField} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customField', 'filledFieldEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="customField" value="#{filledFieldAction.filledField.customField}"> 
           <s:selectItems value="#{customFieldList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="customField" rendered="#{s:hasPermission('customField', 'filledFieldEdit')}"/> 
+        <rich:message styleClass="error errors" for="customField" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customField', 'filledFieldEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.filledField_filledForm}  " rendered="#{s:hasPermission('filledForm', 'filledFieldEdit')}"/>  
+        <h:outputText value="#{msg.filledField_filledForm} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('filledForm', 'filledFieldEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="filledForm" value="#{filledFieldAction.filledField.filledForm}"> 
           <s:selectItems value="#{filledFormList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="filledForm" rendered="#{s:hasPermission('filledForm', 'filledFieldEdit')}"/> 
+        <rich:message styleClass="error errors" for="filledForm" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('filledForm', 'filledFieldEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.filledField_value}  " rendered="#{s:hasPermission('value', 'filledFieldEdit')}"/>  
+        <h:outputText value="#{msg.filledField_value}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('value', 'filledFieldEdit')}"/>  
         <br/>  
         <h:inputText id="value" value="#{filledFieldAction.filledField.value}"/>  
-        <h:message styleClass="error errors" for="value" rendered="#{s:hasPermission('value', 'filledFieldEdit')}"/> 
+        <rich:message styleClass="error errors" for="value" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('value', 'filledFieldEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

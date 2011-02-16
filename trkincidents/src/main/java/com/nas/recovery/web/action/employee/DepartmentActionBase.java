@@ -35,6 +35,12 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
+import org.witchcraft.base.entity.FileAttachment;
+
+import org.apache.commons.io.FileUtils;
+import org.richfaces.event.UploadEvent;
+import org.richfaces.model.UploadItem;
+
 import com.oreon.trkincidents.employee.Employee;
 import com.oreon.trkincidents.incidents.Incident;
 
@@ -59,6 +65,7 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 	public void setDepartmentId(Long id) {
 		if (id == 0) {
 			clearInstance();
+			clearLists();
 			loadAssociations();
 			return;
 		}
@@ -72,6 +79,7 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 	 */
 	public void setDepartmentIdForModalDlg(Long id) {
 		setId(id);
+		clearLists();
 		loadAssociations();
 	}
 
@@ -125,6 +133,10 @@ public abstract class DepartmentActionBase extends BaseAction<Department>
 	@Override
 	public Class<Department> getEntityClass() {
 		return Department.class;
+	}
+
+	public com.oreon.trkincidents.employee.Department findByUnqName(String name) {
+		return executeSingleResultNamedQuery("department.findByUnqName", name);
 	}
 
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so

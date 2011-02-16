@@ -7,16 +7,16 @@
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.referenceField_incidentType}  " rendered="#{s:hasPermission('incidentType', 'referenceFieldEdit')}"/>  
+        <h:outputText value="#{msg.referenceField_incidentType} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incidentType', 'referenceFieldEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="incidentType" value="#{referenceFieldAction.referenceField.incidentType}"> 
           <s:selectItems value="#{incidentTypeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="incidentType" rendered="#{s:hasPermission('incidentType', 'referenceFieldEdit')}"/> 
+        <rich:message styleClass="error errors" for="incidentType" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incidentType', 'referenceFieldEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.referenceField_referencesEntity}  " rendered="#{s:hasPermission('referencesEntity', 'referenceFieldEdit')}"/>  
+        <h:outputText value="#{msg.referenceField_referencesEntity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('referencesEntity', 'referenceFieldEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="referencesEntity" value="#{referenceFieldAction.referenceField.referencesEntity}" required="false"> 
           <f:selectItem itemLabel="Please Select..." itemValue=""/>  
@@ -24,13 +24,13 @@
           <f:selectItem itemValue="Drug" itemLabel="Drug"/>  
           <f:selectItem itemValue="Procedure" itemLabel="Procedure"/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="referencesEntity" rendered="#{s:hasPermission('referencesEntity', 'referenceFieldEdit')}"/> 
+        <rich:message styleClass="error errors" for="referencesEntity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('referencesEntity', 'referenceFieldEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.referenceField_required}  " rendered="#{s:hasPermission('required', 'referenceFieldEdit')}"/>  
+        <h:outputText value="#{msg.referenceField_required}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('required', 'referenceFieldEdit')}"/>  
         <br/>  
         <h:selectBooleanCheckbox id="required" value="#{referenceFieldAction.referenceField.required}"/>  
-        <h:message styleClass="error errors" for="required" rendered="#{s:hasPermission('required', 'referenceFieldEdit')}"/> 
+        <rich:message styleClass="error errors" for="required" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('required', 'referenceFieldEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

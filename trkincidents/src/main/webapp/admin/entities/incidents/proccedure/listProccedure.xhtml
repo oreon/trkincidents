@@ -6,6 +6,13 @@
     <ui:include src="searchProccedure.xhtml"/>  
     <br/>  
     <br/>  
+    <a:form> 
+      <s:button value="Create New" action="/admin/entities/incidents/proccedure/editProccedure.xhtml" propagation="none"> 
+        <f:param name="proccedureId" value="0"/> 
+      </s:button>  
+      <a:commandButton action="#{proccedureAction.setProccedureId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"></a:commandButton>  
+      <s:button value="Export to Excel" action="#{proccedureList.exportToCsv}"/> 
+    </a:form>  
     <ui:include src="listProccedureComponent.xhtml"> 
       <ui:param name="records" value="#{proccedureList.resultList}"/> 
     </ui:include>  
@@ -13,7 +20,8 @@
       <s:button value="Create New" action="/admin/entities/incidents/proccedure/editProccedure.xhtml" propagation="none"> 
         <f:param name="proccedureId" value="0"/> 
       </s:button>  
-      <a:commandButton action="#{proccedureAction.setProccedureId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"></a:commandButton> 
+      <a:commandButton action="#{proccedureAction.setProccedureId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"></a:commandButton>  
+      <s:button value="Export to Excel" action="#{proccedureList.exportToCsv}"/> 
     </a:form>  
     <ui:include src="/admin/entities/incidents/proccedure/modalDlgProccedureComponent.xhtml"> 
       <ui:param name="modalId" value="${modalId}"/> 

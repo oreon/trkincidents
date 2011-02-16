@@ -6,7 +6,7 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.filledField_customField}  " rendered="#{s:hasPermission('customField', 'filledFieldEdit')}"/>  
+      <h:outputText value="#{msg.filledField_customField} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customField', 'filledFieldEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="customField" value="#{ filledFieldList.filledField.customField}"> 
         <s:selectItems value="#{customFieldList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -14,7 +14,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.filledField_filledForm}  " rendered="#{s:hasPermission('filledForm', 'filledFieldEdit')}"/>  
+      <h:outputText value="#{msg.filledField_filledForm} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('filledForm', 'filledFieldEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="filledForm" value="#{ filledFieldList.filledField.filledForm}"> 
         <s:selectItems value="#{filledFormList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -22,7 +22,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.filledField_value}  " rendered="#{s:hasPermission('value', 'filledFieldEdit')}"/>  
+      <h:outputText value="#{msg.filledField_value}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('value', 'filledFieldEdit')}"/>  
       <br/>  
       <h:inputText id="value" value="#{filledFieldList.filledField.value}"/> 
     </h:panelGroup> 
@@ -30,7 +30,7 @@
   <h:panelGrid columns="2"> 
     <h:outputText value="Creation Date From"/>  
     <h:outputText value="Creation Date To"/>  
-    <rich:calendar id="from" value="#{severityList.dateCreatedRange.begin}"/>  
-    <rich:calendar id="to" value="#{severityList.dateCreatedRange.end}"/> 
+    <rich:calendar id="from" value="#{filledFieldList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{filledFieldList.dateCreatedRange.end}"/> 
   </h:panelGrid> 
 </ui:composition>

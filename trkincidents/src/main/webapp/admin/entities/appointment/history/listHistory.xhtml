@@ -6,6 +6,13 @@
     <ui:include src="searchHistory.xhtml"/>  
     <br/>  
     <br/>  
+    <a:form> 
+      <s:button value="Create New" action="/admin/entities/appointment/history/editHistory.xhtml" propagation="none"> 
+        <f:param name="historyId" value="0"/> 
+      </s:button>  
+      <a:commandButton action="#{historyAction.setHistoryId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"></a:commandButton>  
+      <s:button value="Export to Excel" action="#{historyList.exportToCsv}"/> 
+    </a:form>  
     <ui:include src="listHistoryComponent.xhtml"> 
       <ui:param name="records" value="#{historyList.resultList}"/> 
     </ui:include>  
@@ -13,7 +20,8 @@
       <s:button value="Create New" action="/admin/entities/appointment/history/editHistory.xhtml" propagation="none"> 
         <f:param name="historyId" value="0"/> 
       </s:button>  
-      <a:commandButton action="#{historyAction.setHistoryId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"></a:commandButton> 
+      <a:commandButton action="#{historyAction.setHistoryId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"></a:commandButton>  
+      <s:button value="Export to Excel" action="#{historyList.exportToCsv}"/> 
     </a:form>  
     <ui:include src="/admin/entities/appointment/history/modalDlgHistoryComponent.xhtml"> 
       <ui:param name="modalId" value="${modalId}"/> 

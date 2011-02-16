@@ -6,6 +6,13 @@
     <ui:include src="searchSeverity.xhtml"/>  
     <br/>  
     <br/>  
+    <a:form> 
+      <s:button value="Create New" action="/admin/entities/incidents/severity/editSeverity.xhtml" propagation="none"> 
+        <f:param name="severityId" value="0"/> 
+      </s:button>  
+      <a:commandButton action="#{severityAction.setSeverityId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"></a:commandButton>  
+      <s:button value="Export to Excel" action="#{severityList.exportToCsv}"/> 
+    </a:form>  
     <ui:include src="listSeverityComponent.xhtml"> 
       <ui:param name="records" value="#{severityList.resultList}"/> 
     </ui:include>  
@@ -13,7 +20,8 @@
       <s:button value="Create New" action="/admin/entities/incidents/severity/editSeverity.xhtml" propagation="none"> 
         <f:param name="severityId" value="0"/> 
       </s:button>  
-      <a:commandButton action="#{severityAction.setSeverityId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"></a:commandButton> 
+      <a:commandButton action="#{severityAction.setSeverityId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"></a:commandButton>  
+      <s:button value="Export to Excel" action="#{severityList.exportToCsv}"/> 
     </a:form>  
     <ui:include src="/admin/entities/incidents/severity/modalDlgSeverityComponent.xhtml"> 
       <ui:param name="modalId" value="${modalId}"/> 

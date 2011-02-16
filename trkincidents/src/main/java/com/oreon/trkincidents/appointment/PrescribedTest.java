@@ -29,13 +29,16 @@ import org.hibernate.search.annotations.TokenizerDef;
 import org.hibernate.search.annotations.ContainedIn;
 import org.hibernate.search.annotations.IndexedEmbedded;
 
+import org.hibernate.annotations.Filter;
+
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
+
 import org.jboss.seam.annotations.Name;
+
 import org.witchcraft.base.entity.BusinessEntity;
 import org.witchcraft.model.support.audit.Auditable;
 import org.witchcraft.base.entity.FileAttachment;
-import org.hibernate.annotations.Filter;
 
 import org.witchcraft.utils.*;
 
@@ -72,7 +75,9 @@ public class PrescribedTest extends BusinessEntity
 	}
 
 	public String getRemarks() {
+
 		return remarks;
+
 	}
 
 	public void setDxTest(DxTest dxTest) {
@@ -80,7 +85,9 @@ public class PrescribedTest extends BusinessEntity
 	}
 
 	public DxTest getDxTest() {
+
 		return dxTest;
+
 	}
 
 	public void setEncounter(Encounter encounter) {
@@ -88,7 +95,9 @@ public class PrescribedTest extends BusinessEntity
 	}
 
 	public Encounter getEncounter() {
+
 		return encounter;
+
 	}
 
 	@Transient

@@ -4,10 +4,13 @@
   <c:if test="${empty modalId}"> 
     <c:set var="modalId" value="AppointmentModalPanel"/> 
   </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="Appointment Search Results (#{empty records ? 0 : (appointmentList.paginated ? appointmentList.resultCount : records.size)})"/> 
+  </c:if>  
   <rich:panel> 
-    <f:facet name="header">Appointment Search Results (#{empty records ? 0 : (appointmentList.paginated ? appointmentList.resultCount : records.size)})</f:facet>  
+    <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
-      <rich:dataTable var="_appointment" value="#{records}" id="appointmentList" rowClasses="odd, even" styleClass="dataTable"> 
+      <rich:dataTable var="_appointment" value="#{records}" id="appointmentList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
         <h:column rendered="#{s:hasPermission('id', 'appointmentView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
@@ -50,7 +53,7 @@
               <ui:param name="propertyPath" value="appointment.patient"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_appointment.patient.displayName}" view="/admin/entities/patient/patient/viewPatient.xhtml" propagation="none"> 
+          <s:link value="#{_appointment.patient.displayName}" action="viewPatient" propagation="none"> 
             <f:param name="patientId" value="#{_appointment.patient.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/>  
             <rich:toolTip> 
@@ -66,7 +69,7 @@
               <ui:param name="propertyPath" value="appointment.remarks"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_appointment.remarks}"/> 
+          <h:outputText value="#{_appointment.remarks}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'appointmentView' )}"> 
           <f:facet name="header"> 
@@ -111,7 +114,7 @@
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
-          <a:commandLink action="#{appointmentAction.setAppointmentIdForModalDlg(_appointment.id)}" rendered="#{s:hasPermission(_appointment, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});"> 
+          <a:commandLink action="#{appointmentAction.setAppointmentIdForModalDlg(_appointment.id)}" rendered="#{s:hasPermission(_appointment, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" reRender="${modalId}"> 
             <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
             <s:conversationPropagation type="join"/> 
           </a:commandLink> 

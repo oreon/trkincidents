@@ -4,10 +4,13 @@
   <c:if test="${empty modalId}"> 
     <c:set var="modalId" value="FormFieldModalPanel"/> 
   </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="FormField Search Results (#{empty records ? 0 : (formFieldList.paginated ? formFieldList.resultCount : records.size)})"/> 
+  </c:if>  
   <rich:panel> 
-    <f:facet name="header">FormField Search Results (#{empty records ? 0 : (formFieldList.paginated ? formFieldList.resultCount : records.size)})</f:facet>  
+    <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
-      <rich:dataTable var="_formField" value="#{records}" id="formFieldList" rowClasses="odd, even" styleClass="dataTable"> 
+      <rich:dataTable var="_formField" value="#{records}" id="formFieldList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
         <h:column rendered="#{s:hasPermission('id', 'formFieldView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
@@ -26,7 +29,7 @@
               <ui:param name="propertyPath" value="formField.name"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_formField.name}"/> 
+          <h:outputText value="#{_formField.name}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('type', 'formFieldView'  )}"> 
           <f:facet name="header"> 
@@ -36,7 +39,7 @@
               <ui:param name="propertyPath" value="formField.type"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_formField.type}"/> 
+          <h:outputText value="#{_formField.type}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('required', 'formFieldView'  )}"> 
           <f:facet name="header"> 
@@ -56,7 +59,7 @@
               <ui:param name="propertyPath" value="formField.choiceValues"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_formField.choiceValues}"/> 
+          <h:outputText value="#{_formField.choiceValues}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'formFieldView' )}"> 
           <f:facet name="header"> 
@@ -101,7 +104,7 @@
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
-          <a:commandLink action="#{formFieldAction.setFormFieldIdForModalDlg(_formField.id)}" rendered="#{s:hasPermission(_formField, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});"> 
+          <a:commandLink action="#{formFieldAction.setFormFieldIdForModalDlg(_formField.id)}" rendered="#{s:hasPermission(_formField, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" reRender="${modalId}"> 
             <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
             <s:conversationPropagation type="join"/> 
           </a:commandLink> 

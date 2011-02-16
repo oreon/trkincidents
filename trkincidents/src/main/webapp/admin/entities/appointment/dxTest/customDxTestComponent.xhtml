@@ -7,16 +7,16 @@
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.dxTest_name} * " rendered="#{s:hasPermission('name', 'dxTestEdit')}"/>  
+        <h:outputText value="#{msg.dxTest_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'dxTestEdit')}"/>  
         <br/>  
         <h:inputText id="name" value="#{dxTestAction.dxTest.name}"/>  
-        <h:message styleClass="error errors" for="name" rendered="#{s:hasPermission('name', 'dxTestEdit')}"/> 
+        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'dxTestEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.dxTest_description}  " rendered="#{s:hasPermission('description', 'dxTestEdit')}"/>  
+        <h:outputText value="#{msg.dxTest_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'dxTestEdit')}"/>  
         <br/>  
-        <rich:editor useSeamText="true" id="description" value="#{dxTestAction.dxTest.description}"/>  
-        <h:message styleClass="error errors" for="description" rendered="#{s:hasPermission('description', 'dxTestEdit')}"/> 
+        <rich:editor id="description" value="#{dxTestAction.dxTest.description}"/>  
+        <rich:message styleClass="error errors" for="description" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'dxTestEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

@@ -6,7 +6,7 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.facility_name}  " rendered="#{s:hasPermission('name', 'facilityEdit')}"/>  
+      <h:outputText value="#{msg.facility_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'facilityEdit')}"/>  
       <br/>  
       <h:inputText id="name" value="#{facilityList.facility.name}"/> 
     </h:panelGroup> 
@@ -14,7 +14,7 @@
   <h:panelGrid columns="2"> 
     <h:outputText value="Creation Date From"/>  
     <h:outputText value="Creation Date To"/>  
-    <rich:calendar id="from" value="#{severityList.dateCreatedRange.begin}"/>  
-    <rich:calendar id="to" value="#{severityList.dateCreatedRange.end}"/> 
+    <rich:calendar id="from" value="#{facilityList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{facilityList.dateCreatedRange.end}"/> 
   </h:panelGrid> 
 </ui:composition>

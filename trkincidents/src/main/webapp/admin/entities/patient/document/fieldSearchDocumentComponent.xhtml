@@ -6,17 +6,17 @@
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.document_name} * " rendered="#{s:hasPermission('name', 'documentEdit')}"/>  
+      <h:outputText value="#{msg.document_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'documentEdit')}"/>  
       <br/>  
       <h:inputText id="name" value="#{documentList.document.name}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.document_notes}  " rendered="#{s:hasPermission('notes', 'documentEdit')}"/>  
+      <h:outputText value="#{msg.document_notes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('notes', 'documentEdit')}"/>  
       <br/>  
       <h:inputText id="notes" value="#{documentList.document.notes}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.document_patient}  " rendered="#{s:hasPermission('patient', 'documentEdit')}"/>  
+      <h:outputText value="#{msg.document_patient} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'documentEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="patient" value="#{ documentList.document.patient}"> 
         <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -27,7 +27,7 @@
   <h:panelGrid columns="2"> 
     <h:outputText value="Creation Date From"/>  
     <h:outputText value="Creation Date To"/>  
-    <rich:calendar id="from" value="#{severityList.dateCreatedRange.begin}"/>  
-    <rich:calendar id="to" value="#{severityList.dateCreatedRange.end}"/> 
+    <rich:calendar id="from" value="#{documentList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{documentList.dateCreatedRange.end}"/> 
   </h:panelGrid> 
 </ui:composition>

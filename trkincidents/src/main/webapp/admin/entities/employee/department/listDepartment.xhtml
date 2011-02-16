@@ -6,6 +6,13 @@
     <ui:include src="searchDepartment.xhtml"/>  
     <br/>  
     <br/>  
+    <a:form> 
+      <s:button value="Create New" action="/admin/entities/employee/department/editDepartment.xhtml" propagation="none"> 
+        <f:param name="departmentId" value="0"/> 
+      </s:button>  
+      <a:commandButton action="#{departmentAction.setDepartmentId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"></a:commandButton>  
+      <s:button value="Export to Excel" action="#{departmentList.exportToCsv}"/> 
+    </a:form>  
     <ui:include src="listDepartmentComponent.xhtml"> 
       <ui:param name="records" value="#{departmentList.resultList}"/> 
     </ui:include>  
@@ -13,7 +20,8 @@
       <s:button value="Create New" action="/admin/entities/employee/department/editDepartment.xhtml" propagation="none"> 
         <f:param name="departmentId" value="0"/> 
       </s:button>  
-      <a:commandButton action="#{departmentAction.setDepartmentId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"></a:commandButton> 
+      <a:commandButton action="#{departmentAction.setDepartmentId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"></a:commandButton>  
+      <s:button value="Export to Excel" action="#{departmentList.exportToCsv}"/> 
     </a:form>  
     <ui:include src="/admin/entities/employee/department/modalDlgDepartmentComponent.xhtml"> 
       <ui:param name="modalId" value="${modalId}"/> 

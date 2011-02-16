@@ -29,13 +29,16 @@ import org.hibernate.search.annotations.TokenizerDef;
 import org.hibernate.search.annotations.ContainedIn;
 import org.hibernate.search.annotations.IndexedEmbedded;
 
+import org.hibernate.annotations.Filter;
+
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
+
 import org.jboss.seam.annotations.Name;
+
 import org.witchcraft.base.entity.BusinessEntity;
 import org.witchcraft.model.support.audit.Auditable;
 import org.witchcraft.base.entity.FileAttachment;
-import org.hibernate.annotations.Filter;
 
 import org.witchcraft.utils.*;
 
@@ -67,7 +70,9 @@ public class ReferenceField extends BusinessEntity
 	}
 
 	public IncidentType getIncidentType() {
+
 		return incidentType;
+
 	}
 
 	public void setReferencesEntity(ReferenceEntity referencesEntity) {
@@ -75,7 +80,9 @@ public class ReferenceField extends BusinessEntity
 	}
 
 	public ReferenceEntity getReferencesEntity() {
+
 		return referencesEntity;
+
 	}
 
 	public void setRequired(Boolean required) {
@@ -83,7 +90,9 @@ public class ReferenceField extends BusinessEntity
 	}
 
 	public Boolean getRequired() {
+
 		return required;
+
 	}
 
 	@Transient

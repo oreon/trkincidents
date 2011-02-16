@@ -7,10 +7,10 @@
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.customForm_name} * " rendered="#{s:hasPermission('name', 'customFormEdit')}"/>  
+        <h:outputText value="#{msg.customForm_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'customFormEdit')}"/>  
         <br/>  
         <h:inputText id="name" value="#{customFormAction.customForm.name}"/>  
-        <h:message styleClass="error errors" for="name" rendered="#{s:hasPermission('name', 'customFormEdit')}"/> 
+        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'customFormEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

@@ -35,7 +35,14 @@ import org.jboss.seam.faces.FacesMessages;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.annotations.Observer;
 
+import org.witchcraft.base.entity.FileAttachment;
+
+import org.apache.commons.io.FileUtils;
+import org.richfaces.event.UploadEvent;
+import org.richfaces.model.UploadItem;
+
 import com.oreon.trkincidents.incidents.FormFieldInstance;
+import com.oreon.trkincidents.incidents.SupportingDocuments;
 
 public abstract class IncidentActionBase extends BaseAction<Incident>
 		implements
@@ -79,6 +86,7 @@ public abstract class IncidentActionBase extends BaseAction<Incident>
 	public void setIncidentId(Long id) {
 		if (id == 0) {
 			clearInstance();
+			clearLists();
 			loadAssociations();
 			return;
 		}
@@ -92,6 +100,7 @@ public abstract class IncidentActionBase extends BaseAction<Incident>
 	 */
 	public void setIncidentIdForModalDlg(Long id) {
 		setId(id);
+		clearLists();
 		loadAssociations();
 	}
 
@@ -327,6 +336,16 @@ public abstract class IncidentActionBase extends BaseAction<Incident>
 		return "success";
 	}
 
+	public void documentUploadListener(UploadEvent event) throws Exception {
+		UploadItem uploadItem = event.getUploadItem();
+		if (getInstance().getDocument() == null)
+			getInstance().setDocument(new FileAttachment());
+		getInstance().getDocument().setName(uploadItem.getFileName());
+		getInstance().getDocument().setContentType(uploadItem.getContentType());
+		getInstance().getDocument().setData(
+				FileUtils.readFileToByteArray(uploadItem.getFile()));
+	}
+
 	/** This function adds associated entities to an example criterion
 	 * @see org.witchcraft.model.support.dao.BaseAction#createExampleCriteria(java.lang.Object)
 	 */
@@ -425,6 +444,8 @@ public abstract class IncidentActionBase extends BaseAction<Incident>
 
 		initListFormFieldInstances();
 
+		initListSupportingDocumentses();
+
 	}
 
 	public void updateAssociations() {
@@ -469,6 +490,44 @@ public abstract class IncidentActionBase extends BaseAction<Incident>
 		getListFormFieldInstances().add(formFieldInstances);
 	}
 
+	protected List<com.oreon.trkincidents.incidents.SupportingDocuments> listSupportingDocumentses = new ArrayList<com.oreon.trkincidents.incidents.SupportingDocuments>();
+
+	void initListSupportingDocumentses() {
+
+		if (listSupportingDocumentses.isEmpty())
+			listSupportingDocumentses.addAll(getInstance()
+					.getSupportingDocumentses());
+
+	}
+
+	public List<com.oreon.trkincidents.incidents.SupportingDocuments> getListSupportingDocumentses() {
+
+		prePopulateListSupportingDocumentses();
+		return listSupportingDocumentses;
+	}
+
+	public void prePopulateListSupportingDocumentses() {
+	}
+
+	public void setListSupportingDocumentses(
+			List<com.oreon.trkincidents.incidents.SupportingDocuments> listSupportingDocumentses) {
+		this.listSupportingDocumentses = listSupportingDocumentses;
+	}
+
+	public void deleteSupportingDocumentses(int index) {
+		listSupportingDocumentses.remove(index);
+	}
+
+	@Begin(join = true)
+	public void addSupportingDocumentses() {
+		initListSupportingDocumentses();
+		SupportingDocuments supportingDocumentses = new SupportingDocuments();
+
+		supportingDocumentses.setIncident(getInstance());
+
+		getListSupportingDocumentses().add(supportingDocumentses);
+	}
+
 	public void updateComposedAssociations() {
 
 		if (listFormFieldInstances != null) {
@@ -476,10 +535,17 @@ public abstract class IncidentActionBase extends BaseAction<Incident>
 			getInstance().getFormFieldInstances()
 					.addAll(listFormFieldInstances);
 		}
+
+		if (listSupportingDocumentses != null) {
+			getInstance().getSupportingDocumentses().clear();
+			getInstance().getSupportingDocumentses().addAll(
+					listSupportingDocumentses);
+		}
 	}
 
 	public void clearLists() {
 		listFormFieldInstances.clear();
+		listSupportingDocumentses.clear();
 
 	}
 
