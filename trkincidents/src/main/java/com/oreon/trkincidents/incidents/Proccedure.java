@@ -48,7 +48,7 @@ import org.witchcraft.utils.*;
 @Name("proccedure")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
+@AnalyzerDef(name = "Proccedureanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
 public class Proccedure extends BusinessEntity implements java.io.Serializable {
@@ -58,11 +58,11 @@ public class Proccedure extends BusinessEntity implements java.io.Serializable {
 	@Length(min = 2, max = 250)
 	@Column(unique = true)
 	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "customanalyzer")
+	// @Analyzer(definition = "Proccedureanalyzer") 
 	protected String name;
 
 	@OneToMany(mappedBy = "proccedure", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "proccedure_ID", nullable = true)
+	//@JoinColumn(name = "proccedure_ID", nullable = true)
 	@OrderBy("dateCreated DESC")
 	@IndexedEmbedded
 	private Set<Incident> incidents = new HashSet<Incident>();

@@ -49,13 +49,13 @@ public class Person extends BusinessEntity {
 	@NotNull
 	@Length(min = 2, max = 250)
 	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "customanalyzer")
+	// @Analyzer(definition = "Personanalyzer") 
 	protected String firstName;
 
 	@NotNull
 	@Length(min = 2, max = 250)
 	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "customanalyzer")
+	// @Analyzer(definition = "Personanalyzer") 
 	protected String lastName;
 
 	public void setFirstName(String firstName) {

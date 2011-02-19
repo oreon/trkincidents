@@ -48,7 +48,7 @@ import org.witchcraft.utils.*;
 @Name("formField")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
+@AnalyzerDef(name = "FormFieldanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
 public class FormField extends BusinessEntity implements java.io.Serializable {
@@ -57,7 +57,7 @@ public class FormField extends BusinessEntity implements java.io.Serializable {
 	@NotNull
 	@Length(min = 2, max = 250)
 	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "customanalyzer")
+	// @Analyzer(definition = "FormFieldanalyzer") 
 	protected String name;
 
 	protected com.oreon.trkincidents.customforms.FieldType type;
@@ -65,7 +65,7 @@ public class FormField extends BusinessEntity implements java.io.Serializable {
 	protected Boolean required;
 
 	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "customanalyzer")
+	// @Analyzer(definition = "FormFieldanalyzer") 
 	protected String choiceValues;
 
 	public void setName(String name) {

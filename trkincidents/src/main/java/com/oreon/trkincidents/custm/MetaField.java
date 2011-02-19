@@ -1,11 +1,13 @@
 
 		package com.oreon.trkincidents.custm;
 		
-	import java.util.ArrayList;
-	import java.util.HashSet;
-	import java.util.List;
-	import java.util.Set;
-	import java.util.Date;
+	import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.ContainedIn;
+import org.hibernate.validator.Length;
 
 		
 	public class MetaField  {

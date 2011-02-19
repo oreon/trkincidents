@@ -48,7 +48,7 @@ import org.witchcraft.utils.*;
 @Name("supportingDocuments")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
+@AnalyzerDef(name = "SupportingDocumentsanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
 public class SupportingDocuments extends BusinessEntity
@@ -64,7 +64,7 @@ public class SupportingDocuments extends BusinessEntity
 	protected FileAttachment file = new FileAttachment();
 
 	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "customanalyzer")
+	// @Analyzer(definition = "SupportingDocumentsanalyzer") 
 	protected String title;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)

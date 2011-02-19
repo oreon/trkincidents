@@ -48,7 +48,7 @@ import org.witchcraft.utils.*;
 @Name("prescribedTest")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
+@AnalyzerDef(name = "PrescribedTestanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
 public class PrescribedTest extends BusinessEntity
@@ -57,7 +57,7 @@ public class PrescribedTest extends BusinessEntity
 	private static final long serialVersionUID = -1536758854L;
 
 	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "customanalyzer")
+	// @Analyzer(definition = "PrescribedTestanalyzer") 
 	protected String remarks;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)

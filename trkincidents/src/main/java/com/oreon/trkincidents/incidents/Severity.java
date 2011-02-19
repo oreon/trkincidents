@@ -48,7 +48,7 @@ import org.witchcraft.utils.*;
 @Name("severity")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
+@AnalyzerDef(name = "Severityanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
 public class Severity extends BusinessEntity implements java.io.Serializable {
@@ -58,7 +58,7 @@ public class Severity extends BusinessEntity implements java.io.Serializable {
 	@Length(min = 2, max = 250)
 	@Column(unique = true)
 	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "customanalyzer")
+	// @Analyzer(definition = "Severityanalyzer") 
 	protected String name;
 
 	public void setName(String name) {

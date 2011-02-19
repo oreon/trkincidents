@@ -48,7 +48,7 @@ import org.witchcraft.utils.*;
 @Name("patient")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
+@AnalyzerDef(name = "Patientanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
 public class Patient extends com.oreon.trkincidents.patient.Person
@@ -71,19 +71,19 @@ public class Patient extends com.oreon.trkincidents.patient.Person
 	protected Address address = new Address();
 
 	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "patient_ID", nullable = true)
+	//@JoinColumn(name = "patient_ID", nullable = true)
 	@OrderBy("dateCreated DESC")
 	@IndexedEmbedded
 	private Set<com.oreon.trkincidents.incidents.Incident> incidents = new HashSet<com.oreon.trkincidents.incidents.Incident>();
 
 	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "patient_ID", nullable = true)
+	//@JoinColumn(name = "patient_ID", nullable = true)
 	@OrderBy("dateCreated DESC")
 	@IndexedEmbedded
 	private Set<Document> documents = new HashSet<Document>();
 
 	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "customanalyzer")
+	// @Analyzer(definition = "Patientanalyzer") 
 	protected String healthNumber;
 
 	protected Date dateOfBirth;
@@ -160,7 +160,7 @@ public class Patient extends com.oreon.trkincidents.patient.Person
 			return DateUtils.calcAge(dateOfBirth);
 		} catch (Exception e) {
 
-			return 0.0;
+			return 0;
 
 		}
 

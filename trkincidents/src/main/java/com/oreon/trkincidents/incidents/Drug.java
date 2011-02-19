@@ -48,14 +48,14 @@ import org.witchcraft.utils.*;
 @Name("drug")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
+@AnalyzerDef(name = "Druganalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
 public class Drug extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = 857287701L;
 
 	@OneToMany(mappedBy = "drug", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "drug_ID", nullable = true)
+	//@JoinColumn(name = "drug_ID", nullable = true)
 	@OrderBy("dateCreated DESC")
 	@IndexedEmbedded
 	private Set<Incident> incidents = new HashSet<Incident>();
@@ -64,7 +64,7 @@ public class Drug extends BusinessEntity implements java.io.Serializable {
 	@Length(min = 2, max = 250)
 	@Column(unique = true)
 	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "customanalyzer")
+	// @Analyzer(definition = "Druganalyzer") 
 	protected String name;
 
 	public void setIncidents(Set<Incident> incidents) {

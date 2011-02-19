@@ -48,7 +48,7 @@ import org.witchcraft.utils.*;
 @Name("employee")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
+@AnalyzerDef(name = "Employeeanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
 public class Employee extends com.oreon.trkincidents.patient.Person
@@ -60,11 +60,11 @@ public class Employee extends com.oreon.trkincidents.patient.Person
 	@Length(min = 2, max = 250)
 	@Column(unique = true)
 	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "customanalyzer")
+	// @Analyzer(definition = "Employeeanalyzer") 
 	protected String employeeNumber;
 
 	@OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "createdBy_ID", nullable = true)
+	//@JoinColumn(name = "createdBy_ID", nullable = true)
 	@OrderBy("dateCreated DESC")
 	@IndexedEmbedded
 	private Set<com.oreon.trkincidents.incidents.Incident> incidentsCreated = new HashSet<com.oreon.trkincidents.incidents.Incident>();
@@ -80,7 +80,7 @@ public class Employee extends com.oreon.trkincidents.patient.Person
 	protected Department department;
 
 	@OneToMany(mappedBy = "responsibleEmployee", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "responsibleEmployee_ID", nullable = true)
+	//@JoinColumn(name = "responsibleEmployee_ID", nullable = true)
 	@OrderBy("dateCreated DESC")
 	@IndexedEmbedded
 	private Set<com.oreon.trkincidents.incidents.Incident> incidentsResponsibleFor = new HashSet<com.oreon.trkincidents.incidents.Incident>();

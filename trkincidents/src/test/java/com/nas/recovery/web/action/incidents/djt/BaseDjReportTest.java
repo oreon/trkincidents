@@ -55,7 +55,7 @@ import ar.com.fdvs.dj.core.layout.LayoutManager;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.util.SortUtils;
 
-public abstract class BaseDjReportTest extends TestCase {
+public abstract class BaseDjReportTest  {
 
 	public Map getParams() {
 		return params;

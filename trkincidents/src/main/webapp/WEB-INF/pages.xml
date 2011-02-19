@@ -1433,6 +1433,7 @@
     <param name="filledForm" value="#{filledFieldList.filledField.filledForm.id}" validateModel="false"/>  
     <param name="value" value="#{filledFieldList.filledField.value}" validateModel="false"/> 
   </page>  
+  <!--PROTECTED REGION ID(USER_EDITABLE_XCPT) ENABLED START-->  
   <exception class="org.jboss.seam.framework.EntityNotFoundException"> 
     <redirect view-id="/error.xhtml"> 
       <message severity="warn">Record not found</message> 
@@ -1476,5 +1477,6 @@
     <redirect view-id="/error.xhtml"> 
       <message severity="error">Unexpected error, please try again</message> 
     </redirect> 
-  </exception> 
+  </exception>  
+  <!--PROTECTED REGION END--> 
 </pages>

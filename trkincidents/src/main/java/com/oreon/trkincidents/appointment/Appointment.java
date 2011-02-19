@@ -48,7 +48,7 @@ import org.witchcraft.utils.*;
 @Name("appointment")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
+@AnalyzerDef(name = "Appointmentanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
 public class Appointment extends BusinessEntity implements java.io.Serializable {
@@ -67,7 +67,7 @@ public class Appointment extends BusinessEntity implements java.io.Serializable 
 
 	@Lob
 	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "customanalyzer")
+	// @Analyzer(definition = "Appointmentanalyzer") 
 	protected String remarks;
 
 	public void setStart(Date start) {

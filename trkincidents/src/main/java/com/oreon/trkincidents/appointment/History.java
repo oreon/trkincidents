@@ -48,7 +48,7 @@ import org.witchcraft.utils.*;
 @Name("history")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
+@AnalyzerDef(name = "Historyanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
 public class History extends BusinessEntity implements java.io.Serializable {
@@ -60,7 +60,7 @@ public class History extends BusinessEntity implements java.io.Serializable {
 	protected Encounter encounter;
 
 	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "customanalyzer")
+	// @Analyzer(definition = "Historyanalyzer") 
 	protected String history;
 
 	public void setEncounter(Encounter encounter) {

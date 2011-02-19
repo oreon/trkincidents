@@ -48,14 +48,14 @@ import org.witchcraft.utils.*;
 @Name("encounter")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
+@AnalyzerDef(name = "Encounteranalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
 public class Encounter extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -2016546332L;
 
 	@OneToMany(mappedBy = "encounter", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "encounter_ID", nullable = true)
+	//@JoinColumn(name = "encounter_ID", nullable = true)
 	@OrderBy("dateCreated DESC")
 	@IndexedEmbedded
 	private Set<History> historys = new HashSet<History>();
@@ -67,11 +67,11 @@ public class Encounter extends BusinessEntity implements java.io.Serializable {
 
 	@Lob
 	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "customanalyzer")
+	// @Analyzer(definition = "Encounteranalyzer") 
 	protected String notes;
 
 	@OneToMany(mappedBy = "encounter", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "encounter_ID", nullable = true)
+	//@JoinColumn(name = "encounter_ID", nullable = true)
 	@OrderBy("dateCreated DESC")
 	@IndexedEmbedded
 	private Set<PrescribedTest> prescribedTests = new HashSet<PrescribedTest>();

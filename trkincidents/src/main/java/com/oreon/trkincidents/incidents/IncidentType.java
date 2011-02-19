@@ -48,7 +48,7 @@ import org.witchcraft.utils.*;
 @Name("incidentType")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
+@AnalyzerDef(name = "IncidentTypeanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
 public class IncidentType extends BusinessEntity
@@ -60,17 +60,17 @@ public class IncidentType extends BusinessEntity
 	@Length(min = 2, max = 250)
 	@Column(unique = true)
 	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "customanalyzer")
+	// @Analyzer(definition = "IncidentTypeanalyzer") 
 	protected String name;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "incidentType_ID", nullable = true)
+	//@JoinColumn(name = "incidentType_ID", nullable = true)
 	@OrderBy("dateCreated DESC")
 	@IndexedEmbedded
 	private Set<FormField> formFields = new HashSet<FormField>();
 
 	@OneToMany(mappedBy = "incidentType", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "incidentType_ID", nullable = true)
+	//@JoinColumn(name = "incidentType_ID", nullable = true)
 	@OrderBy("dateCreated DESC")
 	@IndexedEmbedded
 	private Set<ReferenceField> referenceFields = new HashSet<ReferenceField>();

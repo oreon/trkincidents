@@ -48,7 +48,7 @@ import org.witchcraft.utils.*;
 @Name("filledForm")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
+@AnalyzerDef(name = "FilledFormanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
 public class FilledForm extends BusinessEntity implements java.io.Serializable {
@@ -60,7 +60,7 @@ public class FilledForm extends BusinessEntity implements java.io.Serializable {
 	protected CustomForm customForm;
 
 	@OneToMany(mappedBy = "filledForm", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "filledForm_ID", nullable = true)
+	//@JoinColumn(name = "filledForm_ID", nullable = true)
 	@OrderBy("dateCreated DESC")
 	@IndexedEmbedded
 	private Set<FilledField> filledFields = new HashSet<FilledField>();

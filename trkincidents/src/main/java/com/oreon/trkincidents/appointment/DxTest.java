@@ -48,7 +48,7 @@ import org.witchcraft.utils.*;
 @Name("dxTest")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
+@AnalyzerDef(name = "DxTestanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
 public class DxTest extends BusinessEntity implements java.io.Serializable {
@@ -57,12 +57,12 @@ public class DxTest extends BusinessEntity implements java.io.Serializable {
 	@NotNull
 	@Length(min = 2, max = 250)
 	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "customanalyzer")
+	// @Analyzer(definition = "DxTestanalyzer") 
 	protected String name;
 
 	@Lob
 	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "customanalyzer")
+	// @Analyzer(definition = "DxTestanalyzer") 
 	protected String description;
 
 	public void setName(String name) {

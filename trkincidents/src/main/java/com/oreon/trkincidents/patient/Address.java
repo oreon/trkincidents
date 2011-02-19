@@ -48,19 +48,19 @@ public class Address implements java.io.Serializable {
 	private static final long serialVersionUID = -855511539L;
 
 	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "customanalyzer")
+	// @Analyzer(definition = "Addressanalyzer") 
 	protected String streetAddress;
 
 	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "customanalyzer")
+	// @Analyzer(definition = "Addressanalyzer") 
 	protected String city;
 
 	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "customanalyzer")
+	// @Analyzer(definition = "Addressanalyzer") 
 	protected String State;
 
 	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "customanalyzer")
+	// @Analyzer(definition = "Addressanalyzer") 
 	protected String phone;
 
 	public void setStreetAddress(String streetAddress) {
