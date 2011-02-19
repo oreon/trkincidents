@@ -6,9 +6,12 @@
 	xmlns:persistence="http://jboss.com/products/seam/persistence"
 	xmlns:transaction="http://jboss.com/products/seam/transaction"
 	xmlns:navigation="http://jboss.com/products/seam/navigation"
+	xmlns:async="http://jboss.com/products/seam/async"
 	xsi:schemaLocation="http://jboss.com/products/seam/core 
  					http://jboss.com/products/seam/core-2.0.xsd   
  					http://jboss.com/products/seam/transaction 
+ 					http://jboss.com/products/seam/async-2.0.xsd   
+ 					http://jboss.com/products/seam/async 
  					http://jboss.com/products/seam/transaction-2.0.xsd      
  					http://jboss.com/products/seam/security 
  					http://jboss.com/products/seam/security-2.0.xsd      
@@ -67,6 +70,9 @@
 			<value>/permissions/security.drl</value>
 		</drools:rule-files>
 	</drools:rule-base>
+	
+	
+	<async:quartz-dispatcher />
 
 
 	<event type="org.jboss.seam.security.notLoggedIn">

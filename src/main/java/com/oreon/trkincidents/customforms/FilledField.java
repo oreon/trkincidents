@@ -48,7 +48,7 @@ import org.witchcraft.utils.*;
 @Name("filledField")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
+@AnalyzerDef(name = "FilledFieldanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
 public class FilledField extends BusinessEntity implements java.io.Serializable {
@@ -65,7 +65,7 @@ public class FilledField extends BusinessEntity implements java.io.Serializable 
 	protected FilledForm filledForm;
 
 	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "customanalyzer")
+	// @Analyzer(definition = "FilledFieldanalyzer") 
 	protected String value;
 
 	public void setCustomField(CustomField customField) {

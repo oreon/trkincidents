@@ -1,11 +1,17 @@
 
 		package com.oreon.trkincidents.custm;
 		
-	import java.util.ArrayList;
 	import java.util.HashSet;
-	import java.util.List;
-	import java.util.Set;
-	import java.util.Date;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+
+import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.IndexedEmbedded;
+import org.hibernate.validator.Length;
 
 		
 	public class MetaEntity  {

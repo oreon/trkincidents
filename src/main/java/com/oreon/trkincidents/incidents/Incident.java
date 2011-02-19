@@ -48,7 +48,7 @@ import org.witchcraft.utils.*;
 @Name("incident")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
+@AnalyzerDef(name = "Incidentanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
 public class Incident extends BusinessEntity implements java.io.Serializable {
@@ -62,7 +62,7 @@ public class Incident extends BusinessEntity implements java.io.Serializable {
 	@NotNull
 	@Length(min = 2, max = 250)
 	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "customanalyzer")
+	// @Analyzer(definition = "Incidentanalyzer") 
 	protected String title;
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -84,7 +84,7 @@ public class Incident extends BusinessEntity implements java.io.Serializable {
 	protected Date dateOfIncident = new Date();;
 
 	@OneToMany(mappedBy = "incident", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "incident_ID", nullable = true)
+	//@JoinColumn(name = "incident_ID", nullable = true)
 	@OrderBy("dateCreated DESC")
 	@IndexedEmbedded
 	private Set<FormFieldInstance> formFieldInstances = new HashSet<FormFieldInstance>();
@@ -118,7 +118,7 @@ public class Incident extends BusinessEntity implements java.io.Serializable {
 
 	@Lob
 	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "customanalyzer")
+	// @Analyzer(definition = "Incidentanalyzer") 
 	protected String description;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -127,7 +127,7 @@ public class Incident extends BusinessEntity implements java.io.Serializable {
 	protected Severity severity;
 
 	@OneToMany(mappedBy = "incident", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "incident_ID", nullable = true)
+	//@JoinColumn(name = "incident_ID", nullable = true)
 	@OrderBy("dateCreated DESC")
 	@IndexedEmbedded
 	private Set<SupportingDocuments> supportingDocumentses = new HashSet<SupportingDocuments>();

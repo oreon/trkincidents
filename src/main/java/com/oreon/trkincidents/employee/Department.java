@@ -48,7 +48,7 @@ import org.witchcraft.utils.*;
 @Name("department")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
+@AnalyzerDef(name = "Departmentanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
 public class Department extends BusinessEntity implements java.io.Serializable {
@@ -58,17 +58,17 @@ public class Department extends BusinessEntity implements java.io.Serializable {
 	@Length(min = 2, max = 250)
 	@Column(unique = true)
 	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "customanalyzer")
+	// @Analyzer(definition = "Departmentanalyzer") 
 	protected String name;
 
 	@OneToMany(mappedBy = "department", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "department_ID", nullable = true)
+	//@JoinColumn(name = "department_ID", nullable = true)
 	@OrderBy("dateCreated DESC")
 	@IndexedEmbedded
 	private Set<Employee> employees = new HashSet<Employee>();
 
 	@OneToMany(mappedBy = "department", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "department_ID", nullable = true)
+	//@JoinColumn(name = "department_ID", nullable = true)
 	@OrderBy("dateCreated DESC")
 	@IndexedEmbedded
 	private Set<com.oreon.trkincidents.incidents.Incident> incidents = new HashSet<com.oreon.trkincidents.incidents.Incident>();

@@ -48,23 +48,23 @@ public class ContactDetails implements java.io.Serializable {
 	private static final long serialVersionUID = -1074994696L;
 
 	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "customanalyzer")
+	// @Analyzer(definition = "ContactDetailsanalyzer") 
 	protected String primaryPhone;
 
 	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "customanalyzer")
+	// @Analyzer(definition = "ContactDetailsanalyzer") 
 	protected String secondaryPhone;
 
 	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "customanalyzer")
+	// @Analyzer(definition = "ContactDetailsanalyzer") 
 	protected String streetAddress;
 
 	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "customanalyzer")
+	// @Analyzer(definition = "ContactDetailsanalyzer") 
 	protected String city;
 
 	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "customanalyzer")
+	// @Analyzer(definition = "ContactDetailsanalyzer") 
 	protected String zip;
 
 	public void setPrimaryPhone(String primaryPhone) {

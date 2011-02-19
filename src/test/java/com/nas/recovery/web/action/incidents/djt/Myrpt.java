@@ -58,8 +58,8 @@ public class Myrpt extends BaseReportsTest {
 		oddRowStyle.setBorder(Border.NO_BORDER);
 		oddRowStyle.setBackgroundColor(Color.LIGHT_GRAY);
 		oddRowStyle.setTransparency(Transparency.OPAQUE);
-       7jhf=]ohyfew2qqqqqqqqqqqqqqqqqp[[[[
-                                          DynamicReportBuilder drb = new DynamicReportBuilder();
+  
+        DynamicReportBuilder drb = new DynamicReportBuilder();
 		int margin = 20;
 		drb
 				.setTitleStyle(titleStyle)

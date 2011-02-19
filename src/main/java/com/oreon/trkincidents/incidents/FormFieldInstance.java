@@ -48,7 +48,7 @@ import org.witchcraft.utils.*;
 @Name("formFieldInstance")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@AnalyzerDef(name = "customanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
+@AnalyzerDef(name = "FormFieldInstanceanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
 		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
 public class FormFieldInstance extends BusinessEntity
@@ -57,7 +57,7 @@ public class FormFieldInstance extends BusinessEntity
 	private static final long serialVersionUID = 1050165182L;
 
 	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "customanalyzer")
+	// @Analyzer(definition = "FormFieldInstanceanalyzer") 
 	protected String value;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -78,7 +78,7 @@ public class FormFieldInstance extends BusinessEntity
 
 	@Lob
 	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "customanalyzer")
+	// @Analyzer(definition = "FormFieldInstanceanalyzer") 
 	protected String description;
 
 	public void setValue(String value) {
