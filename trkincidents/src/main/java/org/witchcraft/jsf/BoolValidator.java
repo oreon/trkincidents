@@ -7,7 +7,7 @@ import javax.faces.validator.ValidatorException;
 
 public class BoolValidator implements Validator{
 
-	@Override
+	//@Override
 	public void validate(FacesContext arg0, UIComponent arg1, Object arg2)
 			throws ValidatorException {
 		// TODO Auto-generated method stub
