@@ -133,9 +133,17 @@
 			<artifactId>jboss-seam-debug</artifactId>
 			<version>${seam.debug.version}</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate</artifactId>
+			<artifactId>hibernate-distribution</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+		
+	<!-- 
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
 			<version>${hibernate.version}</version>
 		</dependency>
 		<dependency>
@@ -173,6 +181,7 @@
 			<artifactId>lucene-snowball</artifactId>
 			<version>2.4.0</version>
 		</dependency>
+	 -->
 
 		<dependency>
 			<groupId>org.jsoup</groupId>
@@ -458,7 +467,7 @@
 		<repository>
 			<id>jboss-repo</id>
 			<name>JBoss Maven 2 repo</name>
-			<url>http://repository.jboss.org/maven2/</url>
+			<url>https://repository.jboss.org/nexus/content/repositories/releases/</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
@@ -484,18 +493,18 @@
 	</pluginRepositories>
 
 	<properties>
-		<seam.version>2.2.0.GA</seam.version>
-		<seam.ui.version>2.2.0.GA</seam.ui.version>
-		<seam.debug.version>2.2.0.GA</seam.debug.version>
+		<seam.version>2.2.1.Final</seam.version>
+		<seam.ui.version>2.2.1.Final</seam.ui.version>
+		<seam.debug.version>2.2.1.Final</seam.debug.version>
 		<jboss.el.version>1.0_02.CR4</jboss.el.version>
 		<richfaces.api.version>3.3.3.Final</richfaces.api.version>
 		<richfaces.impl.version>3.3.3.Final</richfaces.impl.version>
 		<richfaces.ui.version>3.3.3.Final</richfaces.ui.version>
-		<hibernate.version>3.2.4.sp1</hibernate.version>
-		<hibernate.validator.version>3.0.0.GA</hibernate.validator.version>
-		<hibernate.annotations.version>3.4.0.GA</hibernate.annotations.version>
-		<hibernate.entitymanager.version>3.4.0.GA</hibernate.entitymanager.version>
-		<hibernate.search.version>3.1.0.GA</hibernate.search.version>
+		<hibernate.version>3.5.4-Final</hibernate.version>
+		<hibernate.validator.version>4.1.0.Final</hibernate.validator.version>
+		<hibernate.annotations.version>3.5.6-Final</hibernate.annotations.version>
+		<hibernate.entitymanager.version>3.5.6-Final</hibernate.entitymanager.version>
+		<hibernate.search.version>3.3.0.Final</hibernate.search.version>
 		<release-plugin-version>2.0-beta-7</release-plugin-version>
 		<maven-compiler-plugin>2.0.2</maven-compiler-plugin>
 		<maven-surefire-version>2.4.3</maven-surefire-version>
