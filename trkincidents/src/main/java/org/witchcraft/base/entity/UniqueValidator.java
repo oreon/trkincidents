@@ -7,6 +7,7 @@ import javax.persistence.Query;
 
 import org.hibernate.mapping.Property;
 import org.hibernate.validator.PropertyConstraint;
+import org.hibernate.validator.Validator;
 import org.jboss.seam.Component;
 import org.jboss.seam.annotations.Name;
 import org.witchcraft.seam.action.BaseAction;
