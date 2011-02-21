@@ -146,5 +146,27 @@
   <!--  FilledField  JPA Configurations -->  
   <entity class="com.oreon.trkincidents.customforms.FilledField" name="FilledField"> 
     <table name="filledfield"></table> 
+  </entity>  
+  <!--  CustomReport  JPA Configurations -->  
+  <entity class="com.oreon.trkincidents.custm.CustomReport" name="CustomReport"> 
+    <table name="customreport"></table>  
+    <named-query name="customReport.findByUnqName"> 
+      <query> <![CDATA[
+			select u from CustomReport u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  MetaEntity  JPA Configurations -->  
+  <entity class="com.oreon.trkincidents.custm.MetaEntity" name="MetaEntity"> 
+    <table name="metaentity"></table>  
+    <named-query name="metaEntity.findByUnqName"> 
+      <query> <![CDATA[
+			select u from MetaEntity u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  MetaField  JPA Configurations -->  
+  <entity class="com.oreon.trkincidents.custm.MetaField" name="MetaField"> 
+    <table name="metafield"></table> 
   </entity> 
 </entity-mappings>

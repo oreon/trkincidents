@@ -253,7 +253,7 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 	}
 
 	@SuppressWarnings("unchecked")
-	@Begin(join=true)
+	@Begin(join = true)
 	public String textSearch() {
 
 		BusinessEntity businessEntity = null;
@@ -266,10 +266,11 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
-		List<String> listSearchableFields = businessEntity.listSearchableFields();
- 
-		if ( listSearchableFields == null) {
+
+		List<String> listSearchableFields = businessEntity
+				.listSearchableFields();
+
+		if (listSearchableFields == null) {
 			throw new RuntimeException(
 					businessEntity.getClass().getSimpleName()
 							+ " needs to override retrieveSearchableFieldsArray method ");
@@ -277,45 +278,45 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 
 		String[] arrFields = new String[listSearchableFields.size()];
 		listSearchableFields.toArray(arrFields);
-		
-		MultiFieldQueryParser parser = 
-			new MultiFieldQueryParser(Version.LUCENE_30,  arrFields, 
-					entityManager.getSearchFactory().getAnalyzer("Incidentanalyzer"));
+
+		MultiFieldQueryParser parser = new MultiFieldQueryParser(
+				Version.LUCENE_30, arrFields, entityManager.getSearchFactory()
+						.getAnalyzer("Incidentanalyzer"));
 
 		org.apache.lucene.search.Query query = null;
 
 		try {
-			if(searchText == null)
+			if (searchText == null)
 				searchText = textToSearch;
-			if(searchText == null)
+			if (searchText == null)
 				searchText = "";
 			query = parser.parse(searchText);
 		} catch (ParseException e) {
 			throw new RuntimeException(e);
 		}
-		
+
 		QueryScorer scorer = new QueryScorer(query, "description");
-	    // Highlight using a CSS style    
-	    SimpleHTMLFormatter formatter = new SimpleHTMLFormatter("<span style='color:red;'>", "</span>");
-	    Highlighter highlighter = new Highlighter(formatter, scorer);
-	    highlighter.setTextFragmenter(new SimpleSpanFragmenter(scorer, 100));
-	 
-		FullTextQuery ftq = entityManager.createFullTextQuery(query, getEntityClass());
+		// Highlight using a CSS style
+		SimpleHTMLFormatter formatter = new SimpleHTMLFormatter(
+				"<span style='color:red;'>", "</span>");
+		Highlighter highlighter = new Highlighter(formatter, scorer);
+		highlighter.setTextFragmenter(new SimpleSpanFragmenter(scorer, 100));
+
+		FullTextQuery ftq = entityManager.createFullTextQuery(query,
+				getEntityClass());
 
 		List<E> result = ftq.getResultList();
 		for (E e : result) {
-			   try {
-				System.out.println(highlighter.getBestFragment(entityManager.getSearchFactory().getAnalyzer("Incidentanalyzer"), "description", ((Incident)e).getDescription()));
+			try {
+				String fragment = (highlighter.getBestFragment(entityManager
+						.getSearchFactory().getAnalyzer("Incidentanalyzer"),
+						"description", ((Incident) e).getDescription()));
+				e.setHiglightedFragment(fragment);
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
-			} 
-			
+			}
 		}
-		
-		   
 
-		
 		setEntityList(result);
 		return "textSearch";
 	}

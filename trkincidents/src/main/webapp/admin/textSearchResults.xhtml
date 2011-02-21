@@ -1,6 +1,5 @@
 
-<ui:composition 
- xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
@@ -8,27 +7,29 @@
 	xmlns:a="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:c="http://java.sun.com/jstl/core"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
-	template = "/admin/template.xhtml" >	
+	template="/admin/template.xhtml">
 	<ui:define name="content">
-	<h:form>
-	
-	<!-- 
-	<ui:repeat var="issue" value="#{issueList.entityList}">
-		${issue.title}
-		<br/>
-		${issue.description}
-		<hr/>
-	</ui:repeat>
-	 -->
-	
-	 <ui:include src="/admin/entities/incidents/incident/listIncidentComponent.xhtml"> 
-      <ui:param name="records" value="#{issueList.entityList}"/> 
-    </ui:include>  
-	
-	
-	</h:form>
-	</ui:define> 
+		<h:form>
+
+
+			<ui:repeat var="issue" value="#{issueList.entityList}">
+				<s:link value="${issue.title}" action="viewIssue">
+					<f:param name="issueId" value="${issue.id}" />
+				</s:link>
+				<br />
+		${issue.higlightedFragment}
+		<hr />
+			</ui:repeat>
+
+
+			<ui:include
+				src="/admin/entities/incidents/incident/listIncidentComponent.xhtml">
+				<ui:param name="records" value="#{issueList.entityList}" />
+			</ui:include>
+
+
+		</h:form>
+	</ui:define>
 </ui:composition>
-	

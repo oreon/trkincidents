@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
+  <ui:define name="content"> 
+    <c:set var="modalId" value="MetaFieldModalPanel-MetaField"/>  
+    <ui:include src="searchMetaField.xhtml"/>  
+    <br/>  
+    <br/>  
+    <a:form> 
+      <s:button value="Create New" action="/admin/entities/custm/metaField/editMetaField.xhtml" propagation="none"> 
+        <f:param name="metaFieldId" value="0"/> 
+      </s:button>  
+      <a:commandButton action="#{metaFieldAction.setMetaFieldId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"></a:commandButton>  
+      <s:button value="Export to Excel" action="#{metaFieldList.exportToCsv}"/> 
+    </a:form>  
+    <ui:include src="listMetaFieldComponent.xhtml"> 
+      <ui:param name="records" value="#{metaFieldList.resultList}"/> 
+    </ui:include>  
+    <a:form> 
+      <s:button value="Create New" action="/admin/entities/custm/metaField/editMetaField.xhtml" propagation="none"> 
+        <f:param name="metaFieldId" value="0"/> 
+      </s:button>  
+      <a:commandButton action="#{metaFieldAction.setMetaFieldId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"></a:commandButton>  
+      <s:button value="Export to Excel" action="#{metaFieldList.exportToCsv}"/> 
+    </a:form>  
+    <ui:include src="/admin/entities/custm/metaField/modalDlgMetaFieldComponent.xhtml"> 
+      <ui:param name="modalId" value="${modalId}"/> 
+    </ui:include> 
+  </ui:define> 
+</ui:composition>

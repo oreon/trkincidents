@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{customReportAction.load(customReportId )  }"> 
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{customReportAction.customReport.id}"/>  
+        <h:outputText value="#{msg.customReport_metaEntity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaEntity', 'customReportView')}"/>  
+        <s:link value="#{customReportAction.customReport.metaEntity.displayName}" view="/admin/entities/custm/metaEntity/viewMetaEntity.xhtml" propagation="none"> 
+          <f:param name="metaEntityId" value="#{customReportAction.customReport.metaEntity.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.customReport_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'customReportView')}"/>  
+        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'customReportView')}" value="#{customReportAction.customReport.name}"></h:outputText> 
+      </h:panelGrid>  
+      <br/>  
+      <rich:simpleTogglePanel label="#{msg.customReport_fields}" switchType="client"> 
+        <rich:dataTable value="#{customReportAction.listFields}" var="item"> 
+          <rich:column>#{item.displayName}</rich:column> 
+        </rich:dataTable> 
+      </rich:simpleTogglePanel>  
+      <br/>  
+      <rich:simpleTogglePanel label="#{msg.customReport_groupFields}" switchType="client"> 
+        <rich:dataTable value="#{customReportAction.listGroupFields}" var="item"> 
+          <rich:column>#{item.displayName}</rich:column> 
+        </rich:dataTable> 
+      </rich:simpleTogglePanel> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>
