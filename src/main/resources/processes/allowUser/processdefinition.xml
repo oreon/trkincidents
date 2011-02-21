@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<process-definition name="allowUser">  
+  <swimlane name=""> 
+    <assignment class="com.nas.recovery.web.action.workflowmgt.allowUser.assign.Assignment"/> 
+  </swimlane>  
+  <swimlane name="decisionMaker"> 
+    <assignment pooled-actors="admin"/> 
+  </swimlane>  
+  <start-state name=""> 
+    <task name="" swimlane=""></task>  
+    <transition to="reviewUserJoinRequest" name="proceedToReviewUserJoinRequest"></transition> 
+  </start-state>  
+  <task-node name="reviewUserJoinRequest"> 
+    <task name="reviewUserJoinRequest" swimlane="decisionMaker" notify="false"></task>  
+    <transition to="endState2" name="allow"> 
+      <action expression="#{#{userAction.enableUser}}"/> 
+    </transition>  
+    <transition to="endState3" name="disallow"></transition> 
+  </task-node>  
+  <end-state name="endState2"/>  
+  <end-state name="endState3"/> 
+</process-definition>

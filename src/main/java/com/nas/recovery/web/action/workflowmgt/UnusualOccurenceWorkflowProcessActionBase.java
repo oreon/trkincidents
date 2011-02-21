@@ -24,12 +24,12 @@ public class UnusualOccurenceWorkflowProcessActionBase
 
 	}
 
-	@EndTask(transition = "requestMoreInfo")
-	public void requestMoreInfoReviewOccurence() {
-
-	}
 	@EndTask(transition = "closeOccurence")
 	public void closeOccurenceReviewOccurence() {
+
+	}
+	@EndTask(transition = "requestMoreInfo")
+	public void requestMoreInfoReviewOccurence() {
 
 	}
 

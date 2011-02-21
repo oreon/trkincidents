@@ -85,6 +85,15 @@ http://cxf.apache.org/simple http://cxf.apache.org/schemas/simple.xsd">
 		<jaxws:endpoint id="filledFieldWebSvc"  implementor="com.nas.recovery.websvc.customforms.FilledFieldWebServiceImpl"
 	 	address="/filledFieldService" />
 	
+		<jaxws:endpoint id="customReportWebSvc"  implementor="com.nas.recovery.websvc.custm.CustomReportWebServiceImpl"
+	 	address="/customReportService" />
+	
+		<jaxws:endpoint id="metaEntityWebSvc"  implementor="com.nas.recovery.websvc.custm.MetaEntityWebServiceImpl"
+	 	address="/metaEntityService" />
+	
+		<jaxws:endpoint id="metaFieldWebSvc"  implementor="com.nas.recovery.websvc.custm.MetaFieldWebServiceImpl"
+	 	address="/metaFieldService" />
+	
     
 </beans>
 	

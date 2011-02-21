@@ -48,6 +48,9 @@ public class BusinessEntity implements Serializable{
     @Column(name="date_created")
     private Date dateCreated;
     
+    @Transient
+    private String higlightedFragment;
+    
      
     @ManyToOne(optional=true, fetch=FetchType.LAZY)
     @JoinColumn(name="created_by_user_id", nullable=true)
@@ -120,6 +123,8 @@ public class BusinessEntity implements Serializable{
     public String getDisplayName(){
     	return toString();
     }
+   
+    
     
     
 	public List<String> listSearchableFields() {
@@ -147,5 +152,13 @@ public class BusinessEntity implements Serializable{
 			ret.append(businessEntity.getDisplayName() + "; ");
 		}
 		return ret.toString();
+	}
+
+	public void setHiglightedFragment(String higlightedFragment) {
+		this.higlightedFragment = higlightedFragment;
+	}
+
+	public String getHiglightedFragment() {
+		return higlightedFragment;
 	}
 }

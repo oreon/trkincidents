@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{metaEntityAction.load(metaEntityId )  }"> 
+        <h:outputText value="#{msg.metaEntity_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'metaEntityEdit')}"/>  
+        <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'metaEntityEdit')}" label="#{msg.metaEntity_name}" required="true" value="#{metaEntityAction.metaEntity.name}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'metaEntityEdit')}"/> 
+      </h:panelGrid>  
+      <a:commandButton value="New MetaField" action="#{metaEntityAction.addMetaFields}" reRender="metaFields" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaFields', 'metaEntityEdit')}"> 
+        <s:conversationId/> 
+      </a:commandButton>  
+      <rich:dataTable id="metaFields" var="_metaField" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaFields', 'metaEntityEdit')}" value="#{metaEntityAction.listMetaFields}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.metaField_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'metaFieldEdit')}"/>
+          </f:facet>  
+          <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'metaFieldEdit')}" label="#{msg.metaField_name}" required="true" value="#{_metaField.name}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText>  
+          <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'metaFieldEdit')}"/> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="New MetaField" action="#{metaEntityAction.addMetaFields}" reRender="metaFields" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaFields', 'metaFieldEdit')}"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="Delete" immediate="true" action="#{metaEntityAction.deleteMetaFields(rowIndex)}" reRender="metaFields"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column> 
+      </rich:dataTable> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

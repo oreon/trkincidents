@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{metaEntityAction.load(metaEntityId )  }"> 
+        <h:outputText value="#{msg.id}"/>  
+        <h:outputText value="#{metaEntityAction.metaEntity.id}"/>  
+        <h:outputText value="#{msg.metaEntity_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'metaEntityView')}"/>  
+        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'metaEntityView')}" value="#{metaEntityAction.metaEntity.name}"></h:outputText> 
+      </h:panelGrid>  
+      <rich:dataTable id="metaFields" var="_metaField" rendered="#{not empty metaEntityAction.listMetaFields and skipPermissionCheck == 'true' || s:hasPermission('metaFields', 'metaEntityView') }" value="#{metaEntityAction.listMetaFields}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+        <h:column style="text-align:right">
+          <f:facet name="header">
+            <h:outputText value="#{msg.metaField_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'metaFieldView')}"/>
+          </f:facet>  
+          <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'metaFieldView')}" value="#{_metaField.name}"></h:outputText> 
+        </h:column> 
+      </rich:dataTable> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>
