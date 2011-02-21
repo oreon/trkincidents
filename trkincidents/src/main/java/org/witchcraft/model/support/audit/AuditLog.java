@@ -3,8 +3,24 @@ package org.witchcraft.model.support.audit;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.apache.solr.analysis.LowerCaseFilterFactory;
+import org.apache.solr.analysis.SnowballPorterFilterFactory;
+import org.apache.solr.analysis.StandardTokenizerFactory;
+import org.apache.solr.analysis.StopFilterFactory;
+import org.apache.solr.analysis.SynonymFilterFactory;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Filter;
+import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.AnalyzerDef;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Parameter;
+import org.hibernate.search.annotations.TokenFilterDef;
+import org.hibernate.search.annotations.TokenizerDef;
+import org.jboss.seam.annotations.Name;
 import org.witchcraft.base.entity.BusinessEntity;
 import org.witchcraft.seam.action.EventTypes;
 
@@ -13,7 +29,14 @@ import org.witchcraft.seam.action.EventTypes;
  *
  */
 @Entity
-//@Table(uniqueConstraints={@UniqueConstraint(columnNames={"dateCreated","username"})})
+@Filter(name = "archiveFilterDef")
+@Name("auditLog")
+@Indexed
+@AnalyzerDef(name = "entityAnalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
+	@TokenFilterDef(factory = LowerCaseFilterFactory.class),
+	@TokenFilterDef(factory = StopFilterFactory.class),
+	@TokenFilterDef(factory = SynonymFilterFactory.class),
+	@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
 public class AuditLog<T> extends BusinessEntity{
 	private EventTypes action;
 	@Lob
