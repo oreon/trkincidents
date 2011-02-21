@@ -15,11 +15,11 @@
 
 
 			<ui:repeat var="issue" value="#{incidentList.entityList}">
-				<s:link value="${issue.title}" action="viewIssue">
-					<f:param name="issueId" value="${issue.id}" />
+				<s:link value="${issue.title}" view="/admin/entities/incidents/incident/viewIncident.seam">
+					<f:param name="incidentId" value="${issue.id}" />
 				</s:link>
 				<br />
-		${issue.higlightedFragment}
+		<h:outputText value="${issue.higlightedFragment}" escape="false" /> 
 		<hr />
 			</ui:repeat>
 
