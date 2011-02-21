@@ -14,7 +14,7 @@
 		<h:form>
 
 
-			<ui:repeat var="issue" value="#{issueList.entityList}">
+			<ui:repeat var="issue" value="#{incidentList.entityList}">
 				<s:link value="${issue.title}" action="viewIssue">
 					<f:param name="issueId" value="${issue.id}" />
 				</s:link>
@@ -26,7 +26,7 @@
 
 			<ui:include
 				src="/admin/entities/incidents/incident/listIncidentComponent.xhtml">
-				<ui:param name="records" value="#{issueList.entityList}" />
+				<ui:param name="records" value="#{incidentList.entityList}" />
 			</ui:include>
 
 
