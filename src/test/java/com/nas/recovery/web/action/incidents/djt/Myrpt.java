@@ -1,6 +1,7 @@
 package com.nas.recovery.web.action.incidents.djt;
 
 import java.awt.Color;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,16 +20,23 @@ import com.nas.recovery.web.action.incidents.ReportExporter;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.core.layout.LayoutManager;
+import ar.com.fdvs.dj.domain.CustomExpression;
+import ar.com.fdvs.dj.domain.DJCalculation;
+import ar.com.fdvs.dj.domain.StringExpression;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.ColumnBuilder;
 import ar.com.fdvs.dj.domain.builders.ColumnBuilderException;
 import ar.com.fdvs.dj.domain.builders.DynamicReportBuilder;
+import ar.com.fdvs.dj.domain.builders.GroupBuilder;
 import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.constants.Font;
+import ar.com.fdvs.dj.domain.constants.GroupLayout;
 import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
 import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.constants.VerticalAlign;
+import ar.com.fdvs.dj.domain.entities.DJGroup;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
+import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 
 public class Myrpt extends BaseReportsTest {
 
@@ -46,6 +54,7 @@ public class Myrpt extends BaseReportsTest {
 		headerStyle.setBorder(Border.PEN_2_POINT);
 		headerStyle.setHorizontalAlign(HorizontalAlign.CENTER);
 		headerStyle.setVerticalAlign(VerticalAlign.MIDDLE);
+		detailStyle.setVerticalAlign(VerticalAlign.TOP);
 
 		Style titleStyle = new Style();
 		titleStyle.setFont(new Font(18, Font._FONT_VERDANA, true));
@@ -57,36 +66,68 @@ public class Myrpt extends BaseReportsTest {
 		Style oddRowStyle = new Style();
 		oddRowStyle.setBorder(Border.NO_BORDER);
 		oddRowStyle.setBackgroundColor(Color.LIGHT_GRAY);
-		oddRowStyle.setTransparency(Transparency.OPAQUE);
+		//oddRowStyle.setTransparency(Transparency.OPAQUE);
   
         DynamicReportBuilder drb = new DynamicReportBuilder();
 		int margin = 20;
 		drb
-				.setTitleStyle(titleStyle)
+				
 				.setTitle("Incidents report")
-				.setDetailHeight(new Integer(15)).setLeftMargin(margin)
+				.setDefaultStyles(titleStyle, null, headerStyle, detailStyle)
+				.setHeaderHeight(15)
 				.setMargins(margin, margin, margin, margin)
-				.setPrintColumnNames(false).setOddRowBackgroundStyle(
-						oddRowStyle);
+				.setPrintBackgroundOnOddRows(true);
+		
 
 		try {
 			AbstractColumn colTitle = ColumnBuilder.getNew().setColumnProperty(
 					"title", String.class.getName()).setTitle("Title")
-					.setWidth(new Integer(55)).setStyle(detailStyle)
-					.setHeaderStyle(headerStyle).build();
+					
+					.build();
 
 			AbstractColumn colDesc = ColumnBuilder.getNew().setColumnProperty("description", String.class.getName())
 					.setTitle("Description")
-					.setWidth(new Integer(85)).setStyle(detailStyle)
-					.setHeaderStyle(headerStyle).build();
+					
+					.build();
+			
+
+			AbstractColumn colDepartment = ColumnBuilder.getNew().setColumnProperty("department.displayName", String.class.getName())
+					.setTitle("Department")
+					.setShowText(false)
+					.build();
+			
+			AbstractColumn colDate= ColumnBuilder.getNew().setColumnProperty("dateOfIncident", Date.class.getName())
+			.setTitle("Date of Incident")
+			.build();
+			
+			AbstractColumn colReported = ColumnBuilder.getNew().setColumnProperty("reportedTo.displayName", String.class.getName())
+			.setTitle("Reported To")
+			.build();
+			
+			
+			GroupBuilder gb1 = new GroupBuilder();
+			 //		 define the criteria column to group by (columnState)
+	 		DJGroup g1 = gb1.setCriteriaColumn((PropertyColumn) colDepartment)
+			 				.addFooterVariable(colDepartment, DJCalculation.COUNT)
+			 				.setGroupLayout(GroupLayout.VALUE_IN_HEADER) // tells the group how to be shown, there are manyposibilities, see the GroupLayout for more.
+			 				.setReprintHeaderOnEachPage(false)
+			 				
+			 				.build();
+			 
+			 
 
 			drb.addColumn(colTitle);
 			drb.addColumn(colDesc);
+			drb.addColumn(colDate);
+			drb.addColumn(colReported);
+			drb.addColumn(colDepartment);
 			
-			drb.setQuery("select e from Incident e" , "ejbql");
+			drb.addGroup(g1);
+			
+			drb.setQuery("select e from Incident e order by e.department" , "ejbql");
 			
 			drb.setUseFullPageWidth(true);
-
+			
 		} catch (ColumnBuilderException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -131,7 +172,7 @@ public class Myrpt extends BaseReportsTest {
 	}
 	
 	protected static void exportToHTML(JasperPrint jp) throws Exception {
-		ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/resources/reports/" + /*this.getClass().getName()*/ "Myrpt"  + ".pdf");
+		ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/src/main/resources/reports/" + /*this.getClass().getName()*/ "Myrpt"  + ".pdf");
 	}
 
 }
