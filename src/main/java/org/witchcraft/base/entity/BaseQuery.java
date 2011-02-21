@@ -38,6 +38,12 @@ import org.jboss.seam.persistence.PersistenceProvider;
 
 import com.oreon.trkincidents.incidents.Incident;
 
+/**
+ * @author User
+ *
+ * @param <E>
+ * @param <PK>
+ */
 @SuppressWarnings("serial")
 public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializable>
 		extends EntityQuery<E> {
@@ -414,22 +420,48 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 	public void exportToCsv() {
 		int originalMaxResults = getMaxResults();
 		setMaxResults(50000);
+		
 		List<E> results = getResultList();
 
 		StringBuilder builder = new StringBuilder();
-		builder.append("Id,");
-		builder.append("displayName");
-		builder.append("\r\n");
+		createCSvTitles(builder);
 
 		for (E e : results) {
-			builder.append(e.getId() + ",");
-			builder.append(e.getDisplayName() + ",");
-			builder.append("\r\n");
+			createCsvString(builder, e);
 		}
 
 		setMaxResults(originalMaxResults);
 		downloadAttachment(builder.toString().getBytes());
-
 	}
+	
+	/** create comma delimited row 
+	 * @param builder
+	 */
+	public void createCsvString(StringBuilder builder, E e){
+	}
+	
 
+	
+	/** create the headings 
+	 * @param builder
+	 */
+	public void createCSvTitles(StringBuilder builder ){
+	
+	}
+	
+	
+	/** Creates a string for export to csv, if null, blank string is returned
+	 * @param e
+	 * @return
+	 */
+	protected String getFieldForCSV(String e) {
+		return (e != null ? e.replace("," , "") : "");
+	}
+	
+	
+	public static void main(String[] args) {
+		String e = "hi, how are you ";
+		System.out.println(  e.replace("," , "") );
+	}
+	
 }
