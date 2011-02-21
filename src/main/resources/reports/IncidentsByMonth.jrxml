@@ -11,17 +11,18 @@
   <queryString language="ejbql"> <![CDATA[select e from Incident e where e.incidentType.id = $P!{incidentType} and
 e.dateOfIncident <= $P{toDate} and
 e.dateOfIncident >=  $P{fromDate}
-order by e.department, e.incidentType]]> </queryString>  
+order by e.department, e.incidentType, Month(e.dateOfIncident)]]> </queryString>  
   <field name="title" class="java.lang.String"/>  
   <field name="description" class="java.lang.String"/>  
   <field name="severity.name" class="java.lang.String"/>  
   <field name="dateOfIncident" class="java.util.Date"/>  
   <field name="department.name" class="java.lang.String"/>  
   <field name="incidentType.name" class="java.lang.String"/>  
+  <field name="dateOfIncident.month" class="java.lang.Integer"/>
   <variable name="Groupdepartment.nameCounter" class="java.lang.Integer" incrementType="Group" incrementGroup="Groupdepartment.name" calculation="Count"> 
     <variableExpression><![CDATA[Boolean.TRUE]]></variableExpression> 
   </variable>  
-  <variable name="GroupincidentType.nameCounter" class="java.lang.Integer" incrementType="Group" incrementGroup="GroupincidentType.name" calculation="Count"> 
+  <variable name="GroupMonth.nameCounter" class="java.lang.Integer" incrementType="Group" incrementGroup="GroupMonth.name" calculation="Count"> 
     <variableExpression><![CDATA[Boolean.TRUE]]></variableExpression> 
   </variable>  
   <group name="Groupdepartment.name" minHeightToStartNewPage="60"> 
@@ -46,28 +47,29 @@ order by e.department, e.incidentType]]> </queryString>
       </band> 
     </groupFooter> 
   </group>  
-  <group name="GroupincidentType.name" minHeightToStartNewPage="60"> 
-    <groupExpression><![CDATA[$F{incidentType.name}]]></groupExpression>  
+ 
+   <group name="GroupMonth.name" minHeightToStartNewPage="60"> 
+    <groupExpression><![CDATA[$F{dateOfIncident.month}]]></groupExpression>  
     <groupHeader> 
       <band height="20"> 
-        <textField evaluationTime="Group" evaluationGroup="GroupincidentType.name" bookmarkLevel="2"> 
-          <reportElement mode="Opaque" x="10" y="5" width="530" height="15" backcolor="#e1e1d1"/>  
+        <textField evaluationTime="Group" evaluationGroup="GroupMonth.name" bookmarkLevel="1"> 
+          <reportElement mode="Opaque" x="0" y="5" width="540" height="15" backcolor="#e1e1c1"/>  
           <box leftPadding="10" bottomBorder="1Point"/>  
-          <textFieldExpression class="java.lang.String"> <![CDATA[String.valueOf($F{incidentType.name})]]> </textFieldExpression>  
-          <anchorNameExpression><![CDATA[String.valueOf($F{incidentType.name})]]></anchorNameExpression> 
+          <textFieldExpression class="java.lang.String"> <![CDATA[org.witchcraft.base.entity.ReportUtil.getMonth($F{dateOfIncident.month})]]> </textFieldExpression>  
+          <anchorNameExpression><![CDATA[String.valueOf($F{dateOfIncident.month})]]></anchorNameExpression> 
         </textField> 
       </band> 
     </groupHeader>  
     <groupFooter> 
       <band height="20"> 
         <textField> 
-          <reportElement x="0" mode="Opaque" y="1" width="540" height="15" backcolor="#e1e1d1"/>  
+          <reportElement x="0" mode="Opaque" y="1" width="540" height="15" backcolor="#e1e1c1"/>  
           <textElement textAlignment="Right"/>  
-          <textFieldExpression class="java.lang.String"> <![CDATA["Count For " + $F{incidentType.name} + " : " + $V{GroupincidentType.name_COUNT}]]> </textFieldExpression> 
+          <textFieldExpression class="java.lang.String"> <![CDATA["Count For " + org.witchcraft.base.entity.ReportUtil.getMonth($F{dateOfIncident.month}) + " : " + $V{GroupMonth.name_COUNT}]]> </textFieldExpression> 
         </textField> 
       </band> 
     </groupFooter> 
-  </group>  
+  </group> 
   <title> 
     <band height="70"> 
       <line> 
@@ -157,9 +159,9 @@ order by e.department, e.incidentType]]> </queryString>
           <reportElement x="250" y="20" width="280" height="272"/> 
         </chart>  
         <pieDataset> 
-          <keyExpression><![CDATA[$F{department.name}]]></keyExpression>  
-          <valueExpression><![CDATA[$V{Groupdepartment.name_COUNT}]]></valueExpression>  
-          <labelExpression><![CDATA[$F{department.name}  + " - " + $V{Groupdepartment.name_COUNT}  ]]></labelExpression> 
+          <keyExpression><![CDATA[org.witchcraft.base.entity.ReportUtil.getMonth($F{dateOfIncident.month})]]></keyExpression>  
+          <valueExpression><![CDATA[$V{GroupMonth.name_COUNT}]]></valueExpression>  
+          <labelExpression><![CDATA[org.witchcraft.base.entity.ReportUtil.getMonth($F{dateOfIncident.month})  + " - " + $V{GroupMonth.name_COUNT}  ]]></labelExpression> 
         </pieDataset>  
         <piePlot> 
           <plot/> 
@@ -174,9 +176,9 @@ order by e.department, e.incidentType]]> </queryString>
         </chart>  
         <categoryDataset> 
           <categorySeries> 
-            <seriesExpression><![CDATA[$F{incidentType.name}]]></seriesExpression>  
+            <seriesExpression><![CDATA[org.witchcraft.base.entity.ReportUtil.getMonth($F{dateOfIncident.month})]]></seriesExpression>  
             <categoryExpression><![CDATA[$F{department.name}]]></categoryExpression>  
-            <valueExpression><![CDATA[$V{GroupincidentType.name_COUNT}]]></valueExpression> 
+            <valueExpression><![CDATA[$V{GroupMonth.name_COUNT}]]></valueExpression> 
           </categorySeries> 
         </categoryDataset>  
         <barPlot isShowTickLabels="true" isShowTickMarks="true"> 
