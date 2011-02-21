@@ -1,6 +1,5 @@
 package org.witchcraft.base.entity;
 
-import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
@@ -21,7 +20,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.lucene.queryParser.MultiFieldQueryParser;
 import org.apache.lucene.queryParser.ParseException;
 import org.apache.lucene.search.highlight.Highlighter;
-import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
 import org.apache.lucene.search.highlight.QueryScorer;
 import org.apache.lucene.search.highlight.SimpleHTMLFormatter;
 import org.apache.lucene.search.highlight.SimpleSpanFragmenter;
@@ -57,6 +55,8 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 
 	private Range<java.util.Date> dateCreatedRange = new Range<Date>();
 
+
+	//@Scope(ScopeType.CONVERSATION)
 	private List<E> entityList;
 
 	@RequestParameter
@@ -304,7 +304,7 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 		QueryScorer scorer = new QueryScorer(query, "description");
 		// Highlight using a CSS style
 		SimpleHTMLFormatter formatter = new SimpleHTMLFormatter(
-				"<span style='color:red;'>", "</span>");
+				"<span style='background-color:yellow;'>", "</span>");
 		Highlighter highlighter = new Highlighter(formatter, scorer);
 		highlighter.setTextFragmenter(new SimpleSpanFragmenter(scorer, 100));
 
