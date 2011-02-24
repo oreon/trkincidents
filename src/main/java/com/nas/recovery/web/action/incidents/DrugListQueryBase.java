@@ -68,7 +68,9 @@ public abstract class DrugListQueryBase extends BaseQuery<Drug, Long> {
 	//@Override
 	public void createCsvString(StringBuilder builder, Drug e) {
 
-		builder.append("\"" + (e.getName() != null ? e.getName() : "") + "\",");
+		builder.append("\""
+				+ (e.getName() != null ? e.getName().replace(",", "") : "")
+				+ "\",");
 
 		builder.append("\r\n");
 	}

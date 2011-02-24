@@ -20,7 +20,10 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.persistence.Version;
 
+import org.hibernate.search.annotations.Analyzer;
 import org.hibernate.search.annotations.DocumentId;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Index;
 
 import com.oreon.trkincidents.users.User;
 
@@ -36,6 +39,11 @@ public class BusinessEntity implements Serializable{
     @Column(name="id")
     @DocumentId
     private Long id;
+    
+	@Transient
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "entityAnalyzer")
+	private String searchData;
     
     private boolean archived;
     
@@ -160,5 +168,13 @@ public class BusinessEntity implements Serializable{
 
 	public String getHiglightedFragment() {
 		return higlightedFragment;
+	}
+
+	public void setSearchData(String searchData) {
+		this.searchData = searchData;
+	}
+
+	public String getSearchData() {
+		return searchData;
 	}
 }

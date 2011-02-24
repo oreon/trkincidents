@@ -66,11 +66,10 @@
 			<rich:toolBarGroup location="right">
 				
 					<h:inputText styleClass="barsearch" value="#{incidentList.textToSearch}" required="true" />
-					<h:commandLink styleClass="barsearchbutton"
+					<h:commandButton styleClass="barsearchbutton" value="Search"
 						action="#{incidentList.textSearch}"  >
-						<h:graphicImage value="/images/icons/search_icon.gif" />
 						<s:conversationPropagation type="join"></s:conversationPropagation> 
-					</h:commandLink>
+					</h:commandButton>
 				
 			</rich:toolBarGroup>
 

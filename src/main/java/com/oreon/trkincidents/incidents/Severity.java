@@ -48,9 +48,7 @@ import org.witchcraft.utils.*;
 @Name("severity")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@AnalyzerDef(name = "Severityanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
-		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
-		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
+@Analyzer(definition = "entityAnalyzer")
 public class Severity extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -774295760L;
 
@@ -58,7 +56,7 @@ public class Severity extends BusinessEntity implements java.io.Serializable {
 	@Length(min = 2, max = 250)
 	@Column(unique = true)
 	@Field(index = Index.TOKENIZED)
-	// @Analyzer(definition = "Severityanalyzer") 
+	@Analyzer(definition = "entityAnalyzer")
 	protected String name;
 
 	public void setName(String name) {
@@ -95,6 +93,16 @@ public class Severity extends BusinessEntity implements java.io.Serializable {
 		listSearchableFields.add("name");
 
 		return listSearchableFields;
+	}
+
+	@Field(index = Index.TOKENIZED, name = "searchData")
+	@Analyzer(definition = "entityAnalyzer")
+	public String getSearchData() {
+		StringBuilder builder = new StringBuilder();
+
+		builder.append(getName() + " ");
+
+		return builder.toString();
 	}
 
 }

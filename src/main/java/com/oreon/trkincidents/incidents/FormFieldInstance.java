@@ -48,22 +48,15 @@ import org.witchcraft.utils.*;
 @Name("formFieldInstance")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@AnalyzerDef(name = "FormFieldInstanceanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
-		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
-		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
+@Analyzer(definition = "entityAnalyzer")
 public class FormFieldInstance extends BusinessEntity
 		implements
 			java.io.Serializable {
 	private static final long serialVersionUID = 1050165182L;
 
 	@Field(index = Index.TOKENIZED)
-	// @Analyzer(definition = "FormFieldInstanceanalyzer") 
+	@Analyzer(definition = "entityAnalyzer")
 	protected String value;
-
-	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "incident_id", nullable = false, updatable = true)
-	@ContainedIn
-	protected Incident incident;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "formField_id", nullable = false, updatable = true)
@@ -78,8 +71,13 @@ public class FormFieldInstance extends BusinessEntity
 
 	@Lob
 	@Field(index = Index.TOKENIZED)
-	// @Analyzer(definition = "FormFieldInstanceanalyzer") 
+	@Analyzer(definition = "entityAnalyzer")
 	protected String description;
+
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "incident_id", nullable = false, updatable = true)
+	@ContainedIn
+	protected Incident incident;
 
 	public void setValue(String value) {
 		this.value = value;
@@ -88,16 +86,6 @@ public class FormFieldInstance extends BusinessEntity
 	public String getValue() {
 
 		return value;
-
-	}
-
-	public void setIncident(Incident incident) {
-		this.incident = incident;
-	}
-
-	public Incident getIncident() {
-
-		return incident;
 
 	}
 
@@ -151,6 +139,16 @@ public class FormFieldInstance extends BusinessEntity
 
 	}
 
+	public void setIncident(Incident incident) {
+		this.incident = incident;
+	}
+
+	public Incident getIncident() {
+
+		return incident;
+
+	}
+
 	@Transient
 	public String getDisplayName() {
 		try {
@@ -177,6 +175,26 @@ public class FormFieldInstance extends BusinessEntity
 		listSearchableFields.add("description");
 
 		return listSearchableFields;
+	}
+
+	@Field(index = Index.TOKENIZED, name = "searchData")
+	@Analyzer(definition = "entityAnalyzer")
+	public String getSearchData() {
+		StringBuilder builder = new StringBuilder();
+
+		builder.append(getValue() + " ");
+
+		builder.append(getDescription() + " ");
+
+		if (getFormField() != null)
+			builder
+					.append("formField:" + getFormField().getDisplayName()
+							+ " ");
+
+		if (getIncident() != null)
+			builder.append("incident:" + getIncident().getDisplayName() + " ");
+
+		return builder.toString();
 	}
 
 }

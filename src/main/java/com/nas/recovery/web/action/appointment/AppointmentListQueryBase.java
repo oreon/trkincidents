@@ -100,12 +100,13 @@ public abstract class AppointmentListQueryBase
 		builder.append("\"" + (e.getEnd() != null ? e.getEnd() : "") + "\",");
 
 		builder.append("\""
-				+ (e.getPatient() != null
-						? e.getPatient().getDisplayName()
-						: "") + "\",");
+				+ (e.getPatient() != null ? e.getPatient().getDisplayName()
+						.replace(",", "") : "") + "\",");
 
-		builder.append("\"" + (e.getRemarks() != null ? e.getRemarks() : "")
-				+ "\",");
+		builder.append("\""
+				+ (e.getRemarks() != null
+						? e.getRemarks().replace(",", "")
+						: "") + "\",");
 
 		builder.append("\r\n");
 	}

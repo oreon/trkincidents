@@ -48,9 +48,7 @@ import org.witchcraft.utils.*;
 @Name("filledForm")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@AnalyzerDef(name = "FilledFormanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
-		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
-		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
+@Analyzer(definition = "entityAnalyzer")
 public class FilledForm extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = 916009334L;
 

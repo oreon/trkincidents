@@ -100,6 +100,15 @@
         <s:selectItems value="#{severityList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.incident_icd10}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('icd10', 'incidentEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="icd10" value="#{ incidentList.incident.icd10}"> 
+        <s:selectItems value="#{icd10List}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/>  
+        <f:selectItem itemLabel="--None--" itemValue=""/> 
+      </h:selectOneMenu> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 

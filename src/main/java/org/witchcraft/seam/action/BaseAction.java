@@ -504,6 +504,12 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 			entityManager.index(t);
 		return null;
 	}
+	
+	public List<T> search(T t) {
+		Criteria criteria = createExampleCriteria();
+		return criteria.list();
+		// setEntityList(criteria.list());
+	}
 
 	@SuppressWarnings("unchecked")
 	public <S> List<S> executeNamedQuery(String queryString, Object... params) {

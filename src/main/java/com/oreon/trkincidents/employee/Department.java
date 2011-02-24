@@ -48,9 +48,7 @@ import org.witchcraft.utils.*;
 @Name("department")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@AnalyzerDef(name = "Departmentanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
-		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
-		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
+@Analyzer(definition = "entityAnalyzer")
 public class Department extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -416183640L;
 
@@ -58,7 +56,7 @@ public class Department extends BusinessEntity implements java.io.Serializable {
 	@Length(min = 2, max = 250)
 	@Column(unique = true)
 	@Field(index = Index.TOKENIZED)
-	// @Analyzer(definition = "Departmentanalyzer") 
+	@Analyzer(definition = "entityAnalyzer")
 	protected String name;
 
 	@OneToMany(mappedBy = "department", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -67,11 +65,21 @@ public class Department extends BusinessEntity implements java.io.Serializable {
 	@IndexedEmbedded
 	private Set<Employee> employees = new HashSet<Employee>();
 
+	public void addEmployees(Employee employees) {
+		employees.setDepartment(this);
+		this.employees.add(employees);
+	}
+
 	@OneToMany(mappedBy = "department", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "department_ID", nullable = true)
 	@OrderBy("dateCreated DESC")
 	@IndexedEmbedded
 	private Set<com.oreon.trkincidents.incidents.Incident> incidents = new HashSet<com.oreon.trkincidents.incidents.Incident>();
+
+	public void addIncidents(com.oreon.trkincidents.incidents.Incident incidents) {
+		incidents.setDepartment(this);
+		this.incidents.add(incidents);
+	}
 
 	public void setName(String name) {
 		this.name = name;
@@ -124,6 +132,24 @@ public class Department extends BusinessEntity implements java.io.Serializable {
 		listSearchableFields.add("name");
 
 		return listSearchableFields;
+	}
+
+	@Field(index = Index.TOKENIZED, name = "searchData")
+	@Analyzer(definition = "entityAnalyzer")
+	public String getSearchData() {
+		StringBuilder builder = new StringBuilder();
+
+		builder.append(getName() + " ");
+
+		for (BusinessEntity e : employees) {
+			builder.append(e.getDisplayName() + " ");
+		}
+
+		for (BusinessEntity e : incidents) {
+			builder.append(e.getDisplayName() + " ");
+		}
+
+		return builder.toString();
 	}
 
 }

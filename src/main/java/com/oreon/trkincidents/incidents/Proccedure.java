@@ -48,9 +48,7 @@ import org.witchcraft.utils.*;
 @Name("proccedure")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@AnalyzerDef(name = "Proccedureanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
-		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
-		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
+@Analyzer(definition = "entityAnalyzer")
 public class Proccedure extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = 232473137L;
 
@@ -58,7 +56,7 @@ public class Proccedure extends BusinessEntity implements java.io.Serializable {
 	@Length(min = 2, max = 250)
 	@Column(unique = true)
 	@Field(index = Index.TOKENIZED)
-	// @Analyzer(definition = "Proccedureanalyzer") 
+	@Analyzer(definition = "entityAnalyzer")
 	protected String name;
 
 	@OneToMany(mappedBy = "proccedure", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -66,6 +64,15 @@ public class Proccedure extends BusinessEntity implements java.io.Serializable {
 	@OrderBy("dateCreated DESC")
 	@IndexedEmbedded
 	private Set<Incident> incidents = new HashSet<Incident>();
+
+	public void addIncidents(Incident incidents) {
+		incidents.setProccedure(this);
+		this.incidents.add(incidents);
+	}
+
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "entityAnalyzer")
+	protected String description;
 
 	public void setName(String name) {
 		this.name = name;
@@ -83,6 +90,16 @@ public class Proccedure extends BusinessEntity implements java.io.Serializable {
 
 	public Set<Incident> getIncidents() {
 		return incidents;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getDescription() {
+
+		return description;
+
 	}
 
 	@Transient
@@ -108,7 +125,25 @@ public class Proccedure extends BusinessEntity implements java.io.Serializable {
 
 		listSearchableFields.add("name");
 
+		listSearchableFields.add("description");
+
 		return listSearchableFields;
+	}
+
+	@Field(index = Index.TOKENIZED, name = "searchData")
+	@Analyzer(definition = "entityAnalyzer")
+	public String getSearchData() {
+		StringBuilder builder = new StringBuilder();
+
+		builder.append(getName() + " ");
+
+		builder.append(getDescription() + " ");
+
+		for (BusinessEntity e : incidents) {
+			builder.append(e.getDisplayName() + " ");
+		}
+
+		return builder.toString();
 	}
 
 }

@@ -11,25 +11,31 @@
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
 	template="/admin/template.xhtml">
 	<ui:define name="content">
+		Found #{incidentList.entityList.size} results for search term: <b>  ${incidentList.textToSearch} </b>
+		<br/>
 		<h:form>
+	
+			<rich:tabPanel>
+				<rich:tab label="Search Results">
+					<ui:repeat var="issue" value="#{incidentList.entityList}">
+						<s:link value="${issue.title}"
+							view="/admin/entities/incidents/incident/viewIncident.seam">
+							<f:param name="incidentId" value="${issue.id}" />
+						</s:link>
+						<br />.
+		<h:outputText value="${issue.higlightedFragment}" escape="false" />
+						<hr />
+					</ui:repeat>
 
+				</rich:tab>
+				<rich:tab label = "Tabular">
+					<ui:include
+						src="/admin/entities/incidents/incident/listIncidentComponent.xhtml">
+						<ui:param name="records" value="#{incidentList.entityList}" />
+					</ui:include>
 
-			<ui:repeat var="issue" value="#{incidentList.entityList}">
-				<s:link value="${issue.title}" view="/admin/entities/incidents/incident/viewIncident.seam">
-					<f:param name="incidentId" value="${issue.id}" />
-				</s:link>
-				<br />
-		<h:outputText value="${issue.higlightedFragment}" escape="false" /> 
-		<hr />
-			</ui:repeat>
-
-
-			<ui:include
-				src="/admin/entities/incidents/incident/listIncidentComponent.xhtml">
-				<ui:param name="records" value="#{incidentList.entityList}" />
-			</ui:include>
-
-
+				</rich:tab>
+			</rich:tabPanel>
 		</h:form>
 	</ui:define>
 </ui:composition>

@@ -31,6 +31,16 @@
           </f:facet>  
           <h:outputText value="#{_proccedure.name}" escape="false"/> 
         </h:column>  
+        <h:column rendered="#{s:hasPermission('description', 'proccedureView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{proccedureList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.proccedure_description}"/>  
+              <ui:param name="propertyPath" value="proccedure.description"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_proccedure.description}" escape="false"/> 
+        </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'proccedureView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 

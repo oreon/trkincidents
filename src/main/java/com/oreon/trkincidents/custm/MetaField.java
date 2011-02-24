@@ -48,16 +48,14 @@ import org.witchcraft.utils.*;
 @Name("metaField")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@AnalyzerDef(name = "MetaFieldanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
-		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
-		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
+@Analyzer(definition = "entityAnalyzer")
 public class MetaField extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = 1480088195L;
 
 	@NotNull
 	@Length(min = 2, max = 250)
 	@Field(index = Index.TOKENIZED)
-	// @Analyzer(definition = "MetaFieldanalyzer") 
+	@Analyzer(definition = "entityAnalyzer")
 	protected String name;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -131,6 +129,20 @@ public class MetaField extends BusinessEntity implements java.io.Serializable {
 		listSearchableFields.add("name");
 
 		return listSearchableFields;
+	}
+
+	@Field(index = Index.TOKENIZED, name = "searchData")
+	@Analyzer(definition = "entityAnalyzer")
+	public String getSearchData() {
+		StringBuilder builder = new StringBuilder();
+
+		builder.append(getName() + " ");
+
+		if (getMetaEntity() != null)
+			builder.append("metaEntity:" + getMetaEntity().getDisplayName()
+					+ " ");
+
+		return builder.toString();
 	}
 
 }

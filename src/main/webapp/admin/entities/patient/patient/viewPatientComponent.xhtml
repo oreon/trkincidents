@@ -10,8 +10,8 @@
         <h:outputText id="address_streetAddress#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('streetAddress', 'patientView')}" value="#{patientAction.patient.address.streetAddress}"></h:outputText>  
         <h:outputText value="#{msg.address_city}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('city', 'patientView')}"/>  
         <h:outputText id="address_city#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('city', 'patientView')}" value="#{patientAction.patient.address.city}"></h:outputText>  
-        <h:outputText value="#{msg.address_State}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('State', 'patientView')}"/>  
-        <h:outputText id="address_State#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('State', 'patientView')}" value="#{patientAction.patient.address.state}"></h:outputText>  
+        <h:outputText value="#{msg.address_state}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('state', 'patientView')}"/>  
+        <h:outputText id="address_state#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('state', 'patientView')}" value="#{patientAction.patient.address.state}"></h:outputText>  
         <h:outputText value="#{msg.address_phone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('phone', 'patientView')}"/>  
         <h:outputText id="address_phone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('phone', 'patientView')}" value="#{patientAction.patient.address.phone}"></h:outputText>  
         <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'patientView')}"/>  

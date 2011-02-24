@@ -70,7 +70,9 @@ public abstract class CustomFormListQueryBase
 	//@Override
 	public void createCsvString(StringBuilder builder, CustomForm e) {
 
-		builder.append("\"" + (e.getName() != null ? e.getName() : "") + "\",");
+		builder.append("\""
+				+ (e.getName() != null ? e.getName().replace(",", "") : "")
+				+ "\",");
 
 		builder.append("\r\n");
 	}

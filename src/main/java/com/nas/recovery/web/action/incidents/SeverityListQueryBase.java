@@ -68,7 +68,9 @@ public abstract class SeverityListQueryBase extends BaseQuery<Severity, Long> {
 	//@Override
 	public void createCsvString(StringBuilder builder, Severity e) {
 
-		builder.append("\"" + (e.getName() != null ? e.getName() : "") + "\",");
+		builder.append("\""
+				+ (e.getName() != null ? e.getName().replace(",", "") : "")
+				+ "\",");
 
 		builder.append("\r\n");
 	}

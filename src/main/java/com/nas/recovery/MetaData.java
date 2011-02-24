@@ -1,10 +1,17 @@
 package com.nas.recovery;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
+import com.oreon.trkincidents.custm.MetaEntity;
+import com.oreon.trkincidents.custm.MetaField;
+
 public class MetaData {
 
 	public static final String[][] ARR_FIELDS = {
 
-	{"Patient",
+	{"com.oreon.trkincidents.patient.Patient",
 
 	"firstName",
 
@@ -13,8 +20,6 @@ public class MetaData {
 	"address",
 
 	"incidents",
-
-	"documents",
 
 	"healthNumber",
 
@@ -26,19 +31,7 @@ public class MetaData {
 
 	},
 
-	{"Document",
-
-	"name",
-
-	"file",
-
-	"notes",
-
-	"patient",
-
-	},
-
-	{"Incident",
+	{"com.oreon.trkincidents.incidents.Incident",
 
 	"incidentType",
 
@@ -51,8 +44,6 @@ public class MetaData {
 	"department",
 
 	"dateOfIncident",
-
-	"formFieldInstances",
 
 	"reportedTo",
 
@@ -70,19 +61,23 @@ public class MetaData {
 
 	"supportingDocumentses",
 
+	"icd10",
+
+	"formFieldInstances",
+
 	},
 
-	{"IncidentType",
+	{"com.oreon.trkincidents.incidents.IncidentType",
 
 	"name",
 
-	"formFields",
-
 	"referenceFields",
+
+	"formFields",
 
 	},
 
-	{"FormField",
+	{"com.oreon.trkincidents.incidents.FormField",
 
 	"name",
 
@@ -92,13 +87,13 @@ public class MetaData {
 
 	"choiceValues",
 
+	"incidentType",
+
 	},
 
-	{"FormFieldInstance",
+	{"com.oreon.trkincidents.incidents.FormFieldInstance",
 
 	"value",
-
-	"incident",
 
 	"formField",
 
@@ -110,9 +105,11 @@ public class MetaData {
 
 	"description",
 
+	"incident",
+
 	},
 
-	{"Drug",
+	{"com.oreon.trkincidents.incidents.Drug",
 
 	"incidents",
 
@@ -120,21 +117,23 @@ public class MetaData {
 
 	},
 
-	{"Severity",
+	{"com.oreon.trkincidents.incidents.Severity",
 
 	"name",
 
 	},
 
-	{"Proccedure",
+	{"com.oreon.trkincidents.incidents.Proccedure",
 
 	"name",
 
 	"incidents",
 
+	"description",
+
 	},
 
-	{"ReferenceField",
+	{"com.oreon.trkincidents.incidents.ReferenceField",
 
 	"incidentType",
 
@@ -144,7 +143,7 @@ public class MetaData {
 
 	},
 
-	{"SupportingDocuments",
+	{"com.oreon.trkincidents.incidents.SupportingDocuments",
 
 	"file",
 
@@ -154,7 +153,17 @@ public class MetaData {
 
 	},
 
-	{"Employee",
+	{"com.oreon.trkincidents.incidents.Icd10",
+
+	"code",
+
+	"description",
+
+	"incidents",
+
+	},
+
+	{"com.oreon.trkincidents.employee.Employee",
 
 	"firstName",
 
@@ -174,7 +183,7 @@ public class MetaData {
 
 	},
 
-	{"Department",
+	{"com.oreon.trkincidents.employee.Department",
 
 	"name",
 
@@ -184,7 +193,7 @@ public class MetaData {
 
 	},
 
-	{"User",
+	{"com.oreon.trkincidents.users.User",
 
 	"userName",
 
@@ -198,7 +207,7 @@ public class MetaData {
 
 	},
 
-	{"Role",
+	{"com.oreon.trkincidents.users.Role",
 
 	"name",
 
@@ -206,103 +215,13 @@ public class MetaData {
 
 	},
 
-	{"Facility",
+	{"com.oreon.trkincidents.facility.Facility",
 
 	"name",
 
 	},
 
-	{"Appointment",
-
-	"start",
-
-	"end",
-
-	"patient",
-
-	"remarks",
-
-	},
-
-	{"Encounter",
-
-	"historys",
-
-	"patient",
-
-	"notes",
-
-	"prescribedTests",
-
-	},
-
-	{"History",
-
-	"encounter",
-
-	"history",
-
-	},
-
-	{"DxTest",
-
-	"name",
-
-	"description",
-
-	},
-
-	{"PrescribedTest",
-
-	"remarks",
-
-	"dxTest",
-
-	"encounter",
-
-	},
-
-	{"CustomForm",
-
-	"customFields",
-
-	"name",
-
-	},
-
-	{"CustomField",
-
-	"customForm",
-
-	"required",
-
-	"type",
-
-	"name",
-
-	},
-
-	{"FilledForm",
-
-	"customForm",
-
-	"filledFields",
-
-	"entityId",
-
-	},
-
-	{"FilledField",
-
-	"customField",
-
-	"filledForm",
-
-	"value",
-
-	},
-
-	{"CustomReport",
+	{"com.oreon.trkincidents.custm.CustomReport",
 
 	"metaEntity",
 
@@ -314,7 +233,7 @@ public class MetaData {
 
 	},
 
-	{"MetaEntity",
+	{"com.oreon.trkincidents.custm.MetaEntity",
 
 	"name",
 
@@ -322,7 +241,7 @@ public class MetaData {
 
 	},
 
-	{"MetaField",
+	{"com.oreon.trkincidents.custm.MetaField",
 
 	"name",
 

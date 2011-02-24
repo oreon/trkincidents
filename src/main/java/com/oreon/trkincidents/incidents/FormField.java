@@ -48,25 +48,28 @@ import org.witchcraft.utils.*;
 @Name("formField")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@AnalyzerDef(name = "FormFieldanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
-		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
-		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
+@Analyzer(definition = "entityAnalyzer")
 public class FormField extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -1205191861L;
 
 	@NotNull
 	@Length(min = 2, max = 250)
 	@Field(index = Index.TOKENIZED)
-	// @Analyzer(definition = "FormFieldanalyzer") 
+	@Analyzer(definition = "entityAnalyzer")
 	protected String name;
 
-	protected com.oreon.trkincidents.customforms.FieldType type;
+	protected FieldType type;
 
 	protected Boolean required;
 
 	@Field(index = Index.TOKENIZED)
-	// @Analyzer(definition = "FormFieldanalyzer") 
+	@Analyzer(definition = "entityAnalyzer")
 	protected String choiceValues;
+
+	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "incidentType_id", nullable = false, updatable = true)
+	@ContainedIn
+	protected IncidentType incidentType;
 
 	public void setName(String name) {
 		this.name = name;
@@ -78,11 +81,11 @@ public class FormField extends BusinessEntity implements java.io.Serializable {
 
 	}
 
-	public void setType(com.oreon.trkincidents.customforms.FieldType type) {
+	public void setType(FieldType type) {
 		this.type = type;
 	}
 
-	public com.oreon.trkincidents.customforms.FieldType getType() {
+	public FieldType getType() {
 
 		return type;
 
@@ -105,6 +108,16 @@ public class FormField extends BusinessEntity implements java.io.Serializable {
 	public String getChoiceValues() {
 
 		return choiceValues;
+
+	}
+
+	public void setIncidentType(IncidentType incidentType) {
+		this.incidentType = incidentType;
+	}
+
+	public IncidentType getIncidentType() {
+
+		return incidentType;
 
 	}
 
@@ -134,6 +147,22 @@ public class FormField extends BusinessEntity implements java.io.Serializable {
 		listSearchableFields.add("choiceValues");
 
 		return listSearchableFields;
+	}
+
+	@Field(index = Index.TOKENIZED, name = "searchData")
+	@Analyzer(definition = "entityAnalyzer")
+	public String getSearchData() {
+		StringBuilder builder = new StringBuilder();
+
+		builder.append(getName() + " ");
+
+		builder.append(getChoiceValues() + " ");
+
+		if (getIncidentType() != null)
+			builder.append("incidentType:" + getIncidentType().getDisplayName()
+					+ " ");
+
+		return builder.toString();
 	}
 
 }

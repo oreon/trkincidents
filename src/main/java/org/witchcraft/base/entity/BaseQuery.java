@@ -17,8 +17,8 @@ import javax.faces.context.FacesContext;
 import javax.persistence.Query;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.lucene.queryParser.MultiFieldQueryParser;
 import org.apache.lucene.queryParser.ParseException;
+import org.apache.lucene.queryParser.QueryParser;
 import org.apache.lucene.search.highlight.Highlighter;
 import org.apache.lucene.search.highlight.QueryScorer;
 import org.apache.lucene.search.highlight.SimpleHTMLFormatter;
@@ -33,6 +33,7 @@ import org.jboss.seam.annotations.web.RequestParameter;
 import org.jboss.seam.framework.EntityQuery;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.persistence.PersistenceProvider;
+import org.witchcraft.exceptions.ContractViolationException;
 
 import com.oreon.trkincidents.incidents.Incident;
 
@@ -45,6 +46,8 @@ import com.oreon.trkincidents.incidents.Incident;
 @SuppressWarnings("serial")
 public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializable>
 		extends EntityQuery<E> {
+
+	private static final String SEARCH_DATA = "searchData";
 
 	private Class<E> entityClass = null;
 
@@ -262,32 +265,10 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 	@Begin(join = true)
 	public String textSearch() {
 
-		BusinessEntity businessEntity = null;
-		try {
-			businessEntity = getEntityClass().newInstance();
-		} catch (InstantiationException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (IllegalAccessException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 
-		List<String> listSearchableFields = businessEntity
-				.listSearchableFields();
-
-		if (listSearchableFields == null) {
-			throw new RuntimeException(
-					businessEntity.getClass().getSimpleName()
-							+ " needs to override retrieveSearchableFieldsArray method ");
-		}
-
-		String[] arrFields = new String[listSearchableFields.size()];
-		listSearchableFields.toArray(arrFields);
-
-		MultiFieldQueryParser parser = new MultiFieldQueryParser(
-				Version.LUCENE_30, arrFields, entityManager.getSearchFactory()
-						.getAnalyzer("Incidentanalyzer"));
+		QueryParser parser = new QueryParser(Version.LUCENE_30, SEARCH_DATA ,
+			 entityManager.getSearchFactory()
+						.getAnalyzer("entityAnalyzer"));
 
 		org.apache.lucene.search.Query query = null;
 
@@ -301,25 +282,27 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 			throw new RuntimeException(e);
 		}
 
-		QueryScorer scorer = new QueryScorer(query, "description");
+		QueryScorer scorer = new QueryScorer(query, SEARCH_DATA);
 		// Highlight using a CSS style
 		SimpleHTMLFormatter formatter = new SimpleHTMLFormatter(
 				"<span style='background-color:yellow;'>", "</span>");
-		Highlighter highlighter = new Highlighter(formatter, scorer);
+		Highlighter highlighter = new Highlighter(formatter, scorer); 
 		highlighter.setTextFragmenter(new SimpleSpanFragmenter(scorer, 100));
 
 		FullTextQuery ftq = entityManager.createFullTextQuery(query,
 				getEntityClass());
 
 		List<E> result = ftq.getResultList();
+		
 		for (E e : result) {
 			try {
-				String fragment = (highlighter.getBestFragment(entityManager
-						.getSearchFactory().getAnalyzer("Incidentanalyzer"),
-						"description", ((Incident) e).getDescription()));
+				String fragment = highlighter.getBestFragment(entityManager
+						.getSearchFactory().getAnalyzer("entityAnalyzer"),
+						SEARCH_DATA, e.getSearchData() );
+				
 				e.setHiglightedFragment(fragment);
-			} catch (Exception e1) {
-				e1.printStackTrace();
+			} catch (Exception ex) {
+				throw new ContractViolationException(ex.getMessage());
 			}
 		}
 
@@ -460,8 +443,7 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 	
 	
 	public static void main(String[] args) {
-		String e = "hi, how are you ";
-		System.out.println(  e.replace("," , "") );
+		
 	}
 	
 }

@@ -70,11 +70,13 @@ public abstract class DxTestListQueryBase extends BaseQuery<DxTest, Long> {
 	//@Override
 	public void createCsvString(StringBuilder builder, DxTest e) {
 
-		builder.append("\"" + (e.getName() != null ? e.getName() : "") + "\",");
+		builder.append("\""
+				+ (e.getName() != null ? e.getName().replace(",", "") : "")
+				+ "\",");
 
 		builder.append("\""
-				+ (e.getDescription() != null ? e.getDescription() : "")
-				+ "\",");
+				+ (e.getDescription() != null ? e.getDescription().replace(",",
+						"") : "") + "\",");
 
 		builder.append("\r\n");
 	}

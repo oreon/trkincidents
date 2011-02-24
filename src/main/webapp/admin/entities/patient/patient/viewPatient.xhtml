@@ -37,26 +37,6 @@
         <ui:include src="/admin/entities/incidents/incident/modalDlgIncidentComponent.xhtml"> 
           <ui:param name="modalId" value="${modalId}"/> 
         </ui:include> 
-      </rich:tab>  
-      <rich:tab label="Documents" icon="/images/icons/bricks.png"> 
-        <c:set var="modalId" value="PatientModalPanel-documents"/>  
-        <ui:include src="/admin/entities/patient/document/listDocumentComponent.xhtml"> 
-          <ui:param name="records" value="#{documentList.getDocumentsByPatient(patientAction.instance)}"/>  
-          <ui:param name="modalId" value="${modalId}"/> 
-        </ui:include>  
-        <a:form> 
-          <s:button value="Create New" view="/admin/entities/patient/document/editDocument.xhtml"> 
-            <f:param name="patientId" value="#{patientAction.instance.id}"/>  
-            <f:param name="documentId" value="0"/> 
-          </s:button>  
-          <a:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"> 
-            <a:actionparam name="documentId" assignTo="#{documentAction.documentId}" value="0"/>  
-            <a:actionparam name="patientId" assignTo="#{documentAction.patientId}" value="#{patientAction.instance.id}"/> 
-          </a:commandButton> 
-        </a:form>  
-        <ui:include src="/admin/entities/patient/document/modalDlgDocumentComponent.xhtml"> 
-          <ui:param name="modalId" value="${modalId}"/> 
-        </ui:include> 
       </rich:tab> 
     </rich:tabPanel>  
     <br/>  

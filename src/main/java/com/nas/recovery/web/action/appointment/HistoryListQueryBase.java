@@ -78,12 +78,13 @@ public abstract class HistoryListQueryBase extends BaseQuery<History, Long> {
 	public void createCsvString(StringBuilder builder, History e) {
 
 		builder.append("\""
-				+ (e.getEncounter() != null
-						? e.getEncounter().getDisplayName()
-						: "") + "\",");
+				+ (e.getEncounter() != null ? e.getEncounter().getDisplayName()
+						.replace(",", "") : "") + "\",");
 
-		builder.append("\"" + (e.getHistory() != null ? e.getHistory() : "")
-				+ "\",");
+		builder.append("\""
+				+ (e.getHistory() != null
+						? e.getHistory().replace(",", "")
+						: "") + "\",");
 
 		builder.append("\r\n");
 	}

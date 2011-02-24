@@ -7,7 +7,9 @@
         <h:outputText value="#{msg.id}"/>  
         <h:outputText value="#{proccedureAction.proccedure.id}"/>  
         <h:outputText value="#{msg.proccedure_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'proccedureView')}"/>  
-        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'proccedureView')}" value="#{proccedureAction.proccedure.name}"></h:outputText> 
+        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'proccedureView')}" value="#{proccedureAction.proccedure.name}"></h:outputText>  
+        <h:outputText value="#{msg.proccedure_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'proccedureView')}"/>  
+        <h:outputText id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'proccedureView')}" value="#{proccedureAction.proccedure.description}"></h:outputText> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

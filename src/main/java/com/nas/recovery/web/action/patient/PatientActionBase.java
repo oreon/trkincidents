@@ -42,7 +42,6 @@ import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
 import com.oreon.trkincidents.incidents.Incident;
-import com.oreon.trkincidents.patient.Document;
 
 public abstract class PatientActionBase
 		extends
@@ -57,9 +56,6 @@ public abstract class PatientActionBase
 
 	@In(create = true, value = "incidentAction")
 	com.nas.recovery.web.action.incidents.IncidentAction incidentsAction;
-
-	@In(create = true, value = "documentAction")
-	com.nas.recovery.web.action.patient.DocumentAction documentsAction;
 
 	@DataModel
 	private List<Patient> patientRecordList;
@@ -145,8 +141,6 @@ public abstract class PatientActionBase
 
 		initListIncidents();
 
-		initListDocuments();
-
 	}
 
 	public void updateAssociations() {
@@ -155,11 +149,6 @@ public abstract class PatientActionBase
 				.getInstance("incident");
 		incidents.setPatient(patient);
 		events.raiseTransactionSuccessEvent("archivedIncident");
-
-		com.oreon.trkincidents.patient.Document documents = (com.oreon.trkincidents.patient.Document) org.jboss.seam.Component
-				.getInstance("document");
-		documents.setPatient(patient);
-		events.raiseTransactionSuccessEvent("archivedDocument");
 
 	}
 
@@ -200,59 +189,16 @@ public abstract class PatientActionBase
 		getListIncidents().add(incidents);
 	}
 
-	protected List<com.oreon.trkincidents.patient.Document> listDocuments = new ArrayList<com.oreon.trkincidents.patient.Document>();
-
-	void initListDocuments() {
-
-		if (listDocuments.isEmpty())
-			listDocuments.addAll(getInstance().getDocuments());
-
-	}
-
-	public List<com.oreon.trkincidents.patient.Document> getListDocuments() {
-
-		prePopulateListDocuments();
-		return listDocuments;
-	}
-
-	public void prePopulateListDocuments() {
-	}
-
-	public void setListDocuments(
-			List<com.oreon.trkincidents.patient.Document> listDocuments) {
-		this.listDocuments = listDocuments;
-	}
-
-	public void deleteDocuments(int index) {
-		listDocuments.remove(index);
-	}
-
-	@Begin(join = true)
-	public void addDocuments() {
-		initListDocuments();
-		Document documents = new Document();
-
-		documents.setPatient(getInstance());
-
-		getListDocuments().add(documents);
-	}
-
 	public void updateComposedAssociations() {
 
 		if (listIncidents != null) {
 			getInstance().getIncidents().clear();
 			getInstance().getIncidents().addAll(listIncidents);
 		}
-
-		if (listDocuments != null) {
-			getInstance().getDocuments().clear();
-			getInstance().getDocuments().addAll(listDocuments);
-		}
 	}
 
 	public void clearLists() {
 		listIncidents.clear();
-		listDocuments.clear();
 
 	}
 

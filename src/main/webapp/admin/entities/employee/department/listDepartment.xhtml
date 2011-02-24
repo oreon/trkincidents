@@ -10,7 +10,7 @@
       <s:button value="Create New" action="/admin/entities/employee/department/editDepartment.xhtml" propagation="none"> 
         <f:param name="departmentId" value="0"/> 
       </s:button>  
-      <a:commandButton action="#{departmentAction.setDepartmentId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"></a:commandButton>  
+      <a:commandButton action="#{departmentAction.setDepartmentId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}"></a:commandButton>  
       <s:button value="Export to Excel" action="#{departmentList.exportToCsv}"/> 
     </a:form>  
     <ui:include src="listDepartmentComponent.xhtml"> 
@@ -20,7 +20,7 @@
       <s:button value="Create New" action="/admin/entities/employee/department/editDepartment.xhtml" propagation="none"> 
         <f:param name="departmentId" value="0"/> 
       </s:button>  
-      <a:commandButton action="#{departmentAction.setDepartmentId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"></a:commandButton>  
+      <a:commandButton action="#{departmentAction.setDepartmentId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}"></a:commandButton>  
       <s:button value="Export to Excel" action="#{departmentList.exportToCsv}"/> 
     </a:form>  
     <ui:include src="/admin/entities/employee/department/modalDlgDepartmentComponent.xhtml"> 

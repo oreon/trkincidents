@@ -8,11 +8,6 @@
           <h:commandLink value="Patient" action="patient"> 
             <s:conversationPropagation type="none"/> 
           </h:commandLink> 
-        </rich:panelMenuItem>  
-        <rich:panelMenuItem> 
-          <h:commandLink value="Document" action="document"> 
-            <s:conversationPropagation type="none"/> 
-          </h:commandLink> 
         </rich:panelMenuItem> 
       </rich:panelMenuGroup>  
       <rich:panelMenuGroup label="Incidents" expanded="true"> 
@@ -60,6 +55,11 @@
           <h:commandLink value="SupportingDocuments" action="supportingDocuments"> 
             <s:conversationPropagation type="none"/> 
           </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="Icd10" action="icd10"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
         </rich:panelMenuItem> 
       </rich:panelMenuGroup>  
       <rich:panelMenuGroup label="Employee" expanded="true"> 
@@ -89,55 +89,6 @@
       <rich:panelMenuGroup label="Facility" expanded="true"> 
         <rich:panelMenuItem> 
           <h:commandLink value="Facility" action="facility"> 
-            <s:conversationPropagation type="none"/> 
-          </h:commandLink> 
-        </rich:panelMenuItem> 
-      </rich:panelMenuGroup>  
-      <rich:panelMenuGroup label="Appointment" expanded="true"> 
-        <rich:panelMenuItem> 
-          <h:commandLink value="Appointment" action="appointment"> 
-            <s:conversationPropagation type="none"/> 
-          </h:commandLink> 
-        </rich:panelMenuItem>  
-        <rich:panelMenuItem> 
-          <h:commandLink value="Encounter" action="encounter"> 
-            <s:conversationPropagation type="none"/> 
-          </h:commandLink> 
-        </rich:panelMenuItem>  
-        <rich:panelMenuItem> 
-          <h:commandLink value="History" action="history"> 
-            <s:conversationPropagation type="none"/> 
-          </h:commandLink> 
-        </rich:panelMenuItem>  
-        <rich:panelMenuItem> 
-          <h:commandLink value="DxTest" action="dxTest"> 
-            <s:conversationPropagation type="none"/> 
-          </h:commandLink> 
-        </rich:panelMenuItem>  
-        <rich:panelMenuItem> 
-          <h:commandLink value="PrescribedTest" action="prescribedTest"> 
-            <s:conversationPropagation type="none"/> 
-          </h:commandLink> 
-        </rich:panelMenuItem> 
-      </rich:panelMenuGroup>  
-      <rich:panelMenuGroup label="Customforms" expanded="true"> 
-        <rich:panelMenuItem> 
-          <h:commandLink value="CustomForm" action="customForm"> 
-            <s:conversationPropagation type="none"/> 
-          </h:commandLink> 
-        </rich:panelMenuItem>  
-        <rich:panelMenuItem> 
-          <h:commandLink value="CustomField" action="customField"> 
-            <s:conversationPropagation type="none"/> 
-          </h:commandLink> 
-        </rich:panelMenuItem>  
-        <rich:panelMenuItem> 
-          <h:commandLink value="FilledForm" action="filledForm"> 
-            <s:conversationPropagation type="none"/> 
-          </h:commandLink> 
-        </rich:panelMenuItem>  
-        <rich:panelMenuItem> 
-          <h:commandLink value="FilledField" action="filledField"> 
             <s:conversationPropagation type="none"/> 
           </h:commandLink> 
         </rich:panelMenuItem> 

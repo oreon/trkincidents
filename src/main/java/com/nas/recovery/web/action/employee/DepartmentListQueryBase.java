@@ -70,7 +70,9 @@ public abstract class DepartmentListQueryBase
 	//@Override
 	public void createCsvString(StringBuilder builder, Department e) {
 
-		builder.append("\"" + (e.getName() != null ? e.getName() : "") + "\",");
+		builder.append("\""
+				+ (e.getName() != null ? e.getName().replace(",", "") : "")
+				+ "\",");
 
 		builder.append("\r\n");
 	}

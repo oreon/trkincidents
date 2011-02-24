@@ -79,15 +79,17 @@ public abstract class DocumentListQueryBase extends BaseQuery<Document, Long> {
 	//@Override
 	public void createCsvString(StringBuilder builder, Document e) {
 
-		builder.append("\"" + (e.getName() != null ? e.getName() : "") + "\",");
-
-		builder.append("\"" + (e.getNotes() != null ? e.getNotes() : "")
+		builder.append("\""
+				+ (e.getName() != null ? e.getName().replace(",", "") : "")
 				+ "\",");
 
 		builder.append("\""
-				+ (e.getPatient() != null
-						? e.getPatient().getDisplayName()
-						: "") + "\",");
+				+ (e.getNotes() != null ? e.getNotes().replace(",", "") : "")
+				+ "\",");
+
+		builder.append("\""
+				+ (e.getPatient() != null ? e.getPatient().getDisplayName()
+						.replace(",", "") : "") + "\",");
 
 		builder.append("\r\n");
 	}

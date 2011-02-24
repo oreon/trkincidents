@@ -37,15 +37,6 @@
       </rich:column>  
       <rich:column> 
         <f:facet name="header"> 
-          <h:outputText value="#{msg.formFieldInstance_incident}"/> 
-        </f:facet>  
-        <s:link value="#{_log.entity.incident.displayName}" view="/admin/entities/incidents/incident/viewIncident.xhtml"> 
-          <f:param name="id" value="#{_entity.incident.id}"/>  
-          <f:param name="from" value="#{request.servletPath}"/> 
-        </s:link> 
-      </rich:column>  
-      <rich:column> 
-        <f:facet name="header"> 
           <h:outputText value="#{msg.formFieldInstance_formField}"/> 
         </f:facet>  
         <s:link value="#{_log.entity.formField.displayName}" view="/admin/entities/incidents/formField/viewFormField.xhtml"> 
@@ -76,6 +67,15 @@
           <h:outputText value="#{msg.formFieldInstance_description}"/> 
         </f:facet>  
         <h:outputText value="#{_log.entity.description}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.formFieldInstance_incident}"/> 
+        </f:facet>  
+        <s:link value="#{_log.entity.incident.displayName}" view="/admin/entities/incidents/incident/viewIncident.xhtml"> 
+          <f:param name="id" value="#{_entity.incident.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
       </rich:column> 
     </rich:dataTable> 
   </h:form> 

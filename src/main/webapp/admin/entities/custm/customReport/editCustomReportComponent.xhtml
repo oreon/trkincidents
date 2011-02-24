@@ -6,7 +6,7 @@
       <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{customReportAction.load(customReportId )  }"> 
         <h:outputText value="#{msg.customReport_metaEntity} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaEntity', 'customReportEdit')}"/>  
         <h:selectOneMenu id="metaEntity" label="#{msg.customReport_metaEntity}" value="#{customReportAction.customReport.metaEntity}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaEntity', 'customReportEdit')}"> 
-          <a:support event="onchange" reRender="reportFields, reportGroupFields" ajaxSingle="true"/>  
+          <a:support event="onchange" reRender="metaField" ajaxSingle="true"/>  
           <s:selectItems value="#{metaEntityList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
           <rich:ajaxValidator event="onsubmit"/>  
           <s:convertEntity/> 
@@ -19,14 +19,14 @@
         <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'customReportEdit')}"/> 
       </h:panelGrid>  
       <br/>  
-      <rich:simpleTogglePanel label="#{msg.customReport_fields}" switchType="client" id="reportFields"> 
+      <rich:simpleTogglePanel label="#{msg.customReport_fields}" switchType="client"> 
         <rich:listShuttle sourceValue="#{customReportAction.listAvailableFields}" targetValue="#{customReportAction.listFields}" var="item"> 
           <s:convertEntity/>  
           <rich:column>#{item.displayName}</rich:column> 
         </rich:listShuttle> 
       </rich:simpleTogglePanel>  
       <br/>  
-      <rich:simpleTogglePanel label="#{msg.customReport_groupFields}" switchType="client" id="reportGroupFields"> 
+      <rich:simpleTogglePanel label="#{msg.customReport_groupFields}" switchType="client"> 
         <rich:listShuttle sourceValue="#{customReportAction.listAvailableGroupFields}" targetValue="#{customReportAction.listGroupFields}" var="item"> 
           <s:convertEntity/>  
           <rich:column>#{item.displayName}</rich:column> 

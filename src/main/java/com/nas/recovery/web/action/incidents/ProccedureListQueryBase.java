@@ -56,6 +56,8 @@ public abstract class ProccedureListQueryBase
 
 			"lower(proccedure.name) like concat(lower(#{proccedureList.proccedure.name}),'%')",
 
+			"lower(proccedure.description) like concat(lower(#{proccedureList.proccedure.description}),'%')",
+
 			"proccedure.dateCreated <= #{proccedureList.dateCreatedRange.end}",
 			"proccedure.dateCreated >= #{proccedureList.dateCreatedRange.begin}",};
 
@@ -70,7 +72,13 @@ public abstract class ProccedureListQueryBase
 	//@Override
 	public void createCsvString(StringBuilder builder, Proccedure e) {
 
-		builder.append("\"" + (e.getName() != null ? e.getName() : "") + "\",");
+		builder.append("\""
+				+ (e.getName() != null ? e.getName().replace(",", "") : "")
+				+ "\",");
+
+		builder.append("\""
+				+ (e.getDescription() != null ? e.getDescription().replace(",",
+						"") : "") + "\",");
 
 		builder.append("\r\n");
 	}
@@ -82,6 +90,8 @@ public abstract class ProccedureListQueryBase
 	public void createCSvTitles(StringBuilder builder) {
 
 		builder.append("Name" + ",");
+
+		builder.append("Description" + ",");
 
 		builder.append("\r\n");
 	}

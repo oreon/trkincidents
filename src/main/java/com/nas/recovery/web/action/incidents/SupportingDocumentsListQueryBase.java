@@ -79,13 +79,13 @@ public abstract class SupportingDocumentsListQueryBase
 	//@Override
 	public void createCsvString(StringBuilder builder, SupportingDocuments e) {
 
-		builder.append("\"" + (e.getTitle() != null ? e.getTitle() : "")
+		builder.append("\""
+				+ (e.getTitle() != null ? e.getTitle().replace(",", "") : "")
 				+ "\",");
 
 		builder.append("\""
-				+ (e.getIncident() != null
-						? e.getIncident().getDisplayName()
-						: "") + "\",");
+				+ (e.getIncident() != null ? e.getIncident().getDisplayName()
+						.replace(",", "") : "") + "\",");
 
 		builder.append("\r\n");
 	}

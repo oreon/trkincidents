@@ -48,16 +48,14 @@ import org.witchcraft.utils.*;
 @Name("document")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@AnalyzerDef(name = "Documentanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
-		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
-		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
+@Analyzer(definition = "entityAnalyzer")
 public class Document extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = 2053150834L;
 
 	@NotNull
 	@Length(min = 2, max = 250)
 	@Field(index = Index.TOKENIZED)
-	// @Analyzer(definition = "Documentanalyzer") 
+	@Analyzer(definition = "entityAnalyzer")
 	protected String name;
 
 	@Embedded
@@ -69,7 +67,7 @@ public class Document extends BusinessEntity implements java.io.Serializable {
 
 	@Lob
 	@Field(index = Index.TOKENIZED)
-	// @Analyzer(definition = "Documentanalyzer") 
+	@Analyzer(definition = "entityAnalyzer")
 	protected String notes;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)

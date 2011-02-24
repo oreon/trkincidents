@@ -185,6 +185,19 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
+        <h:column rendered="#{s:hasPermission('icd10', 'incidentView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{incidentList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.incident_icd10}"/>  
+              <ui:param name="propertyPath" value="incident.icd10"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_incident.icd10.displayName}" action="viewIcd10" propagation="none"> 
+            <f:param name="icd10Id" value="#{_incident.icd10.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'incidentView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 

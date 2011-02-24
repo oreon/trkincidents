@@ -48,9 +48,7 @@ import org.witchcraft.utils.*;
 @Name("employee")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@AnalyzerDef(name = "Employeeanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
-		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
-		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
+@Analyzer(definition = "entityAnalyzer")
 public class Employee extends com.oreon.trkincidents.patient.Person
 		implements
 			java.io.Serializable {
@@ -60,7 +58,7 @@ public class Employee extends com.oreon.trkincidents.patient.Person
 	@Length(min = 2, max = 250)
 	@Column(unique = true)
 	@Field(index = Index.TOKENIZED)
-	// @Analyzer(definition = "Employeeanalyzer") 
+	@Analyzer(definition = "entityAnalyzer")
 	protected String employeeNumber;
 
 	@OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -68,6 +66,12 @@ public class Employee extends com.oreon.trkincidents.patient.Person
 	@OrderBy("dateCreated DESC")
 	@IndexedEmbedded
 	private Set<com.oreon.trkincidents.incidents.Incident> incidentsCreated = new HashSet<com.oreon.trkincidents.incidents.Incident>();
+
+	public void addIncidentsCreated(
+			com.oreon.trkincidents.incidents.Incident incidentsCreated) {
+		incidentsCreated.setCreatedBy(this);
+		this.incidentsCreated.add(incidentsCreated);
+	}
 
 	@OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_id", nullable = false, updatable = true)
@@ -84,6 +88,12 @@ public class Employee extends com.oreon.trkincidents.patient.Person
 	@OrderBy("dateCreated DESC")
 	@IndexedEmbedded
 	private Set<com.oreon.trkincidents.incidents.Incident> incidentsResponsibleFor = new HashSet<com.oreon.trkincidents.incidents.Incident>();
+
+	public void addIncidentsResponsibleFor(
+			com.oreon.trkincidents.incidents.Incident incidentsResponsibleFor) {
+		incidentsResponsibleFor.setResponsibleEmployee(this);
+		this.incidentsResponsibleFor.add(incidentsResponsibleFor);
+	}
 
 	@IndexedEmbedded
 	@AttributeOverrides({
@@ -193,6 +203,31 @@ public class Employee extends com.oreon.trkincidents.patient.Person
 		listSearchableFields.add("contactDetails.zip");
 
 		return listSearchableFields;
+	}
+
+	@Field(index = Index.TOKENIZED, name = "searchData")
+	@Analyzer(definition = "entityAnalyzer")
+	public String getSearchData() {
+		StringBuilder builder = new StringBuilder();
+
+		builder.append(getEmployeeNumber() + " ");
+
+		if (getUser() != null)
+			builder.append("user:" + getUser().getDisplayName() + " ");
+
+		if (getDepartment() != null)
+			builder.append("department:" + getDepartment().getDisplayName()
+					+ " ");
+
+		for (BusinessEntity e : incidentsCreated) {
+			builder.append(e.getDisplayName() + " ");
+		}
+
+		for (BusinessEntity e : incidentsResponsibleFor) {
+			builder.append(e.getDisplayName() + " ");
+		}
+
+		return builder.toString();
 	}
 
 }

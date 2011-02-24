@@ -48,9 +48,7 @@ import org.witchcraft.utils.*;
 @Name("drug")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@AnalyzerDef(name = "Druganalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
-		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
-		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
+@Analyzer(definition = "entityAnalyzer")
 public class Drug extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = 857287701L;
 
@@ -60,11 +58,16 @@ public class Drug extends BusinessEntity implements java.io.Serializable {
 	@IndexedEmbedded
 	private Set<Incident> incidents = new HashSet<Incident>();
 
+	public void addIncidents(Incident incidents) {
+		incidents.setDrug(this);
+		this.incidents.add(incidents);
+	}
+
 	@NotNull
 	@Length(min = 2, max = 250)
 	@Column(unique = true)
 	@Field(index = Index.TOKENIZED)
-	// @Analyzer(definition = "Druganalyzer") 
+	@Analyzer(definition = "entityAnalyzer")
 	protected String name;
 
 	public void setIncidents(Set<Incident> incidents) {
@@ -109,6 +112,20 @@ public class Drug extends BusinessEntity implements java.io.Serializable {
 		listSearchableFields.add("name");
 
 		return listSearchableFields;
+	}
+
+	@Field(index = Index.TOKENIZED, name = "searchData")
+	@Analyzer(definition = "entityAnalyzer")
+	public String getSearchData() {
+		StringBuilder builder = new StringBuilder();
+
+		builder.append(getName() + " ");
+
+		for (BusinessEntity e : incidents) {
+			builder.append(e.getDisplayName() + " ");
+		}
+
+		return builder.toString();
 	}
 
 }

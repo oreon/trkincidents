@@ -48,9 +48,7 @@ import org.witchcraft.utils.*;
 @Name("customReport")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@AnalyzerDef(name = "CustomReportanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
-		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
-		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
+@Analyzer(definition = "entityAnalyzer")
 public class CustomReport extends BusinessEntity
 		implements
 			java.io.Serializable {
@@ -73,7 +71,7 @@ public class CustomReport extends BusinessEntity
 	@Length(min = 2, max = 250)
 	@Column(unique = true)
 	@Field(index = Index.TOKENIZED)
-	// @Analyzer(definition = "CustomReportanalyzer") 
+	@Analyzer(definition = "entityAnalyzer")
 	protected String name;
 
 	public void setMetaEntity(MetaEntity metaEntity) {
@@ -136,6 +134,20 @@ public class CustomReport extends BusinessEntity
 		listSearchableFields.add("name");
 
 		return listSearchableFields;
+	}
+
+	@Field(index = Index.TOKENIZED, name = "searchData")
+	@Analyzer(definition = "entityAnalyzer")
+	public String getSearchData() {
+		StringBuilder builder = new StringBuilder();
+
+		builder.append(getName() + " ");
+
+		if (getMetaEntity() != null)
+			builder.append("metaEntity:" + getMetaEntity().getDisplayName()
+					+ " ");
+
+		return builder.toString();
 	}
 
 }

@@ -83,13 +83,14 @@ public abstract class FilledFieldListQueryBase
 
 		builder.append("\""
 				+ (e.getCustomField() != null ? e.getCustomField()
-						.getDisplayName() : "") + "\",");
+						.getDisplayName().replace(",", "") : "") + "\",");
 
 		builder.append("\""
 				+ (e.getFilledForm() != null ? e.getFilledForm()
-						.getDisplayName() : "") + "\",");
+						.getDisplayName().replace(",", "") : "") + "\",");
 
-		builder.append("\"" + (e.getValue() != null ? e.getValue() : "")
+		builder.append("\""
+				+ (e.getValue() != null ? e.getValue().replace(",", "") : "")
 				+ "\",");
 
 		builder.append("\r\n");

@@ -61,6 +61,19 @@
           </f:facet>  
           <h:outputText value="#{_formField.choiceValues}" escape="false"/> 
         </h:column>  
+        <h:column groupOn="#{formField.incidentType.displayName}" rendered="#{s:hasPermission('incidentType', 'formFieldView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{formFieldList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.formField_incidentType}"/>  
+              <ui:param name="propertyPath" value="formField.incidentType"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_formField.incidentType.displayName}" action="viewIncidentType" propagation="none"> 
+            <f:param name="incidentTypeId" value="#{_formField.incidentType.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'formFieldView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 

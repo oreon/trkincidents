@@ -14,16 +14,16 @@
             </h:commandButton> 
           </div> 
         </rich:tab>  
-        <rich:tab label="Incident" rendered="#{formFieldInstanceAction.instance.incident != null}"> 
-          <ui:include src="/admin/entities/incidents/incident/viewIncidentComponent.xhtml"> 
-            <ui:param name="entityId" value="1"/>  
-            <ui:param name="incidentId" value="#{formFieldInstanceAction.instance.incident.id}"/> 
-          </ui:include> 
-        </rich:tab>  
         <rich:tab label="FormField" rendered="#{formFieldInstanceAction.instance.formField != null}"> 
           <ui:include src="/admin/entities/incidents/formField/viewFormFieldComponent.xhtml"> 
-            <ui:param name="entityId" value="2"/>  
+            <ui:param name="entityId" value="1"/>  
             <ui:param name="formFieldId" value="#{formFieldInstanceAction.instance.formField.id}"/> 
+          </ui:include> 
+        </rich:tab>  
+        <rich:tab label="Incident" rendered="#{formFieldInstanceAction.instance.incident != null}"> 
+          <ui:include src="/admin/entities/incidents/incident/viewIncidentComponent.xhtml"> 
+            <ui:param name="entityId" value="2"/>  
+            <ui:param name="incidentId" value="#{formFieldInstanceAction.instance.incident.id}"/> 
           </ui:include> 
         </rich:tab> 
       </rich:tabPanel> 

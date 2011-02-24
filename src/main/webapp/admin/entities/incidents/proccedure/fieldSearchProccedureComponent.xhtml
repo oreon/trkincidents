@@ -9,6 +9,11 @@
       <h:outputText value="#{msg.proccedure_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'proccedureEdit')}"/>  
       <br/>  
       <h:inputText id="name" value="#{proccedureList.proccedure.name}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.proccedure_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'proccedureEdit')}"/>  
+      <br/>  
+      <h:inputText id="description" value="#{proccedureList.proccedure.description}"/> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 

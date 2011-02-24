@@ -31,10 +31,10 @@
         <rich:message styleClass="error errors" for="address_city" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('city', 'patientEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.address_State}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('State', 'patientEdit')}"/>  
+        <h:outputText value="#{msg.address_state}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('state', 'patientEdit')}"/>  
         <br/>  
-        <h:inputText id="address_State" value="#{patientAction.patient.address.state}"/>  
-        <rich:message styleClass="error errors" for="address_State" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('State', 'patientEdit')}"/> 
+        <h:inputText id="address_state" value="#{patientAction.patient.address.state}"/>  
+        <rich:message styleClass="error errors" for="address_state" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('state', 'patientEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
         <h:outputText value="#{msg.address_phone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('phone', 'patientEdit')}"/>  

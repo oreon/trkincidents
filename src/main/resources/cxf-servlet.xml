@@ -13,9 +13,6 @@ http://cxf.apache.org/simple http://cxf.apache.org/schemas/simple.xsd">
 		<jaxws:endpoint id="patientWebSvc"  implementor="com.nas.recovery.websvc.patient.PatientWebServiceImpl"
 	 	address="/patientService" />
 	
-		<jaxws:endpoint id="documentWebSvc"  implementor="com.nas.recovery.websvc.patient.DocumentWebServiceImpl"
-	 	address="/documentService" />
-	
 		<jaxws:endpoint id="incidentWebSvc"  implementor="com.nas.recovery.websvc.incidents.IncidentWebServiceImpl"
 	 	address="/incidentService" />
 	
@@ -43,6 +40,9 @@ http://cxf.apache.org/simple http://cxf.apache.org/schemas/simple.xsd">
 		<jaxws:endpoint id="supportingDocumentsWebSvc"  implementor="com.nas.recovery.websvc.incidents.SupportingDocumentsWebServiceImpl"
 	 	address="/supportingDocumentsService" />
 	
+		<jaxws:endpoint id="icd10WebSvc"  implementor="com.nas.recovery.websvc.incidents.Icd10WebServiceImpl"
+	 	address="/icd10Service" />
+	
 		<jaxws:endpoint id="employeeWebSvc"  implementor="com.nas.recovery.websvc.employee.EmployeeWebServiceImpl"
 	 	address="/employeeService" />
 	
@@ -57,33 +57,6 @@ http://cxf.apache.org/simple http://cxf.apache.org/schemas/simple.xsd">
 	
 		<jaxws:endpoint id="facilityWebSvc"  implementor="com.nas.recovery.websvc.facility.FacilityWebServiceImpl"
 	 	address="/facilityService" />
-	
-		<jaxws:endpoint id="appointmentWebSvc"  implementor="com.nas.recovery.websvc.appointment.AppointmentWebServiceImpl"
-	 	address="/appointmentService" />
-	
-		<jaxws:endpoint id="encounterWebSvc"  implementor="com.nas.recovery.websvc.appointment.EncounterWebServiceImpl"
-	 	address="/encounterService" />
-	
-		<jaxws:endpoint id="historyWebSvc"  implementor="com.nas.recovery.websvc.appointment.HistoryWebServiceImpl"
-	 	address="/historyService" />
-	
-		<jaxws:endpoint id="dxTestWebSvc"  implementor="com.nas.recovery.websvc.appointment.DxTestWebServiceImpl"
-	 	address="/dxTestService" />
-	
-		<jaxws:endpoint id="prescribedTestWebSvc"  implementor="com.nas.recovery.websvc.appointment.PrescribedTestWebServiceImpl"
-	 	address="/prescribedTestService" />
-	
-		<jaxws:endpoint id="customFormWebSvc"  implementor="com.nas.recovery.websvc.customforms.CustomFormWebServiceImpl"
-	 	address="/customFormService" />
-	
-		<jaxws:endpoint id="customFieldWebSvc"  implementor="com.nas.recovery.websvc.customforms.CustomFieldWebServiceImpl"
-	 	address="/customFieldService" />
-	
-		<jaxws:endpoint id="filledFormWebSvc"  implementor="com.nas.recovery.websvc.customforms.FilledFormWebServiceImpl"
-	 	address="/filledFormService" />
-	
-		<jaxws:endpoint id="filledFieldWebSvc"  implementor="com.nas.recovery.websvc.customforms.FilledFieldWebServiceImpl"
-	 	address="/filledFieldService" />
 	
 		<jaxws:endpoint id="customReportWebSvc"  implementor="com.nas.recovery.websvc.custm.CustomReportWebServiceImpl"
 	 	address="/customReportService" />

@@ -35,7 +35,7 @@ import org.witchcraft.seam.action.EventTypes;
 @AnalyzerDef(name = "entityAnalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
 	@TokenFilterDef(factory = LowerCaseFilterFactory.class),
 	@TokenFilterDef(factory = StopFilterFactory.class),
-	@TokenFilterDef(factory = SynonymFilterFactory.class),
+	//@TokenFilterDef(factory = SynonymFilterFactory.class),
 	@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
 public class AuditLog<T> extends BusinessEntity{
 	private EventTypes action;

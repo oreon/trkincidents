@@ -85,14 +85,16 @@ public abstract class CustomFieldListQueryBase
 
 		builder.append("\""
 				+ (e.getCustomForm() != null ? e.getCustomForm()
-						.getDisplayName() : "") + "\",");
+						.getDisplayName().replace(",", "") : "") + "\",");
 
 		builder.append("\"" + (e.getRequired() != null ? e.getRequired() : "")
 				+ "\",");
 
 		builder.append("\"" + (e.getType() != null ? e.getType() : "") + "\",");
 
-		builder.append("\"" + (e.getName() != null ? e.getName() : "") + "\",");
+		builder.append("\""
+				+ (e.getName() != null ? e.getName().replace(",", "") : "")
+				+ "\",");
 
 		builder.append("\r\n");
 	}

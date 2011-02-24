@@ -49,13 +49,13 @@ public class Person extends BusinessEntity {
 	@NotNull
 	@Length(min = 2, max = 250)
 	@Field(index = Index.TOKENIZED)
-	// @Analyzer(definition = "Personanalyzer") 
+	@Analyzer(definition = "entityAnalyzer")
 	protected String firstName;
 
 	@NotNull
 	@Length(min = 2, max = 250)
 	@Field(index = Index.TOKENIZED)
-	// @Analyzer(definition = "Personanalyzer") 
+	@Analyzer(definition = "entityAnalyzer")
 	protected String lastName;
 
 	public void setFirstName(String firstName) {
@@ -100,6 +100,18 @@ public class Person extends BusinessEntity {
 		listSearchableFields.add("lastName");
 
 		return listSearchableFields;
+	}
+
+	@Field(index = Index.TOKENIZED, name = "searchData")
+	@Analyzer(definition = "entityAnalyzer")
+	public String getSearchData() {
+		StringBuilder builder = new StringBuilder();
+
+		builder.append(getFirstName() + " ");
+
+		builder.append(getLastName() + " ");
+
+		return builder.toString();
 	}
 
 }

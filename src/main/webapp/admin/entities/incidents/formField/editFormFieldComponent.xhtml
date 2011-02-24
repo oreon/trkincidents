@@ -4,6 +4,13 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{formFieldAction.load(formFieldId )  }"> 
+        <h:outputText value="#{msg.formField_incidentType} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incidentType', 'formFieldEdit')}"/>  
+        <h:selectOneMenu id="incidentType" label="#{msg.formField_incidentType}" value="#{formFieldAction.formField.incidentType}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incidentType', 'formFieldEdit')}"> 
+          <s:selectItems value="#{incidentTypeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onsubmit"/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="incidentType" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incidentType', 'formFieldEdit')}"/>  
         <h:outputText value="#{msg.formField_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'formFieldEdit')}"/>  
         <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'formFieldEdit')}" label="#{msg.formField_name}" required="true" value="#{formFieldAction.formField.name}"> 
           <rich:ajaxValidator event="onsubmit"/> 
@@ -15,9 +22,8 @@
           <f:selectItem itemValue="TEXT" itemLabel="#{msg.TEXT}"/>  
           <f:selectItem itemValue="LARGE_TEXT" itemLabel="#{msg.LARGE_TEXT}"/>  
           <f:selectItem itemValue="CHOICE" itemLabel="#{msg.CHOICE}"/>  
-          <f:selectItem itemValue="YES_NO" itemLabel="#{msg.YES_NO}"/>  
+          <f:selectItem itemValue="BOOLEAN" itemLabel="#{msg.BOOLEAN}"/>  
           <f:selectItem itemValue="DATE" itemLabel="#{msg.DATE}"/>  
-          <f:selectItem itemValue="REFERENCE" itemLabel="#{msg.REFERENCE}"/>  
           <rich:ajaxValidator event="onsubmit"/> 
         </h:selectOneMenu>  
         <rich:message styleClass="error errors" for="type" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('type', 'formFieldEdit')}"/>  

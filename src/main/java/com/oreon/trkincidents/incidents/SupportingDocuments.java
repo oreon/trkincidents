@@ -48,9 +48,7 @@ import org.witchcraft.utils.*;
 @Name("supportingDocuments")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@AnalyzerDef(name = "SupportingDocumentsanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
-		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
-		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
+@Analyzer(definition = "entityAnalyzer")
 public class SupportingDocuments extends BusinessEntity
 		implements
 			java.io.Serializable {
@@ -64,7 +62,7 @@ public class SupportingDocuments extends BusinessEntity
 	protected FileAttachment file = new FileAttachment();
 
 	@Field(index = Index.TOKENIZED)
-	// @Analyzer(definition = "SupportingDocumentsanalyzer") 
+	@Analyzer(definition = "entityAnalyzer")
 	protected String title;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -126,6 +124,19 @@ public class SupportingDocuments extends BusinessEntity
 		listSearchableFields.add("title");
 
 		return listSearchableFields;
+	}
+
+	@Field(index = Index.TOKENIZED, name = "searchData")
+	@Analyzer(definition = "entityAnalyzer")
+	public String getSearchData() {
+		StringBuilder builder = new StringBuilder();
+
+		builder.append(getTitle() + " ");
+
+		if (getIncident() != null)
+			builder.append("incident:" + getIncident().getDisplayName() + " ");
+
+		return builder.toString();
 	}
 
 }

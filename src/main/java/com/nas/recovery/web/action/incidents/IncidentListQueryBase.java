@@ -85,6 +85,8 @@ public abstract class IncidentListQueryBase extends BaseQuery<Incident, Long> {
 
 			"incident.severity.id = #{incidentList.incident.severity.id}",
 
+			"incident.icd10.id = #{incidentList.incident.icd10.id}",
+
 			"incident.dateCreated <= #{incidentList.dateCreatedRange.end}",
 			"incident.dateCreated >= #{incidentList.dateCreatedRange.begin}",};
 
@@ -130,6 +132,13 @@ public abstract class IncidentListQueryBase extends BaseQuery<Incident, Long> {
 		return getResultList();
 	}
 
+	public List<Incident> getIncidentsByIcd10(
+			com.oreon.trkincidents.incidents.Icd10 icd10) {
+		//setMaxResults(10000);
+		incident.setIcd10(icd10);
+		return getResultList();
+	}
+
 	@Observer("archivedIncident")
 	public void onArchive() {
 		refresh();
@@ -143,24 +152,23 @@ public abstract class IncidentListQueryBase extends BaseQuery<Incident, Long> {
 
 		builder.append("\""
 				+ (e.getIncidentType() != null ? e.getIncidentType()
-						.getDisplayName() : "") + "\",");
+						.getDisplayName().replace(",", "") : "") + "\",");
 
-		builder.append("\"" + (e.getTitle() != null ? e.getTitle() : "")
+		builder.append("\""
+				+ (e.getTitle() != null ? e.getTitle().replace(",", "") : "")
 				+ "\",");
 
 		builder.append("\""
-				+ (e.getPatient() != null
-						? e.getPatient().getDisplayName()
-						: "") + "\",");
+				+ (e.getPatient() != null ? e.getPatient().getDisplayName()
+						.replace(",", "") : "") + "\",");
 
 		builder.append("\""
-				+ (e.getCreatedBy() != null
-						? e.getCreatedBy().getDisplayName()
-						: "") + "\",");
+				+ (e.getCreatedBy() != null ? e.getCreatedBy().getDisplayName()
+						.replace(",", "") : "") + "\",");
 
 		builder.append("\""
 				+ (e.getDepartment() != null ? e.getDepartment()
-						.getDisplayName() : "") + "\",");
+						.getDisplayName().replace(",", "") : "") + "\",");
 
 		builder.append("\""
 				+ (e.getDateOfIncident() != null ? e.getDateOfIncident() : "")
@@ -168,29 +176,32 @@ public abstract class IncidentListQueryBase extends BaseQuery<Incident, Long> {
 
 		builder.append("\""
 				+ (e.getReportedTo() != null ? e.getReportedTo()
-						.getDisplayName() : "") + "\",");
+						.getDisplayName().replace(",", "") : "") + "\",");
 
 		builder.append("\""
-				+ (e.getDrug() != null ? e.getDrug().getDisplayName() : "")
-				+ "\",");
+				+ (e.getDrug() != null ? e.getDrug().getDisplayName().replace(
+						",", "") : "") + "\",");
 
 		builder.append("\""
 				+ (e.getProccedure() != null ? e.getProccedure()
-						.getDisplayName() : "") + "\",");
+						.getDisplayName().replace(",", "") : "") + "\",");
 
 		builder.append("\""
 				+ (e.getResponsibleEmployee() != null ? e
-						.getResponsibleEmployee().getDisplayName() : "")
-				+ "\",");
+						.getResponsibleEmployee().getDisplayName().replace(",",
+								"") : "") + "\",");
 
 		builder.append("\""
-				+ (e.getDescription() != null ? e.getDescription() : "")
-				+ "\",");
+				+ (e.getDescription() != null ? e.getDescription().replace(",",
+						"") : "") + "\",");
 
 		builder.append("\""
-				+ (e.getSeverity() != null
-						? e.getSeverity().getDisplayName()
-						: "") + "\",");
+				+ (e.getSeverity() != null ? e.getSeverity().getDisplayName()
+						.replace(",", "") : "") + "\",");
+
+		builder.append("\""
+				+ (e.getIcd10() != null ? e.getIcd10().getDisplayName()
+						.replace(",", "") : "") + "\",");
 
 		builder.append("\r\n");
 	}
@@ -224,6 +235,8 @@ public abstract class IncidentListQueryBase extends BaseQuery<Incident, Long> {
 		builder.append("Description" + ",");
 
 		builder.append("Severity" + ",");
+
+		builder.append("Icd10" + ",");
 
 		builder.append("\r\n");
 	}

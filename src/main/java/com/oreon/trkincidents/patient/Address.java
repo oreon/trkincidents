@@ -48,19 +48,19 @@ public class Address implements java.io.Serializable {
 	private static final long serialVersionUID = -855511539L;
 
 	@Field(index = Index.TOKENIZED)
-	// @Analyzer(definition = "Addressanalyzer") 
+	@Analyzer(definition = "entityAnalyzer")
 	protected String streetAddress;
 
 	@Field(index = Index.TOKENIZED)
-	// @Analyzer(definition = "Addressanalyzer") 
+	@Analyzer(definition = "entityAnalyzer")
 	protected String city;
 
 	@Field(index = Index.TOKENIZED)
-	// @Analyzer(definition = "Addressanalyzer") 
-	protected String State;
+	@Analyzer(definition = "entityAnalyzer")
+	protected String state;
 
 	@Field(index = Index.TOKENIZED)
-	// @Analyzer(definition = "Addressanalyzer") 
+	@Analyzer(definition = "entityAnalyzer")
 	protected String phone;
 
 	public void setStreetAddress(String streetAddress) {
@@ -83,13 +83,13 @@ public class Address implements java.io.Serializable {
 
 	}
 
-	public void setState(String State) {
-		this.State = State;
+	public void setState(String state) {
+		this.state = state;
 	}
 
 	public String getState() {
 
-		return State;
+		return state;
 
 	}
 
@@ -101,6 +101,15 @@ public class Address implements java.io.Serializable {
 
 		return phone;
 
+	}
+
+	@Transient
+	public String getDisplayName() {
+		try {
+			return streetAddress + ", " + city + " ," + state;
+		} catch (Exception e) {
+			return "Exception - " + e.getMessage();
+		}
 	}
 
 }
