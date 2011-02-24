@@ -157,14 +157,6 @@ public class Myrpt extends BaseReportsTest {
 			e.printStackTrace();
 		}
 
-		/**
-		 * Creates the JasperPrint object, we pass as a Parameter the
-		 * JasperReport object, and the JRDataSource 
-		 */
-		// log.debug("Filling the report");
-	
-	
-
 	}
 
 	protected static LayoutManager getLayoutManager() {
