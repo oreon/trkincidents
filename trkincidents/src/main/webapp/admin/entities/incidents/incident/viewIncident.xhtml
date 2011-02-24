@@ -67,6 +67,12 @@
             <ui:param name="entityId" value="9"/>  
             <ui:param name="severityId" value="#{incidentAction.instance.severity.id}"/> 
           </ui:include> 
+        </rich:tab>  
+        <rich:tab label="Icd10" rendered="#{incidentAction.instance.icd10 != null}"> 
+          <ui:include src="/admin/entities/incidents/icd10/viewIcd10Component.xhtml"> 
+            <ui:param name="entityId" value="10"/>  
+            <ui:param name="icd10Id" value="#{incidentAction.instance.icd10.id}"/> 
+          </ui:include> 
         </rich:tab> 
       </rich:tabPanel> 
     </h:form>  
@@ -76,6 +82,9 @@
     <rich:tabPanel> 
       <rich:tab label="Notes"> 
         <wc:comments backingAction="#{incidentAction}"/> 
+      </rich:tab>  
+      <rich:tab label="Audit"> 
+        <ui:include src="/admin/entities/incidents/incident/auditListIncidentComponent.xhtml"/> 
       </rich:tab> 
     </rich:tabPanel> 
   </ui:define> 

@@ -36,26 +36,26 @@ public abstract class CustomReportListQueryBase
 		return customReport;
 	}
 
-	private com.oreon.trkincidents.custm.MetaField metaFieldToSearch;
+	private com.oreon.trkincidents.custm.MetaField fieldsToSearch;
 
-	public void setMetaFieldToSearch(
+	public void setFieldsToSearch(
 			com.oreon.trkincidents.custm.MetaField metaFieldToSearch) {
-		this.metaFieldToSearch = metaFieldToSearch;
+		this.fieldsToSearch = metaFieldToSearch;
 	}
 
-	public com.oreon.trkincidents.custm.MetaField getMetaFieldToSearch() {
-		return metaFieldToSearch;
+	public com.oreon.trkincidents.custm.MetaField getFieldsToSearch() {
+		return fieldsToSearch;
 	}
 
-	private com.oreon.trkincidents.custm.MetaField metaFieldToSearch;
+	private com.oreon.trkincidents.custm.MetaField groupFieldsToSearch;
 
-	public void setMetaFieldToSearch(
+	public void setGroupFieldsToSearch(
 			com.oreon.trkincidents.custm.MetaField metaFieldToSearch) {
-		this.metaFieldToSearch = metaFieldToSearch;
+		this.groupFieldsToSearch = metaFieldToSearch;
 	}
 
-	public com.oreon.trkincidents.custm.MetaField getMetaFieldToSearch() {
-		return metaFieldToSearch;
+	public com.oreon.trkincidents.custm.MetaField getGroupFieldsToSearch() {
+		return groupFieldsToSearch;
 	}
 
 	@Override
@@ -78,9 +78,9 @@ public abstract class CustomReportListQueryBase
 
 			"customReport.metaEntity.id = #{customReportList.customReport.metaEntity.id}",
 
-			"#{customReportList.metaFieldToSearch} in elements(customReport.fields)",
+			"#{customReportList.fieldsToSearch} in elements(customReport.fields)",
 
-			"#{customReportList.metaFieldToSearch} in elements(customReport.groupFields)",
+			"#{customReportList.groupFieldsToSearch} in elements(customReport.groupFields)",
 
 			"lower(customReport.name) like concat(lower(#{customReportList.customReport.name}),'%')",
 
@@ -100,7 +100,7 @@ public abstract class CustomReportListQueryBase
 
 		builder.append("\""
 				+ (e.getMetaEntity() != null ? e.getMetaEntity()
-						.getDisplayName() : "") + "\",");
+						.getDisplayName().replace(",", "") : "") + "\",");
 
 		builder.append("\"" + (e.getFields() != null ? e.getFields() : "")
 				+ "\",");
@@ -109,7 +109,9 @@ public abstract class CustomReportListQueryBase
 				+ (e.getGroupFields() != null ? e.getGroupFields() : "")
 				+ "\",");
 
-		builder.append("\"" + (e.getName() != null ? e.getName() : "") + "\",");
+		builder.append("\""
+				+ (e.getName() != null ? e.getName().replace(",", "") : "")
+				+ "\",");
 
 		builder.append("\r\n");
 	}

@@ -13,7 +13,7 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.role_users}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('users', 'roleEdit')}"/>  
       <br/>  
-      <h:selectOneMenu id="users" value="#{ roleList.userToSearch}"> 
+      <h:selectOneMenu id="users" value="#{ roleList.usersToSearch}"> 
         <s:selectItems value="#{userList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/>  
         <f:selectItem itemLabel="--None--" itemValue=""/> 

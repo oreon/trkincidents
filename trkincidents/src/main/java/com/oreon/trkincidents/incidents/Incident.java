@@ -48,10 +48,11 @@ import org.witchcraft.utils.*;
 @Name("incident")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@AnalyzerDef(name = "Incidentanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
-		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
-		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
-public class Incident extends BusinessEntity implements java.io.Serializable {
+@Analyzer(definition = "entityAnalyzer")
+public class Incident extends BusinessEntity
+		implements
+			Auditable,
+			java.io.Serializable {
 	private static final long serialVersionUID = 2028657351L;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -62,7 +63,7 @@ public class Incident extends BusinessEntity implements java.io.Serializable {
 	@NotNull
 	@Length(min = 2, max = 250)
 	@Field(index = Index.TOKENIZED)
-	// @Analyzer(definition = "Incidentanalyzer") 
+	@Analyzer(definition = "entityAnalyzer")
 	protected String title;
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -82,12 +83,6 @@ public class Incident extends BusinessEntity implements java.io.Serializable {
 
 	@Column(name = "dateOfIncident", unique = false)
 	protected Date dateOfIncident = new Date();;
-
-	@OneToMany(mappedBy = "incident", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	//@JoinColumn(name = "incident_ID", nullable = true)
-	@OrderBy("dateCreated DESC")
-	@IndexedEmbedded
-	private Set<FormFieldInstance> formFieldInstances = new HashSet<FormFieldInstance>();
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "reportedTo_id", nullable = false, updatable = true)
@@ -118,7 +113,7 @@ public class Incident extends BusinessEntity implements java.io.Serializable {
 
 	@Lob
 	@Field(index = Index.TOKENIZED)
-	// @Analyzer(definition = "Incidentanalyzer") 
+	@Analyzer(definition = "entityAnalyzer")
 	protected String description;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -131,6 +126,28 @@ public class Incident extends BusinessEntity implements java.io.Serializable {
 	@OrderBy("dateCreated DESC")
 	@IndexedEmbedded
 	private Set<SupportingDocuments> supportingDocumentses = new HashSet<SupportingDocuments>();
+
+	public void addSupportingDocumentses(
+			SupportingDocuments supportingDocumentses) {
+		supportingDocumentses.setIncident(this);
+		this.supportingDocumentses.add(supportingDocumentses);
+	}
+
+	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "icd10_id", nullable = true, updatable = true)
+	@ContainedIn
+	protected Icd10 icd10;
+
+	@OneToMany(mappedBy = "incident", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	//@JoinColumn(name = "incident_ID", nullable = true)
+	@OrderBy("dateCreated DESC")
+	@IndexedEmbedded
+	private Set<FormFieldInstance> formFieldInstances = new HashSet<FormFieldInstance>();
+
+	public void addFormFieldInstances(FormFieldInstance formFieldInstances) {
+		formFieldInstances.setIncident(this);
+		this.formFieldInstances.add(formFieldInstances);
+	}
 
 	public void setIncidentType(IncidentType incidentType) {
 		this.incidentType = incidentType;
@@ -191,14 +208,6 @@ public class Incident extends BusinessEntity implements java.io.Serializable {
 
 		return dateOfIncident;
 
-	}
-
-	public void setFormFieldInstances(Set<FormFieldInstance> formFieldInstances) {
-		this.formFieldInstances = formFieldInstances;
-	}
-
-	public Set<FormFieldInstance> getFormFieldInstances() {
-		return formFieldInstances;
 	}
 
 	public void setReportedTo(
@@ -282,6 +291,24 @@ public class Incident extends BusinessEntity implements java.io.Serializable {
 		return supportingDocumentses;
 	}
 
+	public void setIcd10(Icd10 icd10) {
+		this.icd10 = icd10;
+	}
+
+	public Icd10 getIcd10() {
+
+		return icd10;
+
+	}
+
+	public void setFormFieldInstances(Set<FormFieldInstance> formFieldInstances) {
+		this.formFieldInstances = formFieldInstances;
+	}
+
+	public Set<FormFieldInstance> getFormFieldInstances() {
+		return formFieldInstances;
+	}
+
 	@Transient
 	public String getDisplayName() {
 		try {
@@ -307,13 +334,70 @@ public class Incident extends BusinessEntity implements java.io.Serializable {
 
 		listSearchableFields.add("description");
 
+		listSearchableFields.add("supportingDocumentses.title");
+
 		listSearchableFields.add("formFieldInstances.value");
 
 		listSearchableFields.add("formFieldInstances.description");
 
-		listSearchableFields.add("supportingDocumentses.title");
-
 		return listSearchableFields;
+	}
+
+	@Field(index = Index.TOKENIZED, name = "searchData")
+	@Analyzer(definition = "entityAnalyzer")
+	public String getSearchData() {
+		StringBuilder builder = new StringBuilder();
+
+		builder.append(getTitle() + " ");
+
+		builder.append(getDescription() + " ");
+
+		if (getIncidentType() != null)
+			builder.append("incidentType:" + getIncidentType().getDisplayName()
+					+ " ");
+
+		if (getPatient() != null)
+			builder.append("patient:" + getPatient().getDisplayName() + " ");
+
+		if (getCreatedBy() != null)
+			builder
+					.append("createdBy:" + getCreatedBy().getDisplayName()
+							+ " ");
+
+		if (getDepartment() != null)
+			builder.append("department:" + getDepartment().getDisplayName()
+					+ " ");
+
+		if (getReportedTo() != null)
+			builder.append("reportedTo:" + getReportedTo().getDisplayName()
+					+ " ");
+
+		if (getDrug() != null)
+			builder.append("drug:" + getDrug().getDisplayName() + " ");
+
+		if (getProccedure() != null)
+			builder.append("proccedure:" + getProccedure().getDisplayName()
+					+ " ");
+
+		if (getResponsibleEmployee() != null)
+			builder.append("responsibleEmployee:"
+					+ getResponsibleEmployee().getDisplayName() + " ");
+
+		if (getSeverity() != null)
+			builder.append("severity:" + getSeverity().getDisplayName() + " ");
+
+		if (getIcd10() != null)
+			builder.append("icd10:" + getIcd10().getDisplayName() + " ");
+
+		for (BusinessEntity e : supportingDocumentses) {
+			builder.append(e.getDisplayName() + " ");
+		}
+
+		for (BusinessEntity e : formFieldInstances) {
+			builder.append(e.getDisplayName() + " ");
+		}
+
+		return builder.toString();
 	}
 
 	private Long processId;

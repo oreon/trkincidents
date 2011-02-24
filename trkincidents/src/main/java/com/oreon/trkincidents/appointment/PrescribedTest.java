@@ -48,16 +48,14 @@ import org.witchcraft.utils.*;
 @Name("prescribedTest")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@AnalyzerDef(name = "PrescribedTestanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
-		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
-		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
+@Analyzer(definition = "entityAnalyzer")
 public class PrescribedTest extends BusinessEntity
 		implements
 			java.io.Serializable {
 	private static final long serialVersionUID = -1536758854L;
 
 	@Field(index = Index.TOKENIZED)
-	// @Analyzer(definition = "PrescribedTestanalyzer") 
+	@Analyzer(definition = "entityAnalyzer")
 	protected String remarks;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)

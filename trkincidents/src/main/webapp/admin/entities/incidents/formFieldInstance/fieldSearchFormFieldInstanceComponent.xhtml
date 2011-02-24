@@ -11,14 +11,6 @@
       <h:inputText id="value" value="#{formFieldInstanceList.formFieldInstance.value}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.formFieldInstance_incident} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'formFieldInstanceEdit')}"/>  
-      <br/>  
-      <h:selectOneMenu id="incident" value="#{ formFieldInstanceList.formFieldInstance.incident}"> 
-        <s:selectItems value="#{incidentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
-        <s:convertEntity/> 
-      </h:selectOneMenu> 
-    </h:panelGroup>  
-    <h:panelGroup> 
       <h:outputText value="#{msg.formFieldInstance_formField} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'formFieldInstanceEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="formField" value="#{ formFieldInstanceList.formFieldInstance.formField}"> 
@@ -58,6 +50,14 @@
       <h:outputText value="#{msg.formFieldInstance_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'formFieldInstanceEdit')}"/>  
       <br/>  
       <h:inputText id="description" value="#{formFieldInstanceList.formFieldInstance.description}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.formFieldInstance_incident} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'formFieldInstanceEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="incident" value="#{ formFieldInstanceList.formFieldInstance.incident}"> 
+        <s:selectItems value="#{incidentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 

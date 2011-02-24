@@ -61,11 +61,11 @@
           </f:facet>  
           <h:outputText value="#{_patient.address.city}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('State', 'patientView'  )}"> 
+        <h:column rendered="#{s:hasPermission('state', 'patientView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{patientList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.address_State}"/>  
+              <ui:param name="propertyLabel" value="#{msg.address_state}"/>  
               <ui:param name="propertyPath" value="patient.address.state"/> 
             </ui:include> 
           </f:facet>  

@@ -71,11 +71,11 @@ public abstract class EncounterListQueryBase extends BaseQuery<Encounter, Long> 
 	public void createCsvString(StringBuilder builder, Encounter e) {
 
 		builder.append("\""
-				+ (e.getPatient() != null
-						? e.getPatient().getDisplayName()
-						: "") + "\",");
+				+ (e.getPatient() != null ? e.getPatient().getDisplayName()
+						.replace(",", "") : "") + "\",");
 
-		builder.append("\"" + (e.getNotes() != null ? e.getNotes() : "")
+		builder.append("\""
+				+ (e.getNotes() != null ? e.getNotes().replace(",", "") : "")
 				+ "\",");
 
 		builder.append("\r\n");

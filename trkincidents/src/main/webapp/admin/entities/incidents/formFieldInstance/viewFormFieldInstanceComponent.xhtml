@@ -6,14 +6,14 @@
       <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{formFieldInstanceAction.load(formFieldInstanceId )  }"> 
         <h:outputText value="#{msg.id}"/>  
         <h:outputText value="#{formFieldInstanceAction.formFieldInstance.id}"/>  
-        <h:outputText value="#{msg.formFieldInstance_incident}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'formFieldInstanceView')}"/>  
-        <s:link value="#{formFieldInstanceAction.formFieldInstance.incident.displayName}" view="/admin/entities/incidents/incident/viewIncident.xhtml" propagation="none"> 
-          <f:param name="incidentId" value="#{formFieldInstanceAction.formFieldInstance.incident.id}"/>  
-          <f:param name="from" value="#{request.servletPath}"/> 
-        </s:link>  
         <h:outputText value="#{msg.formFieldInstance_formField}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'formFieldInstanceView')}"/>  
         <s:link value="#{formFieldInstanceAction.formFieldInstance.formField.displayName}" view="/admin/entities/incidents/formField/viewFormField.xhtml" propagation="none"> 
           <f:param name="formFieldId" value="#{formFieldInstanceAction.formFieldInstance.formField.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.formFieldInstance_incident}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'formFieldInstanceView')}"/>  
+        <s:link value="#{formFieldInstanceAction.formFieldInstance.incident.displayName}" view="/admin/entities/incidents/incident/viewIncident.xhtml" propagation="none"> 
+          <f:param name="incidentId" value="#{formFieldInstanceAction.formFieldInstance.incident.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
         <h:outputText value="#{msg.formFieldInstance_value}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('value', 'formFieldInstanceView')}"/>  

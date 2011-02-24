@@ -98,16 +98,16 @@ public abstract class EmployeeListQueryBase extends BaseQuery<Employee, Long> {
 	public void createCsvString(StringBuilder builder, Employee e) {
 
 		builder.append("\""
-				+ (e.getEmployeeNumber() != null ? e.getEmployeeNumber() : "")
-				+ "\",");
+				+ (e.getEmployeeNumber() != null ? e.getEmployeeNumber()
+						.replace(",", "") : "") + "\",");
 
 		builder.append("\""
-				+ (e.getUser() != null ? e.getUser().getDisplayName() : "")
-				+ "\",");
+				+ (e.getUser() != null ? e.getUser().getDisplayName().replace(
+						",", "") : "") + "\",");
 
 		builder.append("\""
 				+ (e.getDepartment() != null ? e.getDepartment()
-						.getDisplayName() : "") + "\",");
+						.getDisplayName().replace(",", "") : "") + "\",");
 
 		builder.append("\""
 				+ (e.getContactDetails() != null ? e.getContactDetails() : "")

@@ -10,7 +10,7 @@
       <s:button value="Create New" action="/admin/entities/incidents/supportingDocuments/editSupportingDocuments.xhtml" propagation="none"> 
         <f:param name="supportingDocumentsId" value="0"/> 
       </s:button>  
-      <a:commandButton action="#{supportingDocumentsAction.setSupportingDocumentsId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"></a:commandButton>  
+      <a:commandButton action="#{supportingDocumentsAction.setSupportingDocumentsId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}"></a:commandButton>  
       <s:button value="Export to Excel" action="#{supportingDocumentsList.exportToCsv}"/> 
     </a:form>  
     <ui:include src="listSupportingDocumentsComponent.xhtml"> 
@@ -20,7 +20,7 @@
       <s:button value="Create New" action="/admin/entities/incidents/supportingDocuments/editSupportingDocuments.xhtml" propagation="none"> 
         <f:param name="supportingDocumentsId" value="0"/> 
       </s:button>  
-      <a:commandButton action="#{supportingDocumentsAction.setSupportingDocumentsId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"></a:commandButton>  
+      <a:commandButton action="#{supportingDocumentsAction.setSupportingDocumentsId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}"></a:commandButton>  
       <s:button value="Export to Excel" action="#{supportingDocumentsList.exportToCsv}"/> 
     </a:form>  
     <ui:include src="/admin/entities/incidents/supportingDocuments/modalDlgSupportingDocumentsComponent.xhtml"> 

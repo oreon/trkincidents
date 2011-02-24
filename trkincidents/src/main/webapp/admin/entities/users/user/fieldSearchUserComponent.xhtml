@@ -22,7 +22,7 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.user_roles}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roles', 'userEdit')}"/>  
       <br/>  
-      <h:selectOneMenu id="roles" value="#{ userList.roleToSearch}"> 
+      <h:selectOneMenu id="roles" value="#{ userList.rolesToSearch}"> 
         <s:selectItems value="#{roleList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/>  
         <f:selectItem itemLabel="--None--" itemValue=""/> 

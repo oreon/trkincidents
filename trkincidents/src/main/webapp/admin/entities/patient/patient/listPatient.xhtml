@@ -10,7 +10,7 @@
       <s:button value="Create New" action="/admin/entities/patient/patient/editPatient.xhtml" propagation="none"> 
         <f:param name="patientId" value="0"/> 
       </s:button>  
-      <a:commandButton action="#{patientAction.setPatientId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"></a:commandButton>  
+      <a:commandButton action="#{patientAction.setPatientId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}"></a:commandButton>  
       <s:button value="Export to Excel" action="#{patientList.exportToCsv}"/> 
     </a:form>  
     <ui:include src="listPatientComponent.xhtml"> 
@@ -20,7 +20,7 @@
       <s:button value="Create New" action="/admin/entities/patient/patient/editPatient.xhtml" propagation="none"> 
         <f:param name="patientId" value="0"/> 
       </s:button>  
-      <a:commandButton action="#{patientAction.setPatientId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"></a:commandButton>  
+      <a:commandButton action="#{patientAction.setPatientId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}"></a:commandButton>  
       <s:button value="Export to Excel" action="#{patientList.exportToCsv}"/> 
     </a:form>  
     <ui:include src="/admin/entities/patient/patient/modalDlgPatientComponent.xhtml"> 

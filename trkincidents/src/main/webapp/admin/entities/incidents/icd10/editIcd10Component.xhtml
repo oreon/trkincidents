@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{icd10Action.load(icd10Id )  }"> 
+        <h:outputText value="#{msg.icd10_code} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'icd10Edit')}"/>  
+        <h:inputText id="code#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'icd10Edit')}" label="#{msg.icd10_code}" required="true" value="#{icd10Action.icd10.code}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="code" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'icd10Edit')}"/>  
+        <h:outputText value="#{msg.icd10_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'icd10Edit')}"/>  
+        <h:inputText id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'icd10Edit')}" label="#{msg.icd10_description}" required="false" value="#{icd10Action.icd10.description}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="description" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'icd10Edit')}"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

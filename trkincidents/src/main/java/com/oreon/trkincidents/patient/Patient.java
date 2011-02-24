@@ -48,9 +48,7 @@ import org.witchcraft.utils.*;
 @Name("patient")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@AnalyzerDef(name = "Patientanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
-		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
-		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
+@Analyzer(definition = "entityAnalyzer")
 public class Patient extends com.oreon.trkincidents.patient.Person
 		implements
 			java.io.Serializable {
@@ -63,7 +61,7 @@ public class Patient extends com.oreon.trkincidents.patient.Person
 
 			@AttributeOverride(name = "city", column = @Column(name = "address_city")),
 
-			@AttributeOverride(name = "State", column = @Column(name = "address_State")),
+			@AttributeOverride(name = "state", column = @Column(name = "address_state")),
 
 			@AttributeOverride(name = "phone", column = @Column(name = "address_phone"))
 
@@ -76,14 +74,13 @@ public class Patient extends com.oreon.trkincidents.patient.Person
 	@IndexedEmbedded
 	private Set<com.oreon.trkincidents.incidents.Incident> incidents = new HashSet<com.oreon.trkincidents.incidents.Incident>();
 
-	@OneToMany(mappedBy = "patient", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	//@JoinColumn(name = "patient_ID", nullable = true)
-	@OrderBy("dateCreated DESC")
-	@IndexedEmbedded
-	private Set<Document> documents = new HashSet<Document>();
+	public void addIncidents(com.oreon.trkincidents.incidents.Incident incidents) {
+		incidents.setPatient(this);
+		this.incidents.add(incidents);
+	}
 
 	@Field(index = Index.TOKENIZED)
-	// @Analyzer(definition = "Patientanalyzer") 
+	@Analyzer(definition = "entityAnalyzer")
 	protected String healthNumber;
 
 	protected Date dateOfBirth;
@@ -110,14 +107,6 @@ public class Patient extends com.oreon.trkincidents.patient.Person
 
 	public Set<com.oreon.trkincidents.incidents.Incident> getIncidents() {
 		return incidents;
-	}
-
-	public void setDocuments(Set<Document> documents) {
-		this.documents = documents;
-	}
-
-	public Set<Document> getDocuments() {
-		return documents;
 	}
 
 	public void setHealthNumber(String healthNumber) {
@@ -202,11 +191,25 @@ public class Patient extends com.oreon.trkincidents.patient.Person
 
 		listSearchableFields.add("address.city");
 
-		listSearchableFields.add("address.State");
+		listSearchableFields.add("address.state");
 
 		listSearchableFields.add("address.phone");
 
 		return listSearchableFields;
+	}
+
+	@Field(index = Index.TOKENIZED, name = "searchData")
+	@Analyzer(definition = "entityAnalyzer")
+	public String getSearchData() {
+		StringBuilder builder = new StringBuilder();
+
+		builder.append(getHealthNumber() + " ");
+
+		for (BusinessEntity e : incidents) {
+			builder.append(e.getDisplayName() + " ");
+		}
+
+		return builder.toString();
 	}
 
 }

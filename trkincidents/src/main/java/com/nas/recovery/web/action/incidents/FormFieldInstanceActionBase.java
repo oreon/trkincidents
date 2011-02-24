@@ -50,11 +50,11 @@ public abstract class FormFieldInstanceActionBase
 	@DataModelSelection
 	private FormFieldInstance formFieldInstance;
 
-	@In(create = true, value = "incidentAction")
-	com.nas.recovery.web.action.incidents.IncidentAction incidentAction;
-
 	@In(create = true, value = "formFieldAction")
 	com.nas.recovery.web.action.incidents.FormFieldAction formFieldAction;
+
+	@In(create = true, value = "incidentAction")
+	com.nas.recovery.web.action.incidents.IncidentAction incidentAction;
 
 	@DataModel
 	private List<FormFieldInstance> formFieldInstanceRecordList;
@@ -80,19 +80,6 @@ public abstract class FormFieldInstanceActionBase
 		loadAssociations();
 	}
 
-	public void setIncidentId(Long id) {
-
-		if (id != null && id > 0)
-			getInstance().setIncident(incidentAction.loadFromId(id));
-
-	}
-
-	public Long getIncidentId() {
-		if (getInstance().getIncident() != null)
-			return getInstance().getIncident().getId();
-		return 0L;
-	}
-
 	public void setFormFieldId(Long id) {
 
 		if (id != null && id > 0)
@@ -103,6 +90,19 @@ public abstract class FormFieldInstanceActionBase
 	public Long getFormFieldId() {
 		if (getInstance().getFormField() != null)
 			return getInstance().getFormField().getId();
+		return 0L;
+	}
+
+	public void setIncidentId(Long id) {
+
+		if (id != null && id > 0)
+			getInstance().setIncident(incidentAction.loadFromId(id));
+
+	}
+
+	public Long getIncidentId() {
+		if (getInstance().getIncident() != null)
+			return getInstance().getIncident().getId();
 		return 0L;
 	}
 
@@ -138,16 +138,16 @@ public abstract class FormFieldInstanceActionBase
 	public void wire() {
 		getInstance();
 
-		com.oreon.trkincidents.incidents.Incident incident = incidentAction
-				.getDefinedInstance();
-		if (incident != null && isNew()) {
-			getInstance().setIncident(incident);
-		}
-
 		com.oreon.trkincidents.incidents.FormField formField = formFieldAction
 				.getDefinedInstance();
 		if (formField != null && isNew()) {
 			getInstance().setFormField(formField);
+		}
+
+		com.oreon.trkincidents.incidents.Incident incident = incidentAction
+				.getDefinedInstance();
+		if (incident != null && isNew()) {
+			getInstance().setIncident(incident);
 		}
 
 	}
@@ -176,14 +176,14 @@ public abstract class FormFieldInstanceActionBase
 	@Override
 	public void addAssociations(Criteria criteria) {
 
-		if (formFieldInstance.getIncident() != null) {
-			criteria = criteria.add(Restrictions.eq("incident.id",
-					formFieldInstance.getIncident().getId()));
-		}
-
 		if (formFieldInstance.getFormField() != null) {
 			criteria = criteria.add(Restrictions.eq("formField.id",
 					formFieldInstance.getFormField().getId()));
+		}
+
+		if (formFieldInstance.getIncident() != null) {
+			criteria = criteria.add(Restrictions.eq("incident.id",
+					formFieldInstance.getIncident().getId()));
 		}
 
 	}
@@ -194,12 +194,12 @@ public abstract class FormFieldInstanceActionBase
 	 */
 	public void loadAssociations() {
 
-		if (formFieldInstance.getIncident() != null) {
-			incidentAction.setInstance(getInstance().getIncident());
-		}
-
 		if (formFieldInstance.getFormField() != null) {
 			formFieldAction.setInstance(getInstance().getFormField());
+		}
+
+		if (formFieldInstance.getIncident() != null) {
+			incidentAction.setInstance(getInstance().getIncident());
 		}
 
 	}

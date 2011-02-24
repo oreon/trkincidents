@@ -50,6 +50,9 @@ public abstract class FormFieldActionBase extends BaseAction<FormField>
 	@DataModelSelection
 	private FormField formField;
 
+	@In(create = true, value = "incidentTypeAction")
+	com.nas.recovery.web.action.incidents.IncidentTypeAction incidentTypeAction;
+
 	@DataModel
 	private List<FormField> formFieldRecordList;
 
@@ -72,6 +75,19 @@ public abstract class FormFieldActionBase extends BaseAction<FormField>
 		setId(id);
 		clearLists();
 		loadAssociations();
+	}
+
+	public void setIncidentTypeId(Long id) {
+
+		if (id != null && id > 0)
+			getInstance().setIncidentType(incidentTypeAction.loadFromId(id));
+
+	}
+
+	public Long getIncidentTypeId() {
+		if (getInstance().getIncidentType() != null)
+			return getInstance().getIncidentType().getId();
+		return 0L;
 	}
 
 	public Long getFormFieldId() {
@@ -106,6 +122,12 @@ public abstract class FormFieldActionBase extends BaseAction<FormField>
 	public void wire() {
 		getInstance();
 
+		com.oreon.trkincidents.incidents.IncidentType incidentType = incidentTypeAction
+				.getDefinedInstance();
+		if (incidentType != null && isNew()) {
+			getInstance().setIncidentType(incidentType);
+		}
+
 	}
 
 	public boolean isWired() {
@@ -126,11 +148,28 @@ public abstract class FormFieldActionBase extends BaseAction<FormField>
 		return FormField.class;
 	}
 
+	/** This function adds associated entities to an example criterion
+	 * @see org.witchcraft.model.support.dao.BaseAction#createExampleCriteria(java.lang.Object)
+	 */
+	@Override
+	public void addAssociations(Criteria criteria) {
+
+		if (formField.getIncidentType() != null) {
+			criteria = criteria.add(Restrictions.eq("incidentType.id",
+					formField.getIncidentType().getId()));
+		}
+
+	}
+
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
 	 * that customer can be shown on the customer tab within viewOrder.xhtml
 	 * @see org.witchcraft.seam.action.BaseAction#loadAssociations()
 	 */
 	public void loadAssociations() {
+
+		if (formField.getIncidentType() != null) {
+			incidentTypeAction.setInstance(getInstance().getIncidentType());
+		}
 
 	}
 

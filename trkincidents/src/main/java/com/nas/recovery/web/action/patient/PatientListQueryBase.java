@@ -119,8 +119,8 @@ public abstract class PatientListQueryBase extends BaseQuery<Patient, Long> {
 				+ "\",");
 
 		builder.append("\""
-				+ (e.getHealthNumber() != null ? e.getHealthNumber() : "")
-				+ "\",");
+				+ (e.getHealthNumber() != null ? e.getHealthNumber().replace(
+						",", "") : "") + "\",");
 
 		builder.append("\""
 				+ (e.getDateOfBirth() != null ? e.getDateOfBirth() : "")

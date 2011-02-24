@@ -48,9 +48,7 @@ import org.witchcraft.utils.*;
 @Name("incidentType")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@AnalyzerDef(name = "IncidentTypeanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
-		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
-		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
+@Analyzer(definition = "entityAnalyzer")
 public class IncidentType extends BusinessEntity
 		implements
 			java.io.Serializable {
@@ -60,20 +58,30 @@ public class IncidentType extends BusinessEntity
 	@Length(min = 2, max = 250)
 	@Column(unique = true)
 	@Field(index = Index.TOKENIZED)
-	// @Analyzer(definition = "IncidentTypeanalyzer") 
+	@Analyzer(definition = "entityAnalyzer")
 	protected String name;
-
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	//@JoinColumn(name = "incidentType_ID", nullable = true)
-	@OrderBy("dateCreated DESC")
-	@IndexedEmbedded
-	private Set<FormField> formFields = new HashSet<FormField>();
 
 	@OneToMany(mappedBy = "incidentType", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "incidentType_ID", nullable = true)
 	@OrderBy("dateCreated DESC")
 	@IndexedEmbedded
 	private Set<ReferenceField> referenceFields = new HashSet<ReferenceField>();
+
+	public void addReferenceFields(ReferenceField referenceFields) {
+		referenceFields.setIncidentType(this);
+		this.referenceFields.add(referenceFields);
+	}
+
+	@OneToMany(mappedBy = "incidentType", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	//@JoinColumn(name = "incidentType_ID", nullable = true)
+	@OrderBy("dateCreated DESC")
+	@IndexedEmbedded
+	private Set<FormField> formFields = new HashSet<FormField>();
+
+	public void addFormFields(FormField formFields) {
+		formFields.setIncidentType(this);
+		this.formFields.add(formFields);
+	}
 
 	public void setName(String name) {
 		this.name = name;
@@ -85,20 +93,20 @@ public class IncidentType extends BusinessEntity
 
 	}
 
-	public void setFormFields(Set<FormField> formFields) {
-		this.formFields = formFields;
-	}
-
-	public Set<FormField> getFormFields() {
-		return formFields;
-	}
-
 	public void setReferenceFields(Set<ReferenceField> referenceFields) {
 		this.referenceFields = referenceFields;
 	}
 
 	public Set<ReferenceField> getReferenceFields() {
 		return referenceFields;
+	}
+
+	public void setFormFields(Set<FormField> formFields) {
+		this.formFields = formFields;
+	}
+
+	public Set<FormField> getFormFields() {
+		return formFields;
 	}
 
 	@Transient
@@ -129,6 +137,24 @@ public class IncidentType extends BusinessEntity
 		listSearchableFields.add("formFields.choiceValues");
 
 		return listSearchableFields;
+	}
+
+	@Field(index = Index.TOKENIZED, name = "searchData")
+	@Analyzer(definition = "entityAnalyzer")
+	public String getSearchData() {
+		StringBuilder builder = new StringBuilder();
+
+		builder.append(getName() + " ");
+
+		for (BusinessEntity e : referenceFields) {
+			builder.append(e.getDisplayName() + " ");
+		}
+
+		for (BusinessEntity e : formFields) {
+			builder.append(e.getDisplayName() + " ");
+		}
+
+		return builder.toString();
 	}
 
 }

@@ -81,17 +81,18 @@ public abstract class PrescribedTestListQueryBase
 	//@Override
 	public void createCsvString(StringBuilder builder, PrescribedTest e) {
 
-		builder.append("\"" + (e.getRemarks() != null ? e.getRemarks() : "")
-				+ "\",");
-
 		builder.append("\""
-				+ (e.getDxTest() != null ? e.getDxTest().getDisplayName() : "")
-				+ "\",");
-
-		builder.append("\""
-				+ (e.getEncounter() != null
-						? e.getEncounter().getDisplayName()
+				+ (e.getRemarks() != null
+						? e.getRemarks().replace(",", "")
 						: "") + "\",");
+
+		builder.append("\""
+				+ (e.getDxTest() != null ? e.getDxTest().getDisplayName()
+						.replace(",", "") : "") + "\",");
+
+		builder.append("\""
+				+ (e.getEncounter() != null ? e.getEncounter().getDisplayName()
+						.replace(",", "") : "") + "\",");
 
 		builder.append("\r\n");
 	}

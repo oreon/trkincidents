@@ -48,9 +48,7 @@ import org.witchcraft.utils.*;
 @Name("referenceField")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@AnalyzerDef(name = "ReferenceFieldanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
-		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
-		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
+@Analyzer(definition = "entityAnalyzer")
 public class ReferenceField extends BusinessEntity
 		implements
 			java.io.Serializable {
@@ -117,6 +115,18 @@ public class ReferenceField extends BusinessEntity
 		listSearchableFields.addAll(super.listSearchableFields());
 
 		return listSearchableFields;
+	}
+
+	@Field(index = Index.TOKENIZED, name = "searchData")
+	@Analyzer(definition = "entityAnalyzer")
+	public String getSearchData() {
+		StringBuilder builder = new StringBuilder();
+
+		if (getIncidentType() != null)
+			builder.append("incidentType:" + getIncidentType().getDisplayName()
+					+ " ");
+
+		return builder.toString();
 	}
 
 }

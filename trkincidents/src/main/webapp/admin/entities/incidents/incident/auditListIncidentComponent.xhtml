@@ -133,6 +133,15 @@
           <f:param name="id" value="#{_entity.severity.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.incident_icd10}"/> 
+        </f:facet>  
+        <s:link value="#{_log.entity.icd10.displayName}" view="/admin/entities/incidents/icd10/viewIcd10.xhtml"> 
+          <f:param name="id" value="#{_entity.icd10.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
       </rich:column> 
     </rich:dataTable> 
   </h:form> 

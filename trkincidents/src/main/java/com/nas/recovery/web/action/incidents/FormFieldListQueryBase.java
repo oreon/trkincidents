@@ -60,8 +60,17 @@ public abstract class FormFieldListQueryBase extends BaseQuery<FormField, Long> 
 
 			"lower(formField.choiceValues) like concat(lower(#{formFieldList.formField.choiceValues}),'%')",
 
+			"formField.incidentType.id = #{formFieldList.formField.incidentType.id}",
+
 			"formField.dateCreated <= #{formFieldList.dateCreatedRange.end}",
 			"formField.dateCreated >= #{formFieldList.dateCreatedRange.begin}",};
+
+	public List<FormField> getFormFieldsByIncidentType(
+			com.oreon.trkincidents.incidents.IncidentType incidentType) {
+		//setMaxResults(10000);
+		formField.setIncidentType(incidentType);
+		return getResultList();
+	}
 
 	@Observer("archivedFormField")
 	public void onArchive() {
@@ -74,7 +83,9 @@ public abstract class FormFieldListQueryBase extends BaseQuery<FormField, Long> 
 	//@Override
 	public void createCsvString(StringBuilder builder, FormField e) {
 
-		builder.append("\"" + (e.getName() != null ? e.getName() : "") + "\",");
+		builder.append("\""
+				+ (e.getName() != null ? e.getName().replace(",", "") : "")
+				+ "\",");
 
 		builder.append("\"" + (e.getType() != null ? e.getType() : "") + "\",");
 
@@ -82,8 +93,12 @@ public abstract class FormFieldListQueryBase extends BaseQuery<FormField, Long> 
 				+ "\",");
 
 		builder.append("\""
-				+ (e.getChoiceValues() != null ? e.getChoiceValues() : "")
-				+ "\",");
+				+ (e.getChoiceValues() != null ? e.getChoiceValues().replace(
+						",", "") : "") + "\",");
+
+		builder.append("\""
+				+ (e.getIncidentType() != null ? e.getIncidentType()
+						.getDisplayName().replace(",", "") : "") + "\",");
 
 		builder.append("\r\n");
 	}
@@ -101,6 +116,8 @@ public abstract class FormFieldListQueryBase extends BaseQuery<FormField, Long> 
 		builder.append("Required" + ",");
 
 		builder.append("ChoiceValues" + ",");
+
+		builder.append("IncidentType" + ",");
 
 		builder.append("\r\n");
 	}

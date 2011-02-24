@@ -26,9 +26,9 @@
       <h:inputText id="address_city" value="#{patientList.patient.address.city}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.address_State}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('State', 'patientEdit')}"/>  
+      <h:outputText value="#{msg.address_state}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('state', 'patientEdit')}"/>  
       <br/>  
-      <h:inputText id="address_State" value="#{patientList.patient.address.state}"/> 
+      <h:inputText id="address_state" value="#{patientList.patient.address.state}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.address_phone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('phone', 'patientEdit')}"/>  

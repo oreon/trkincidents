@@ -68,7 +68,9 @@ public abstract class FacilityListQueryBase extends BaseQuery<Facility, Long> {
 	//@Override
 	public void createCsvString(StringBuilder builder, Facility e) {
 
-		builder.append("\"" + (e.getName() != null ? e.getName() : "") + "\",");
+		builder.append("\""
+				+ (e.getName() != null ? e.getName().replace(",", "") : "")
+				+ "\",");
 
 		builder.append("\r\n");
 	}

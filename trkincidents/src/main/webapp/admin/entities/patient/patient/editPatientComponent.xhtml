@@ -14,11 +14,11 @@
           <rich:ajaxValidator event="onsubmit"/> 
         </h:inputText>  
         <rich:message styleClass="error errors" for="address_city" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('city', 'patientEdit')}"/>  
-        <h:outputText value="#{msg.address_State}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('State', 'patientEdit')}"/>  
-        <h:inputText id="address_State#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('State', 'patientEdit')}" label="#{msg.address_State}" required="false" value="#{patientAction.patient.address.state}"> 
+        <h:outputText value="#{msg.address_state}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('state', 'patientEdit')}"/>  
+        <h:inputText id="address_state#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('state', 'patientEdit')}" label="#{msg.address_state}" required="false" value="#{patientAction.patient.address.state}"> 
           <rich:ajaxValidator event="onsubmit"/> 
         </h:inputText>  
-        <rich:message styleClass="error errors" for="address_State" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('State', 'patientEdit')}"/>  
+        <rich:message styleClass="error errors" for="address_state" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('state', 'patientEdit')}"/>  
         <h:outputText value="#{msg.address_phone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('phone', 'patientEdit')}"/>  
         <h:inputText id="address_phone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('phone', 'patientEdit')}" label="#{msg.address_phone}" required="false" value="#{patientAction.patient.address.phone}"> 
           <rich:ajaxValidator event="onsubmit"/> 

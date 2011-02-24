@@ -52,6 +52,15 @@
           <h:outputText value="#{msg.formField_choiceValues}"/> 
         </f:facet>  
         <h:outputText value="#{_log.entity.choiceValues}"/> 
+      </rich:column>  
+      <rich:column> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.formField_incidentType}"/> 
+        </f:facet>  
+        <s:link value="#{_log.entity.incidentType.displayName}" view="/admin/entities/incidents/incidentType/viewIncidentType.xhtml"> 
+          <f:param name="id" value="#{_entity.incidentType.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
       </rich:column> 
     </rich:dataTable> 
   </h:form> 

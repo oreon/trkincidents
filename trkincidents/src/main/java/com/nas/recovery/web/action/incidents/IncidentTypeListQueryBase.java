@@ -70,7 +70,9 @@ public abstract class IncidentTypeListQueryBase
 	//@Override
 	public void createCsvString(StringBuilder builder, IncidentType e) {
 
-		builder.append("\"" + (e.getName() != null ? e.getName() : "") + "\",");
+		builder.append("\""
+				+ (e.getName() != null ? e.getName().replace(",", "") : "")
+				+ "\",");
 
 		builder.append("\r\n");
 	}

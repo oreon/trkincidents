@@ -3,6 +3,7 @@
 	xmlns:core="http://jboss.com/products/seam/core" xmlns:drools="http://jboss.com/products/seam/drools"
 	xmlns:security="http://jboss.com/products/seam/security" xmlns:web="http://jboss.com/products/seam/web"
 	xmlns:mail="http://jboss.com/products/seam/mail" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:bpm="http://jboss.com/products/seam/bpm"
 	xmlns:persistence="http://jboss.com/products/seam/persistence"
 	xmlns:transaction="http://jboss.com/products/seam/transaction"
 	xmlns:navigation="http://jboss.com/products/seam/navigation"
@@ -12,6 +13,8 @@
  					http://jboss.com/products/seam/transaction 
  					http://jboss.com/products/seam/async-2.0.xsd   
  					http://jboss.com/products/seam/async 
+ 					http://jboss.com/products/seam/bpm 
+ 			      	http://jboss.com/products/seam/bpm-2.0.xsd
  					http://jboss.com/products/seam/transaction-2.0.xsd      
  					http://jboss.com/products/seam/security 
  					http://jboss.com/products/seam/security-2.0.xsd      
@@ -70,8 +73,8 @@
 			<value>/permissions/security.drl</value>
 		</drools:rule-files>
 	</drools:rule-base>
-	
-	
+
+
 	<async:quartz-dispatcher />
 
 
@@ -82,26 +85,12 @@
 	<event type="org.jboss.seam.security.postAuthenticate">
 		<action execute="#{redirect.returnToCapturedView}" />
 	</event>
-	<!--
-		<bpm:jbpm> <bpm:process-definitions>
-		<value>processes/processDefinition.jpdl.xml</value>
-		</bpm:process-definitions> </bpm:jbpm>
-	-->
-	
-	<property name="hibernate.ejb.event.post-insert"
-             value="org.hibernate.ejb.event.EJB3PostInsertEventListener,org.hibernate.envers.event.AuditEventListener" />
-   <property name="hibernate.ejb.event.post-update"
-             value="org.hibernate.ejb.event.EJB3PostUpdateEventListener,org.hibernate.envers.event.AuditEventListener" />
-   <property name="hibernate.ejb.event.post-delete"
-             value="org.hibernate.ejb.event.EJB3PostDeleteEventListener,org.hibernate.envers.event.AuditEventListener" />
-   <property name="hibernate.ejb.event.pre-collection-update"
-             value="org.hibernate.envers.event.AuditEventListener" />
-   <property name="hibernate.ejb.event.pre-collection-remove"
-             value="org.hibernate.envers.event.AuditEventListener" />
-   <property name="hibernate.ejb.event.post-collection-recreate"
-             value="org.hibernate.envers.event.AuditEventListener" />
 
-   <property name="org.hibernate.envers.versionsTableSuffix" value="_V" />
-   <property name="org.hibernate.envers.revisionFieldName" value="ver_rev" />
+	<bpm:jbpm>
+		<bpm:process-definitions>
+			<value>processes/unusualOccurenceWorkflow/processdefinition.xml</value>
+		</bpm:process-definitions>
+	</bpm:jbpm>
+
 
 </components>

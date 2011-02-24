@@ -41,8 +41,8 @@ import org.apache.commons.io.FileUtils;
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
-import com.oreon.trkincidents.incidents.FormField;
 import com.oreon.trkincidents.incidents.ReferenceField;
+import com.oreon.trkincidents.incidents.FormField;
 
 public abstract class IncidentTypeActionBase extends BaseAction<IncidentType>
 		implements
@@ -140,49 +140,14 @@ public abstract class IncidentTypeActionBase extends BaseAction<IncidentType>
 	 */
 	public void loadAssociations() {
 
-		initListFormFields();
-
 		initListReferenceFields();
+
+		initListFormFields();
 
 	}
 
 	public void updateAssociations() {
 
-	}
-
-	protected List<com.oreon.trkincidents.incidents.FormField> listFormFields = new ArrayList<com.oreon.trkincidents.incidents.FormField>();
-
-	void initListFormFields() {
-
-		if (listFormFields.isEmpty())
-			listFormFields.addAll(getInstance().getFormFields());
-
-	}
-
-	public List<com.oreon.trkincidents.incidents.FormField> getListFormFields() {
-
-		prePopulateListFormFields();
-		return listFormFields;
-	}
-
-	public void prePopulateListFormFields() {
-	}
-
-	public void setListFormFields(
-			List<com.oreon.trkincidents.incidents.FormField> listFormFields) {
-		this.listFormFields = listFormFields;
-	}
-
-	public void deleteFormFields(int index) {
-		listFormFields.remove(index);
-	}
-
-	@Begin(join = true)
-	public void addFormFields() {
-		initListFormFields();
-		FormField formFields = new FormField();
-
-		getListFormFields().add(formFields);
 	}
 
 	protected List<com.oreon.trkincidents.incidents.ReferenceField> listReferenceFields = new ArrayList<com.oreon.trkincidents.incidents.ReferenceField>();
@@ -222,22 +187,59 @@ public abstract class IncidentTypeActionBase extends BaseAction<IncidentType>
 		getListReferenceFields().add(referenceFields);
 	}
 
-	public void updateComposedAssociations() {
+	protected List<com.oreon.trkincidents.incidents.FormField> listFormFields = new ArrayList<com.oreon.trkincidents.incidents.FormField>();
 
-		if (listFormFields != null) {
-			getInstance().getFormFields().clear();
-			getInstance().getFormFields().addAll(listFormFields);
-		}
+	void initListFormFields() {
+
+		if (listFormFields.isEmpty())
+			listFormFields.addAll(getInstance().getFormFields());
+
+	}
+
+	public List<com.oreon.trkincidents.incidents.FormField> getListFormFields() {
+
+		prePopulateListFormFields();
+		return listFormFields;
+	}
+
+	public void prePopulateListFormFields() {
+	}
+
+	public void setListFormFields(
+			List<com.oreon.trkincidents.incidents.FormField> listFormFields) {
+		this.listFormFields = listFormFields;
+	}
+
+	public void deleteFormFields(int index) {
+		listFormFields.remove(index);
+	}
+
+	@Begin(join = true)
+	public void addFormFields() {
+		initListFormFields();
+		FormField formFields = new FormField();
+
+		formFields.setIncidentType(getInstance());
+
+		getListFormFields().add(formFields);
+	}
+
+	public void updateComposedAssociations() {
 
 		if (listReferenceFields != null) {
 			getInstance().getReferenceFields().clear();
 			getInstance().getReferenceFields().addAll(listReferenceFields);
 		}
+
+		if (listFormFields != null) {
+			getInstance().getFormFields().clear();
+			getInstance().getFormFields().addAll(listFormFields);
+		}
 	}
 
 	public void clearLists() {
-		listFormFields.clear();
 		listReferenceFields.clear();
+		listFormFields.clear();
 
 	}
 

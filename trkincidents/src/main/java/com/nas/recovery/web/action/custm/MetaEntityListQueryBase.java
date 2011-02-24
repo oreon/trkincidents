@@ -70,7 +70,9 @@ public abstract class MetaEntityListQueryBase
 	//@Override
 	public void createCsvString(StringBuilder builder, MetaEntity e) {
 
-		builder.append("\"" + (e.getName() != null ? e.getName() : "") + "\",");
+		builder.append("\""
+				+ (e.getName() != null ? e.getName().replace(",", "") : "")
+				+ "\",");
 
 		builder.append("\r\n");
 	}

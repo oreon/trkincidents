@@ -6,6 +6,11 @@
       <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{formFieldAction.load(formFieldId )  }"> 
         <h:outputText value="#{msg.id}"/>  
         <h:outputText value="#{formFieldAction.formField.id}"/>  
+        <h:outputText value="#{msg.formField_incidentType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incidentType', 'formFieldView')}"/>  
+        <s:link value="#{formFieldAction.formField.incidentType.displayName}" view="/admin/entities/incidents/incidentType/viewIncidentType.xhtml" propagation="none"> 
+          <f:param name="incidentTypeId" value="#{formFieldAction.formField.incidentType.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
         <h:outputText value="#{msg.formField_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'formFieldView')}"/>  
         <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'formFieldView')}" value="#{formFieldAction.formField.name}"></h:outputText>  
         <h:outputText value="#{msg.formField_type}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('type', 'formFieldView')}"/>  

@@ -34,14 +34,14 @@ public abstract class UserListQueryBase extends BaseQuery<User, Long> {
 		return user;
 	}
 
-	private com.oreon.trkincidents.users.Role roleToSearch;
+	private com.oreon.trkincidents.users.Role rolesToSearch;
 
-	public void setRoleToSearch(com.oreon.trkincidents.users.Role roleToSearch) {
-		this.roleToSearch = roleToSearch;
+	public void setRolesToSearch(com.oreon.trkincidents.users.Role roleToSearch) {
+		this.rolesToSearch = roleToSearch;
 	}
 
-	public com.oreon.trkincidents.users.Role getRoleToSearch() {
-		return roleToSearch;
+	public com.oreon.trkincidents.users.Role getRolesToSearch() {
+		return rolesToSearch;
 	}
 
 	@Override
@@ -66,7 +66,7 @@ public abstract class UserListQueryBase extends BaseQuery<User, Long> {
 
 			"user.enabled = #{userList.user.enabled}",
 
-			"#{userList.roleToSearch} in elements(user.roles)",
+			"#{userList.rolesToSearch} in elements(user.roles)",
 
 			"lower(user.email) like concat(lower(#{userList.user.email}),'%')",
 
@@ -84,8 +84,10 @@ public abstract class UserListQueryBase extends BaseQuery<User, Long> {
 	//@Override
 	public void createCsvString(StringBuilder builder, User e) {
 
-		builder.append("\"" + (e.getUserName() != null ? e.getUserName() : "")
-				+ "\",");
+		builder.append("\""
+				+ (e.getUserName() != null
+						? e.getUserName().replace(",", "")
+						: "") + "\",");
 
 		builder.append("\"" + (e.getEnabled() != null ? e.getEnabled() : "")
 				+ "\",");
@@ -93,7 +95,8 @@ public abstract class UserListQueryBase extends BaseQuery<User, Long> {
 		builder.append("\"" + (e.getRoles() != null ? e.getRoles() : "")
 				+ "\",");
 
-		builder.append("\"" + (e.getEmail() != null ? e.getEmail() : "")
+		builder.append("\""
+				+ (e.getEmail() != null ? e.getEmail().replace(",", "") : "")
 				+ "\",");
 
 		builder.append("\r\n");

@@ -72,8 +72,6 @@ public abstract class FormFieldInstanceListQueryBase
 
 			"lower(formFieldInstance.value) like concat(lower(#{formFieldInstanceList.formFieldInstance.value}),'%')",
 
-			"formFieldInstance.incident.id = #{formFieldInstanceList.formFieldInstance.incident.id}",
-
 			"formFieldInstance.formField.id = #{formFieldInstanceList.formFieldInstance.formField.id}",
 
 			"formFieldInstance.boolValue = #{formFieldInstanceList.formFieldInstance.boolValue}",
@@ -85,6 +83,8 @@ public abstract class FormFieldInstanceListQueryBase
 			"formFieldInstance.enumOrdinal <= #{formFieldInstanceList.enumOrdinalRange.end}",
 
 			"lower(formFieldInstance.description) like concat(lower(#{formFieldInstanceList.formFieldInstance.description}),'%')",
+
+			"formFieldInstance.incident.id = #{formFieldInstanceList.formFieldInstance.incident.id}",
 
 			"formFieldInstance.dateCreated <= #{formFieldInstanceList.dateCreatedRange.end}",
 			"formFieldInstance.dateCreated >= #{formFieldInstanceList.dateCreatedRange.begin}",};
@@ -107,18 +107,13 @@ public abstract class FormFieldInstanceListQueryBase
 	//@Override
 	public void createCsvString(StringBuilder builder, FormFieldInstance e) {
 
-		builder.append("\"" + (e.getValue() != null ? e.getValue() : "")
+		builder.append("\""
+				+ (e.getValue() != null ? e.getValue().replace(",", "") : "")
 				+ "\",");
 
 		builder.append("\""
-				+ (e.getIncident() != null
-						? e.getIncident().getDisplayName()
-						: "") + "\",");
-
-		builder.append("\""
-				+ (e.getFormField() != null
-						? e.getFormField().getDisplayName()
-						: "") + "\",");
+				+ (e.getFormField() != null ? e.getFormField().getDisplayName()
+						.replace(",", "") : "") + "\",");
 
 		builder.append("\""
 				+ (e.getBoolValue() != null ? e.getBoolValue() : "") + "\",");
@@ -131,8 +126,12 @@ public abstract class FormFieldInstanceListQueryBase
 				+ "\",");
 
 		builder.append("\""
-				+ (e.getDescription() != null ? e.getDescription() : "")
-				+ "\",");
+				+ (e.getDescription() != null ? e.getDescription().replace(",",
+						"") : "") + "\",");
+
+		builder.append("\""
+				+ (e.getIncident() != null ? e.getIncident().getDisplayName()
+						.replace(",", "") : "") + "\",");
 
 		builder.append("\r\n");
 	}
@@ -145,8 +144,6 @@ public abstract class FormFieldInstanceListQueryBase
 
 		builder.append("Value" + ",");
 
-		builder.append("Incident" + ",");
-
 		builder.append("FormField" + ",");
 
 		builder.append("BoolValue" + ",");
@@ -156,6 +153,8 @@ public abstract class FormFieldInstanceListQueryBase
 		builder.append("EnumOrdinal" + ",");
 
 		builder.append("Description" + ",");
+
+		builder.append("Incident" + ",");
 
 		builder.append("\r\n");
 	}

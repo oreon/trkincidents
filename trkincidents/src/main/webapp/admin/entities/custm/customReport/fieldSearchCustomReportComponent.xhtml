@@ -16,7 +16,7 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.customReport_fields}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('fields', 'customReportEdit')}"/>  
       <br/>  
-      <h:selectOneMenu id="fields" value="#{ customReportList.metaFieldToSearch}"> 
+      <h:selectOneMenu id="fields" value="#{ customReportList.fieldsToSearch}"> 
         <s:selectItems value="#{metaFieldList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/>  
         <f:selectItem itemLabel="--None--" itemValue=""/> 
@@ -25,7 +25,7 @@
     <h:panelGroup> 
       <h:outputText value="#{msg.customReport_groupFields}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('groupFields', 'customReportEdit')}"/>  
       <br/>  
-      <h:selectOneMenu id="groupFields" value="#{ customReportList.metaFieldToSearch}"> 
+      <h:selectOneMenu id="groupFields" value="#{ customReportList.groupFieldsToSearch}"> 
         <s:selectItems value="#{metaFieldList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/>  
         <f:selectItem itemLabel="--None--" itemValue=""/> 

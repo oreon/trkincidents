@@ -41,8 +41,8 @@ import org.apache.commons.io.FileUtils;
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
-import com.oreon.trkincidents.incidents.FormFieldInstance;
 import com.oreon.trkincidents.incidents.SupportingDocuments;
+import com.oreon.trkincidents.incidents.FormFieldInstance;
 
 public abstract class IncidentActionBase extends BaseAction<Incident>
 		implements
@@ -79,6 +79,9 @@ public abstract class IncidentActionBase extends BaseAction<Incident>
 
 	@In(create = true, value = "severityAction")
 	com.nas.recovery.web.action.incidents.SeverityAction severityAction;
+
+	@In(create = true, value = "icd10Action")
+	com.nas.recovery.web.action.incidents.Icd10Action icd10Action;
 
 	@DataModel
 	private List<Incident> incidentRecordList;
@@ -222,6 +225,19 @@ public abstract class IncidentActionBase extends BaseAction<Incident>
 		return 0L;
 	}
 
+	public void setIcd10Id(Long id) {
+
+		if (id != null && id > 0)
+			getInstance().setIcd10(icd10Action.loadFromId(id));
+
+	}
+
+	public Long getIcd10Id() {
+		if (getInstance().getIcd10() != null)
+			return getInstance().getIcd10().getId();
+		return 0L;
+	}
+
 	public Long getIncidentId() {
 		return (Long) getId();
 	}
@@ -306,6 +322,12 @@ public abstract class IncidentActionBase extends BaseAction<Incident>
 				.getDefinedInstance();
 		if (severity != null && isNew()) {
 			getInstance().setSeverity(severity);
+		}
+
+		com.oreon.trkincidents.incidents.Icd10 icd10 = icd10Action
+				.getDefinedInstance();
+		if (icd10 != null && isNew()) {
+			getInstance().setIcd10(icd10);
 		}
 
 	}
@@ -397,6 +419,11 @@ public abstract class IncidentActionBase extends BaseAction<Incident>
 					.getSeverity().getId()));
 		}
 
+		if (incident.getIcd10() != null) {
+			criteria = criteria.add(Restrictions.eq("icd10.id", incident
+					.getIcd10().getId()));
+		}
+
 	}
 
 	/** This function is responsible for loading associations for the given entity e.g. when viewing an order, we load the customer so
@@ -442,52 +469,18 @@ public abstract class IncidentActionBase extends BaseAction<Incident>
 			severityAction.setInstance(getInstance().getSeverity());
 		}
 
-		initListFormFieldInstances();
+		if (incident.getIcd10() != null) {
+			icd10Action.setInstance(getInstance().getIcd10());
+		}
 
 		initListSupportingDocumentses();
+
+		initListFormFieldInstances();
 
 	}
 
 	public void updateAssociations() {
 
-	}
-
-	protected List<com.oreon.trkincidents.incidents.FormFieldInstance> listFormFieldInstances = new ArrayList<com.oreon.trkincidents.incidents.FormFieldInstance>();
-
-	void initListFormFieldInstances() {
-
-		if (listFormFieldInstances.isEmpty())
-			listFormFieldInstances
-					.addAll(getInstance().getFormFieldInstances());
-
-	}
-
-	public List<com.oreon.trkincidents.incidents.FormFieldInstance> getListFormFieldInstances() {
-
-		prePopulateListFormFieldInstances();
-		return listFormFieldInstances;
-	}
-
-	public void prePopulateListFormFieldInstances() {
-	}
-
-	public void setListFormFieldInstances(
-			List<com.oreon.trkincidents.incidents.FormFieldInstance> listFormFieldInstances) {
-		this.listFormFieldInstances = listFormFieldInstances;
-	}
-
-	public void deleteFormFieldInstances(int index) {
-		listFormFieldInstances.remove(index);
-	}
-
-	@Begin(join = true)
-	public void addFormFieldInstances() {
-		initListFormFieldInstances();
-		FormFieldInstance formFieldInstances = new FormFieldInstance();
-
-		formFieldInstances.setIncident(getInstance());
-
-		getListFormFieldInstances().add(formFieldInstances);
 	}
 
 	protected List<com.oreon.trkincidents.incidents.SupportingDocuments> listSupportingDocumentses = new ArrayList<com.oreon.trkincidents.incidents.SupportingDocuments>();
@@ -528,24 +521,62 @@ public abstract class IncidentActionBase extends BaseAction<Incident>
 		getListSupportingDocumentses().add(supportingDocumentses);
 	}
 
-	public void updateComposedAssociations() {
+	protected List<com.oreon.trkincidents.incidents.FormFieldInstance> listFormFieldInstances = new ArrayList<com.oreon.trkincidents.incidents.FormFieldInstance>();
 
-		if (listFormFieldInstances != null) {
-			getInstance().getFormFieldInstances().clear();
-			getInstance().getFormFieldInstances()
-					.addAll(listFormFieldInstances);
-		}
+	void initListFormFieldInstances() {
+
+		if (listFormFieldInstances.isEmpty())
+			listFormFieldInstances
+					.addAll(getInstance().getFormFieldInstances());
+
+	}
+
+	public List<com.oreon.trkincidents.incidents.FormFieldInstance> getListFormFieldInstances() {
+
+		prePopulateListFormFieldInstances();
+		return listFormFieldInstances;
+	}
+
+	public void prePopulateListFormFieldInstances() {
+	}
+
+	public void setListFormFieldInstances(
+			List<com.oreon.trkincidents.incidents.FormFieldInstance> listFormFieldInstances) {
+		this.listFormFieldInstances = listFormFieldInstances;
+	}
+
+	public void deleteFormFieldInstances(int index) {
+		listFormFieldInstances.remove(index);
+	}
+
+	@Begin(join = true)
+	public void addFormFieldInstances() {
+		initListFormFieldInstances();
+		FormFieldInstance formFieldInstances = new FormFieldInstance();
+
+		formFieldInstances.setIncident(getInstance());
+
+		getListFormFieldInstances().add(formFieldInstances);
+	}
+
+	public void updateComposedAssociations() {
 
 		if (listSupportingDocumentses != null) {
 			getInstance().getSupportingDocumentses().clear();
 			getInstance().getSupportingDocumentses().addAll(
 					listSupportingDocumentses);
 		}
+
+		if (listFormFieldInstances != null) {
+			getInstance().getFormFieldInstances().clear();
+			getInstance().getFormFieldInstances()
+					.addAll(listFormFieldInstances);
+		}
 	}
 
 	public void clearLists() {
-		listFormFieldInstances.clear();
 		listSupportingDocumentses.clear();
+		listFormFieldInstances.clear();
 
 	}
 

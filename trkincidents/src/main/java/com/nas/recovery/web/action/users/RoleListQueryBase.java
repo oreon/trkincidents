@@ -34,14 +34,14 @@ public abstract class RoleListQueryBase extends BaseQuery<Role, Long> {
 		return role;
 	}
 
-	private com.oreon.trkincidents.users.User userToSearch;
+	private com.oreon.trkincidents.users.User usersToSearch;
 
-	public void setUserToSearch(com.oreon.trkincidents.users.User userToSearch) {
-		this.userToSearch = userToSearch;
+	public void setUsersToSearch(com.oreon.trkincidents.users.User userToSearch) {
+		this.usersToSearch = userToSearch;
 	}
 
-	public com.oreon.trkincidents.users.User getUserToSearch() {
-		return userToSearch;
+	public com.oreon.trkincidents.users.User getUsersToSearch() {
+		return usersToSearch;
 	}
 
 	@Override
@@ -64,7 +64,7 @@ public abstract class RoleListQueryBase extends BaseQuery<Role, Long> {
 
 			"lower(role.name) like concat(lower(#{roleList.role.name}),'%')",
 
-			"#{roleList.userToSearch} in elements(role.users)",
+			"#{roleList.usersToSearch} in elements(role.users)",
 
 			"role.dateCreated <= #{roleList.dateCreatedRange.end}",
 			"role.dateCreated >= #{roleList.dateCreatedRange.begin}",};
@@ -80,7 +80,9 @@ public abstract class RoleListQueryBase extends BaseQuery<Role, Long> {
 	//@Override
 	public void createCsvString(StringBuilder builder, Role e) {
 
-		builder.append("\"" + (e.getName() != null ? e.getName() : "") + "\",");
+		builder.append("\""
+				+ (e.getName() != null ? e.getName().replace(",", "") : "")
+				+ "\",");
 
 		builder.append("\"" + (e.getUsers() != null ? e.getUsers() : "")
 				+ "\",");

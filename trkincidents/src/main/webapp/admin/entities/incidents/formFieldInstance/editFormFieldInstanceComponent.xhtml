@@ -4,13 +4,6 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{formFieldInstanceAction.load(formFieldInstanceId )  }"> 
-        <h:outputText value="#{msg.formFieldInstance_incident} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'formFieldInstanceEdit')}"/>  
-        <h:selectOneMenu id="incident" label="#{msg.formFieldInstance_incident}" value="#{formFieldInstanceAction.formFieldInstance.incident}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'formFieldInstanceEdit')}"> 
-          <s:selectItems value="#{incidentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onsubmit"/>  
-          <s:convertEntity/> 
-        </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="incident" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'formFieldInstanceEdit')}"/>  
         <h:outputText value="#{msg.formFieldInstance_formField} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'formFieldInstanceEdit')}"/>  
         <h:selectOneMenu id="formField" label="#{msg.formFieldInstance_formField}" value="#{formFieldInstanceAction.formFieldInstance.formField}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'formFieldInstanceEdit')}"> 
           <s:selectItems value="#{formFieldList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
@@ -18,6 +11,13 @@
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <rich:message styleClass="error errors" for="formField" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'formFieldInstanceEdit')}"/>  
+        <h:outputText value="#{msg.formFieldInstance_incident} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'formFieldInstanceEdit')}"/>  
+        <h:selectOneMenu id="incident" label="#{msg.formFieldInstance_incident}" value="#{formFieldInstanceAction.formFieldInstance.incident}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'formFieldInstanceEdit')}"> 
+          <s:selectItems value="#{incidentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+          <rich:ajaxValidator event="onsubmit"/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="incident" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'formFieldInstanceEdit')}"/>  
         <h:outputText value="#{msg.formFieldInstance_value}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('value', 'formFieldInstanceEdit')}"/>  
         <h:inputText id="value#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('value', 'formFieldInstanceEdit')}" label="#{msg.formFieldInstance_value}" required="false" value="#{formFieldInstanceAction.formFieldInstance.value}"> 
           <rich:ajaxValidator event="onsubmit"/> 

@@ -77,7 +77,7 @@ public abstract class BaseReportAction {
 		}
 	}
 
-	public void sendReportToPdf(JasperReport jasperReport,
+	public  void sendReportToPdf(JasperReport jasperReport,
 			Map<String, Object> parameters) {
 		try {
 			byte[] bytes = JasperRunManager.runReportToPdf(jasperReport,
@@ -96,10 +96,9 @@ public abstract class BaseReportAction {
 			javax.faces.context.FacesContext.getCurrentInstance()
 					.responseComplete();
 		} catch (Exception e) {
-			log.error("running report " , e);
+			//log.error("running report " , e);
 			throw new ContractViolationException(e.getMessage());
 		}
-
 	}
 	
 	public void sendReportToHtml(JasperReport jasperReport,

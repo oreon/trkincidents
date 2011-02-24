@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.icd10_code} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'icd10Edit')}"/>  
+      <br/>  
+      <h:inputText id="code" value="#{icd10List.icd10.code}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.icd10_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'icd10Edit')}"/>  
+      <br/>  
+      <h:inputText id="description" value="#{icd10List.icd10.description}"/> 
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
+    <rich:calendar id="from" value="#{icd10List.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{icd10List.dateCreatedRange.end}"/> 
+  </h:panelGrid> 
+</ui:composition>

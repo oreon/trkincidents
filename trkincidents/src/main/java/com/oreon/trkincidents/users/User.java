@@ -48,9 +48,7 @@ import org.witchcraft.utils.*;
 @Name("user")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@AnalyzerDef(name = "Useranalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
-		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
-		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
+@Analyzer(definition = "entityAnalyzer")
 public class User extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -1796332121L;
 
@@ -60,13 +58,13 @@ public class User extends BusinessEntity implements java.io.Serializable {
 	@Length(min = 2, max = 250)
 	@Column(name = "userName", unique = true)
 	@Field(index = Index.TOKENIZED)
-	// @Analyzer(definition = "Useranalyzer") 
+	@Analyzer(definition = "entityAnalyzer")
 	protected String userName;
 
 	@NotNull
 	@Column(name = "password", unique = false)
 	@Field(index = Index.TOKENIZED)
-	// @Analyzer(definition = "Useranalyzer") 
+	@Analyzer(definition = "entityAnalyzer")
 	protected String password;
 
 	protected Boolean enabled;
@@ -78,7 +76,7 @@ public class User extends BusinessEntity implements java.io.Serializable {
 	@NotNull
 	@Column(name = "email", unique = false)
 	@Field(index = Index.TOKENIZED)
-	// @Analyzer(definition = "Useranalyzer") 
+	@Analyzer(definition = "entityAnalyzer")
 	protected String email;
 
 	public void setUserName(String userName) {
@@ -157,6 +155,20 @@ public class User extends BusinessEntity implements java.io.Serializable {
 		listSearchableFields.add("email");
 
 		return listSearchableFields;
+	}
+
+	@Field(index = Index.TOKENIZED, name = "searchData")
+	@Analyzer(definition = "entityAnalyzer")
+	public String getSearchData() {
+		StringBuilder builder = new StringBuilder();
+
+		builder.append(getUserName() + " ");
+
+		builder.append(getPassword() + " ");
+
+		builder.append(getEmail() + " ");
+
+		return builder.toString();
 	}
 
 }

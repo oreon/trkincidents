@@ -108,6 +108,15 @@
           <s:convertEntity/> 
         </h:selectOneMenu>  
         <rich:message styleClass="error errors" for="severity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('severity', 'incidentEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.incident_icd10}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('icd10', 'incidentEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="icd10" value="#{incidentAction.incident.icd10}"> 
+          <s:selectItems value="#{icd10List}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="icd10" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('icd10', 'incidentEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

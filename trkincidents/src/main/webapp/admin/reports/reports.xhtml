@@ -7,21 +7,30 @@
 	template="/admin/reports/template.xhtml">
 
 	<ui:define name="content">
-	
-		
+
+
 		<rich:panel>
 			<f:facet name="header">
 				<h:outputText value="Reports" />
 			</f:facet>
-			
-			<h:form>
-				<h:inputText value="xx" />
-				Run report <s:link  action="#{issueAction.runReport('ActiveBugsReport')}" value="Developers" />
+
+			<h:form>                                                         
+
+				<ui:repeat var="report" value="#{customReportList.resultList}">
+					<h:commandLink value="${report.name}"
+						action="#{customReportExecutorAction.runReport(report.id)}">
+						<f:param name="reportId" value="${report.id}" />
+					</h:commandLink>
+					<br />
+					<h:outputText value="${issue.higlightedFragment}" escape="false" />
+					<hr />
+				</ui:repeat>
+
 			</h:form>
 		</rich:panel>
-		
-		
-		
+
+
+
 	</ui:define>
 
 

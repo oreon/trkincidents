@@ -48,9 +48,7 @@ import org.witchcraft.utils.*;
 @Name("customForm")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@AnalyzerDef(name = "CustomFormanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
-		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
-		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
+@Analyzer(definition = "entityAnalyzer")
 public class CustomForm extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -2137058937L;
 
@@ -64,7 +62,7 @@ public class CustomForm extends BusinessEntity implements java.io.Serializable {
 	@Length(min = 2, max = 250)
 	@Column(unique = true)
 	@Field(index = Index.TOKENIZED)
-	// @Analyzer(definition = "CustomFormanalyzer") 
+	@Analyzer(definition = "entityAnalyzer")
 	protected String name;
 
 	public void setCustomFields(Set<CustomField> customFields) {

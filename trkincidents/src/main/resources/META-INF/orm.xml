@@ -6,10 +6,6 @@
   <entity class="com.oreon.trkincidents.patient.Patient" name="Patient"> 
     <table name="patient"></table> 
   </entity>  
-  <!--  Document  JPA Configurations -->  
-  <entity class="com.oreon.trkincidents.patient.Document" name="Document"> 
-    <table name="document"></table> 
-  </entity>  
   <!--  Incident  JPA Configurations -->  
   <entity class="com.oreon.trkincidents.incidents.Incident" name="Incident"> 
     <table name="incident"></table> 
@@ -66,6 +62,15 @@
   <entity class="com.oreon.trkincidents.incidents.SupportingDocuments" name="SupportingDocuments"> 
     <table name="supportingdocuments"></table> 
   </entity>  
+  <!--  Icd10  JPA Configurations -->  
+  <entity class="com.oreon.trkincidents.incidents.Icd10" name="Icd10"> 
+    <table name="icd10"></table>  
+    <named-query name="icd10.findByUnqCode"> 
+      <query> <![CDATA[
+			select u from Icd10 u where u.code = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
   <!--  Employee  JPA Configurations -->  
   <entity class="com.oreon.trkincidents.employee.Employee" name="Employee"> 
     <table name="employee"></table>  
@@ -105,47 +110,6 @@
   <!--  Facility  JPA Configurations -->  
   <entity class="com.oreon.trkincidents.facility.Facility" name="Facility"> 
     <table name="facility"></table> 
-  </entity>  
-  <!--  Appointment  JPA Configurations -->  
-  <entity class="com.oreon.trkincidents.appointment.Appointment" name="Appointment"> 
-    <table name="appointment"></table> 
-  </entity>  
-  <!--  Encounter  JPA Configurations -->  
-  <entity class="com.oreon.trkincidents.appointment.Encounter" name="Encounter"> 
-    <table name="encounter"></table> 
-  </entity>  
-  <!--  History  JPA Configurations -->  
-  <entity class="com.oreon.trkincidents.appointment.History" name="History"> 
-    <table name="history"></table> 
-  </entity>  
-  <!--  DxTest  JPA Configurations -->  
-  <entity class="com.oreon.trkincidents.appointment.DxTest" name="DxTest"> 
-    <table name="dxtest"></table> 
-  </entity>  
-  <!--  PrescribedTest  JPA Configurations -->  
-  <entity class="com.oreon.trkincidents.appointment.PrescribedTest" name="PrescribedTest"> 
-    <table name="prescribedtest"></table> 
-  </entity>  
-  <!--  CustomForm  JPA Configurations -->  
-  <entity class="com.oreon.trkincidents.customforms.CustomForm" name="CustomForm"> 
-    <table name="customform"></table>  
-    <named-query name="customForm.findByUnqName"> 
-      <query> <![CDATA[
-			select u from CustomForm u where u.name = ?1
-			]]> </query> 
-    </named-query> 
-  </entity>  
-  <!--  CustomField  JPA Configurations -->  
-  <entity class="com.oreon.trkincidents.customforms.CustomField" name="CustomField"> 
-    <table name="customfield"></table> 
-  </entity>  
-  <!--  FilledForm  JPA Configurations -->  
-  <entity class="com.oreon.trkincidents.customforms.FilledForm" name="FilledForm"> 
-    <table name="filledform"></table> 
-  </entity>  
-  <!--  FilledField  JPA Configurations -->  
-  <entity class="com.oreon.trkincidents.customforms.FilledField" name="FilledField"> 
-    <table name="filledfield"></table> 
   </entity>  
   <!--  CustomReport  JPA Configurations -->  
   <entity class="com.oreon.trkincidents.custm.CustomReport" name="CustomReport"> 

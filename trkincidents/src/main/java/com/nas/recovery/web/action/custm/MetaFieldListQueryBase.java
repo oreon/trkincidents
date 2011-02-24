@@ -34,26 +34,26 @@ public abstract class MetaFieldListQueryBase extends BaseQuery<MetaField, Long> 
 		return metaField;
 	}
 
-	private com.oreon.trkincidents.custm.CustomReport customReportToSearch;
+	private com.oreon.trkincidents.custm.CustomReport customReportsToSearch;
 
-	public void setCustomReportToSearch(
+	public void setCustomReportsToSearch(
 			com.oreon.trkincidents.custm.CustomReport customReportToSearch) {
-		this.customReportToSearch = customReportToSearch;
+		this.customReportsToSearch = customReportToSearch;
 	}
 
-	public com.oreon.trkincidents.custm.CustomReport getCustomReportToSearch() {
-		return customReportToSearch;
+	public com.oreon.trkincidents.custm.CustomReport getCustomReportsToSearch() {
+		return customReportsToSearch;
 	}
 
-	private com.oreon.trkincidents.custm.CustomReport customReportToSearch;
+	private com.oreon.trkincidents.custm.CustomReport groupReportToSearch;
 
-	public void setCustomReportToSearch(
+	public void setGroupReportToSearch(
 			com.oreon.trkincidents.custm.CustomReport customReportToSearch) {
-		this.customReportToSearch = customReportToSearch;
+		this.groupReportToSearch = customReportToSearch;
 	}
 
-	public com.oreon.trkincidents.custm.CustomReport getCustomReportToSearch() {
-		return customReportToSearch;
+	public com.oreon.trkincidents.custm.CustomReport getGroupReportToSearch() {
+		return groupReportToSearch;
 	}
 
 	@Override
@@ -78,9 +78,9 @@ public abstract class MetaFieldListQueryBase extends BaseQuery<MetaField, Long> 
 
 			"metaField.metaEntity.id = #{metaFieldList.metaField.metaEntity.id}",
 
-			"#{metaFieldList.customReportToSearch} in elements(metaField.customReports)",
+			"#{metaFieldList.customReportsToSearch} in elements(metaField.customReports)",
 
-			"#{metaFieldList.customReportToSearch} in elements(metaField.groupReport)",
+			"#{metaFieldList.groupReportToSearch} in elements(metaField.groupReport)",
 
 			"metaField.dateCreated <= #{metaFieldList.dateCreatedRange.end}",
 			"metaField.dateCreated >= #{metaFieldList.dateCreatedRange.begin}",};
@@ -103,11 +103,13 @@ public abstract class MetaFieldListQueryBase extends BaseQuery<MetaField, Long> 
 	//@Override
 	public void createCsvString(StringBuilder builder, MetaField e) {
 
-		builder.append("\"" + (e.getName() != null ? e.getName() : "") + "\",");
+		builder.append("\""
+				+ (e.getName() != null ? e.getName().replace(",", "") : "")
+				+ "\",");
 
 		builder.append("\""
 				+ (e.getMetaEntity() != null ? e.getMetaEntity()
-						.getDisplayName() : "") + "\",");
+						.getDisplayName().replace(",", "") : "") + "\",");
 
 		builder.append("\""
 				+ (e.getCustomReports() != null ? e.getCustomReports() : "")

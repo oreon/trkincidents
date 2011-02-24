@@ -83,7 +83,7 @@ public abstract class ReferenceFieldListQueryBase
 
 		builder.append("\""
 				+ (e.getIncidentType() != null ? e.getIncidentType()
-						.getDisplayName() : "") + "\",");
+						.getDisplayName().replace(",", "") : "") + "\",");
 
 		builder.append("\""
 				+ (e.getReferencesEntity() != null

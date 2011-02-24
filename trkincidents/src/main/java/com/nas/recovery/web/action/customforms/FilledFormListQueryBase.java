@@ -74,7 +74,7 @@ public abstract class FilledFormListQueryBase
 
 		builder.append("\""
 				+ (e.getCustomForm() != null ? e.getCustomForm()
-						.getDisplayName() : "") + "\",");
+						.getDisplayName().replace(",", "") : "") + "\",");
 
 		builder.append("\"" + (e.getEntityId() != null ? e.getEntityId() : "")
 				+ "\",");

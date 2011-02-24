@@ -48,9 +48,7 @@ import org.witchcraft.utils.*;
 @Name("metaEntity")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@AnalyzerDef(name = "MetaEntityanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
-		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
-		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
+@Analyzer(definition = "entityAnalyzer")
 public class MetaEntity extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -127724332L;
 
@@ -58,7 +56,7 @@ public class MetaEntity extends BusinessEntity implements java.io.Serializable {
 	@Length(min = 2, max = 250)
 	@Column(unique = true)
 	@Field(index = Index.TOKENIZED)
-	// @Analyzer(definition = "MetaEntityanalyzer") 
+	@Analyzer(definition = "entityAnalyzer")
 	protected String name;
 
 	@OneToMany(mappedBy = "metaEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -66,6 +64,11 @@ public class MetaEntity extends BusinessEntity implements java.io.Serializable {
 	@OrderBy("dateCreated DESC")
 	@IndexedEmbedded
 	private Set<MetaField> metaFields = new HashSet<MetaField>();
+
+	public void addMetaFields(MetaField metaFields) {
+		metaFields.setMetaEntity(this);
+		this.metaFields.add(metaFields);
+	}
 
 	public void setName(String name) {
 		this.name = name;
@@ -111,6 +114,20 @@ public class MetaEntity extends BusinessEntity implements java.io.Serializable {
 		listSearchableFields.add("metaFields.name");
 
 		return listSearchableFields;
+	}
+
+	@Field(index = Index.TOKENIZED, name = "searchData")
+	@Analyzer(definition = "entityAnalyzer")
+	public String getSearchData() {
+		StringBuilder builder = new StringBuilder();
+
+		builder.append(getName() + " ");
+
+		for (BusinessEntity e : metaFields) {
+			builder.append(e.getDisplayName() + " ");
+		}
+
+		return builder.toString();
 	}
 
 }

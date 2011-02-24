@@ -48,9 +48,7 @@ import org.witchcraft.utils.*;
 @Name("role")
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
-@AnalyzerDef(name = "Roleanalyzer", tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class), filters = {
-		@TokenFilterDef(factory = LowerCaseFilterFactory.class),
-		@TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {@Parameter(name = "language", value = "English")})})
+@Analyzer(definition = "entityAnalyzer")
 public class Role extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -1904783856L;
 
@@ -60,7 +58,7 @@ public class Role extends BusinessEntity implements java.io.Serializable {
 	@Length(min = 2, max = 250)
 	@Column(name = "name", unique = true)
 	@Field(index = Index.TOKENIZED)
-	// @Analyzer(definition = "Roleanalyzer") 
+	@Analyzer(definition = "entityAnalyzer")
 	protected String name;
 
 	@ManyToMany(mappedBy = "roles")
@@ -108,6 +106,16 @@ public class Role extends BusinessEntity implements java.io.Serializable {
 		listSearchableFields.add("name");
 
 		return listSearchableFields;
+	}
+
+	@Field(index = Index.TOKENIZED, name = "searchData")
+	@Analyzer(definition = "entityAnalyzer")
+	public String getSearchData() {
+		StringBuilder builder = new StringBuilder();
+
+		builder.append(getName() + " ");
+
+		return builder.toString();
 	}
 
 }

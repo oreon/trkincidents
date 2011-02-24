@@ -19,9 +19,8 @@
         <f:selectItem itemValue="TEXT" itemLabel="Text"/>  
         <f:selectItem itemValue="LARGE_TEXT" itemLabel="Large_text"/>  
         <f:selectItem itemValue="CHOICE" itemLabel="Choice"/>  
-        <f:selectItem itemValue="YES_NO" itemLabel="Yes_no"/>  
-        <f:selectItem itemValue="DATE" itemLabel="Date"/>  
-        <f:selectItem itemValue="REFERENCE" itemLabel="Reference"/> 
+        <f:selectItem itemValue="BOOLEAN" itemLabel="Boolean"/>  
+        <f:selectItem itemValue="DATE" itemLabel="Date"/> 
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
@@ -37,6 +36,14 @@
       <h:outputText value="#{msg.formField_choiceValues}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('choiceValues', 'formFieldEdit')}"/>  
       <br/>  
       <h:inputText id="choiceValues" value="#{formFieldList.formField.choiceValues}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.formField_incidentType} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incidentType', 'formFieldEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="incidentType" value="#{ formFieldList.formField.incidentType}"> 
+        <s:selectItems value="#{incidentTypeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 
