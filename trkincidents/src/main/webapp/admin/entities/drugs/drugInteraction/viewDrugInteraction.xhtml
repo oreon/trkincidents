@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
   <ui:define name="content"> 
     <h:form> 
       <rich:tabPanel switchType="ajax"> 
         <rich:tab label="DrugInteraction"> 
           <ui:include src="/admin/entities/drugs/drugInteraction/viewDrugInteractionComponent.xhtml"/>  
           <div class="buttonBox"> 
-            <h:commandButton value="Edit" rendered="#{s:hasRole('admin')}" action="edit"></h:commandButton>  
+            <h:commandButton value="Edit" rendered="#{s:hasPermission('drugInteraction', 'edit', drugInteractionAction.instance)}" action="edit"></h:commandButton>  
             <h:outputText value=" "/>  
-            <h:commandButton value="Back To Listing" action="cancel"> 
+            <h:commandButton value="Back To Listing" action="#{drugInteractionAction.cancel}"> 
               <s:conversationPropagation type="end"/> 
             </h:commandButton> 
           </div> 
         </rich:tab>  
-        <rich:tab label="Drug"> 
+        <rich:tab label="Drug" rendered="#{drugInteractionAction.instance.drug != null}"> 
           <ui:include src="/admin/entities/drugs/drug/viewDrugComponent.xhtml"> 
             <ui:param name="entityId" value="1"/>  
             <ui:param name="drugId" value="#{drugInteractionAction.instance.drug.id}"/> 
           </ui:include> 
         </rich:tab>  
-        <rich:tab label="InteractingDrug"> 
+        <rich:tab label="InteractingDrug" rendered="#{drugInteractionAction.instance.interactingDrug != null}"> 
           <ui:include src="/admin/entities/drugs/drug/viewDrugComponent.xhtml"> 
             <ui:param name="entityId" value="2"/>  
             <ui:param name="drugId" value="#{drugInteractionAction.instance.interactingDrug.id}"/> 

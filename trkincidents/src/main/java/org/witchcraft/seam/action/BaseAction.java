@@ -1,6 +1,7 @@
 package org.witchcraft.seam.action;
 
 import java.io.OutputStream;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -12,16 +13,13 @@ import javax.persistence.Query;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
-import org.apache.lucene.queryParser.MultiFieldQueryParser;
-import org.apache.lucene.queryParser.ParseException;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
+import org.hibernate.exception.ConstraintViolationException;
 import org.hibernate.search.jpa.FullTextEntityManager;
-import org.hibernate.search.jpa.FullTextQuery;
 import org.jboss.seam.Component;
 import org.jboss.seam.annotations.Begin;
 import org.jboss.seam.annotations.Destroy;
@@ -49,6 +47,8 @@ import org.witchcraft.model.support.audit.AuditLog;
 import org.witchcraft.model.support.audit.Auditable;
 import org.witchcraft.model.support.audit.EntityAuditLogInterceptor;
 
+import com.nas.recovery.web.action.users.UserAction;
+
 /**
  * The base action class - contains common persistence related methods, also
  * contains comment related functionality
@@ -62,6 +62,8 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 
 	@Logger
 	protected Log log;
+	
+	public static final String SUCCESS = "success";
 
 	@In
 	// @PersistenceContext(type = PersistenceContextType.EXTENDED)
@@ -280,6 +282,14 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 			if(cve.getCause() instanceof )
 		}*/
 		catch (Exception e) {
+			if(e.getCause() instanceof ConstraintViolationException){
+				if(e.getCause().getCause().getCause() instanceof SQLException ){
+					if( ((SQLException)e.getCause().getCause().getCause()).getErrorCode()  == 1062 ){
+						addErrorMessage("Duplicate Record error:  " + ((ConstraintViolationException) e.getCause()).getMessage()  );
+					}
+				}
+			}
+			
 			addErrorMessage("Error Saving record: " + e.getMessage());
 			log.error("error saving ", e);
 			return "error";
@@ -640,6 +650,8 @@ public abstract class BaseAction<T extends BusinessEntity> extends
 
 	public void sendMail(String template) {
 		try {
+			//UserAction userAction = (UserAction) Component.getInstance("userAction");
+			//String uname = userAction.instance.getUserName();
 			renderer.render(template);
 			// facesMessages.add("Email sent successfully");
 		} catch (Exception e) {

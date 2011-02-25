@@ -29,23 +29,23 @@
 
 			<rich:toolBarGroup>
 				<h:graphicImage id="issues" value="/images/icons/add.png" />
-				<s:link action="/admin/entities/incidents/incident/editIncident.xhtml"
-					value="New Incident" propagation="none" >
-					 <f:param name="incidentId" value="0"/> 
+				<s:link
+					action="/admin/entities/incidents/incident/editIncident.xhtml"
+					value="New Incident" propagation="none">
+					<f:param name="incidentId" value="0" />
 				</s:link>
 			</rich:toolBarGroup>
-			
+
 			<rich:toolBarGroup>
-				<h:graphicImage  value="/images/icons/eye.png" />
-				<s:link action="incident"
-					value="Incidents" />
+				<h:graphicImage value="/images/icons/eye.png" />
+				<s:link action="incident" value="Incidents" />
 			</rich:toolBarGroup>
 
 			<rich:toolBarGroup>
 				<h:graphicImage value="/images/icons/accept.png" />
-				<s:link action="viewEmployee"
-					value="My Account">
-				<f:param name="employeeId" value="#{employeeAction.currentLoggedInEmployee.id}" />
+				<s:link action="viewEmployee" value="My Account">
+					<f:param name="employeeId"
+						value="#{employeeAction.currentLoggedInEmployee.id}" />
 				</s:link>
 			</rich:toolBarGroup>
 
@@ -64,13 +64,14 @@
 
 
 			<rich:toolBarGroup location="right">
-				
-					<h:inputText styleClass="barsearch" value="#{incidentList.textToSearch}" required="true" />
-					<h:commandButton styleClass="barsearchbutton" value="Search"
-						action="#{incidentList.textSearch}"  >
-						<s:conversationPropagation type="join"></s:conversationPropagation> 
-					</h:commandButton>
-				
+
+				<h:inputText styleClass="barsearch"
+					value="#{incidentList.textToSearch}" required="true" />
+				<h:commandButton styleClass="barsearchbutton" value="Search"
+					action="#{incidentList.textSearch}">
+					<s:conversationPropagation type="join"></s:conversationPropagation>
+				</h:commandButton>
+
 			</rich:toolBarGroup>
 
 		</rich:toolBar>

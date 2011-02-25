@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="DrugInteractionModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="DrugInteraction Search Results (#{empty records ? 0 : (drugInteractionList.paginated ? drugInteractionList.resultCount : records.size)})"/> 
+  </c:if>  
   <rich:panel> 
-    <f:facet name="header">DrugInteraction Search Results (#{empty records ? 0 : (drugInteractionList.paginated ? drugInteractionList.resultCount : records.size)})</f:facet>  
+    <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
-      <rich:dataTable var="_drugInteraction" value="#{records}" id="drugInteractionList" rowClasses="odd, even" styleClass="dataTable" rendered="#{not empty records}"> 
-        <h:column> 
+      <rich:dataTable var="_drugInteraction" value="#{records}" id="drugInteractionList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
+        <h:column rendered="#{s:hasPermission('id', 'drugInteractionView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugInteractionList}"/>  
@@ -15,7 +21,7 @@
           </f:facet>  
           <h:outputText value="#{_drugInteraction.id}"></h:outputText> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('description', 'drugInteractionView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugInteractionList}"/>  
@@ -23,9 +29,9 @@
               <ui:param name="propertyPath" value="drugInteraction.description"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_drugInteraction.description}"/> 
+          <h:outputText value="#{_drugInteraction.description}" escape="false"/> 
         </h:column>  
-        <h:column groupOn="#{drugInteraction.drug.displayName}"> 
+        <h:column groupOn="#{drugInteraction.drug.displayName}" rendered="#{s:hasPermission('drug', 'drugInteractionView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugInteractionList}"/>  
@@ -33,7 +39,7 @@
               <ui:param name="propertyPath" value="drugInteraction.drug"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_drugInteraction.drug.displayName}" view="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
+          <s:link value="#{_drugInteraction.drug.displayName}" action="viewDrug" propagation="none"> 
             <f:param name="drugId" value="#{_drugInteraction.drug.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/>  
             <rich:toolTip> 
@@ -41,7 +47,7 @@
             </rich:toolTip> 
           </s:link> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('interactingDrug', 'drugInteractionView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugInteractionList}"/>  
@@ -49,7 +55,7 @@
               <ui:param name="propertyPath" value="drugInteraction.interactingDrug"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_drugInteraction.interactingDrug.displayName}" view="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
+          <s:link value="#{_drugInteraction.interactingDrug.displayName}" action="viewDrug" propagation="none"> 
             <f:param name="interactingDrugId" value="#{_drugInteraction.interactingDrug.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/>  
             <rich:toolTip> 
@@ -57,7 +63,7 @@
             </rich:toolTip> 
           </s:link> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'drugInteractionView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugInteractionList}"/>  
@@ -66,10 +72,10 @@
             </ui:include> 
           </f:facet>  
           <h:outputText value="#{_drugInteraction.dateCreated}"> 
-            <s:convertDateTime type="both" dateStyle="short"/> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('drugInteractionAction', 'view')}"> 
+        <h:column rendered="#{s:hasPermission('_drugInteraction', 'view')}"> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
@@ -78,7 +84,7 @@
             <f:param name="drugInteractionId" value="#{_drugInteraction.id}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('drugInteractionAction', 'edit')}"> 
+        <h:column rendered="#{s:hasPermission('_drugInteraction', 'edit')}"> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
@@ -96,11 +102,14 @@
             <f:param name="idToArchive" value="#{_drugInteraction.id}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('drugInteractionAction', 'edit')}"> 
+        <h:column> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
-          <a:commandLink action="#{drugInteractionAction.setDrugInteractionIdForModalDlg(_drugInteraction.id)}" oncomplete="Richfaces.showModalPanel('DrugInteractionModalPanel',{});" value="Quick Edit"/> 
+          <a:commandLink action="#{drugInteractionAction.setDrugInteractionIdForModalDlg(_drugInteraction.id)}" rendered="#{s:hasPermission(_drugInteraction, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" reRender="${modalId}"> 
+            <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
+            <s:conversationPropagation type="join"/> 
+          </a:commandLink> 
         </h:column> 
       </rich:dataTable> 
     </a:form> 

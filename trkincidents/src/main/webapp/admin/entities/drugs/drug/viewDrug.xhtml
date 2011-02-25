@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
   <ui:define name="content"> 
     <h:form> 
       <rich:tabPanel switchType="ajax"> 
         <rich:tab label="Drug"> 
           <ui:include src="/admin/entities/drugs/drug/viewDrugComponent.xhtml"/>  
           <div class="buttonBox"> 
-            <h:commandButton value="Edit" rendered="#{s:hasRole('admin')}" action="edit"></h:commandButton>  
+            <h:commandButton value="Edit" rendered="#{s:hasPermission('drug', 'edit', drugAction.instance)}" action="edit"></h:commandButton>  
             <h:outputText value=" "/>  
-            <h:commandButton value="Back To Listing" action="cancel"> 
+            <h:commandButton value="Back To Listing" action="#{drugAction.cancel}"> 
               <s:conversationPropagation type="end"/> 
             </h:commandButton> 
           </div> 
@@ -17,7 +17,28 @@
       </rich:tabPanel> 
     </h:form>  
     <br/>  
-    <rich:tabPanel></rich:tabPanel>  
+    <rich:tabPanel> 
+      <rich:tab label="Incidents" icon="/images/icons/bricks.png"> 
+        <c:set var="modalId" value="DrugModalPanel-incidents"/>  
+        <ui:include src="/admin/entities/incidents/incident/listIncidentComponent.xhtml"> 
+          <ui:param name="records" value="#{incidentList.getIncidentsByDrug(drugAction.instance)}"/>  
+          <ui:param name="modalId" value="${modalId}"/> 
+        </ui:include>  
+        <a:form> 
+          <s:button value="Create New" view="/admin/entities/incidents/incident/editIncident.xhtml"> 
+            <f:param name="drugId" value="#{drugAction.instance.id}"/>  
+            <f:param name="incidentId" value="0"/> 
+          </s:button>  
+          <a:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}"> 
+            <a:actionparam name="incidentId" assignTo="#{incidentAction.incidentId}" value="0"/>  
+            <a:actionparam name="drugId" assignTo="#{incidentAction.drugId}" value="#{drugAction.instance.id}"/> 
+          </a:commandButton> 
+        </a:form>  
+        <ui:include src="/admin/entities/incidents/incident/modalDlgIncidentComponent.xhtml"> 
+          <ui:param name="modalId" value="${modalId}"/> 
+        </ui:include> 
+      </rich:tab> 
+    </rich:tabPanel>  
     <br/>  
     <rich:tabPanel> 
       <rich:tab label="Notes"> 

@@ -98,19 +98,6 @@
             <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('reportedTo', 'incidentView'  )}"> 
-          <f:facet name="header"> 
-            <ui:include src="/layout/sort.xhtml"> 
-              <ui:param name="entityList" value="#{incidentList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.incident_reportedTo}"/>  
-              <ui:param name="propertyPath" value="incident.reportedTo"/> 
-            </ui:include> 
-          </f:facet>  
-          <s:link value="#{_incident.reportedTo.displayName}" action="viewEmployee" propagation="none"> 
-            <f:param name="reportedToId" value="#{_incident.reportedTo.id}"/>  
-            <f:param name="from" value="#{request.servletPath}"/> 
-          </s:link> 
-        </h:column>  
         <h:column rendered="#{s:hasPermission('document', 'incidentView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
@@ -121,19 +108,6 @@
           </f:facet>  
           <s:link value="#{_incident.document.name}" action="#{incidentAction.downloadDocument(_incident.id)}" propagation="none"> 
             <f:param name="currentEntityId" value="#{_incident.id}"/> 
-          </s:link> 
-        </h:column>  
-        <h:column rendered="#{s:hasPermission('drug', 'incidentView'  )}"> 
-          <f:facet name="header"> 
-            <ui:include src="/layout/sort.xhtml"> 
-              <ui:param name="entityList" value="#{incidentList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.incident_drug}"/>  
-              <ui:param name="propertyPath" value="incident.drug"/> 
-            </ui:include> 
-          </f:facet>  
-          <s:link value="#{_incident.drug.displayName}" action="viewDrug" propagation="none"> 
-            <f:param name="drugId" value="#{_incident.drug.id}"/>  
-            <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('proccedure', 'incidentView'  )}"> 
@@ -185,18 +159,70 @@
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('icd10', 'incidentView'  )}"> 
+        <h:column rendered="#{s:hasPermission('ward', 'incidentView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{incidentList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.incident_icd10}"/>  
-              <ui:param name="propertyPath" value="incident.icd10"/> 
+              <ui:param name="propertyLabel" value="#{msg.incident_ward}"/>  
+              <ui:param name="propertyPath" value="incident.ward"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_incident.icd10.displayName}" action="viewIcd10" propagation="none"> 
-            <f:param name="icd10Id" value="#{_incident.icd10.id}"/>  
+          <s:link value="#{_incident.ward.displayName}" action="viewWard" propagation="none"> 
+            <f:param name="wardId" value="#{_incident.ward.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('reportedTo', 'incidentView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{incidentList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.incident_reportedTo}"/>  
+              <ui:param name="propertyPath" value="incident.reportedTo"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_incident.reportedTo.displayName}" action="viewEmployee" propagation="none"> 
+            <f:param name="reportedToId" value="#{_incident.reportedTo.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('drug', 'incidentView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{incidentList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.incident_drug}"/>  
+              <ui:param name="propertyPath" value="incident.drug"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_incident.drug.displayName}" action="viewDrug" propagation="none"> 
+            <f:param name="drugId" value="#{_incident.drug.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/>  
+            <rich:toolTip> 
+              <span>#{_incident.drug.popupInfo}</span> 
+            </rich:toolTip> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('morbidity', 'incidentView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{incidentList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.incident_morbidity}"/>  
+              <ui:param name="propertyPath" value="incident.morbidity"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_incident.morbidity.displayName}" action="viewMorbidity" propagation="none"> 
+            <f:param name="morbidityId" value="#{_incident.morbidity.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('preventiveAction', 'incidentView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{incidentList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.incident_preventiveAction}"/>  
+              <ui:param name="propertyPath" value="incident.preventiveAction"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_incident.preventiveAction}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'incidentView' )}"> 
           <f:facet name="header"> 

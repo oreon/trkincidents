@@ -17,11 +17,11 @@
         <br/>  
         <h:selectOneMenu id="type" value="#{formFieldAction.formField.type}" required="false"> 
           <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="YES_NO" itemLabel="Yes_no"/>  
           <f:selectItem itemValue="TEXT" itemLabel="Text"/>  
           <f:selectItem itemValue="LARGE_TEXT" itemLabel="Large_text"/>  
-          <f:selectItem itemValue="CHOICE" itemLabel="Choice"/>  
-          <f:selectItem itemValue="BOOLEAN" itemLabel="Boolean"/>  
-          <f:selectItem itemValue="DATE" itemLabel="Date"/> 
+          <f:selectItem itemValue="DATE" itemLabel="Date"/>  
+          <f:selectItem itemValue="CHOICE" itemLabel="Choice"/> 
         </h:selectOneMenu>  
         <rich:message styleClass="error errors" for="type" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('type', 'formFieldEdit')}"/> 
       </h:panelGroup>  

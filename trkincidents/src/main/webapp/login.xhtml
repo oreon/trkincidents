@@ -6,10 +6,11 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:rich="http://richfaces.org/rich"
-    template="layout/template.xhtml">
+    template="defaultTemplate/template.xhtml">
 
-<ui:define name="body">
-
+<ui:define name="content">
+	
+	
     <h:form id="login">
 
         <rich:panel>
@@ -30,7 +31,7 @@
                                           value="#{identity.rememberMe}"  />
                 </h:panelGrid>
             </div>
-
+			
         </rich:panel>
 
         <div class="actionButtons">
@@ -38,6 +39,11 @@
             </h:commandButton>
         </div>
 
+		<h:commandLink value="Forgot Password" action="/reg/enterEmail.xhtml" />
+			<rich:spacer width="5" />
+			
+			
+		<h:commandLink value="Register" action="/reg/registerForm.xhtml" />
     </h:form>
 
  </ui:define>

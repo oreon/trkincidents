@@ -7,9 +7,12 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.drools.process.instance.ProcessInstance;
+import org.hibernate.Query;
 import org.jboss.seam.Component;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;
+import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Transactional;
 import org.jboss.seam.annotations.web.RequestParameter;
 import org.jboss.seam.bpm.ManagedJbpmContext;
@@ -21,6 +24,7 @@ import org.jboss.seam.web.ServletContexts;
 import org.jbpm.JbpmContext;
 import org.jbpm.graph.exe.Comment;
 import org.jbpm.taskmgmt.exe.TaskInstance;
+import org.witchcraft.base.entity.BusinessEntity;
 
 /**
  * This action will fucntion as base for all workflow related actions
@@ -29,15 +33,21 @@ import org.jbpm.taskmgmt.exe.TaskInstance;
  * 
  */
 @Transactional
+@Name("jbpmProcessAction")
 public class BaseJbpmProcessAction {
 
 	public static final String PROCESS_ACTION_SUFFIX = "ProcessAction";
 
 	@In
 	protected JbpmContext jbpmContext;
+	
+	@In(create=true)
+	protected List<TaskInstance> pooledTaskInstanceList;
 
 	@In
 	protected Identity identity;
+	
+	
 	
 	@In
 	PooledTask pooledTask;
@@ -99,6 +109,26 @@ public class BaseJbpmProcessAction {
 
 	public void setTask(TaskInstance task) {
 		this.task = task;
+	}
+	
+	@Transactional
+	public void endProcess(Long processId){
+		org.jbpm.graph.exe.ProcessInstance pi = jbpmContext.loadProcessInstance(processId);
+		pi.end();
+	}
+	
+	public String getTaskForm(){
+		if(task == null)
+			return "";
+		String taskPath = "/admin/tasks/taskForms/" + StringUtils.capitalize(task.getProcessInstance().getProcessDefinition().getName())
+		+ "/" + task.getName() + "TaskForm.xhtml";
+		return taskPath;
+	}
+	
+	public ProcessInstance getProcessInstanceByKey(Long key){
+		Query qry = jbpmContext.getSession().createQuery("from ProcessInstance pi where pi.key =  " + key.toString());
+		List<ProcessInstance> piList = qry.list();
+		return piList.get(piList.size() - 1);
 	}
 
 	@Transactional
@@ -182,6 +212,19 @@ public class BaseJbpmProcessAction {
 			}
 		}
 		return cmts;
+	}
+	
+	@Transactional
+	public void updateUserForPooledTask(String userName, Long processId, BusinessEntity be) {
+		for (TaskInstance taskInstance : pooledTaskInstanceList) {
+			Long procId = taskInstance.getProcessInstance().getId();
+			if (procId.equals(processId)) {
+				taskInstance.setActorId(userName);
+				taskInstance.setVariable("token", be);
+				break;
+			}
+		}
+
 	}
 
 }

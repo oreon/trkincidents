@@ -1,0 +1,31 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:m="http://jboss.com/products/seam/mail"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+<m:message xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:m="http://jboss.com/products/seam/mail"
+    xmlns:h="http://java.sun.com/jsf/html">
+  
+    <m:from name="neonwc" address="neownwc@gmail.com" />
+    <m:to >#{incidentAction.instance.createdByUser.email} </m:to>
+    <m:subject>New Comment Added to Instance :  #{incidentAction.instance.displayName} </m:subject>
+    
+    <m:body>
+         
+       A new comment has been added to incident -  <b> #{incidentAction.instance.displayName} </b> 
+       by #{identity.credentials.username}.
+        
+      <p>
+      Comment:  <h:outputText escape="false" value="#{incidentAction.currentCommentText}" />
+      </p>  
+      
+        <p>Regards,</p>
+        <p>MedIncidentPro Team</p>
+    </m:body>
+    
+</m:message>
+
+</ui:composition>

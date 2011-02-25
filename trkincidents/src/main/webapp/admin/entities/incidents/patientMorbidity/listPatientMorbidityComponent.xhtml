@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="PatientMorbidityModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="PatientMorbidity Search Results (#{empty records ? 0 : (patientMorbidityList.paginated ? patientMorbidityList.resultCount : records.size)})"/> 
+  </c:if>  
+  <rich:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <a:form> 
+      <rich:dataTable var="_patientMorbidity" value="#{records}" id="patientMorbidityList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
+        <h:column rendered="#{s:hasPermission('id', 'patientMorbidityView' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{patientMorbidityList}"/>  
+              <ui:param name="propertyLabel" value="Id"/>  
+              <ui:param name="propertyPath" value="patientMorbidity.id"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_patientMorbidity.id}"></h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('name', 'patientMorbidityView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{patientMorbidityList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.patientMorbidity_name}"/>  
+              <ui:param name="propertyPath" value="patientMorbidity.name"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_patientMorbidity.name}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('code', 'patientMorbidityView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{patientMorbidityList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.patientMorbidity_code}"/>  
+              <ui:param name="propertyPath" value="patientMorbidity.code"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_patientMorbidity.code}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('creationDate', 'patientMorbidityView' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{patientMorbidityList}"/>  
+              <ui:param name="propertyLabel" value="Creation Date"/>  
+              <ui:param name="propertyPath" value="patientMorbidity.dateCreated"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_patientMorbidity.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_patientMorbidity', 'view')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/incidents/patientMorbidity/viewPatientMorbidity.xhtml" rendered="#{s:hasPermission(_patientMorbidity, 'view')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="patientMorbidityId" value="#{_patientMorbidity.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_patientMorbidity', 'edit')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/incidents/patientMorbidity/editPatientMorbidity.xhtml" rendered="#{s:hasPermission(_patientMorbidity, 'edit')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="patientMorbidityId" value="#{_patientMorbidity.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('patientMorbidityAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <s:link action="#{patientMorbidityAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_patientMorbidity.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="idToArchive" value="#{_patientMorbidity.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <a:commandLink action="#{patientMorbidityAction.setPatientMorbidityIdForModalDlg(_patientMorbidity.id)}" rendered="#{s:hasPermission(_patientMorbidity, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" reRender="${modalId}"> 
+            <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
+            <s:conversationPropagation type="join"/> 
+          </a:commandLink> 
+        </h:column> 
+      </rich:dataTable> 
+    </a:form> 
+  </rich:panel>  
+  <div class="tableControl"> 
+    <s:link view="#{request.servletPath}" rendered="#{patientMorbidityList.previousExists}" value="#{messages.left}#{messages.left} First Page"> 
+      <f:param name="firstResult" value="0"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{patientMorbidityList.previousExists}" value="#{messages.left} Previous Page"> 
+      <f:param name="firstResult" value="#{patientMorbidityList.previousFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{patientMorbidityList.nextExists}" value="Next Page #{messages.right}"> 
+      <f:param name="firstResult" value="#{patientMorbidityList.nextFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{patientMorbidityList.nextExists}" value="Last Page #{messages.right}#{messages.right}"> 
+      <f:param name="firstResult" value="#{patientMorbidityList.lastFirstResult}"/> 
+    </s:link> 
+  </div> 
+</ui:composition>

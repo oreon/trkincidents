@@ -43,6 +43,7 @@ import org.richfaces.model.UploadItem;
 
 import com.oreon.trkincidents.incidents.Incident;
 import com.oreon.trkincidents.incidents.Incident;
+import com.oreon.trkincidents.incidents.Incident;
 
 public abstract class EmployeeActionBase
 		extends
@@ -66,6 +67,9 @@ public abstract class EmployeeActionBase
 
 	@In(create = true, value = "incidentAction")
 	com.nas.recovery.web.action.incidents.IncidentAction incidentsResponsibleForAction;
+
+	@In(create = true, value = "incidentAction")
+	com.nas.recovery.web.action.incidents.IncidentAction incidentsReportedAction;
 
 	@DataModel
 	private List<Employee> employeeRecordList;
@@ -181,12 +185,6 @@ public abstract class EmployeeActionBase
 		return Employee.class;
 	}
 
-	public com.oreon.trkincidents.employee.Employee findByUnqEmployeeNumber(
-			String employeeNumber) {
-		return executeSingleResultNamedQuery(
-				"employee.findByUnqEmployeeNumber", employeeNumber);
-	}
-
 	/** This function adds associated entities to an example criterion
 	 * @see org.witchcraft.model.support.dao.BaseAction#createExampleCriteria(java.lang.Object)
 	 */
@@ -223,6 +221,8 @@ public abstract class EmployeeActionBase
 
 		initListIncidentsResponsibleFor();
 
+		initListIncidentsReported();
+
 	}
 
 	public void updateAssociations() {
@@ -235,6 +235,11 @@ public abstract class EmployeeActionBase
 		com.oreon.trkincidents.incidents.Incident incidentsResponsibleFor = (com.oreon.trkincidents.incidents.Incident) org.jboss.seam.Component
 				.getInstance("incident");
 		incidentsResponsibleFor.setResponsibleEmployee(employee);
+		events.raiseTransactionSuccessEvent("archivedIncident");
+
+		com.oreon.trkincidents.incidents.Incident incidentsReported = (com.oreon.trkincidents.incidents.Incident) org.jboss.seam.Component
+				.getInstance("incident");
+		incidentsReported.setReportedTo(employee);
 		events.raiseTransactionSuccessEvent("archivedIncident");
 
 	}
@@ -314,6 +319,43 @@ public abstract class EmployeeActionBase
 		getListIncidentsResponsibleFor().add(incidentsResponsibleFor);
 	}
 
+	protected List<com.oreon.trkincidents.incidents.Incident> listIncidentsReported = new ArrayList<com.oreon.trkincidents.incidents.Incident>();
+
+	void initListIncidentsReported() {
+
+		if (listIncidentsReported.isEmpty())
+			listIncidentsReported.addAll(getInstance().getIncidentsReported());
+
+	}
+
+	public List<com.oreon.trkincidents.incidents.Incident> getListIncidentsReported() {
+
+		prePopulateListIncidentsReported();
+		return listIncidentsReported;
+	}
+
+	public void prePopulateListIncidentsReported() {
+	}
+
+	public void setListIncidentsReported(
+			List<com.oreon.trkincidents.incidents.Incident> listIncidentsReported) {
+		this.listIncidentsReported = listIncidentsReported;
+	}
+
+	public void deleteIncidentsReported(int index) {
+		listIncidentsReported.remove(index);
+	}
+
+	@Begin(join = true)
+	public void addIncidentsReported() {
+		initListIncidentsReported();
+		Incident incidentsReported = new Incident();
+
+		incidentsReported.setReportedTo(getInstance());
+
+		getListIncidentsReported().add(incidentsReported);
+	}
+
 	public void updateComposedAssociations() {
 
 		if (listIncidentsCreated != null) {
@@ -326,11 +368,35 @@ public abstract class EmployeeActionBase
 			getInstance().getIncidentsResponsibleFor().addAll(
 					listIncidentsResponsibleFor);
 		}
+
+		if (listIncidentsReported != null) {
+			getInstance().getIncidentsReported().clear();
+			getInstance().getIncidentsReported().addAll(listIncidentsReported);
+		}
 	}
 
 	public void clearLists() {
 		listIncidentsCreated.clear();
 		listIncidentsResponsibleFor.clear();
+		listIncidentsReported.clear();
+
+	}
+
+	public String retrieveCredentials() {
+
+		return null;
+
+	}
+
+	public String login() {
+
+		return null;
+
+	}
+
+	public String register() {
+
+		return null;
 
 	}
 

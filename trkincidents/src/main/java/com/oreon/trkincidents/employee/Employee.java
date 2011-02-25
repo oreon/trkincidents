@@ -54,9 +54,6 @@ public class Employee extends com.oreon.trkincidents.patient.Person
 			java.io.Serializable {
 	private static final long serialVersionUID = -426154292L;
 
-	@NotNull
-	@Length(min = 2, max = 250)
-	@Column(unique = true)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String employeeNumber;
@@ -110,6 +107,18 @@ public class Employee extends com.oreon.trkincidents.patient.Person
 
 	})
 	protected ContactDetails contactDetails = new ContactDetails();
+
+	@OneToMany(mappedBy = "reportedTo", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	//@JoinColumn(name = "reportedTo_ID", nullable = true)
+	@OrderBy("dateCreated DESC")
+	@IndexedEmbedded
+	private Set<com.oreon.trkincidents.incidents.Incident> incidentsReported = new HashSet<com.oreon.trkincidents.incidents.Incident>();
+
+	public void addIncidentsReported(
+			com.oreon.trkincidents.incidents.Incident incidentsReported) {
+		incidentsReported.setReportedTo(this);
+		this.incidentsReported.add(incidentsReported);
+	}
 
 	public void setEmployeeNumber(String employeeNumber) {
 		this.employeeNumber = employeeNumber;
@@ -169,6 +178,15 @@ public class Employee extends com.oreon.trkincidents.patient.Person
 
 	}
 
+	public void setIncidentsReported(
+			Set<com.oreon.trkincidents.incidents.Incident> incidentsReported) {
+		this.incidentsReported = incidentsReported;
+	}
+
+	public Set<com.oreon.trkincidents.incidents.Incident> getIncidentsReported() {
+		return incidentsReported;
+	}
+
 	@Transient
 	public String getDisplayName() {
 		try {
@@ -224,6 +242,10 @@ public class Employee extends com.oreon.trkincidents.patient.Person
 		}
 
 		for (BusinessEntity e : incidentsResponsibleFor) {
+			builder.append(e.getDisplayName() + " ");
+		}
+
+		for (BusinessEntity e : incidentsReported) {
 			builder.append(e.getDisplayName() + " ");
 		}
 

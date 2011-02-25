@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <div class="entry errors">
     <h:messages globalOnly="true"/>
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.drugInteraction_description}  "/>  
+      <h:outputText value="#{msg.drugInteraction_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'drugInteractionEdit')}"/>  
       <br/>  
       <h:inputText id="description" value="#{drugInteractionList.drugInteraction.description}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.drugInteraction_drug}  "/>  
+      <h:outputText value="#{msg.drugInteraction_drug} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'drugInteractionEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="drug" value="#{ drugInteractionList.drugInteraction.drug}"> 
         <s:selectItems value="#{drugList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -19,13 +19,17 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.drugInteraction_interactingDrug}  "/>  
+      <h:outputText value="#{msg.drugInteraction_interactingDrug} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('interactingDrug', 'drugInteractionEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="interactingDrug" value="#{ drugInteractionList.drugInteraction.interactingDrug}"> 
         <s:selectItems value="#{drugList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/> 
       </h:selectOneMenu> 
-    </h:panelGroup>  
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
     <rich:calendar id="from" value="#{drugInteractionList.dateCreatedRange.begin}"/>  
     <rich:calendar id="to" value="#{drugInteractionList.dateCreatedRange.end}"/> 
   </h:panelGrid> 

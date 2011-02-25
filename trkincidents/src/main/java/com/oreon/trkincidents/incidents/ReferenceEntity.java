@@ -8,6 +8,10 @@ public enum ReferenceEntity {
 
 	Procedure,
 
+	Ward,
+
+	Morbidity,
+
 	;
 
 	ReferenceEntity() {

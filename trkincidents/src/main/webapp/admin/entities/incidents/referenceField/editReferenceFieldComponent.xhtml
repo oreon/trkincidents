@@ -17,6 +17,8 @@
           <f:selectItem itemValue="Patient" itemLabel="#{msg.Patient}"/>  
           <f:selectItem itemValue="Drug" itemLabel="#{msg.Drug}"/>  
           <f:selectItem itemValue="Procedure" itemLabel="#{msg.Procedure}"/>  
+          <f:selectItem itemValue="Ward" itemLabel="#{msg.Ward}"/>  
+          <f:selectItem itemValue="Morbidity" itemLabel="#{msg.Morbidity}"/>  
           <rich:ajaxValidator event="onsubmit"/> 
         </h:selectOneMenu>  
         <rich:message styleClass="error errors" for="referencesEntity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('referencesEntity', 'referenceFieldEdit')}"/>  

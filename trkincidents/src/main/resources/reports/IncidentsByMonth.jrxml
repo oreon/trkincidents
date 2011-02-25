@@ -81,7 +81,7 @@ order by e.department, e.incidentType, Month(e.dateOfIncident)]]> </queryString>
         <textElement textAlignment="Center"> 
           <font size="13"/> 
         </textElement>  
-        <textFieldExpression class="java.lang.String"><![CDATA["Incidents By Department"]]></textFieldExpression> 
+        <textFieldExpression class="java.lang.String"><![CDATA["Incidents By Month"]]></textFieldExpression>
       </textField> 
     </band> 
   </title>  

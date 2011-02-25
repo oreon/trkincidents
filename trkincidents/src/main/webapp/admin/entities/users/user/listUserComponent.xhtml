@@ -31,16 +31,6 @@
           </f:facet>  
           <h:outputText value="#{_user.userName}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('enabled', 'userView'  )}"> 
-          <f:facet name="header"> 
-            <ui:include src="/layout/sort.xhtml"> 
-              <ui:param name="entityList" value="#{userList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.user_enabled}"/>  
-              <ui:param name="propertyPath" value="user.enabled"/> 
-            </ui:include> 
-          </f:facet>  
-          <h:outputText value="#{_user.enabled? msg.yes : msg.no }"/> 
-        </h:column>  
         <h:column rendered="#{s:hasPermission('email', 'userView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
@@ -50,6 +40,16 @@
             </ui:include> 
           </f:facet>  
           <h:outputText value="#{_user.email}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('enabled', 'userView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{userList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.user_enabled}"/>  
+              <ui:param name="propertyPath" value="user.enabled"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_user.enabled? msg.yes : msg.no }"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'userView' )}"> 
           <f:facet name="header"> 

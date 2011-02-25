@@ -29,7 +29,7 @@
             <f:param name="departmentId" value="#{departmentAction.instance.id}"/>  
             <f:param name="employeeId" value="0"/> 
           </s:button>  
-          <a:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"> 
+          <a:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}"> 
             <a:actionparam name="employeeId" assignTo="#{employeeAction.employeeId}" value="0"/>  
             <a:actionparam name="departmentId" assignTo="#{employeeAction.departmentId}" value="#{departmentAction.instance.id}"/> 
           </a:commandButton> 
@@ -49,7 +49,7 @@
             <f:param name="departmentId" value="#{departmentAction.instance.id}"/>  
             <f:param name="incidentId" value="0"/> 
           </s:button>  
-          <a:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"> 
+          <a:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}"> 
             <a:actionparam name="incidentId" assignTo="#{incidentAction.incidentId}" value="0"/>  
             <a:actionparam name="departmentId" assignTo="#{incidentAction.departmentId}" value="#{departmentAction.instance.id}"/> 
           </a:commandButton> 

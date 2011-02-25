@@ -106,7 +106,7 @@ public class Address implements java.io.Serializable {
 	@Transient
 	public String getDisplayName() {
 		try {
-			return streetAddress + ", " + city + " ," + state;
+			return streetAddress + "." + city + "," + state;
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
 		}

@@ -9,14 +9,14 @@
 	xmlns:c="http://java.sun.com/jstl/core"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf">
-	
+
 	<rich:messages passedLabel="Saved Success"
 		style="width:100%; text-align: left; color: red; font-weight: bold;"
 		layout="list" rendered="#{facesContext.maximumSeverity != null}"></rich:messages>
-	
+
 	<h:panelGroup>
 		<s:validateAll>
-			<b><h:outputText value="#{msg.incident_incidentType}  "
+			<b><h:outputText value="#{msg.incident_incidentType} *"
 				rendered="#{s:hasPermission('incidentType', 'incidentEdit')}" /> </b>
 			<br />
 			<h:selectOneMenu id="incidentType"
@@ -27,30 +27,33 @@
 				<s:selectItems value="#{incidentTypeList}" var="itemIter"
 					label="#{itemIter.displayName}" noSelectionLabel="Please Select..." />
 				<s:convertEntity />
-				<a:support event="onchange" reRender="customFields, refFlds"
+				<a:support event="onchange" reRender="customFields"
 					ajaxSingle="true" />
 			</h:selectOneMenu>
-			<br/>
+			<br />
 			<h:message styleClass="error errors" for="incidentType"
 				rendered="#{s:hasPermission('incidentType', 'incidentEdit')}" />
-			<br/>
-			<h:outputText value="#{msg.incident_title}  "
-				rendered="#{s:hasPermission('title', 'incidentEdit')}" /><br/>
+			<br />
+
+			<fieldset><legend> Incident Fields</legend> 
+			
+			<b><h:outputText
+				value="#{msg.incident_title}  "
+				rendered="#{s:hasPermission('title', 'incidentEdit')}" /> </b>
+				
+				<br />
 			<h:inputText id="title#{entityId}" size="100"
 				rendered="#{s:hasPermission('title', 'incidentEdit')}"
 				label="#{msg.incident_title}" required="true"
-				value="#{incidentAction.incident.title}" />
-			<br/>
+				value="#{incidentAction.incident.title}" /> <br />
 			<h:message styleClass="error errors" for="title"
-				rendered="#{s:hasPermission('title', 'incidentEdit')}" />
-
-
-			<h:panelGrid columns="6" columnClasses="leftCol, rightCol"
+				rendered="#{s:hasPermission('title', 'incidentEdit')}" /> <h:panelGrid
+				columns="6" columnClasses="leftCol, rightCol"
 				onload="#{incidentAction.load(incidentId )  }">
 
 
-				<h:outputText value="#{msg.incident_department}  "
-					rendered="#{s:hasPermission('department', 'incidentEdit')}" />
+				<h:outputText value="#{msg.incident_department} * " style="font-weight: bold"
+					rendered="#{s:hasPermission('department', 'incidentEdit')}" /> 
 				<h:selectOneMenu id="department" label="#{msg.incident_department}"
 					value="#{incidentAction.incident.department}" required="true"
 					rendered="#{s:hasPermission('department', 'incidentEdit')}">
@@ -64,7 +67,7 @@
 				<h:outputText value="#{msg.incident_reportedTo}  "
 					rendered="#{s:hasPermission('reportedTo', 'incidentEdit')}" />
 				<h:selectOneMenu id="reportedTo" label="#{msg.incident_reportedTo}"
-					value="#{incidentAction.incident.reportedTo}" required="true"
+					value="#{incidentAction.incident.reportedTo}"
 					rendered="#{s:hasPermission('reportedTo', 'incidentEdit')}">
 					<s:selectItems value="#{employeeList}" var="itemIter"
 						label="#{itemIter.displayName}"
@@ -91,8 +94,8 @@
 				</h:selectOneMenu>
 				<h:message styleClass="error errors" for="responsibleEmployee"
 					rendered="#{s:hasPermission('responsibleEmployee', 'incidentEdit')}" />
-				<h:outputText value="#{msg.incident_severity}  "
-					rendered="#{s:hasPermission('severity', 'incidentEdit')}" />
+				<h:outputText value=" #{msg.incident_severity} * "
+					rendered="#{s:hasPermission('severity', 'incidentEdit')}"  style="font-weight: bold"/>
 				<h:selectOneMenu id="severity" label="#{msg.incident_severity}"
 					value="#{incidentAction.incident.severity}" required="true"
 					rendered="#{s:hasPermission('severity', 'incidentEdit')}">
@@ -105,42 +108,35 @@
 					rendered="#{s:hasPermission('severity', 'incidentEdit')}" />
 
 
-				<h:outputText value="#{msg.incident_dateOfIncident}  "
+				<h:outputText value="#{msg.incident_dateOfIncident} * "
 					rendered="#{s:hasPermission('dateOfIncident', 'incidentEdit')}" />
 				<rich:calendar id="dateOfIncident#{entityId}"
 					rendered="#{s:hasPermission('dateOfIncident', 'incidentEdit')}"
-					label="#{msg.incident_dateOfIncident}" required="false"
+					label="#{msg.incident_dateOfIncident}" required="false" datePattern="dd/MMM/yyyy HH:mm"
 					value="#{incidentAction.incident.dateOfIncident}" />
 				<h:message styleClass="error errors" for="dateOfIncident"
 					rendered="#{s:hasPermission('dateOfIncident', 'incidentEdit')}" />
-				<h:outputText value="#{msg.incident_document}  "
-					rendered="#{s:hasPermission('document', 'incidentEdit')}" />
-				<h:panelGroup>
-					<s:div rendered="#{incidentAction.incident.id != 0 }">
-						<c:choose>
-							<c:when
-								test="${incidentAction.incident.document.contentType.startsWith('image')}">
-								<s:graphicImage value="#{incidentAction.incident.document.data}" />
-							</c:when>
-							<c:otherwise>
-								<s:link value="#{incidentAction.incident.document.name}"
-									action="#{incidentAction.downloadDocument(null)}"
-									propagation="none">
-									<f:param name="currentEntityId"
-										value="#{incidentAction.instance.id}" />
-								</s:link>
-							</c:otherwise>
-						</c:choose>
-					</s:div>
-					<s:div rendered="#{incidentAction.incident.id == null }">
-						<s:fileUpload data="#{incidentAction.incident.document.data}"
-							fileName="#{incidentAction.incident.document.name}"
-							contentType="#{incidentAction.incident.document.contentType}" />
-					</s:div>
-				</h:panelGroup>
-				<h:message styleClass="error errors" for="document"
-					rendered="#{s:hasPermission('document', 'incidentEdit')}" />
 
+				<h:outputText value="#{msg.incident_document}"
+					rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'incidentEdit')}" />
+				<h:panelGroup>
+					<h:outputText value="Current File:" />
+					<s:link value="#{incidentAction.incident.document.name}"
+						id="document_file" action="#{incidentAction.downloadFile(null)}"
+						propagation="none">
+						<f:param name="currentEntityId"
+							value="#{incidentAction.instance.id}" />
+					</s:link>
+					<rich:fileUpload
+						fileUploadListener="#{incidentAction.documentUploadListener}"
+						immediateUpload="true" ajaxSingle="true" autoclear="false"
+						listHeight="50">
+						<s:conversationPropagation type="join" />
+						<a:support event="onuploadcomplete" reRender="document_file" />
+					</rich:fileUpload>
+				</h:panelGroup>
+				<rich:message styleClass="error errors" for="document"
+					rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'incidentEdit')}" />
 
 
 				<h:outputText value="#{msg.incident_description}  "
@@ -152,55 +148,114 @@
 				<h:message styleClass="error errors" for="description"
 					rendered="#{s:hasPermission('description', 'incidentEdit')}" />
 
-			</h:panelGrid>
+			</h:panelGrid></fieldset>
+			<br />
+			<s:div id="customFields">
+				<fieldset><legend>${incidentAction.incident.incidentType.name}</legend>
+				<h:panelGrid id="refFlds" columns="1"
+					columnClasses="leftCol, rightCol">
 
-			<h:panelGrid id="refFlds" columns="3"
-				columnClasses="leftCol, rightCol">
+					<h:panelGroup
+						rendered="#{incidentAction.containsReference('Patient')}">
 
-				<h:outputText value="#{msg.incident_patient}"
-					rendered="#{s:hasPermission('patient', 'incidentEdit') and incidentAction.containsReference('Patient')}" />
-				<h:selectOneMenu id="patient" label="#{msg.incident_patient}"
-					value="#{incidentAction.incident.patient}" required="false"
-					rendered="#{s:hasPermission('patient', 'incidentEdit') and incidentAction.containsReference('Patient')}">
-					<s:selectItems value="#{patientList}" var="itemIter"
-						label="#{itemIter.displayName}"
-						noSelectionLabel="Please Select..." />
-					<s:convertEntity />
-				</h:selectOneMenu>
-				<h:message styleClass="error errors" for="patient"
-					rendered="#{s:hasPermission('patient', 'incidentEdit') and incidentAction.containsReference('Patient')}" />
+						<h:outputText value="#{msg.incident_patient}"
+							rendered="#{s:hasPermission('patient', 'incidentEdit') }" />
+						<br />
+						<h:selectOneMenu id="patient" label="#{msg.incident_patient}"
+							value="#{incidentAction.incident.patient}" required="false"
+							rendered="#{s:hasPermission('patient', 'incidentEdit') }">
+							<s:selectItems value="#{patientList}" var="itemIter"
+								label="#{itemIter.displayName}"
+								noSelectionLabel="Please Select..." />
+							<s:convertEntity />
+						</h:selectOneMenu>
+						<h:message styleClass="error errors" for="patient"
+							rendered="#{s:hasPermission('patient', 'incidentEdit') }" />
 
-				<h:outputText value="#{msg.incident_proccedure}  "
-					rendered="#{s:hasPermission('proccedure', 'incidentEdit')  and incidentAction.containsReference('Procedure') }" />
-				<h:selectOneMenu id="proccedure" label="#{msg.incident_proccedure}"
-					value="#{incidentAction.incident.proccedure}" required="false"
-					rendered="#{s:hasPermission('proccedure', 'incidentEdit') and incidentAction.containsReference('Procedure')}">
-					<s:selectItems value="#{proccedureList}" var="itemIter"
-						label="#{itemIter.displayName}"
-						noSelectionLabel="Please Select..." />
-					<s:convertEntity />
-				</h:selectOneMenu>
-				<h:message styleClass="error errors" for="proccedure"
-					rendered="#{s:hasPermission('proccedure', 'incidentEdit') and incidentAction.containsReference('Procedure')}" />
+					</h:panelGroup>
 
-			</h:panelGrid>
+					<h:panelGroup
+						rendered="#{incidentAction.containsReference('Procedure')}">
+						<h:outputText value="#{msg.incident_procedure}  "
+							rendered="#{s:hasPermission('proccedure', 'incidentEdit')  }" />
+						<br />
+						<h:selectOneMenu id="proccedure"
+							label="#{msg.incident_proccedure}"
+							value="#{incidentAction.incident.proccedure}" required="false"
+							rendered="#{s:hasPermission('proccedure', 'incidentEdit') }">
+							<s:selectItems value="#{proccedureList}" var="itemIter"
+								label="#{itemIter.displayName}"
+								noSelectionLabel="Please Select..." />
+							<s:convertEntity />
+						</h:selectOneMenu>
+						<h:message styleClass="error errors" for="proccedure"
+							rendered="#{s:hasPermission('proccedure', 'incidentEdit') and incidentAction.containsReference('Procedure')}" />
+					</h:panelGroup>
 
-			<a:region>
-			<table>
-				<s:div id="customFields">
+					<h:panelGroup
+						rendered="#{incidentAction.containsReference('Ward')}">
+						<h:outputText value="#{msg.incident_ward}  "
+							rendered="#{s:hasPermission('ward', 'incidentEdit')  and incidentAction.containsReference('Ward') }" />
+						<br />
+						<h:selectOneMenu id="ward" label="#{msg.incident_ward}"
+							value="#{incidentAction.incident.ward}" required="false"
+							rendered="#{s:hasPermission('ward', 'incidentEdit') and incidentAction.containsReference('Ward')}">
+							<s:selectItems value="#{wardList}" var="itemIter"
+								label="#{itemIter.displayName}"
+								noSelectionLabel="Please Select..." />
+							<s:convertEntity />
+						</h:selectOneMenu>
+						<h:message styleClass="error errors" for="ward"
+							rendered="#{s:hasPermission('ward', 'incidentEdit') }" />
+					</h:panelGroup>
 
-					<ui:repeat var="fld"
-						value="#{incidentAction.listFormFieldInstances}">
-						<tr>
-							<wc:dynamicField fld="${fld}" />
-							<td></td>
-						</tr>
-					</ui:repeat>
+					<h:panelGroup
+						rendered="#{incidentAction.containsReference('Drug')}">
+						<h:outputText value="#{msg.incident_drug}  "
+							rendered="#{s:hasPermission('drug', 'incidentEdit') }" />
+						<br />
+						<h:selectOneMenu id="drug" label="#{msg.incident_drug}"
+							value="#{incidentAction.incident.drug}" required="false"
+							rendered="#{s:hasPermission('drug', 'incidentEdit') }">
+							<s:selectItems value="#{drugList}" var="itemIter"
+								label="#{itemIter.displayName}"
+								noSelectionLabel="Please Select..." />
+							<s:convertEntity />
+						</h:selectOneMenu>
+						<h:message styleClass="error errors" for="drug"
+							rendered="#{s:hasPermission('drug', 'incidentEdit') }" />
+					</h:panelGroup>
 
-				</s:div>
-			</table>
-			</a:region>
+					<h:panelGroup
+						rendered="#{incidentAction.containsReference('Morbidity')}">
+						<h:outputText value="#{msg.incident_morbidity}  "
+							rendered="#{s:hasPermission('morbidity', 'incidentEdit') }" />
+						<br />
+						<h:selectOneMenu id="morbidity" label="#{msg.incident_morbidity}"
+							value="#{incidentAction.incident.morbidity}" required="false"
+							rendered="#{s:hasPermission('morbidity', 'incidentEdit') and incidentAction.containsReference('Morbidity')}">
+							<s:selectItems value="#{morbidityList}" var="itemIter"
+								label="#{itemIter.displayName}"
+								noSelectionLabel="Please Select..." />
+							<s:convertEntity />
+						</h:selectOneMenu>
+						<h:message styleClass="error errors" for="morbidity"
+							rendered="#{s:hasPermission('morbidity', 'incidentEdit') and incidentAction.containsReference('Morbidity')}" />
+					</h:panelGroup>
 
+				</h:panelGrid> <a:region>
+					<table>
+						<ui:repeat var="fld"
+							value="#{incidentAction.listFormFieldInstances}">
+							<tr>
+								<wc:dynamicField fld="${fld}" />
+								<td></td>
+							</tr>
+						</ui:repeat>
+
+					</table>
+				</a:region></fieldset>
+			</s:div>
 		</s:validateAll>
 	</h:panelGroup>
 </ui:composition>

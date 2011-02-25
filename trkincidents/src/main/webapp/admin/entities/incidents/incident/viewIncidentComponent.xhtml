@@ -29,16 +29,6 @@
           <f:param name="departmentId" value="#{incidentAction.incident.department.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
-        <h:outputText value="#{msg.incident_reportedTo}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportedTo', 'incidentView')}"/>  
-        <s:link value="#{incidentAction.incident.reportedTo.displayName}" view="/admin/entities/employee/employee/viewEmployee.xhtml" propagation="none"> 
-          <f:param name="reportedToId" value="#{incidentAction.incident.reportedTo.id}"/>  
-          <f:param name="from" value="#{request.servletPath}"/> 
-        </s:link>  
-        <h:outputText value="#{msg.incident_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'incidentView')}"/>  
-        <s:link value="#{incidentAction.incident.drug.displayName}" view="/admin/entities/incidents/drug/viewDrug.xhtml" propagation="none"> 
-          <f:param name="drugId" value="#{incidentAction.incident.drug.id}"/>  
-          <f:param name="from" value="#{request.servletPath}"/> 
-        </s:link>  
         <h:outputText value="#{msg.incident_proccedure}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('proccedure', 'incidentView')}"/>  
         <s:link value="#{incidentAction.incident.proccedure.displayName}" view="/admin/entities/incidents/proccedure/viewProccedure.xhtml" propagation="none"> 
           <f:param name="proccedureId" value="#{incidentAction.incident.proccedure.id}"/>  
@@ -54,9 +44,27 @@
           <f:param name="severityId" value="#{incidentAction.incident.severity.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
-        <h:outputText value="#{msg.incident_icd10}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('icd10', 'incidentView')}"/>  
-        <s:link value="#{incidentAction.incident.icd10.displayName}" view="/admin/entities/incidents/icd10/viewIcd10.xhtml" propagation="none"> 
-          <f:param name="icd10Id" value="#{incidentAction.incident.icd10.id}"/>  
+        <h:outputText value="#{msg.incident_ward}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'incidentView')}"/>  
+        <s:link value="#{incidentAction.incident.ward.displayName}" view="/admin/entities/incidents/ward/viewWard.xhtml" propagation="none"> 
+          <f:param name="wardId" value="#{incidentAction.incident.ward.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.incident_reportedTo}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportedTo', 'incidentView')}"/>  
+        <s:link value="#{incidentAction.incident.reportedTo.displayName}" view="/admin/entities/employee/employee/viewEmployee.xhtml" propagation="none"> 
+          <f:param name="reportedToId" value="#{incidentAction.incident.reportedTo.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.incident_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'incidentView')}"/>  
+        <s:link value="#{incidentAction.incident.drug.displayName}" view="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
+          <f:param name="drugId" value="#{incidentAction.incident.drug.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/>  
+          <rich:toolTip> 
+            <span>#{incidentAction.incident.drug.popupInfo}</span> 
+          </rich:toolTip> 
+        </s:link>  
+        <h:outputText value="#{msg.incident_morbidity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('morbidity', 'incidentView')}"/>  
+        <s:link value="#{incidentAction.incident.morbidity.displayName}" view="/admin/entities/incidents/morbidity/viewMorbidity.xhtml" propagation="none"> 
+          <f:param name="morbidityId" value="#{incidentAction.incident.morbidity.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
         <h:outputText value="#{msg.incident_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('title', 'incidentView')}"/>  
@@ -75,32 +83,11 @@
           </c:otherwise> 
         </c:choose>  
         <h:outputText value="#{msg.incident_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'incidentView')}"/>  
-        <h:outputText escape="false" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'incidentView')}" value="#{incidentAction.incident.description}"></h:outputText> 
+        <h:outputText escape="false" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'incidentView')}" value="#{incidentAction.incident.description}"></h:outputText>  
+        <h:outputText value="#{msg.incident_preventiveAction}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('preventiveAction', 'incidentView')}"/>  
+        <h:outputText escape="false" id="preventiveAction#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('preventiveAction', 'incidentView')}" value="#{incidentAction.incident.preventiveAction}"></h:outputText> 
       </h:panelGrid>  
-      <rich:dataTable id="supportingDocumentses" var="_supportingDocuments" rendered="#{not empty incidentAction.listSupportingDocumentses and skipPermissionCheck == 'true' || s:hasPermission('supportingDocumentses', 'incidentView') }" value="#{incidentAction.listSupportingDocumentses}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
-        <h:column style="text-align:right">
-          <f:facet name="header">
-            <h:outputText value="#{msg.supportingDocuments_file}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('file', 'supportingDocumentsView')}"/>
-          </f:facet>  
-          <c:choose> 
-            <c:when test="${_supportingDocuments.file.contentType.startsWith('image')}"> 
-              <s:graphicImage value="#{_supportingDocuments.file.data}"/> 
-            </c:when>  
-            <c:otherwise> 
-              <s:link value="#{_supportingDocuments.file.name}" action="#{supportingDocumentsAction.downloadFile(null)}" propagation="none"> 
-                <f:param name="currentEntityId" value="#{supportingDocumentsAction.instance.id}"/> 
-              </s:link> 
-            </c:otherwise> 
-          </c:choose> 
-        </h:column>  
-        <h:column style="text-align:left">
-          <f:facet name="header">
-            <h:outputText value="#{msg.supportingDocuments_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('title', 'supportingDocumentsView')}"/>
-          </f:facet>  
-          <h:outputText id="title#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('title', 'supportingDocumentsView')}" value="#{_supportingDocuments.title}"></h:outputText> 
-        </h:column> 
-      </rich:dataTable>  
-      <rich:dataTable id="formFieldInstances" var="_formFieldInstance" rendered="#{not empty incidentAction.listFormFieldInstances and skipPermissionCheck == 'true' || s:hasPermission('formFieldInstances', 'supportingDocumentsView') }" value="#{incidentAction.listFormFieldInstances}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
+      <rich:dataTable id="formFieldInstances" var="_formFieldInstance" rendered="#{not empty incidentAction.listFormFieldInstances and skipPermissionCheck == 'true' || s:hasPermission('formFieldInstances', 'incidentView') }" value="#{incidentAction.listFormFieldInstances}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
         <h:column style="text-align:right">
           <f:facet name="header">
             <h:outputText value="#{msg.formFieldInstance_formField}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'formFieldInstanceView')}"/>

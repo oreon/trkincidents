@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <div class="entry errors">
     <h:messages globalOnly="true"/>
   </div>  
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.drugInteraction_description}  "/>  
+        <h:outputText value="#{msg.drugInteraction_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'drugInteractionEdit')}"/>  
         <br/>  
-        <rich:editor useSeamText="true" id="description" value="#{drugInteractionAction.drugInteraction.description}"/>  
-        <h:message styleClass="error errors" for="description"/> 
+        <rich:editor id="description" value="#{drugInteractionAction.drugInteraction.description}"/>  
+        <rich:message styleClass="error errors" for="description" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'drugInteractionEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.drugInteraction_drug}  "/>  
+        <h:outputText value="#{msg.drugInteraction_drug} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'drugInteractionEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="drug" value="#{drugInteractionAction.drugInteraction.drug}"> 
           <s:selectItems value="#{drugList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="drug"/> 
+        <rich:message styleClass="error errors" for="drug" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'drugInteractionEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.drugInteraction_interactingDrug}  "/>  
+        <h:outputText value="#{msg.drugInteraction_interactingDrug} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('interactingDrug', 'drugInteractionEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="interactingDrug" value="#{drugInteractionAction.drugInteraction.interactingDrug}"> 
           <s:selectItems value="#{drugList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <h:message styleClass="error errors" for="interactingDrug"/> 
+        <rich:message styleClass="error errors" for="interactingDrug" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('interactingDrug', 'drugInteractionEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

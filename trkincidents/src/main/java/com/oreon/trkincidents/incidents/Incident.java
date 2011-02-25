@@ -49,10 +49,7 @@ import org.witchcraft.utils.*;
 @Indexed
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @Analyzer(definition = "entityAnalyzer")
-public class Incident extends BusinessEntity
-		implements
-			Auditable,
-			java.io.Serializable {
+public class Incident extends BusinessEntity implements java.io.Serializable {
 	private static final long serialVersionUID = 2028657351L;
 
 	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -84,22 +81,12 @@ public class Incident extends BusinessEntity
 	@Column(name = "dateOfIncident", unique = false)
 	protected Date dateOfIncident = new Date();;
 
-	@ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "reportedTo_id", nullable = false, updatable = true)
-	@ContainedIn
-	protected com.oreon.trkincidents.employee.Employee reportedTo;
-
 	@Embedded
 	@AttributeOverrides({
 			@AttributeOverride(name = "name", column = @Column(name = "document_name")),
 			@AttributeOverride(name = "contentType", column = @Column(name = "document_contentType")),
 			@AttributeOverride(name = "data", column = @Column(name = "document_data", length = 4194304))})
 	protected FileAttachment document = new FileAttachment();
-
-	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "drug_id", nullable = true, updatable = true)
-	@ContainedIn
-	protected Drug drug;
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "proccedure_id", nullable = true, updatable = true)
@@ -121,22 +108,20 @@ public class Incident extends BusinessEntity
 	@ContainedIn
 	protected Severity severity;
 
-	@OneToMany(mappedBy = "incident", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	//@JoinColumn(name = "incident_ID", nullable = true)
-	@OrderBy("dateCreated DESC")
-	@IndexedEmbedded
-	private Set<SupportingDocuments> supportingDocumentses = new HashSet<SupportingDocuments>();
-
-	public void addSupportingDocumentses(
-			SupportingDocuments supportingDocumentses) {
-		supportingDocumentses.setIncident(this);
-		this.supportingDocumentses.add(supportingDocumentses);
-	}
+	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "ward_id", nullable = true, updatable = true)
+	@ContainedIn
+	protected Ward ward;
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "icd10_id", nullable = true, updatable = true)
+	@JoinColumn(name = "reportedTo_id", nullable = true, updatable = true)
 	@ContainedIn
-	protected Icd10 icd10;
+	protected com.oreon.trkincidents.employee.Employee reportedTo;
+
+	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "drug_id", nullable = true, updatable = true)
+	@ContainedIn
+	protected com.oreon.trkincidents.drugs.Drug drug;
 
 	@OneToMany(mappedBy = "incident", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@JoinColumn(name = "incident_ID", nullable = true)
@@ -148,6 +133,16 @@ public class Incident extends BusinessEntity
 		formFieldInstances.setIncident(this);
 		this.formFieldInstances.add(formFieldInstances);
 	}
+
+	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "morbidity_id", nullable = true, updatable = true)
+	@ContainedIn
+	protected Morbidity morbidity;
+
+	@Lob
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "entityAnalyzer")
+	protected String preventiveAction;
 
 	public void setIncidentType(IncidentType incidentType) {
 		this.incidentType = incidentType;
@@ -210,17 +205,6 @@ public class Incident extends BusinessEntity
 
 	}
 
-	public void setReportedTo(
-			com.oreon.trkincidents.employee.Employee reportedTo) {
-		this.reportedTo = reportedTo;
-	}
-
-	public com.oreon.trkincidents.employee.Employee getReportedTo() {
-
-		return reportedTo;
-
-	}
-
 	public void setDocument(FileAttachment document) {
 		this.document = document;
 	}
@@ -228,16 +212,6 @@ public class Incident extends BusinessEntity
 	public FileAttachment getDocument() {
 
 		return document;
-
-	}
-
-	public void setDrug(Drug drug) {
-		this.drug = drug;
-	}
-
-	public Drug getDrug() {
-
-		return drug;
 
 	}
 
@@ -282,22 +256,34 @@ public class Incident extends BusinessEntity
 
 	}
 
-	public void setSupportingDocumentses(
-			Set<SupportingDocuments> supportingDocumentses) {
-		this.supportingDocumentses = supportingDocumentses;
+	public void setWard(Ward ward) {
+		this.ward = ward;
 	}
 
-	public Set<SupportingDocuments> getSupportingDocumentses() {
-		return supportingDocumentses;
+	public Ward getWard() {
+
+		return ward;
+
 	}
 
-	public void setIcd10(Icd10 icd10) {
-		this.icd10 = icd10;
+	public void setReportedTo(
+			com.oreon.trkincidents.employee.Employee reportedTo) {
+		this.reportedTo = reportedTo;
 	}
 
-	public Icd10 getIcd10() {
+	public com.oreon.trkincidents.employee.Employee getReportedTo() {
 
-		return icd10;
+		return reportedTo;
+
+	}
+
+	public void setDrug(com.oreon.trkincidents.drugs.Drug drug) {
+		this.drug = drug;
+	}
+
+	public com.oreon.trkincidents.drugs.Drug getDrug() {
+
+		return drug;
 
 	}
 
@@ -307,6 +293,26 @@ public class Incident extends BusinessEntity
 
 	public Set<FormFieldInstance> getFormFieldInstances() {
 		return formFieldInstances;
+	}
+
+	public void setMorbidity(Morbidity morbidity) {
+		this.morbidity = morbidity;
+	}
+
+	public Morbidity getMorbidity() {
+
+		return morbidity;
+
+	}
+
+	public void setPreventiveAction(String preventiveAction) {
+		this.preventiveAction = preventiveAction;
+	}
+
+	public String getPreventiveAction() {
+
+		return preventiveAction;
+
 	}
 
 	@Transient
@@ -334,7 +340,7 @@ public class Incident extends BusinessEntity
 
 		listSearchableFields.add("description");
 
-		listSearchableFields.add("supportingDocumentses.title");
+		listSearchableFields.add("preventiveAction");
 
 		listSearchableFields.add("formFieldInstances.value");
 
@@ -352,6 +358,8 @@ public class Incident extends BusinessEntity
 
 		builder.append(getDescription() + " ");
 
+		builder.append(getPreventiveAction() + " ");
+
 		if (getIncidentType() != null)
 			builder.append("incidentType:" + getIncidentType().getDisplayName()
 					+ " ");
@@ -368,13 +376,6 @@ public class Incident extends BusinessEntity
 			builder.append("department:" + getDepartment().getDisplayName()
 					+ " ");
 
-		if (getReportedTo() != null)
-			builder.append("reportedTo:" + getReportedTo().getDisplayName()
-					+ " ");
-
-		if (getDrug() != null)
-			builder.append("drug:" + getDrug().getDisplayName() + " ");
-
 		if (getProccedure() != null)
 			builder.append("proccedure:" + getProccedure().getDisplayName()
 					+ " ");
@@ -386,12 +387,20 @@ public class Incident extends BusinessEntity
 		if (getSeverity() != null)
 			builder.append("severity:" + getSeverity().getDisplayName() + " ");
 
-		if (getIcd10() != null)
-			builder.append("icd10:" + getIcd10().getDisplayName() + " ");
+		if (getWard() != null)
+			builder.append("ward:" + getWard().getDisplayName() + " ");
 
-		for (BusinessEntity e : supportingDocumentses) {
-			builder.append(e.getDisplayName() + " ");
-		}
+		if (getReportedTo() != null)
+			builder.append("reportedTo:" + getReportedTo().getDisplayName()
+					+ " ");
+
+		if (getDrug() != null)
+			builder.append("drug:" + getDrug().getDisplayName() + " ");
+
+		if (getMorbidity() != null)
+			builder
+					.append("morbidity:" + getMorbidity().getDisplayName()
+							+ " ");
 
 		for (BusinessEntity e : formFieldInstances) {
 			builder.append(e.getDisplayName() + " ");

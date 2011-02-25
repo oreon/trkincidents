@@ -22,7 +22,9 @@
           <f:selectItem itemLabel="Please Select..." itemValue=""/>  
           <f:selectItem itemValue="Patient" itemLabel="Patient"/>  
           <f:selectItem itemValue="Drug" itemLabel="Drug"/>  
-          <f:selectItem itemValue="Procedure" itemLabel="Procedure"/> 
+          <f:selectItem itemValue="Procedure" itemLabel="Procedure"/>  
+          <f:selectItem itemValue="Ward" itemLabel="Ward"/>  
+          <f:selectItem itemValue="Morbidity" itemLabel="Morbidity"/> 
         </h:selectOneMenu>  
         <rich:message styleClass="error errors" for="referencesEntity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('referencesEntity', 'referenceFieldEdit')}"/> 
       </h:panelGroup>  

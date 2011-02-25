@@ -1,0 +1,47 @@
+<ui:composition 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j"
+	
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	xmlns:wc="http://witchcraft.sourceforge.net/jsf"
+	template = "/admin/reports/template.xhtml" >	
+	<ui:define name="content">
+	<h:form>
+	<s:validateAll>
+	<h:panelGrid  columns="3" styleClass="viewInfo" columnClasses="leftCol, rightCol"  >
+		<f:facet name="header">
+			<h:outputText value="IncidentsByWard" />
+		</f:facet>
+	
+		<h:panelGroup> <h:outputText value="#{msg.incidentsByWard_fromDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('fromDate', 'nullView')}"/> * </h:panelGroup>
+<rich:calendar  id="fromDate"  label="#{msg.incidentsByWard_fromDate}"  required="true"  value="#{incidentsByWardAction.fromDate}" />
+		<rich:message styleClass="error errors" for="fromDate" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('fromDate', 'nullEdit')}"/>
+	
+		<h:panelGroup> <h:outputText value="#{msg.incidentsByWard_toDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('toDate', 'nullView')}"/> * </h:panelGroup>
+<rich:calendar  id="toDate"  label="#{msg.incidentsByWard_toDate}"  required="true"  value="#{incidentsByWardAction.toDate}" />
+		<rich:message styleClass="error errors" for="toDate" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('toDate', 'nullEdit')}"/>
+	
+		<h:panelGroup> <h:outputText value="#{msg.incidentsByWard_ward}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'nullView')}"/>  </h:panelGroup>
+	<h:selectOneMenu id="ward"   label="#{msg.incidentsByWard_ward}" value="#{incidentsByWardAction.ward}"  
+		required="false">
+		<s:selectItems value="#{incidentTypeList}" var="itemIter"
+			label="#{itemIter.displayName}"
+			noSelectionLabel="Please Select..." />
+		<s:convertEntity />
+	</h:selectOneMenu>
+		<rich:message styleClass="error errors" for="ward" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'nullEdit')}"/>
+	
+	</h:panelGrid>
+	</s:validateAll>
+	<h:commandButton propagation="none" value="Run Report as PDF"
+				action="#{incidentsByWardAction.runReport('IncidentsByWard', 'PDF')}" />
+	<h:commandButton propagation="none" value="Run Report as HTML"
+				action="#{incidentsByWardAction.runReport('IncidentsByWard', 'HTML')}" />			
+	</h:form>
+	</ui:define>
+</ui:composition>

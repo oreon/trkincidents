@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:form> 
+    <rich:panelMenu style="width:162px" mode="ajax" iconExpandedGroup="disc" iconCollapsedGroup="disc" iconExpandedTopGroup="chevronUp" iconGroupTopPosition="right" iconCollapsedTopGroup="chevronDown" iconCollapsedTopPosition="right"> 
+      <rich:panelMenuGroup label="Patient" expanded="true"> 
+        <rich:panelMenuItem> 
+          <h:commandLink value="Patient" action="patient"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem> 
+      </rich:panelMenuGroup>  
+      <rich:panelMenuGroup label="Incidents" expanded="true"  rendered="#{s:hasRole('admin')}"> 
+        <rich:panelMenuItem> 
+          <h:commandLink value="Incident" action="incident"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="IncidentType" action="incidentType"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem rendered="false"> 
+          <h:commandLink value="FormField" action="formField" > 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem  rendered="false"> 
+          <h:commandLink value="FormFieldInstance" action="formFieldInstance"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="Severity" action="severity"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="Proccedure" action="proccedure"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="ReferenceField" action="referenceField"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="Ward" action="ward"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="Morbidity" action="morbidity"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem> 
+      </rich:panelMenuGroup>  
+      <rich:panelMenuGroup label="Employee" expanded="true" rendered="#{s:hasRole('admin')}">  
+        <rich:panelMenuItem> 
+          <h:commandLink value="Employee" action="employee"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="Department" action="department" > 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem> 
+      </rich:panelMenuGroup>  
+      <rich:panelMenuGroup label="Users" expanded="true" rendered="#{s:hasRole('admin')}"> 
+        <rich:panelMenuItem> 
+          <h:commandLink value="User" action="user"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="Role" action="role"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem> 
+      </rich:panelMenuGroup>  
+      <rich:panelMenuGroup label="Facility" expanded="true" rendered="#{s:hasRole('admin')}" > 
+        <rich:panelMenuItem> 
+          <h:commandLink value="Facility" action="facility"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem> 
+      </rich:panelMenuGroup>  
+      <rich:panelMenuGroup label="Drugs" expanded="true"> 
+        <rich:panelMenuItem> 
+          <h:commandLink value="Drug" action="drug"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="DrugInteraction" action="drugInteraction"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="DrugCategory" action="drugCategory"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem> 
+      </rich:panelMenuGroup>  
+      <rich:panelMenuGroup label="CustomReports" expanded="true" rendered="#{s:hasRole('admin') || s:hasRole('manager')}"> 
+        <rich:panelMenuItem> 
+          <h:commandLink value="CustomReport" action="customReport"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="MetaEntity" action="metaEntity"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="MetaField" action="metaField"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem> 
+      </rich:panelMenuGroup> 
+    </rich:panelMenu> 
+  </h:form> 
+</ui:composition>

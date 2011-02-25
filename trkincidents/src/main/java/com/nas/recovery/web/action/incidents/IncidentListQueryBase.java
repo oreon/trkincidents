@@ -73,10 +73,6 @@ public abstract class IncidentListQueryBase extends BaseQuery<Incident, Long> {
 			"incident.dateOfIncident >= #{incidentList.dateOfIncidentRange.begin}",
 			"incident.dateOfIncident <= #{incidentList.dateOfIncidentRange.end}",
 
-			"incident.reportedTo.id = #{incidentList.incident.reportedTo.id}",
-
-			"incident.drug.id = #{incidentList.incident.drug.id}",
-
 			"incident.proccedure.id = #{incidentList.incident.proccedure.id}",
 
 			"incident.responsibleEmployee.id = #{incidentList.incident.responsibleEmployee.id}",
@@ -85,7 +81,15 @@ public abstract class IncidentListQueryBase extends BaseQuery<Incident, Long> {
 
 			"incident.severity.id = #{incidentList.incident.severity.id}",
 
-			"incident.icd10.id = #{incidentList.incident.icd10.id}",
+			"incident.ward.id = #{incidentList.incident.ward.id}",
+
+			"incident.reportedTo.id = #{incidentList.incident.reportedTo.id}",
+
+			"incident.drug.id = #{incidentList.incident.drug.id}",
+
+			"incident.morbidity.id = #{incidentList.incident.morbidity.id}",
+
+			"lower(incident.preventiveAction) like concat(lower(#{incidentList.incident.preventiveAction}),'%')",
 
 			"incident.dateCreated <= #{incidentList.dateCreatedRange.end}",
 			"incident.dateCreated >= #{incidentList.dateCreatedRange.begin}",};
@@ -111,13 +115,6 @@ public abstract class IncidentListQueryBase extends BaseQuery<Incident, Long> {
 		return getResultList();
 	}
 
-	public List<Incident> getIncidentsByDrug(
-			com.oreon.trkincidents.incidents.Drug drug) {
-		//setMaxResults(10000);
-		incident.setDrug(drug);
-		return getResultList();
-	}
-
 	public List<Incident> getIncidentsByProccedure(
 			com.oreon.trkincidents.incidents.Proccedure proccedure) {
 		//setMaxResults(10000);
@@ -132,16 +129,44 @@ public abstract class IncidentListQueryBase extends BaseQuery<Incident, Long> {
 		return getResultList();
 	}
 
-	public List<Incident> getIncidentsByIcd10(
-			com.oreon.trkincidents.incidents.Icd10 icd10) {
+	public List<Incident> getIncidentsByWard(
+			com.oreon.trkincidents.incidents.Ward ward) {
 		//setMaxResults(10000);
-		incident.setIcd10(icd10);
+		incident.setWard(ward);
+		return getResultList();
+	}
+
+	public List<Incident> getIncidentsReportedByReportedTo(
+			com.oreon.trkincidents.employee.Employee employee) {
+		//setMaxResults(10000);
+		incident.setReportedTo(employee);
+		return getResultList();
+	}
+
+	public List<Incident> getIncidentsByDrug(
+			com.oreon.trkincidents.drugs.Drug drug) {
+		//setMaxResults(10000);
+		incident.setDrug(drug);
+		return getResultList();
+	}
+
+	public List<Incident> getIncidentsByMorbidity(
+			com.oreon.trkincidents.incidents.Morbidity morbidity) {
+		//setMaxResults(10000);
+		incident.setMorbidity(morbidity);
 		return getResultList();
 	}
 
 	@Observer("archivedIncident")
 	public void onArchive() {
 		refresh();
+	}
+
+	@Override
+	protected void setupForAutoComplete(String input) {
+
+		incident.setTitle(input);
+
 	}
 
 	/** create comma delimited row 
@@ -175,14 +200,6 @@ public abstract class IncidentListQueryBase extends BaseQuery<Incident, Long> {
 				+ "\",");
 
 		builder.append("\""
-				+ (e.getReportedTo() != null ? e.getReportedTo()
-						.getDisplayName().replace(",", "") : "") + "\",");
-
-		builder.append("\""
-				+ (e.getDrug() != null ? e.getDrug().getDisplayName().replace(
-						",", "") : "") + "\",");
-
-		builder.append("\""
 				+ (e.getProccedure() != null ? e.getProccedure()
 						.getDisplayName().replace(",", "") : "") + "\",");
 
@@ -200,7 +217,23 @@ public abstract class IncidentListQueryBase extends BaseQuery<Incident, Long> {
 						.replace(",", "") : "") + "\",");
 
 		builder.append("\""
-				+ (e.getIcd10() != null ? e.getIcd10().getDisplayName()
+				+ (e.getWard() != null ? e.getWard().getDisplayName().replace(
+						",", "") : "") + "\",");
+
+		builder.append("\""
+				+ (e.getReportedTo() != null ? e.getReportedTo()
+						.getDisplayName().replace(",", "") : "") + "\",");
+
+		builder.append("\""
+				+ (e.getDrug() != null ? e.getDrug().getDisplayName().replace(
+						",", "") : "") + "\",");
+
+		builder.append("\""
+				+ (e.getMorbidity() != null ? e.getMorbidity().getDisplayName()
+						.replace(",", "") : "") + "\",");
+
+		builder.append("\""
+				+ (e.getPreventiveAction() != null ? e.getPreventiveAction()
 						.replace(",", "") : "") + "\",");
 
 		builder.append("\r\n");
@@ -224,10 +257,6 @@ public abstract class IncidentListQueryBase extends BaseQuery<Incident, Long> {
 
 		builder.append("DateOfIncident" + ",");
 
-		builder.append("ReportedTo" + ",");
-
-		builder.append("Drug" + ",");
-
 		builder.append("Proccedure" + ",");
 
 		builder.append("ResponsibleEmployee" + ",");
@@ -236,7 +265,15 @@ public abstract class IncidentListQueryBase extends BaseQuery<Incident, Long> {
 
 		builder.append("Severity" + ",");
 
-		builder.append("Icd10" + ",");
+		builder.append("Ward" + ",");
+
+		builder.append("ReportedTo" + ",");
+
+		builder.append("Drug" + ",");
+
+		builder.append("Morbidity" + ",");
+
+		builder.append("PreventiveAction" + ",");
 
 		builder.append("\r\n");
 	}

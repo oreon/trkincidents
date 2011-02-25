@@ -11,15 +11,6 @@
       <h:inputText id="userName" value="#{userList.user.userName}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.user_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enabled', 'userEdit')}"/>  
-      <br/>  
-      <h:selectOneMenu id="enabled" value="#{userList.user.enabled}" required="false"> 
-        <f:selectItem itemLabel="Any" itemValue=""/>  
-        <f:selectItem itemLabel="True" itemValue="true"/>  
-        <f:selectItem itemLabel="False" itemValue="false"/> 
-      </h:selectOneMenu> 
-    </h:panelGroup>  
-    <h:panelGroup> 
       <h:outputText value="#{msg.user_roles}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('roles', 'userEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="roles" value="#{ userList.rolesToSearch}"> 
@@ -32,6 +23,15 @@
       <h:outputText value="#{msg.user_email} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('email', 'userEdit')}"/>  
       <br/>  
       <h:inputText id="email" value="#{userList.user.email}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.user_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enabled', 'userEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="enabled" value="#{userList.user.enabled}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="True" itemValue="true"/>  
+        <f:selectItem itemLabel="False" itemValue="false"/> 
+      </h:selectOneMenu> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 

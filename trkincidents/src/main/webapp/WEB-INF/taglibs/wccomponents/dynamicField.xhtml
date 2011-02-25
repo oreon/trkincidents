@@ -12,12 +12,10 @@
 	xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
 
 <td>
-  <h:outputText value="${fld.formField.name}" />
+ <h:outputText value="${fld.formField.name}" />
  <h:outputText value="*"
 		rendered="${fld.formField.required}" />
-</td>
-
-<td>
+<br/>
 	<h:inputText value="${fld.value}"
 		rendered="${fld.formField.type == 'TEXT'}"
 		label="${fld.formField.name}"

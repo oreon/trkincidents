@@ -14,7 +14,19 @@ public class UnusualOccurenceWorkflowProcessActionBase
 		extends
 			BaseJbpmProcessAction implements java.io.Serializable {
 
-	@CreateProcess(definition = "unusualOccurenceWorkflow")
+	@Out(scope = ScopeType.BUSINESS_PROCESS, required = false)
+	protected com.oreon.trkincidents.incidents.Incident processToken = new com.oreon.trkincidents.incidents.Incident();
+
+	public void setProcessToken(
+			com.oreon.trkincidents.incidents.Incident processToken) {
+		this.processToken = processToken;
+	}
+
+	public com.oreon.trkincidents.incidents.Incident getProcessToken() {
+		return this.processToken;
+	}
+
+	@CreateProcess(definition = "unusualOccurenceWorkflow", processKey = "#{incidentAction.instance.id}")
 	public void startProcess() {
 
 	}
@@ -24,12 +36,12 @@ public class UnusualOccurenceWorkflowProcessActionBase
 
 	}
 
-	@EndTask(transition = "closeOccurence")
-	public void closeOccurenceReviewOccurence() {
-
-	}
 	@EndTask(transition = "requestMoreInfo")
 	public void requestMoreInfoReviewOccurence() {
+
+	}
+	@EndTask(transition = "closeOccurence")
+	public void closeOccurenceReviewOccurence() {
 
 	}
 

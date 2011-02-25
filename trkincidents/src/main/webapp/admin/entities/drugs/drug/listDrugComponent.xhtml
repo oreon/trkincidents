@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="DrugModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="Drug Search Results (#{empty records ? 0 : (drugList.paginated ? drugList.resultCount : records.size)})"/> 
+  </c:if>  
   <rich:panel> 
-    <f:facet name="header">Drug Search Results (#{empty records ? 0 : (drugList.paginated ? drugList.resultCount : records.size)})</f:facet>  
+    <f:facet name="header">${listTitle}</f:facet>  
     <a:form> 
-      <rich:dataTable var="_drug" value="#{records}" id="drugList" rowClasses="odd, even" styleClass="dataTable" rendered="#{not empty records}"> 
-        <h:column> 
+      <rich:dataTable var="_drug" value="#{records}" id="drugList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
+        <h:column rendered="#{s:hasPermission('id', 'drugView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugList}"/>  
@@ -15,7 +21,7 @@
           </f:facet>  
           <h:outputText value="#{_drug.id}"></h:outputText> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('name', 'drugView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugList}"/>  
@@ -23,9 +29,9 @@
               <ui:param name="propertyPath" value="drug.name"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_drug.name}"/> 
+          <h:outputText value="#{_drug.name}" escape="false"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('absorption', 'drugView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugList}"/>  
@@ -33,9 +39,9 @@
               <ui:param name="propertyPath" value="drug.absorption"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_drug.absorption}"/> 
+          <h:outputText value="#{_drug.absorption}" escape="false"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('biotransformation', 'drugView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugList}"/>  
@@ -43,9 +49,9 @@
               <ui:param name="propertyPath" value="drug.biotransformation"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_drug.biotransformation}"/> 
+          <h:outputText value="#{_drug.biotransformation}" escape="false"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('atcCodes', 'drugView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugList}"/>  
@@ -53,9 +59,9 @@
               <ui:param name="propertyPath" value="drug.atcCodes"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_drug.atcCodes}"/> 
+          <h:outputText value="#{_drug.atcCodes}" escape="false"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('contraIndication', 'drugView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugList}"/>  
@@ -63,9 +69,9 @@
               <ui:param name="propertyPath" value="drug.contraIndication"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_drug.contraIndication}"/> 
+          <h:outputText value="#{_drug.contraIndication}" escape="false"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('description', 'drugView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugList}"/>  
@@ -73,9 +79,9 @@
               <ui:param name="propertyPath" value="drug.description"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_drug.description}"/> 
+          <h:outputText value="#{_drug.description}" escape="false"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('dosageForm', 'drugView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugList}"/>  
@@ -83,9 +89,9 @@
               <ui:param name="propertyPath" value="drug.dosageForm"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_drug.dosageForm}"/> 
+          <h:outputText value="#{_drug.dosageForm}" escape="false"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('foodInteractions', 'drugView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugList}"/>  
@@ -93,9 +99,9 @@
               <ui:param name="propertyPath" value="drug.foodInteractions"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_drug.foodInteractions}"/> 
+          <h:outputText value="#{_drug.foodInteractions}" escape="false"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('halfLife', 'drugView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugList}"/>  
@@ -103,9 +109,9 @@
               <ui:param name="propertyPath" value="drug.halfLife"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_drug.halfLife}"/> 
+          <h:outputText value="#{_drug.halfLife}" escape="false"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('halfLifeNumberOfHours', 'drugView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugList}"/>  
@@ -113,9 +119,11 @@
               <ui:param name="propertyPath" value="drug.halfLifeNumberOfHours"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_drug.halfLifeNumberOfHours}"/> 
+          <h:outputText value="#{_drug.halfLifeNumberOfHours}"> 
+            <f:convertNumber pattern="$#,##0.00"/> 
+          </h:outputText> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('indication', 'drugView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugList}"/>  
@@ -123,9 +131,9 @@
               <ui:param name="propertyPath" value="drug.indication"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_drug.indication}"/> 
+          <h:outputText value="#{_drug.indication}" escape="false"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('mechanismOfAction', 'drugView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugList}"/>  
@@ -133,9 +141,9 @@
               <ui:param name="propertyPath" value="drug.mechanismOfAction"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_drug.mechanismOfAction}"/> 
+          <h:outputText value="#{_drug.mechanismOfAction}" escape="false"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('patientInfo', 'drugView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugList}"/>  
@@ -143,9 +151,9 @@
               <ui:param name="propertyPath" value="drug.patientInfo"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_drug.patientInfo}"/> 
+          <h:outputText value="#{_drug.patientInfo}" escape="false"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('pharmacology', 'drugView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugList}"/>  
@@ -153,9 +161,9 @@
               <ui:param name="propertyPath" value="drug.pharmacology"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_drug.pharmacology}"/> 
+          <h:outputText value="#{_drug.pharmacology}" escape="false"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('toxicity', 'drugView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugList}"/>  
@@ -163,9 +171,9 @@
               <ui:param name="propertyPath" value="drug.toxicity"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_drug.toxicity}"/> 
+          <h:outputText value="#{_drug.toxicity}" escape="false"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('routeOfElimination', 'drugView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugList}"/>  
@@ -173,9 +181,9 @@
               <ui:param name="propertyPath" value="drug.routeOfElimination"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_drug.routeOfElimination}"/> 
+          <h:outputText value="#{_drug.routeOfElimination}" escape="false"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('volumeOfDistribution', 'drugView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugList}"/>  
@@ -183,9 +191,9 @@
               <ui:param name="propertyPath" value="drug.volumeOfDistribution"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_drug.volumeOfDistribution}"/> 
+          <h:outputText value="#{_drug.volumeOfDistribution}" escape="false"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('drugBankId', 'drugView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugList}"/>  
@@ -193,9 +201,9 @@
               <ui:param name="propertyPath" value="drug.drugBankId"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_drug.drugBankId}"/> 
+          <h:outputText value="#{_drug.drugBankId}" escape="false"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('categories', 'drugView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugList}"/>  
@@ -203,9 +211,9 @@
               <ui:param name="propertyPath" value="drug.categories"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_drug.categories}"/> 
+          <h:outputText value="#{_drug.categories}" escape="false"/> 
         </h:column>  
-        <h:column> 
+        <h:column rendered="#{s:hasPermission('creationDate', 'drugView' )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugList}"/>  
@@ -214,10 +222,10 @@
             </ui:include> 
           </f:facet>  
           <h:outputText value="#{_drug.dateCreated}"> 
-            <s:convertDateTime type="both" dateStyle="short"/> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('drugAction', 'view')}"> 
+        <h:column rendered="#{s:hasPermission('_drug', 'view')}"> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
@@ -226,7 +234,7 @@
             <f:param name="drugId" value="#{_drug.id}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('drugAction', 'edit')}"> 
+        <h:column rendered="#{s:hasPermission('_drug', 'edit')}"> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
@@ -244,11 +252,14 @@
             <f:param name="idToArchive" value="#{_drug.id}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('drugAction', 'edit')}"> 
+        <h:column> 
           <f:facet name="header"> 
             <h:outputText value=" "/> 
           </f:facet>  
-          <a:commandLink action="#{drugAction.setDrugIdForModalDlg(_drug.id)}" oncomplete="Richfaces.showModalPanel('DrugModalPanel',{});" value="Quick Edit"/> 
+          <a:commandLink action="#{drugAction.setDrugIdForModalDlg(_drug.id)}" rendered="#{s:hasPermission(_drug, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" reRender="${modalId}"> 
+            <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
+            <s:conversationPropagation type="join"/> 
+          </a:commandLink> 
         </h:column> 
       </rich:dataTable> 
     </a:form> 

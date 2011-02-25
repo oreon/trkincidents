@@ -9,6 +9,7 @@ import org.jboss.seam.Component;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
+import org.jboss.seam.bpm.Actor;
 import org.jboss.seam.international.StatusMessages;
 import org.jboss.seam.international.StatusMessage.Severity;
 import org.jboss.seam.log.Log;
@@ -32,8 +33,8 @@ public class Authenticator {
 	@In
 	protected StatusMessages statusMessages;
 
-	// @In
-	// Actor actor;
+	@In
+	Actor actor;
 
 	@In
 	Credentials credentials;
@@ -68,11 +69,7 @@ public class Authenticator {
 			
 			
 
-			/*
-			 * actor.setId(user.getUserName()); Set<Role> roles =
-			 * user.getRoles(); for (Role role : roles) {
-			 * actor.getGroupActorIds().add( role.getName() ); }
-			 */
+			updateActor(user);
 
 			UserUtilAction userUtilAction = (UserUtilAction) Component
 					.getInstance("userUtilAction");
@@ -87,6 +84,14 @@ public class Authenticator {
 
 		}
 
+	}
+	
+	private void updateActor(User user) {
+		actor.setId(user.getUserName());
+		Set<Role> roles = user.getRoles();
+		for (Role role : roles) {
+			actor.getGroupActorIds().add( role.getName() );
+		}
 	}
 
 }

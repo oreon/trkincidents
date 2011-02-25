@@ -1,0 +1,31 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:s="http://jboss.com/products/seam/taglib"
+                xmlns:m="http://jboss.com/products/seam/mail"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+<m:message xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:m="http://jboss.com/products/seam/mail"
+    xmlns:h="http://java.sun.com/jsf/html">
+  
+    <m:from name="neonwc" address="neownwc@gmail.com" />
+    <m:to >#{userAction.instance.email}</m:to>
+    <m:subject>Your MedincidentPro Credentials</m:subject>
+    
+    <m:body>
+        <p><h:outputText value="Dear #{userAction.instance.userName}" />,</p>
+        
+        Here are your credentials:
+        
+         <p>Your username :  <b>#{userAction.instance.userName}</b></p> 
+         
+         <p>Your password : #{userAction.instance.password}</p> 
+        
+        <p>Regards,</p>
+        <p>MedIncidentPro Team</p>
+    </m:body>
+    
+</m:message>
+
+</ui:composition>
