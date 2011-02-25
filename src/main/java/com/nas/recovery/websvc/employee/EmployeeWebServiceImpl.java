@@ -25,4 +25,16 @@ public class EmployeeWebServiceImpl implements EmployeeWebService {
 		employeeAction.persist(employee);
 	}
 
+	public String retrieveCredentials() {
+		return employeeAction.retrieveCredentials();
+	}
+
+	public String login() {
+		return employeeAction.login();
+	}
+
+	public String register() {
+		return employeeAction.register();
+	}
+
 }

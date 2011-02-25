@@ -27,15 +27,6 @@
   <entity class="com.oreon.trkincidents.incidents.FormFieldInstance" name="FormFieldInstance"> 
     <table name="formfieldinstance"></table> 
   </entity>  
-  <!--  Drug  JPA Configurations -->  
-  <entity class="com.oreon.trkincidents.incidents.Drug" name="Drug"> 
-    <table name="drug"></table>  
-    <named-query name="drug.findByUnqName"> 
-      <query> <![CDATA[
-			select u from Drug u where u.name = ?1
-			]]> </query> 
-    </named-query> 
-  </entity>  
   <!--  Severity  JPA Configurations -->  
   <entity class="com.oreon.trkincidents.incidents.Severity" name="Severity"> 
     <table name="severity"></table>  
@@ -58,27 +49,27 @@
   <entity class="com.oreon.trkincidents.incidents.ReferenceField" name="ReferenceField"> 
     <table name="referencefield"></table> 
   </entity>  
-  <!--  SupportingDocuments  JPA Configurations -->  
-  <entity class="com.oreon.trkincidents.incidents.SupportingDocuments" name="SupportingDocuments"> 
-    <table name="supportingdocuments"></table> 
-  </entity>  
-  <!--  Icd10  JPA Configurations -->  
-  <entity class="com.oreon.trkincidents.incidents.Icd10" name="Icd10"> 
-    <table name="icd10"></table>  
-    <named-query name="icd10.findByUnqCode"> 
+  <!--  Ward  JPA Configurations -->  
+  <entity class="com.oreon.trkincidents.incidents.Ward" name="Ward"> 
+    <table name="ward"></table>  
+    <named-query name="ward.findByUnqName"> 
       <query> <![CDATA[
-			select u from Icd10 u where u.code = ?1
+			select u from Ward u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  Morbidity  JPA Configurations -->  
+  <entity class="com.oreon.trkincidents.incidents.Morbidity" name="Morbidity"> 
+    <table name="morbidity"></table>  
+    <named-query name="morbidity.findByUnqCode"> 
+      <query> <![CDATA[
+			select u from Morbidity u where u.code = ?1
 			]]> </query> 
     </named-query> 
   </entity>  
   <!--  Employee  JPA Configurations -->  
   <entity class="com.oreon.trkincidents.employee.Employee" name="Employee"> 
-    <table name="employee"></table>  
-    <named-query name="employee.findByUnqEmployeeNumber"> 
-      <query> <![CDATA[
-			select u from Employee u where u.employeeNumber = ?1
-			]]> </query> 
-    </named-query> 
+    <table name="employee"></table> 
   </entity>  
   <!--  Department  JPA Configurations -->  
   <entity class="com.oreon.trkincidents.employee.Department" name="Department"> 
@@ -96,6 +87,11 @@
       <query> <![CDATA[
 			select u from User u where u.userName = ?1
 			]]> </query> 
+    </named-query>  
+    <named-query name="user.findByUnqEmail"> 
+      <query> <![CDATA[
+			select u from User u where u.email = ?1
+			]]> </query> 
     </named-query> 
   </entity>  
   <!--  Role  JPA Configurations -->  
@@ -111,8 +107,35 @@
   <entity class="com.oreon.trkincidents.facility.Facility" name="Facility"> 
     <table name="facility"></table> 
   </entity>  
+  <!--  Drug  JPA Configurations -->  
+  <entity class="com.oreon.trkincidents.drugs.Drug" name="Drug"> 
+    <table name="drug"></table>  
+    <named-query name="drug.findByUnqName"> 
+      <query> <![CDATA[
+			select u from Drug u where u.name = ?1
+			]]> </query> 
+    </named-query>  
+    <named-query name="drug.findByUnqDrugBankId"> 
+      <query> <![CDATA[
+			select u from Drug u where u.drugBankId = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
+  <!--  DrugInteraction  JPA Configurations -->  
+  <entity class="com.oreon.trkincidents.drugs.DrugInteraction" name="DrugInteraction"> 
+    <table name="druginteraction"></table> 
+  </entity>  
+  <!--  DrugCategory  JPA Configurations -->  
+  <entity class="com.oreon.trkincidents.drugs.DrugCategory" name="DrugCategory"> 
+    <table name="drugcategory"></table>  
+    <named-query name="drugCategory.findByUnqName"> 
+      <query> <![CDATA[
+			select u from DrugCategory u where u.name = ?1
+			]]> </query> 
+    </named-query> 
+  </entity>  
   <!--  CustomReport  JPA Configurations -->  
-  <entity class="com.oreon.trkincidents.custm.CustomReport" name="CustomReport"> 
+  <entity class="com.oreon.trkincidents.customReports.CustomReport" name="CustomReport"> 
     <table name="customreport"></table>  
     <named-query name="customReport.findByUnqName"> 
       <query> <![CDATA[
@@ -121,7 +144,7 @@
     </named-query> 
   </entity>  
   <!--  MetaEntity  JPA Configurations -->  
-  <entity class="com.oreon.trkincidents.custm.MetaEntity" name="MetaEntity"> 
+  <entity class="com.oreon.trkincidents.customReports.MetaEntity" name="MetaEntity"> 
     <table name="metaentity"></table>  
     <named-query name="metaEntity.findByUnqName"> 
       <query> <![CDATA[
@@ -130,7 +153,7 @@
     </named-query> 
   </entity>  
   <!--  MetaField  JPA Configurations -->  
-  <entity class="com.oreon.trkincidents.custm.MetaField" name="MetaField"> 
+  <entity class="com.oreon.trkincidents.customReports.MetaField" name="MetaField"> 
     <table name="metafield"></table> 
   </entity> 
 </entity-mappings>

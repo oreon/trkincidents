@@ -28,4 +28,46 @@ public class EmployeeActionTestBase
 		return employeeAction;
 	}
 
+	@Test
+	public void testRetrieveCredentials() throws Exception {
+		new ComponentTest() {
+
+			protected void testComponents() throws Exception {
+				EmployeeAction employeeAction = (EmployeeAction) org.jboss.seam.Component
+						.getInstance("employeeAction");
+
+				// assert(employeeAction.retrieveCredentials()).equals("");
+			}
+
+		}.run();
+	}
+
+	@Test
+	public void testLogin() throws Exception {
+		new ComponentTest() {
+
+			protected void testComponents() throws Exception {
+				EmployeeAction employeeAction = (EmployeeAction) org.jboss.seam.Component
+						.getInstance("employeeAction");
+
+				// assert(employeeAction.login()).equals("");
+			}
+
+		}.run();
+	}
+
+	@Test
+	public void testRegister() throws Exception {
+		new ComponentTest() {
+
+			protected void testComponents() throws Exception {
+				EmployeeAction employeeAction = (EmployeeAction) org.jboss.seam.Component
+						.getInstance("employeeAction");
+
+				// assert(employeeAction.register()).equals("");
+			}
+
+		}.run();
+	}
+
 }

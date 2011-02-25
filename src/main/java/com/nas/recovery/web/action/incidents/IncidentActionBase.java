@@ -41,7 +41,6 @@ import org.apache.commons.io.FileUtils;
 import org.richfaces.event.UploadEvent;
 import org.richfaces.model.UploadItem;
 
-import com.oreon.trkincidents.incidents.SupportingDocuments;
 import com.oreon.trkincidents.incidents.FormFieldInstance;
 
 public abstract class IncidentActionBase extends BaseAction<Incident>
@@ -65,12 +64,6 @@ public abstract class IncidentActionBase extends BaseAction<Incident>
 	@In(create = true, value = "departmentAction")
 	com.nas.recovery.web.action.employee.DepartmentAction departmentAction;
 
-	@In(create = true, value = "employeeAction")
-	com.nas.recovery.web.action.employee.EmployeeAction reportedToAction;
-
-	@In(create = true, value = "drugAction")
-	com.nas.recovery.web.action.incidents.DrugAction drugAction;
-
 	@In(create = true, value = "proccedureAction")
 	com.nas.recovery.web.action.incidents.ProccedureAction proccedureAction;
 
@@ -80,8 +73,17 @@ public abstract class IncidentActionBase extends BaseAction<Incident>
 	@In(create = true, value = "severityAction")
 	com.nas.recovery.web.action.incidents.SeverityAction severityAction;
 
-	@In(create = true, value = "icd10Action")
-	com.nas.recovery.web.action.incidents.Icd10Action icd10Action;
+	@In(create = true, value = "wardAction")
+	com.nas.recovery.web.action.incidents.WardAction wardAction;
+
+	@In(create = true, value = "employeeAction")
+	com.nas.recovery.web.action.employee.EmployeeAction reportedToAction;
+
+	@In(create = true, value = "drugAction")
+	com.nas.recovery.web.action.drugs.DrugAction drugAction;
+
+	@In(create = true, value = "morbidityAction")
+	com.nas.recovery.web.action.incidents.MorbidityAction morbidityAction;
 
 	@DataModel
 	private List<Incident> incidentRecordList;
@@ -159,32 +161,6 @@ public abstract class IncidentActionBase extends BaseAction<Incident>
 		return 0L;
 	}
 
-	public void setReportedToId(Long id) {
-
-		if (id != null && id > 0)
-			getInstance().setReportedTo(reportedToAction.loadFromId(id));
-
-	}
-
-	public Long getReportedToId() {
-		if (getInstance().getReportedTo() != null)
-			return getInstance().getReportedTo().getId();
-		return 0L;
-	}
-
-	public void setDrugId(Long id) {
-
-		if (id != null && id > 0)
-			getInstance().setDrug(drugAction.loadFromId(id));
-
-	}
-
-	public Long getDrugId() {
-		if (getInstance().getDrug() != null)
-			return getInstance().getDrug().getId();
-		return 0L;
-	}
-
 	public void setProccedureId(Long id) {
 
 		if (id != null && id > 0)
@@ -225,16 +201,55 @@ public abstract class IncidentActionBase extends BaseAction<Incident>
 		return 0L;
 	}
 
-	public void setIcd10Id(Long id) {
+	public void setWardId(Long id) {
 
 		if (id != null && id > 0)
-			getInstance().setIcd10(icd10Action.loadFromId(id));
+			getInstance().setWard(wardAction.loadFromId(id));
 
 	}
 
-	public Long getIcd10Id() {
-		if (getInstance().getIcd10() != null)
-			return getInstance().getIcd10().getId();
+	public Long getWardId() {
+		if (getInstance().getWard() != null)
+			return getInstance().getWard().getId();
+		return 0L;
+	}
+
+	public void setReportedToId(Long id) {
+
+		if (id != null && id > 0)
+			getInstance().setReportedTo(reportedToAction.loadFromId(id));
+
+	}
+
+	public Long getReportedToId() {
+		if (getInstance().getReportedTo() != null)
+			return getInstance().getReportedTo().getId();
+		return 0L;
+	}
+
+	public void setDrugId(Long id) {
+
+		if (id != null && id > 0)
+			getInstance().setDrug(drugAction.loadFromId(id));
+
+	}
+
+	public Long getDrugId() {
+		if (getInstance().getDrug() != null)
+			return getInstance().getDrug().getId();
+		return 0L;
+	}
+
+	public void setMorbidityId(Long id) {
+
+		if (id != null && id > 0)
+			getInstance().setMorbidity(morbidityAction.loadFromId(id));
+
+	}
+
+	public Long getMorbidityId() {
+		if (getInstance().getMorbidity() != null)
+			return getInstance().getMorbidity().getId();
 		return 0L;
 	}
 
@@ -294,18 +309,6 @@ public abstract class IncidentActionBase extends BaseAction<Incident>
 			getInstance().setDepartment(department);
 		}
 
-		com.oreon.trkincidents.employee.Employee reportedTo = reportedToAction
-				.getDefinedInstance();
-		if (reportedTo != null && isNew()) {
-			getInstance().setReportedTo(reportedTo);
-		}
-
-		com.oreon.trkincidents.incidents.Drug drug = drugAction
-				.getDefinedInstance();
-		if (drug != null && isNew()) {
-			getInstance().setDrug(drug);
-		}
-
 		com.oreon.trkincidents.incidents.Proccedure proccedure = proccedureAction
 				.getDefinedInstance();
 		if (proccedure != null && isNew()) {
@@ -324,10 +327,28 @@ public abstract class IncidentActionBase extends BaseAction<Incident>
 			getInstance().setSeverity(severity);
 		}
 
-		com.oreon.trkincidents.incidents.Icd10 icd10 = icd10Action
+		com.oreon.trkincidents.incidents.Ward ward = wardAction
 				.getDefinedInstance();
-		if (icd10 != null && isNew()) {
-			getInstance().setIcd10(icd10);
+		if (ward != null && isNew()) {
+			getInstance().setWard(ward);
+		}
+
+		com.oreon.trkincidents.employee.Employee reportedTo = reportedToAction
+				.getDefinedInstance();
+		if (reportedTo != null && isNew()) {
+			getInstance().setReportedTo(reportedTo);
+		}
+
+		com.oreon.trkincidents.drugs.Drug drug = drugAction
+				.getDefinedInstance();
+		if (drug != null && isNew()) {
+			getInstance().setDrug(drug);
+		}
+
+		com.oreon.trkincidents.incidents.Morbidity morbidity = morbidityAction
+				.getDefinedInstance();
+		if (morbidity != null && isNew()) {
+			getInstance().setMorbidity(morbidity);
 		}
 
 	}
@@ -394,16 +415,6 @@ public abstract class IncidentActionBase extends BaseAction<Incident>
 					.getDepartment().getId()));
 		}
 
-		if (incident.getReportedTo() != null) {
-			criteria = criteria.add(Restrictions.eq("reportedTo.id", incident
-					.getReportedTo().getId()));
-		}
-
-		if (incident.getDrug() != null) {
-			criteria = criteria.add(Restrictions.eq("drug.id", incident
-					.getDrug().getId()));
-		}
-
 		if (incident.getProccedure() != null) {
 			criteria = criteria.add(Restrictions.eq("proccedure.id", incident
 					.getProccedure().getId()));
@@ -419,9 +430,24 @@ public abstract class IncidentActionBase extends BaseAction<Incident>
 					.getSeverity().getId()));
 		}
 
-		if (incident.getIcd10() != null) {
-			criteria = criteria.add(Restrictions.eq("icd10.id", incident
-					.getIcd10().getId()));
+		if (incident.getWard() != null) {
+			criteria = criteria.add(Restrictions.eq("ward.id", incident
+					.getWard().getId()));
+		}
+
+		if (incident.getReportedTo() != null) {
+			criteria = criteria.add(Restrictions.eq("reportedTo.id", incident
+					.getReportedTo().getId()));
+		}
+
+		if (incident.getDrug() != null) {
+			criteria = criteria.add(Restrictions.eq("drug.id", incident
+					.getDrug().getId()));
+		}
+
+		if (incident.getMorbidity() != null) {
+			criteria = criteria.add(Restrictions.eq("morbidity.id", incident
+					.getMorbidity().getId()));
 		}
 
 	}
@@ -448,14 +474,6 @@ public abstract class IncidentActionBase extends BaseAction<Incident>
 			departmentAction.setInstance(getInstance().getDepartment());
 		}
 
-		if (incident.getReportedTo() != null) {
-			reportedToAction.setInstance(getInstance().getReportedTo());
-		}
-
-		if (incident.getDrug() != null) {
-			drugAction.setInstance(getInstance().getDrug());
-		}
-
 		if (incident.getProccedure() != null) {
 			proccedureAction.setInstance(getInstance().getProccedure());
 		}
@@ -469,11 +487,21 @@ public abstract class IncidentActionBase extends BaseAction<Incident>
 			severityAction.setInstance(getInstance().getSeverity());
 		}
 
-		if (incident.getIcd10() != null) {
-			icd10Action.setInstance(getInstance().getIcd10());
+		if (incident.getWard() != null) {
+			wardAction.setInstance(getInstance().getWard());
 		}
 
-		initListSupportingDocumentses();
+		if (incident.getReportedTo() != null) {
+			reportedToAction.setInstance(getInstance().getReportedTo());
+		}
+
+		if (incident.getDrug() != null) {
+			drugAction.setInstance(getInstance().getDrug());
+		}
+
+		if (incident.getMorbidity() != null) {
+			morbidityAction.setInstance(getInstance().getMorbidity());
+		}
 
 		initListFormFieldInstances();
 
@@ -481,44 +509,6 @@ public abstract class IncidentActionBase extends BaseAction<Incident>
 
 	public void updateAssociations() {
 
-	}
-
-	protected List<com.oreon.trkincidents.incidents.SupportingDocuments> listSupportingDocumentses = new ArrayList<com.oreon.trkincidents.incidents.SupportingDocuments>();
-
-	void initListSupportingDocumentses() {
-
-		if (listSupportingDocumentses.isEmpty())
-			listSupportingDocumentses.addAll(getInstance()
-					.getSupportingDocumentses());
-
-	}
-
-	public List<com.oreon.trkincidents.incidents.SupportingDocuments> getListSupportingDocumentses() {
-
-		prePopulateListSupportingDocumentses();
-		return listSupportingDocumentses;
-	}
-
-	public void prePopulateListSupportingDocumentses() {
-	}
-
-	public void setListSupportingDocumentses(
-			List<com.oreon.trkincidents.incidents.SupportingDocuments> listSupportingDocumentses) {
-		this.listSupportingDocumentses = listSupportingDocumentses;
-	}
-
-	public void deleteSupportingDocumentses(int index) {
-		listSupportingDocumentses.remove(index);
-	}
-
-	@Begin(join = true)
-	public void addSupportingDocumentses() {
-		initListSupportingDocumentses();
-		SupportingDocuments supportingDocumentses = new SupportingDocuments();
-
-		supportingDocumentses.setIncident(getInstance());
-
-		getListSupportingDocumentses().add(supportingDocumentses);
 	}
 
 	protected List<com.oreon.trkincidents.incidents.FormFieldInstance> listFormFieldInstances = new ArrayList<com.oreon.trkincidents.incidents.FormFieldInstance>();
@@ -561,12 +551,6 @@ public abstract class IncidentActionBase extends BaseAction<Incident>
 
 	public void updateComposedAssociations() {
 
-		if (listSupportingDocumentses != null) {
-			getInstance().getSupportingDocumentses().clear();
-			getInstance().getSupportingDocumentses().addAll(
-					listSupportingDocumentses);
-		}
-
 		if (listFormFieldInstances != null) {
 			getInstance().getFormFieldInstances().clear();
 			getInstance().getFormFieldInstances()
@@ -575,7 +559,6 @@ public abstract class IncidentActionBase extends BaseAction<Incident>
 	}
 
 	public void clearLists() {
-		listSupportingDocumentses.clear();
 		listFormFieldInstances.clear();
 
 	}

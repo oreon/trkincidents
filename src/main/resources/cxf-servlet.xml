@@ -25,9 +25,6 @@ http://cxf.apache.org/simple http://cxf.apache.org/schemas/simple.xsd">
 		<jaxws:endpoint id="formFieldInstanceWebSvc"  implementor="com.nas.recovery.websvc.incidents.FormFieldInstanceWebServiceImpl"
 	 	address="/formFieldInstanceService" />
 	
-		<jaxws:endpoint id="drugWebSvc"  implementor="com.nas.recovery.websvc.incidents.DrugWebServiceImpl"
-	 	address="/drugService" />
-	
 		<jaxws:endpoint id="severityWebSvc"  implementor="com.nas.recovery.websvc.incidents.SeverityWebServiceImpl"
 	 	address="/severityService" />
 	
@@ -37,11 +34,11 @@ http://cxf.apache.org/simple http://cxf.apache.org/schemas/simple.xsd">
 		<jaxws:endpoint id="referenceFieldWebSvc"  implementor="com.nas.recovery.websvc.incidents.ReferenceFieldWebServiceImpl"
 	 	address="/referenceFieldService" />
 	
-		<jaxws:endpoint id="supportingDocumentsWebSvc"  implementor="com.nas.recovery.websvc.incidents.SupportingDocumentsWebServiceImpl"
-	 	address="/supportingDocumentsService" />
+		<jaxws:endpoint id="wardWebSvc"  implementor="com.nas.recovery.websvc.incidents.WardWebServiceImpl"
+	 	address="/wardService" />
 	
-		<jaxws:endpoint id="icd10WebSvc"  implementor="com.nas.recovery.websvc.incidents.Icd10WebServiceImpl"
-	 	address="/icd10Service" />
+		<jaxws:endpoint id="morbidityWebSvc"  implementor="com.nas.recovery.websvc.incidents.MorbidityWebServiceImpl"
+	 	address="/morbidityService" />
 	
 		<jaxws:endpoint id="employeeWebSvc"  implementor="com.nas.recovery.websvc.employee.EmployeeWebServiceImpl"
 	 	address="/employeeService" />
@@ -58,13 +55,22 @@ http://cxf.apache.org/simple http://cxf.apache.org/schemas/simple.xsd">
 		<jaxws:endpoint id="facilityWebSvc"  implementor="com.nas.recovery.websvc.facility.FacilityWebServiceImpl"
 	 	address="/facilityService" />
 	
-		<jaxws:endpoint id="customReportWebSvc"  implementor="com.nas.recovery.websvc.custm.CustomReportWebServiceImpl"
+		<jaxws:endpoint id="drugWebSvc"  implementor="com.nas.recovery.websvc.drugs.DrugWebServiceImpl"
+	 	address="/drugService" />
+	
+		<jaxws:endpoint id="drugInteractionWebSvc"  implementor="com.nas.recovery.websvc.drugs.DrugInteractionWebServiceImpl"
+	 	address="/drugInteractionService" />
+	
+		<jaxws:endpoint id="drugCategoryWebSvc"  implementor="com.nas.recovery.websvc.drugs.DrugCategoryWebServiceImpl"
+	 	address="/drugCategoryService" />
+	
+		<jaxws:endpoint id="customReportWebSvc"  implementor="com.nas.recovery.websvc.customReports.CustomReportWebServiceImpl"
 	 	address="/customReportService" />
 	
-		<jaxws:endpoint id="metaEntityWebSvc"  implementor="com.nas.recovery.websvc.custm.MetaEntityWebServiceImpl"
+		<jaxws:endpoint id="metaEntityWebSvc"  implementor="com.nas.recovery.websvc.customReports.MetaEntityWebServiceImpl"
 	 	address="/metaEntityService" />
 	
-		<jaxws:endpoint id="metaFieldWebSvc"  implementor="com.nas.recovery.websvc.custm.MetaFieldWebServiceImpl"
+		<jaxws:endpoint id="metaFieldWebSvc"  implementor="com.nas.recovery.websvc.customReports.MetaFieldWebServiceImpl"
 	 	address="/metaFieldService" />
 	
     

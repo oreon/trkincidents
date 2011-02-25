@@ -152,7 +152,7 @@ public class FormFieldInstance extends BusinessEntity
 	@Transient
 	public String getDisplayName() {
 		try {
-			return value;
+			return com.nas.recovery.ProjectUtils.getVal(this);
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
 		}

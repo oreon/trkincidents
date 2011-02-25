@@ -13,4 +13,10 @@ public interface EmployeeWebService {
 
 	public void save(Employee employee);
 
+	public String retrieveCredentials();
+
+	public String login();
+
+	public String register();
+
 }

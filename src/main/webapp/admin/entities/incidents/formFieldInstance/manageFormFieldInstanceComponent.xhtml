@@ -8,7 +8,7 @@
       <ui:param name="records" value="#{formFieldInstanceList.getFormFieldInstancesByIncident(loanDataAction.instance.incident)}"/> 
     </ui:include>  
     <a:form> 
-      <a:commandButton action="#{formFieldInstanceAction.setFormFieldInstanceId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="#{msg.Add} #{msg.FormFieldInstance}" styleClass="button"/> 
+      <a:commandButton action="#{formFieldInstanceAction.setFormFieldInstanceId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" reRender="${modalId}" value="#{msg.Add} #{msg.FormFieldInstance}" styleClass="button"/> 
     </a:form>  
     <ui:include src="/admin/entities/incidents/formFieldInstance/modalDlgFormFieldInstanceComponent.xhtml"> 
       <ui:param name="modalId" value="${modalId}"/> 

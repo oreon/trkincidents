@@ -5,8 +5,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import com.nas.recovery.MetaData;
-import com.oreon.trkincidents.custm.MetaEntity;
-import com.oreon.trkincidents.custm.MetaField;
+import com.oreon.trkincidents.customReports.MetaEntity;
+import com.oreon.trkincidents.customReports.MetaField;
 
 public class MetaDataUpdater {
 	

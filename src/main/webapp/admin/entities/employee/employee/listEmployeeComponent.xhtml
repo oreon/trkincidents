@@ -61,16 +61,6 @@
           </f:facet>  
           <h:outputText value="#{_employee.user.userName}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('enabled', 'employeeView'  )}"> 
-          <f:facet name="header"> 
-            <ui:include src="/layout/sort.xhtml"> 
-              <ui:param name="entityList" value="#{employeeList}"/>  
-              <ui:param name="propertyLabel" value="#{msg.user_enabled}"/>  
-              <ui:param name="propertyPath" value="employee.user.enabled"/> 
-            </ui:include> 
-          </f:facet>  
-          <h:outputText value="#{_employee.user.enabled? msg.yes : msg.no }"/> 
-        </h:column>  
         <h:column rendered="#{s:hasPermission('email', 'employeeView'  )}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
@@ -80,6 +70,16 @@
             </ui:include> 
           </f:facet>  
           <h:outputText value="#{_employee.user.email}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('enabled', 'employeeView'  )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{employeeList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.user_enabled}"/>  
+              <ui:param name="propertyPath" value="employee.user.enabled"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_employee.user.enabled? msg.yes : msg.no }"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('department', 'employeeView'  )}"> 
           <f:facet name="header"> 

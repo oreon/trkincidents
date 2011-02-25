@@ -41,7 +41,7 @@
             <f:param name="employeeId" value="#{employeeAction.instance.id}"/>  
             <f:param name="incidentId" value="0"/> 
           </s:button>  
-          <a:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"> 
+          <a:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}"> 
             <a:actionparam name="incidentId" assignTo="#{incidentAction.incidentId}" value="0"/>  
             <a:actionparam name="employeeId" assignTo="#{incidentAction.createdById}" value="#{employeeAction.instance.id}"/> 
           </a:commandButton> 
@@ -61,9 +61,29 @@
             <f:param name="employeeId" value="#{employeeAction.instance.id}"/>  
             <f:param name="incidentId" value="0"/> 
           </s:button>  
-          <a:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"> 
+          <a:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}"> 
             <a:actionparam name="incidentId" assignTo="#{incidentAction.incidentId}" value="0"/>  
             <a:actionparam name="employeeId" assignTo="#{incidentAction.responsibleEmployeeId}" value="#{employeeAction.instance.id}"/> 
+          </a:commandButton> 
+        </a:form>  
+        <ui:include src="/admin/entities/incidents/incident/modalDlgIncidentComponent.xhtml"> 
+          <ui:param name="modalId" value="${modalId}"/> 
+        </ui:include> 
+      </rich:tab>  
+      <rich:tab label="IncidentsReported" icon="/images/icons/bricks.png"> 
+        <c:set var="modalId" value="EmployeeModalPanel-incidentsReported"/>  
+        <ui:include src="/admin/entities/incidents/incident/listIncidentComponent.xhtml"> 
+          <ui:param name="records" value="#{incidentList.getIncidentsReportedByReportedTo(employeeAction.instance)}"/>  
+          <ui:param name="modalId" value="${modalId}"/> 
+        </ui:include>  
+        <a:form> 
+          <s:button value="Create New" view="/admin/entities/incidents/incident/editIncident.xhtml"> 
+            <f:param name="employeeId" value="#{employeeAction.instance.id}"/>  
+            <f:param name="incidentId" value="0"/> 
+          </s:button>  
+          <a:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}"> 
+            <a:actionparam name="incidentId" assignTo="#{incidentAction.incidentId}" value="0"/>  
+            <a:actionparam name="employeeId" assignTo="#{incidentAction.reportedToId}" value="#{employeeAction.instance.id}"/> 
           </a:commandButton> 
         </a:form>  
         <ui:include src="/admin/entities/incidents/incident/modalDlgIncidentComponent.xhtml"> 

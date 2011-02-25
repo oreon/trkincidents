@@ -4,7 +4,7 @@
   <h:inputText id="freeTypeIncident"/>  
   <rich:suggestionbox for="freeTypeIncident" rules="all" suggestionAction="#{incidentList.autocompletedb}" var="_result" fetchValue="#{_result.displayName}" minChars="2" nothingLabel="No Results found" zindex="99999"> 
     <h:column> 
-      <h:outputText value="#{_result.displayName}"/> 
+      <h:outputText value="#{_result.title}"/> 
     </h:column>  
     <a:support event="onselect"> 
       <f:setPropertyActionListener value="#{_result}" target="#{incidentAction.instance}"/> 

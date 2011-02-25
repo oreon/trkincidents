@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import javax.faces.context.FacesContext;
+import javax.faces.render.ResponseStateManager;
 import javax.persistence.Query;
 import javax.servlet.http.HttpServletResponse;
 
@@ -432,6 +433,12 @@ public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializabl
 	
 	}
 	
+	
+	protected boolean isPostBack() {
+		ResponseStateManager rtm = FacesContext.getCurrentInstance()
+				.getRenderKit().getResponseStateManager();
+		return rtm.isPostback(FacesContext.getCurrentInstance());
+	}
 	
 	/** Creates a string for export to csv, if null, blank string is returned
 	 * @param e

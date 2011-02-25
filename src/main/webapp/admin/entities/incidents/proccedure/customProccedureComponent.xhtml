@@ -11,12 +11,6 @@
         <br/>  
         <h:inputText id="name" value="#{proccedureAction.proccedure.name}"/>  
         <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'proccedureEdit')}"/> 
-      </h:panelGroup>  
-      <h:panelGroup> 
-        <h:outputText value="#{msg.proccedure_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'proccedureEdit')}"/>  
-        <br/>  
-        <h:inputText id="description" value="#{proccedureAction.proccedure.description}"/>  
-        <rich:message styleClass="error errors" for="description" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'proccedureEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

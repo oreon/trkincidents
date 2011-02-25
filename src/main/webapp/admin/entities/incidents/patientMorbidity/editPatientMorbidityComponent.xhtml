@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup> 
+    <s:validateAll> 
+      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{patientMorbidityAction.load(patientMorbidityId )  }"> 
+        <h:outputText value="#{msg.patientMorbidity_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'patientMorbidityEdit')}"/>  
+        <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'patientMorbidityEdit')}" label="#{msg.patientMorbidity_name}" required="true" value="#{patientMorbidityAction.patientMorbidity.name}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'patientMorbidityEdit')}"/>  
+        <h:outputText value="#{msg.patientMorbidity_code} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'patientMorbidityEdit')}"/>  
+        <h:inputText id="code#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'patientMorbidityEdit')}" label="#{msg.patientMorbidity_code}" required="true" value="#{patientMorbidityAction.patientMorbidity.code}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:inputText>  
+        <rich:message styleClass="error errors" for="code" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'patientMorbidityEdit')}"/> 
+      </h:panelGrid> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

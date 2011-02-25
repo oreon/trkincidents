@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:set var="modalId" value="MetaFieldModalPanel-MetaField"/>  
+  <s:div styleClass="mortgage_status_formwrap2"> 
+    <ui:include src="/admin/entities/customReports/metaField/listMetaFieldComponent.xhtml"> 
+      <ui:param name="listTitle" value="${listTitle}"/>  
+      <ui:param name="records" value="#{metaFieldList.getMetaFieldsByMetaEntity(loanDataAction.instance.metaEntity)}"/> 
+    </ui:include>  
+    <a:form> 
+      <a:commandButton action="#{metaFieldAction.setMetaFieldId(0)}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" reRender="${modalId}" value="#{msg.Add} #{msg.MetaField}" styleClass="button"/> 
+    </a:form>  
+    <ui:include src="/admin/entities/customReports/metaField/modalDlgMetaFieldComponent.xhtml"> 
+      <ui:param name="modalId" value="${modalId}"/> 
+    </ui:include> 
+  </s:div> 
+</ui:composition>

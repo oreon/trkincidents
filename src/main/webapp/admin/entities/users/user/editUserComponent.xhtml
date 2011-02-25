@@ -14,19 +14,19 @@
           <rich:ajaxValidator event="onsubmit"/> 
         </h:inputSecret>  
         <rich:message styleClass="error errors" for="password" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('password', 'userEdit')}"/>  
-        <h:outputText value="#{msg.user_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enabled', 'userEdit')}"/>  
-        <h:selectBooleanCheckbox id="enabled#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enabled', 'userEdit')}" label="#{msg.user_enabled}" required="false" value="#{userAction.user.enabled}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </h:selectBooleanCheckbox>  
-        <rich:message styleClass="error errors" for="enabled" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enabled', 'userEdit')}"/>  
         <h:outputText value="#{msg.user_email} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('email', 'userEdit')}"/>  
         <h:inputText id="email#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('email', 'userEdit')}" label="#{msg.user_email}" required="true" value="#{userAction.user.email}"> 
           <rich:ajaxValidator event="onsubmit"/> 
         </h:inputText>  
-        <rich:message styleClass="error errors" for="email" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('email', 'userEdit')}"/> 
+        <rich:message styleClass="error errors" for="email" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('email', 'userEdit')}"/>  
+        <h:outputText value="#{msg.user_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enabled', 'userEdit')}"/>  
+        <h:selectBooleanCheckbox id="enabled#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enabled', 'userEdit')}" label="#{msg.user_enabled}" required="false" value="#{userAction.user.enabled}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:selectBooleanCheckbox>  
+        <rich:message styleClass="error errors" for="enabled" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enabled', 'userEdit')}"/> 
       </h:panelGrid>  
       <br/>  
-      <rich:simpleTogglePanel label="#{msg.user_roles}" switchType="client"> 
+      <rich:simpleTogglePanel label="#{msg.user_roles}" switchType="client" id="roles"> 
         <rich:listShuttle sourceValue="#{userAction.listAvailableRoles}" targetValue="#{userAction.listRoles}" var="item"> 
           <s:convertEntity/>  
           <rich:column>#{item.displayName}</rich:column> 

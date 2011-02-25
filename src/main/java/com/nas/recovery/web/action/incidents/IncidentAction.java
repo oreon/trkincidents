@@ -2,13 +2,15 @@ package com.nas.recovery.web.action.incidents;
 
 import java.util.Set;
 
+import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 
 import com.nas.recovery.web.action.employee.EmployeeAction;
+import com.nas.recovery.web.action.workflowmgt.UnusualOccurenceWorkflowProcessAction;
 import com.oreon.trkincidents.incidents.FormField;
 import com.oreon.trkincidents.incidents.FormFieldInstance;
-import com.oreon.trkincidents.incidents.IncidentType;
+import com.oreon.trkincidents.incidents.Incident;
 import com.oreon.trkincidents.incidents.ReferenceField;
 
 //@Scope(ScopeType.CONVERSATION)
@@ -18,11 +20,23 @@ public class IncidentAction extends IncidentActionBase implements
 
 	@In(create = true)
 	EmployeeAction employeeAction;
+	
+	@In(scope = ScopeType.BUSINESS_PROCESS, required = false)
+	Incident processToken;
+	
+	@In(create = true)
+	UnusualOccurenceWorkflowProcessAction unusualOccurenceWorkflowProcessAction;
 
 	@Override
-	public String doSave() {
+	public String save() {
 		getInstance().setCreatedBy(employeeAction.getCurrentLoggedInEmployee());
-		return super.doSave();
+		boolean isnew = isNew();
+		String ret = super.save();
+		if (isnew) {
+			unusualOccurenceWorkflowProcessAction.setProcessToken(this.getInstance());
+			unusualOccurenceWorkflowProcessAction.startProcess();
+		}
+		return ret;
 	}
 
 	public boolean referenceFieldRequired(String referenceName) {
@@ -59,10 +73,11 @@ public class IncidentAction extends IncidentActionBase implements
 	@Override
 	public void prePopulateListFormFieldInstances() {
 
-		if (getInstance().getId() == null && listFormFieldInstances.isEmpty()) {
-			IncidentType form = getInstance().getIncidentType();
+		if (getInstance().getId() == null) {
+			//IncidentType form = getInstance().getIncidentType();
 			if (getInstance().getIncidentType() == null)
 				return;
+			listFormFieldInstances.clear();
 			Set<FormField> flds = getInstance().getIncidentType()
 					.getFormFields();
 			for (FormField fld : flds) {
@@ -74,4 +89,13 @@ public class IncidentAction extends IncidentActionBase implements
 			}
 		}
 	}
+	
+	@Override
+	public void saveComment() {
+		sendMail("mailTemplates/commentAdded.xhtml");
+		super.saveComment();
+	}
+	
+
+
 }

@@ -1,12 +1,5 @@
 package com.nas.recovery;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-
-import com.oreon.trkincidents.custm.MetaEntity;
-import com.oreon.trkincidents.custm.MetaField;
-
 public class MetaData {
 
 	public static final String[][] ARR_FIELDS = {
@@ -45,11 +38,7 @@ public class MetaData {
 
 	"dateOfIncident",
 
-	"reportedTo",
-
 	"document",
-
-	"drug",
 
 	"proccedure",
 
@@ -59,11 +48,17 @@ public class MetaData {
 
 	"severity",
 
-	"supportingDocumentses",
+	"ward",
 
-	"icd10",
+	"reportedTo",
+
+	"drug",
 
 	"formFieldInstances",
+
+	"morbidity",
+
+	"preventiveAction",
 
 	},
 
@@ -109,14 +104,6 @@ public class MetaData {
 
 	},
 
-	{"com.oreon.trkincidents.incidents.Drug",
-
-	"incidents",
-
-	"name",
-
-	},
-
 	{"com.oreon.trkincidents.incidents.Severity",
 
 	"name",
@@ -128,8 +115,6 @@ public class MetaData {
 	"name",
 
 	"incidents",
-
-	"description",
 
 	},
 
@@ -143,21 +128,19 @@ public class MetaData {
 
 	},
 
-	{"com.oreon.trkincidents.incidents.SupportingDocuments",
+	{"com.oreon.trkincidents.incidents.Ward",
 
-	"file",
+	"name",
 
-	"title",
-
-	"incident",
+	"incidents",
 
 	},
 
-	{"com.oreon.trkincidents.incidents.Icd10",
+	{"com.oreon.trkincidents.incidents.Morbidity",
+
+	"name",
 
 	"code",
-
-	"description",
 
 	"incidents",
 
@@ -181,6 +164,8 @@ public class MetaData {
 
 	"contactDetails",
 
+	"incidentsReported",
+
 	},
 
 	{"com.oreon.trkincidents.employee.Department",
@@ -199,11 +184,11 @@ public class MetaData {
 
 	"password",
 
-	"enabled",
-
 	"roles",
 
 	"email",
+
+	"enabled",
 
 	},
 
@@ -221,9 +206,73 @@ public class MetaData {
 
 	},
 
-	{"com.oreon.trkincidents.custm.CustomReport",
+	{"com.oreon.trkincidents.drugs.Drug",
 
-	"metaEntity",
+	"name",
+
+	"absorption",
+
+	"biotransformation",
+
+	"atcCodes",
+
+	"contraIndication",
+
+	"description",
+
+	"dosageForm",
+
+	"foodInteractions",
+
+	"halfLife",
+
+	"halfLifeNumberOfHours",
+
+	"indication",
+
+	"mechanismOfAction",
+
+	"patientInfo",
+
+	"pharmacology",
+
+	"drugInteractions",
+
+	"drugCategorys",
+
+	"toxicity",
+
+	"routeOfElimination",
+
+	"volumeOfDistribution",
+
+	"drugBankId",
+
+	"categories",
+
+	"incidents",
+
+	},
+
+	{"com.oreon.trkincidents.drugs.DrugInteraction",
+
+	"description",
+
+	"drug",
+
+	"interactingDrug",
+
+	},
+
+	{"com.oreon.trkincidents.drugs.DrugCategory",
+
+	"name",
+
+	"drugs",
+
+	},
+
+	{"com.oreon.trkincidents.customReports.CustomReport",
 
 	"fields",
 
@@ -231,9 +280,11 @@ public class MetaData {
 
 	"name",
 
+	"metaEntity",
+
 	},
 
-	{"com.oreon.trkincidents.custm.MetaEntity",
+	{"com.oreon.trkincidents.customReports.MetaEntity",
 
 	"name",
 
@@ -241,7 +292,7 @@ public class MetaData {
 
 	},
 
-	{"com.oreon.trkincidents.custm.MetaField",
+	{"com.oreon.trkincidents.customReports.MetaField",
 
 	"name",
 

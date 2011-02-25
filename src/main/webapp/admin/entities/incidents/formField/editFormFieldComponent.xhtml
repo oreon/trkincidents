@@ -19,11 +19,11 @@
         <h:outputText value="#{msg.formField_type}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('type', 'formFieldEdit')}"/>  
         <h:selectOneMenu id="type" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('type', 'formFieldEdit')}" value="#{formFieldAction.formField.type}" required="false" label="#{msg.formField_type}"> 
           <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="YES_NO" itemLabel="#{msg.YES_NO}"/>  
           <f:selectItem itemValue="TEXT" itemLabel="#{msg.TEXT}"/>  
           <f:selectItem itemValue="LARGE_TEXT" itemLabel="#{msg.LARGE_TEXT}"/>  
-          <f:selectItem itemValue="CHOICE" itemLabel="#{msg.CHOICE}"/>  
-          <f:selectItem itemValue="BOOLEAN" itemLabel="#{msg.BOOLEAN}"/>  
           <f:selectItem itemValue="DATE" itemLabel="#{msg.DATE}"/>  
+          <f:selectItem itemValue="CHOICE" itemLabel="#{msg.CHOICE}"/>  
           <rich:ajaxValidator event="onsubmit"/> 
         </h:selectOneMenu>  
         <rich:message styleClass="error errors" for="type" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('type', 'formFieldEdit')}"/>  

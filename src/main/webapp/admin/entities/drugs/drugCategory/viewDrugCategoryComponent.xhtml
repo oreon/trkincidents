@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{drugCategoryAction.load(drugCategoryId )  }"> 
-        <f:facet name="header"> 
-          <h:outputText value="DrugCategory "/> 
-        </f:facet>  
         <h:outputText value="#{msg.id}"/>  
         <h:outputText value="#{drugCategoryAction.drugCategory.id}"/>  
-        <h:outputText value="#{msg.drugCategory_name}  "/>  
-        <h:outputText id="name#{entityId}" value="#{drugCategoryAction.drugCategory.name}"/> 
+        <h:outputText value="#{msg.drugCategory_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'drugCategoryView')}"/>  
+        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'drugCategoryView')}" value="#{drugCategoryAction.drugCategory.name}"></h:outputText> 
       </h:panelGrid>  
+      <br/>  
       <rich:simpleTogglePanel label="#{msg.drugCategory_drugs}" switchType="client"> 
         <rich:dataTable value="#{drugCategoryAction.listDrugs}" var="item"> 
           <rich:column>#{item.displayName}</rich:column> 

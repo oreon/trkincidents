@@ -14,16 +14,16 @@
           <rich:ajaxValidator event="onsubmit"/> 
         </h:inputSecret>  
         <rich:message styleClass="error errors" for="user_password" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('password', 'employeeEdit')}"/>  
-        <h:outputText value="#{msg.user_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enabled', 'employeeEdit')}"/>  
-        <h:selectBooleanCheckbox id="user_enabled#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enabled', 'employeeEdit')}" label="#{msg.user_enabled}" required="false" value="#{employeeAction.employee.user.enabled}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </h:selectBooleanCheckbox>  
-        <rich:message styleClass="error errors" for="user_enabled" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enabled', 'employeeEdit')}"/>  
         <h:outputText value="#{msg.user_email} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('email', 'employeeEdit')}"/>  
         <h:inputText id="user_email#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('email', 'employeeEdit')}" label="#{msg.user_email}" required="true" value="#{employeeAction.employee.user.email}"> 
           <rich:ajaxValidator event="onsubmit"/> 
         </h:inputText>  
         <rich:message styleClass="error errors" for="user_email" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('email', 'employeeEdit')}"/>  
+        <h:outputText value="#{msg.user_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enabled', 'employeeEdit')}"/>  
+        <h:selectBooleanCheckbox id="user_enabled#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enabled', 'employeeEdit')}" label="#{msg.user_enabled}" required="false" value="#{employeeAction.employee.user.enabled}"> 
+          <rich:ajaxValidator event="onsubmit"/> 
+        </h:selectBooleanCheckbox>  
+        <rich:message styleClass="error errors" for="user_enabled" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enabled', 'employeeEdit')}"/>  
         <h:outputText value="#{msg.employee_department} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('department', 'employeeEdit')}"/>  
         <h:selectOneMenu id="department" label="#{msg.employee_department}" value="#{employeeAction.employee.department}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('department', 'employeeEdit')}"> 
           <s:selectItems value="#{departmentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
@@ -66,8 +66,8 @@
           <rich:ajaxValidator event="onsubmit"/> 
         </h:inputText>  
         <rich:message styleClass="error errors" for="lastName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('lastName', 'employeeEdit')}"/>  
-        <h:outputText value="#{msg.employee_employeeNumber} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employeeNumber', 'employeeEdit')}"/>  
-        <h:inputText id="employeeNumber#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employeeNumber', 'employeeEdit')}" label="#{msg.employee_employeeNumber}" required="true" value="#{employeeAction.employee.employeeNumber}"> 
+        <h:outputText value="#{msg.employee_employeeNumber}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employeeNumber', 'employeeEdit')}"/>  
+        <h:inputText id="employeeNumber#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employeeNumber', 'employeeEdit')}" label="#{msg.employee_employeeNumber}" required="false" value="#{employeeAction.employee.employeeNumber}"> 
           <rich:ajaxValidator event="onsubmit"/> 
         </h:inputText>  
         <rich:message styleClass="error errors" for="employeeNumber" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employeeNumber', 'employeeEdit')}"/> 

@@ -54,23 +54,6 @@
       <rich:calendar value="#{incidentList.dateOfIncidentRange.end}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.incident_reportedTo} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportedTo', 'incidentEdit')}"/>  
-      <br/>  
-      <h:selectOneMenu id="reportedTo" value="#{ incidentList.incident.reportedTo}"> 
-        <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
-        <s:convertEntity/> 
-      </h:selectOneMenu> 
-    </h:panelGroup>  
-    <h:panelGroup> 
-      <h:outputText value="#{msg.incident_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'incidentEdit')}"/>  
-      <br/>  
-      <h:selectOneMenu id="drug" value="#{ incidentList.incident.drug}"> 
-        <s:selectItems value="#{drugList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
-        <s:convertEntity/>  
-        <f:selectItem itemLabel="--None--" itemValue=""/> 
-      </h:selectOneMenu> 
-    </h:panelGroup>  
-    <h:panelGroup> 
       <h:outputText value="#{msg.incident_proccedure}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('proccedure', 'incidentEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="proccedure" value="#{ incidentList.incident.proccedure}"> 
@@ -102,13 +85,45 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.incident_icd10}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('icd10', 'incidentEdit')}"/>  
+      <h:outputText value="#{msg.incident_ward}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'incidentEdit')}"/>  
       <br/>  
-      <h:selectOneMenu id="icd10" value="#{ incidentList.incident.icd10}"> 
-        <s:selectItems value="#{icd10List}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+      <h:selectOneMenu id="ward" value="#{ incidentList.incident.ward}"> 
+        <s:selectItems value="#{wardList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
         <s:convertEntity/>  
         <f:selectItem itemLabel="--None--" itemValue=""/> 
       </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.incident_reportedTo}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportedTo', 'incidentEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="reportedTo" value="#{ incidentList.incident.reportedTo}"> 
+        <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/>  
+        <f:selectItem itemLabel="--None--" itemValue=""/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.incident_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'incidentEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="drug" value="#{ incidentList.incident.drug}"> 
+        <s:selectItems value="#{drugList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/>  
+        <f:selectItem itemLabel="--None--" itemValue=""/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.incident_morbidity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('morbidity', 'incidentEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="morbidity" value="#{ incidentList.incident.morbidity}"> 
+        <s:selectItems value="#{morbidityList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/>  
+        <f:selectItem itemLabel="--None--" itemValue=""/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.incident_preventiveAction}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('preventiveAction', 'incidentEdit')}"/>  
+      <br/>  
+      <h:inputText id="preventiveAction" value="#{incidentList.incident.preventiveAction}"/> 
     </h:panelGroup> 
   </h:panelGrid>  
   <h:panelGrid columns="2"> 

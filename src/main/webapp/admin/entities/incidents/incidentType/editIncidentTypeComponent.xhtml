@@ -23,6 +23,8 @@
             <f:selectItem itemValue="Patient" itemLabel="#{msg.Patient}"/>  
             <f:selectItem itemValue="Drug" itemLabel="#{msg.Drug}"/>  
             <f:selectItem itemValue="Procedure" itemLabel="#{msg.Procedure}"/>  
+            <f:selectItem itemValue="Ward" itemLabel="#{msg.Ward}"/>  
+            <f:selectItem itemValue="Morbidity" itemLabel="#{msg.Morbidity}"/>  
             <rich:ajaxValidator event="onsubmit"/> 
           </h:selectOneMenu>  
           <rich:message styleClass="error errors" for="referencesEntity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('referencesEntity', 'referenceFieldEdit')}"/> 
@@ -66,11 +68,11 @@
           </f:facet>  
           <h:selectOneMenu id="type" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('type', 'formFieldEdit')}" value="#{_formField.type}" required="false" label="#{msg.formField_type}"> 
             <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+            <f:selectItem itemValue="YES_NO" itemLabel="#{msg.YES_NO}"/>  
             <f:selectItem itemValue="TEXT" itemLabel="#{msg.TEXT}"/>  
             <f:selectItem itemValue="LARGE_TEXT" itemLabel="#{msg.LARGE_TEXT}"/>  
-            <f:selectItem itemValue="CHOICE" itemLabel="#{msg.CHOICE}"/>  
-            <f:selectItem itemValue="BOOLEAN" itemLabel="#{msg.BOOLEAN}"/>  
             <f:selectItem itemValue="DATE" itemLabel="#{msg.DATE}"/>  
+            <f:selectItem itemValue="CHOICE" itemLabel="#{msg.CHOICE}"/>  
             <rich:ajaxValidator event="onsubmit"/> 
           </h:selectOneMenu>  
           <rich:message styleClass="error errors" for="type" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('type', 'formFieldEdit')}"/> 

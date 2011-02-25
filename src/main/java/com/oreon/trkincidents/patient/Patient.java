@@ -87,7 +87,7 @@ public class Patient extends com.oreon.trkincidents.patient.Person
 
 	protected Gender gender;
 
-	@Transient
+	@Formula(value = "DATEDIFF(NOW(),dateOfBirth)/365.25")
 	protected Integer age;
 
 	public void setAddress(Address address) {
@@ -145,13 +145,7 @@ public class Patient extends com.oreon.trkincidents.patient.Person
 
 	public Integer getAge() {
 
-		try {
-			return DateUtils.calcAge(dateOfBirth);
-		} catch (Exception e) {
-
-			return 0;
-
-		}
+		return age;
 
 	}
 

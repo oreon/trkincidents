@@ -32,11 +32,6 @@
           </h:commandLink> 
         </rich:panelMenuItem>  
         <rich:panelMenuItem> 
-          <h:commandLink value="Drug" action="drug"> 
-            <s:conversationPropagation type="none"/> 
-          </h:commandLink> 
-        </rich:panelMenuItem>  
-        <rich:panelMenuItem> 
           <h:commandLink value="Severity" action="severity"> 
             <s:conversationPropagation type="none"/> 
           </h:commandLink> 
@@ -52,12 +47,12 @@
           </h:commandLink> 
         </rich:panelMenuItem>  
         <rich:panelMenuItem> 
-          <h:commandLink value="SupportingDocuments" action="supportingDocuments"> 
+          <h:commandLink value="Ward" action="ward"> 
             <s:conversationPropagation type="none"/> 
           </h:commandLink> 
         </rich:panelMenuItem>  
         <rich:panelMenuItem> 
-          <h:commandLink value="Icd10" action="icd10"> 
+          <h:commandLink value="Morbidity" action="morbidity"> 
             <s:conversationPropagation type="none"/> 
           </h:commandLink> 
         </rich:panelMenuItem> 
@@ -93,7 +88,24 @@
           </h:commandLink> 
         </rich:panelMenuItem> 
       </rich:panelMenuGroup>  
-      <rich:panelMenuGroup label="Custm" expanded="true"> 
+      <rich:panelMenuGroup label="Drugs" expanded="true"> 
+        <rich:panelMenuItem> 
+          <h:commandLink value="Drug" action="drug"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="DrugInteraction" action="drugInteraction"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="DrugCategory" action="drugCategory"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem> 
+      </rich:panelMenuGroup>  
+      <rich:panelMenuGroup label="CustomReports" expanded="true"> 
         <rich:panelMenuItem> 
           <h:commandLink value="CustomReport" action="customReport"> 
             <s:conversationPropagation type="none"/> 

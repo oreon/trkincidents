@@ -76,6 +76,10 @@
 
 
 	<async:quartz-dispatcher />
+	
+	
+	<mail:mail-session host="smtp.gmail.com" username="neonwc@gmail.com"
+		password="witchcraft" ssl="true" port="465" />
 
 
 	<event type="org.jboss.seam.security.notLoggedIn">

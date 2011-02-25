@@ -8,12 +8,7 @@
         <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'proccedureEdit')}" label="#{msg.proccedure_name}" required="true" value="#{proccedureAction.proccedure.name}"> 
           <rich:ajaxValidator event="onsubmit"/> 
         </h:inputText>  
-        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'proccedureEdit')}"/>  
-        <h:outputText value="#{msg.proccedure_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'proccedureEdit')}"/>  
-        <h:inputText id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'proccedureEdit')}" label="#{msg.proccedure_description}" required="false" value="#{proccedureAction.proccedure.description}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </h:inputText>  
-        <rich:message styleClass="error errors" for="description" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'proccedureEdit')}"/> 
+        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'proccedureEdit')}"/> 
       </h:panelGrid> 
     </s:validateAll> 
   </h:panelGroup> 

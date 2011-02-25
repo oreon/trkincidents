@@ -8,27 +8,28 @@
 	template="/admin/tasks/template.xhtml">
 
 	<ui:define name="content"> 
-
-		<h2>Task: #{bugManagementProcessAction.task.task.taskNode.name} - #{bugManagementProcessAction.task.variables['token'].displayName}</h2>
+		
+		<h2>Task: #{jbpmProcessAction.task.task.taskNode.name} - #{jbpmProcessAction.task.variables['processToken'].displayName}</h2>
 		
 		<h:form >
 		
-			<ui:include src="#{bugManagementProcessAction.taskForm}"/>
+			<ui:include src="#{jbpmProcessAction.taskForm}"/>
 	
-
 			<h:outputText value="Comments" />
 			<rich:editor id="Comment_text" required="false"
-				value="#{bugManagementProcessAction.comment}" />
+				value="#{jbpmProcessAction.comment}" />
+
 
 			<ui:repeat var="trans"
-				value="#{bugManagementProcessAction.task.availableTransitions}">
-				<h:commandLink value="#{msg[trans.name]}"
-					action="#{bugManagementProcessAction.makeDecision}"
-					taskInstance="#{bugManagementProcessAction.task}">
+				value="#{jbpmProcessAction.task.availableTransitions}">
+				<h:commandLink value="#{msg[trans.name]}" 
+					action="#{jbpmProcessAction.makeDecision}"
+					taskInstance="#{jbpmProcessAction.task}">
 					<f:param name="transName" value="#{trans.name}" />
 					<f:param name="taskId"
-						value="#{bugManagementProcessAction.task.id}" />
+						value="#{jbpmProcessAction.task.id}" />
 				</h:commandLink>
+				<rich:spacer />
 				<h:outputText value=" " />
 			</ui:repeat>
 
@@ -37,16 +38,14 @@
 		 Comments
 			 
 			<rich:dataTable
-			rendered="#{not empty bugManagementProcessAction.comments}"
+			rendered="#{not empty jbpmProcessAction.comments}"
 			rowClasses="odd, even" id="cmaList" styleClass="dataTable"
-			value="#{bugManagementProcessAction.comments}" var="_cmt">
+			value="#{jbpmProcessAction.comments}" var="_cmt">
 			<h:column>
 				<f:facet name="header">
 					Comment
 				</f:facet>
 				<s:formattedText value="#{_cmt.message}" />
-
-
 			</h:column>
 
 			<h:column>

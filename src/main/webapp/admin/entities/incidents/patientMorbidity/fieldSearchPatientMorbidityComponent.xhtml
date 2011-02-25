@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.patientMorbidity_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'patientMorbidityEdit')}"/>  
+      <br/>  
+      <h:inputText id="name" value="#{patientMorbidityList.patientMorbidity.name}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.patientMorbidity_code} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'patientMorbidityEdit')}"/>  
+      <br/>  
+      <h:inputText id="code" value="#{patientMorbidityList.patientMorbidity.code}"/> 
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
+    <rich:calendar id="from" value="#{patientMorbidityList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{patientMorbidityList.dateCreatedRange.end}"/> 
+  </h:panelGrid> 
+</ui:composition>

@@ -4,4 +4,75 @@
        xsi:schemaLocation="http://jboss.com/products/seam/pages http://jboss.com/products/seam/pages-2.1.xsd"
        no-conversation-view-id="/index.jspx"
        login-view-id="/login.jspx">
+	
+ 	<page view-id="/reg/index.xhtml" conversation-required="false">
+    	<navigation> 
+			 <rule if-outcome="register">
+ 				<redirect view-id="/reg/registerForm.xhtml" />
+            </rule>	
+			 <rule if-outcome="forgotCredentials">
+ 				<redirect view-id="/reg/enterEmail.xhtml" />
+            </rule>	
+            
+		</navigation>
+		
+		
+    	<navigation from-action="#{}">
+			 <rule if-outcome="success">
+ 				<redirect view-id="/reg/welcome.xhtml" />
+            </rule>	
+            
+             
+        </navigation>
+        
+	</page>
+	
+
+ 	<page view-id="/reg/welcome.xhtml" conversation-required="false">
+ 		
+		
+    	
+	</page>
+	
+
+ 	<page view-id="/reg/registerForm.xhtml" conversation-required="false">
+ 		
+		
+    	<navigation from-action="#{}">
+			 <rule if-outcome="success">
+ 				<redirect view-id="/reg/welcome.xhtml" />
+            </rule>	
+            
+             
+        </navigation>
+        
+	</page>
+	
+
+ 	<page view-id="/reg/enterEmail.xhtml" conversation-required="false">
+ 		
+		
+    	<navigation from-action="#{}">
+			 <rule if-outcome="success">
+ 				<redirect view-id="/reg/credentialsEmailed.xhtml" />
+            </rule>	
+            
+             
+        </navigation>
+        
+	</page>
+	
+
+ 	<page view-id="/reg/credentialsEmailed.xhtml" conversation-required="false">
+    	<navigation> 
+			 <rule if-outcome="">
+ 				<redirect view-id="/reg/.xhtml" />
+            </rule>	
+            
+		</navigation>
+		
+		
+    	
+	</page>
+	
 </pages>

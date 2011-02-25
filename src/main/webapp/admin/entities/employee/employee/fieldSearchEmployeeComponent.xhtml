@@ -16,7 +16,7 @@
       <h:inputText id="lastName" value="#{employeeList.employee.lastName}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.employee_employeeNumber} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employeeNumber', 'employeeEdit')}"/>  
+      <h:outputText value="#{msg.employee_employeeNumber}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employeeNumber', 'employeeEdit')}"/>  
       <br/>  
       <h:inputText id="employeeNumber" value="#{employeeList.employee.employeeNumber}"/> 
     </h:panelGroup>  
@@ -26,6 +26,11 @@
       <h:inputText id="user_userName" value="#{employeeList.employee.user.userName}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
+      <h:outputText value="#{msg.user_email} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('email', 'employeeEdit')}"/>  
+      <br/>  
+      <h:inputText id="user_email" value="#{employeeList.employee.user.email}"/> 
+    </h:panelGroup>  
+    <h:panelGroup> 
       <h:outputText value="#{msg.user_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enabled', 'employeeEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="user_enabled" value="#{employeeList.employee.user.enabled}" required="false"> 
@@ -33,11 +38,6 @@
         <f:selectItem itemLabel="True" itemValue="true"/>  
         <f:selectItem itemLabel="False" itemValue="false"/> 
       </h:selectOneMenu> 
-    </h:panelGroup>  
-    <h:panelGroup> 
-      <h:outputText value="#{msg.user_email} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('email', 'employeeEdit')}"/>  
-      <br/>  
-      <h:inputText id="user_email" value="#{employeeList.employee.user.email}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
       <h:outputText value="#{msg.employee_department} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('department', 'employeeEdit')}"/>  

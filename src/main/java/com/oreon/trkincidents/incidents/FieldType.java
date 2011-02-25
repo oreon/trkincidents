@@ -2,15 +2,15 @@ package com.oreon.trkincidents.incidents;
 
 public enum FieldType {
 
+	YES_NO,
+
 	TEXT,
 
 	LARGE_TEXT,
 
-	CHOICE,
-
-	BOOLEAN,
-
 	DATE,
+
+	CHOICE,
 
 	;
 

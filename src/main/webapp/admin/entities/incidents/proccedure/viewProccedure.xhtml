@@ -29,7 +29,7 @@
             <f:param name="proccedureId" value="#{proccedureAction.instance.id}"/>  
             <f:param name="incidentId" value="0"/> 
           </s:button>  
-          <a:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create"> 
+          <a:commandButton oncomplete="Richfaces.showModalPanel('${modalId}',{});" value="Quick Create" reRender="${modalId}"> 
             <a:actionparam name="incidentId" assignTo="#{incidentAction.incidentId}" value="0"/>  
             <a:actionparam name="proccedureId" assignTo="#{incidentAction.proccedureId}" value="#{proccedureAction.instance.id}"/> 
           </a:commandButton> 

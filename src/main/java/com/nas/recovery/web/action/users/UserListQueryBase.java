@@ -64,11 +64,11 @@ public abstract class UserListQueryBase extends BaseQuery<User, Long> {
 
 			"lower(user.userName) like concat(lower(#{userList.user.userName}),'%')",
 
-			"user.enabled = #{userList.user.enabled}",
-
 			"#{userList.rolesToSearch} in elements(user.roles)",
 
 			"lower(user.email) like concat(lower(#{userList.user.email}),'%')",
+
+			"user.enabled = #{userList.user.enabled}",
 
 			"user.dateCreated <= #{userList.dateCreatedRange.end}",
 			"user.dateCreated >= #{userList.dateCreatedRange.begin}",};
@@ -89,14 +89,14 @@ public abstract class UserListQueryBase extends BaseQuery<User, Long> {
 						? e.getUserName().replace(",", "")
 						: "") + "\",");
 
-		builder.append("\"" + (e.getEnabled() != null ? e.getEnabled() : "")
-				+ "\",");
-
 		builder.append("\"" + (e.getRoles() != null ? e.getRoles() : "")
 				+ "\",");
 
 		builder.append("\""
 				+ (e.getEmail() != null ? e.getEmail().replace(",", "") : "")
+				+ "\",");
+
+		builder.append("\"" + (e.getEnabled() != null ? e.getEnabled() : "")
 				+ "\",");
 
 		builder.append("\r\n");
@@ -110,11 +110,11 @@ public abstract class UserListQueryBase extends BaseQuery<User, Long> {
 
 		builder.append("UserName" + ",");
 
-		builder.append("Enabled" + ",");
-
 		builder.append("Roles" + ",");
 
 		builder.append("Email" + ",");
+
+		builder.append("Enabled" + ",");
 
 		builder.append("\r\n");
 	}

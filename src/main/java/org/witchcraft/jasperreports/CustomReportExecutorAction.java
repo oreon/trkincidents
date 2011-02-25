@@ -15,6 +15,7 @@ import net.sf.jasperreports.engine.query.JRJpaQueryExecuterFactory;
 import org.apache.commons.lang.StringUtils;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
+import org.jboss.seam.international.StatusMessage.Severity;
 import org.witchcraft.exceptions.ContractViolationException;
 
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
@@ -34,12 +35,9 @@ import ar.com.fdvs.dj.domain.entities.DJGroup;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 
-import com.nas.recovery.web.action.custm.CustomReportAction;
-
-import com.oreon.trkincidents.custm.CustomReport;
-import com.oreon.trkincidents.custm.MetaField;
-
-
+import com.nas.recovery.web.action.customReports.CustomReportAction;
+import com.oreon.trkincidents.customReports.CustomReport;
+import com.oreon.trkincidents.customReports.MetaField;
 
 @Name("customReportExecutorAction")
 public class CustomReportExecutorAction extends BaseReportAction {
@@ -51,12 +49,22 @@ public class CustomReportExecutorAction extends BaseReportAction {
 			"Double", "Boolean", "Float" };
 
 	public void runReport(Long reportId) {
+		try {
+			doRunReport(reportId);
+		} catch (Exception e) {
+			statusMessages.add(Severity.ERROR, "Error Running Report: " + e.getMessage() );
+		}
+	}
+
+	public void doRunReport(Long reportId) {
 		CustomReport report = customReportAction.loadFromId(reportId);
 
 		JasperPrint jp;
 		JasperReport jr;
 		Map params = new HashMap();
 		Style detailStyle = new Style();
+		
+		String qry = "";
 
 		Style headerStyle = new Style();
 		headerStyle.setFont(Font.ARIAL_MEDIUM_BOLD);
@@ -107,13 +115,15 @@ public class CustomReportExecutorAction extends BaseReportAction {
 			}
 
 			String entity = report.getMetaEntity().getName();
-
-			drb.setQuery("select e from " + entity + " e "
-					+ getOrderby(groupFields), "ejbql");
+			
+			qry = "select e from " + entity + " e " + getOrderby(groupFields);
+			
+			drb.setQuery(qry, "ejbql");
 
 		} catch (Exception e) {
-			
-			throw new ContractViolationException("Error building report columns " , e);
+
+			throw new ContractViolationException(
+					"Error building report columns ", e);
 		}
 
 		/**
@@ -125,8 +135,8 @@ public class CustomReportExecutorAction extends BaseReportAction {
 		try {
 			jr = DynamicJasperHelper.generateJasperReport(drb.build(),
 					getLayoutManager(), params);
-		} catch (JRException e) {
-			throw new ContractViolationException("Error creating reprot ", e);
+		} catch (Exception e) {
+			throw new ContractViolationException("Error creating reprot with query " + qry, e);
 		}
 
 		sendReportToPdf(jr, params);
@@ -153,48 +163,54 @@ public class CustomReportExecutorAction extends BaseReportAction {
 	}
 
 	/*
-	protected void exportToHTML(JasperPrint jp) throws Exception {
-		ReportExporter.exportReport(jp, System.getProperty("user.dir")
-				+ "/src/main/resources/reports/"
-				+  this.getClass().getName()   + ".pdf");
-	}*/
+	 * protected void exportToHTML(JasperPrint jp) throws Exception {
+	 * ReportExporter.exportReport(jp, System.getProperty("user.dir") +
+	 * "/src/main/resources/reports/" + this.getClass().getName() + ".pdf"); }
+	 */
 
-	public static AbstractColumn createColumn(MetaField field)
-			throws Exception {
+	public static AbstractColumn createColumn(MetaField field) throws Exception {
 		return createColumn(field, true);
 	}
 
 	public static AbstractColumn createColumn(MetaField field, boolean showText)
 			throws Exception {
-		
+
 		Class cls = Class.forName(field.getMetaEntity().getName());
+		Field[] flds = cls.getDeclaredFields();
+		for (Field field2 : flds) {
+			System.out.println(field2.getName());
+		}
 		Field typefield = cls.getDeclaredField(field.getName());
-		
+
 		AbstractColumn col = ColumnBuilder.getNew().setColumnProperty(
-				getFieldName(field), 
-				(Arrays.asList(TYPES).contains(typefield.getType().getSimpleName())
-						|| typefield.getType().isPrimitive()?   typefield.getType().getName() : String.class.getName())
-				)
-				.setTitle(StringUtils.capitalize(field.getName())).setShowText(showText)
-				.build();
-		
+				getFieldName(field),
+				(Arrays.asList(TYPES).contains(
+						typefield.getType().getSimpleName())
+						|| typefield.getType().isPrimitive() ? typefield
+						.getType().getName() : String.class.getName()))
+				.setTitle(StringUtils.capitalize(field.getName())).setShowText(
+						showText).build();
+
 		return col;
 	}
 
 	public static String getFieldName(MetaField fld) {
 		Field field = null;
-		
+
 		try {
-			
+
 			Class cls = Class.forName(fld.getMetaEntity().getName());
 			field = cls.getDeclaredField(fld.getName());
-			
+
 		} catch (SecurityException e) {
-			throw new ContractViolationException("cant access field " + fld.getName());
+			throw new ContractViolationException("cant access field "
+					+ fld.getName());
 		} catch (NoSuchFieldException e) {
-			throw new ContractViolationException("no such field " + fld.getName());
+			throw new ContractViolationException("no such field "
+					+ fld.getName());
 		} catch (ClassNotFoundException e) {
-			throw new ContractViolationException("no such field " + fld.getName());
+			throw new ContractViolationException("no such field "
+					+ fld.getName());
 		}
 
 		if (Arrays.asList(TYPES).contains(field.getType().getSimpleName())
@@ -238,7 +254,7 @@ public class CustomReportExecutorAction extends BaseReportAction {
 	@Override
 	public void updateParameters(Map map) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

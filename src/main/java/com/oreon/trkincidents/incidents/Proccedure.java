@@ -70,10 +70,6 @@ public class Proccedure extends BusinessEntity implements java.io.Serializable {
 		this.incidents.add(incidents);
 	}
 
-	@Field(index = Index.TOKENIZED)
-	@Analyzer(definition = "entityAnalyzer")
-	protected String description;
-
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -90,16 +86,6 @@ public class Proccedure extends BusinessEntity implements java.io.Serializable {
 
 	public Set<Incident> getIncidents() {
 		return incidents;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public String getDescription() {
-
-		return description;
-
 	}
 
 	@Transient
@@ -125,8 +111,6 @@ public class Proccedure extends BusinessEntity implements java.io.Serializable {
 
 		listSearchableFields.add("name");
 
-		listSearchableFields.add("description");
-
 		return listSearchableFields;
 	}
 
@@ -136,8 +120,6 @@ public class Proccedure extends BusinessEntity implements java.io.Serializable {
 		StringBuilder builder = new StringBuilder();
 
 		builder.append(getName() + " ");
-
-		builder.append(getDescription() + " ");
 
 		for (BusinessEntity e : incidents) {
 			builder.append(e.getDisplayName() + " ");

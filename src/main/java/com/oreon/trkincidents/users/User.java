@@ -67,17 +67,18 @@ public class User extends BusinessEntity implements java.io.Serializable {
 	@Analyzer(definition = "entityAnalyzer")
 	protected String password;
 
-	protected Boolean enabled;
-
 	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "users_ID"), inverseJoinColumns = @JoinColumn(name = "roles_ID"))
 	private Set<Role> roles = new HashSet<Role>();
 
 	@NotNull
-	@Column(name = "email", unique = false)
+	@Length(min = 2, max = 250)
+	@Column(unique = true)
 	@Field(index = Index.TOKENIZED)
 	@Analyzer(definition = "entityAnalyzer")
 	protected String email;
+
+	protected Boolean enabled;
 
 	public void setUserName(String userName) {
 		this.userName = userName;
@@ -99,16 +100,6 @@ public class User extends BusinessEntity implements java.io.Serializable {
 
 	}
 
-	public void setEnabled(Boolean enabled) {
-		this.enabled = enabled;
-	}
-
-	public Boolean getEnabled() {
-
-		return enabled;
-
-	}
-
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
@@ -124,6 +115,16 @@ public class User extends BusinessEntity implements java.io.Serializable {
 	public String getEmail() {
 
 		return email;
+
+	}
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public Boolean getEnabled() {
+
+		return enabled;
 
 	}
 
