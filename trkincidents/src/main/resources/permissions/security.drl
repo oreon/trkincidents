@@ -3,12 +3,43 @@ package permissions;
 import java.security.Principal;
 import org.jboss.seam.security.permission.PermissionCheck;
 import org.jboss.seam.security.Role;
+import org.witchcraft.base.entity.BusinessEntity;
+import com.oreon.trkincidents.users.User;
 
-     
-rule "CanUserDeleteEntities"
+  
+rule "AllowAllToAdmin"
+no-loop 
 when
-  $c : PermissionCheck( )
   $r : Role()
+  $c : PermissionCheck()
 then
   $c.grant();
-end     
+end 
+
+/*
+rule "AllowDelete"
+no-loop 
+when
+  $c : PermissionCheck( action == "archive" )
+  $r : Role(name == "admin")
+then
+  $c.grant();
+end 
+
+
+//by default users should be able to edit their own records 
+rule "CanUserEditOwn"
+no-loop
+dialect "java" 
+when
+  principal: Principal()
+  c : PermissionCheck( action == "edit")
+  eval ( c.getTarget() == null || (!c.isGranted() && c.getTarget() != null && 
+  			 c.getTarget() instanceof BusinessEntity && ((BusinessEntity)c.getTarget()).getCreatedByUser() != null && 
+  	 ((BusinessEntity)c.getTarget()).getCreatedByUser().getUserName().equals (principal.getName() ) )  )
+then
+
+  c.grant();
+end   
+
+    */ 

@@ -91,7 +91,7 @@ public class MetaEntity extends BusinessEntity implements java.io.Serializable {
 	@Transient
 	public String getDisplayName() {
 		try {
-			return name;
+			return com.nas.recovery.ProjectUtils.getSimpleName(name);
 		} catch (Exception e) {
 			return "Exception - " + e.getMessage();
 		}

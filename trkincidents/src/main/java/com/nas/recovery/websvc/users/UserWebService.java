@@ -13,4 +13,8 @@ public interface UserWebService {
 
 	public void save(User user);
 
+	public void enableAccount();
+
+	public void disableAccount();
+
 }

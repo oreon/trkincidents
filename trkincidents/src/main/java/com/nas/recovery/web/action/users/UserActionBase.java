@@ -210,4 +210,12 @@ public abstract class UserActionBase extends BaseAction<User>
 
 	}
 
+	public void enableAccount() {
+
+	}
+
+	public void disableAccount() {
+
+	}
+
 }

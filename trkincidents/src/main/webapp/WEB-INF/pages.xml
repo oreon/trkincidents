@@ -6,8 +6,8 @@
     <rule if="#{identity.loggedIn}"> 
       <redirect view-id="/admin/home.xhtml"/> 
     </rule> 
-  </navigation> 
-   <page view-id="/admin/tasks/viewTask.xhtml"> 
+  </navigation>  
+  <page view-id="/admin/tasks/viewTask.xhtml"> 
     <param name="taskId" value="#{jbpmProcessAction.taskId}"/>  
     <navigation> 
       <rule if-outcome="next"> 
