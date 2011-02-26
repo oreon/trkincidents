@@ -25,4 +25,12 @@ public class UserWebServiceImpl implements UserWebService {
 		userAction.persist(user);
 	}
 
+	public void enableAccount() {
+		userAction.enableAccount();
+	}
+
+	public void disableAccount() {
+		userAction.disableAccount();
+	}
+
 }

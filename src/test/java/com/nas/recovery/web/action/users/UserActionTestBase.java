@@ -28,4 +28,32 @@ public class UserActionTestBase
 		return userAction;
 	}
 
+	@Test
+	public void testEnableAccount() throws Exception {
+		new ComponentTest() {
+
+			protected void testComponents() throws Exception {
+				UserAction userAction = (UserAction) org.jboss.seam.Component
+						.getInstance("userAction");
+
+				// assert(userAction.enableAccount()).equals("");
+			}
+
+		}.run();
+	}
+
+	@Test
+	public void testDisableAccount() throws Exception {
+		new ComponentTest() {
+
+			protected void testComponents() throws Exception {
+				UserAction userAction = (UserAction) org.jboss.seam.Component
+						.getInstance("userAction");
+
+				// assert(userAction.disableAccount()).equals("");
+			}
+
+		}.run();
+	}
+
 }
