@@ -25,6 +25,10 @@
 	
 	 <!--PROTECTED REGION ID(USER_EDITABLE_RGN_reg/enterEmail.xhtml) ENABLED START-->
 
+ 	 <h:form>
+	 	Email <h:inputText value="#{userAction.user.email}" required="true"/>
+	 	<h:commandButton action="#{userAction.retrieveCredentials}"  value="Get Credentials" />
+	 </h:form>
 	<!--PROTECTED REGION END-->	
 	</ui:define> 
 </ui:composition>
