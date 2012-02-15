@@ -145,7 +145,7 @@ public class CustomReportExecutorAction extends BaseReportAction {
 
 	private String getOrderby(Set<MetaField> groupFields) {
 		if (groupFields.isEmpty())
-			return " order by id descending ";
+			return "  ";
 		else {
 
 			StringBuilder orderString = new StringBuilder();
