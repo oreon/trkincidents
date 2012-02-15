@@ -2,12 +2,13 @@ package org.witchcraft.jasperreports;
 
 import java.awt.Color;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.query.JRJpaQueryExecuterFactory;
@@ -52,7 +53,8 @@ public class CustomReportExecutorAction extends BaseReportAction {
 		try {
 			doRunReport(reportId);
 		} catch (Exception e) {
-			statusMessages.add(Severity.ERROR, "Error Running Report: " + e.getMessage() );
+			statusMessages.add(Severity.ERROR, "Error Running Report: "
+					+ e.getMessage());
 		}
 	}
 
@@ -63,7 +65,7 @@ public class CustomReportExecutorAction extends BaseReportAction {
 		JasperReport jr;
 		Map params = new HashMap();
 		Style detailStyle = new Style();
-		
+
 		String qry = "";
 
 		Style headerStyle = new Style();
@@ -115,9 +117,11 @@ public class CustomReportExecutorAction extends BaseReportAction {
 			}
 
 			String entity = report.getMetaEntity().getName();
-			
+
 			qry = "select e from " + entity + " e " + getOrderby(groupFields);
-			
+
+			log.info(" Running query " + qry);
+
 			drb.setQuery(qry, "ejbql");
 
 		} catch (Exception e) {
@@ -136,7 +140,8 @@ public class CustomReportExecutorAction extends BaseReportAction {
 			jr = DynamicJasperHelper.generateJasperReport(drb.build(),
 					getLayoutManager(), params);
 		} catch (Exception e) {
-			throw new ContractViolationException("Error creating reprot with query " + qry, e);
+			throw new ContractViolationException(
+					"Error creating reprot with query " + qry, e);
 		}
 
 		sendReportToPdf(jr, params);
@@ -168,19 +173,15 @@ public class CustomReportExecutorAction extends BaseReportAction {
 	 * "/src/main/resources/reports/" + this.getClass().getName() + ".pdf"); }
 	 */
 
-	public static AbstractColumn createColumn(MetaField field) throws Exception {
+	public  AbstractColumn createColumn(MetaField field) throws Exception {
 		return createColumn(field, true);
 	}
 
-	public static AbstractColumn createColumn(MetaField field, boolean showText)
+	public  AbstractColumn createColumn(MetaField field, boolean showText)
 			throws Exception {
 
-		Class cls = Class.forName(field.getMetaEntity().getName());
-		Field[] flds = cls.getDeclaredFields();
-		for (Field field2 : flds) {
-			System.out.println(field2.getName());
-		}
-		Field typefield = cls.getDeclaredField(field.getName());
+
+		Field typefield = fieldFromMetaField(field);
 
 		AbstractColumn col = ColumnBuilder.getNew().setColumnProperty(
 				getFieldName(field),
@@ -194,33 +195,55 @@ public class CustomReportExecutorAction extends BaseReportAction {
 		return col;
 	}
 
-	public static String getFieldName(MetaField fld) {
-		Field field = null;
+	public  String getFieldName(MetaField fld) {
+		//Field field = null;
 
 		try {
 
-			Class cls = Class.forName(fld.getMetaEntity().getName());
-			field = cls.getDeclaredField(fld.getName());
+			Field existingField = fieldFromMetaField(fld);
+			
+			if (Arrays.asList(TYPES).contains(existingField.getType().getSimpleName())
+					|| existingField.getType().isPrimitive()) {
+				return fld.getName();
+			}
+			return fld.getName() + ".displayName";
 
 		} catch (SecurityException e) {
 			throw new ContractViolationException("cant access field "
 					+ fld.getName());
-		} catch (NoSuchFieldException e) {
-			throw new ContractViolationException("no such field "
-					+ fld.getName());
+		
 		} catch (ClassNotFoundException e) {
 			throw new ContractViolationException("no such field "
 					+ fld.getName());
 		}
 
-		if (Arrays.asList(TYPES).contains(field.getType().getSimpleName())
-				|| field.getType().isPrimitive()) {
-			return fld.getName();
+		//return  fld.getName();
+	}
+	
+	
+	public  Field fieldFromMetaField(MetaField fld) throws ClassNotFoundException{
+		
+		Class cls = Class.forName(fld.getMetaEntity().getName());
+		
+		List<Field> fields = new ArrayList<Field>();
+		
+		Class current = cls;
+		
+		while (current != null) {
+			fields.addAll( Arrays.asList( cls.getDeclaredFields() ) );
+			current = current.getSuperclass();
 		}
-		return fld.getName() + ".displayName";
+		
+		for (Field existingField : fields) {
+			if(existingField.getName().equals(fld.getName())) {
+				return existingField;
+			}
+		}
+		
+		return null;
 	}
 
-	public static DJGroup createGroup(MetaField field, DynamicReportBuilder drb) {
+	public  DJGroup createGroup(MetaField field, DynamicReportBuilder drb) {
 
 		AbstractColumn colDepartment;
 		try {
