@@ -4,9 +4,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import com.nas.recovery.MetaData;
-import com.oreon.trkincidents.customReports.MetaEntity;
-import com.oreon.trkincidents.customReports.MetaField;
+import com.oreon.incidents.MetaData;
+import com.oreon.incidents.customReports.MetaEntity;
+import com.oreon.incidents.customReports.MetaField;
 
 public class MetaDataUpdater {
 	

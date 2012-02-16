@@ -9,7 +9,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jboss.seam.Component;
 
-import com.oreon.trkincidents.users.User;
+import com.oreon.incidents.users.User;
 
 public class EntityListener {
 	

@@ -36,9 +36,9 @@ import ar.com.fdvs.dj.domain.entities.DJGroup;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 
-import com.nas.recovery.web.action.customReports.CustomReportAction;
-import com.oreon.trkincidents.customReports.CustomReport;
-import com.oreon.trkincidents.customReports.MetaField;
+import com.oreon.incidents.customReports.CustomReport;
+import com.oreon.incidents.customReports.MetaField;
+import com.oreon.incidents.web.action.customReports.CustomReportAction;
 
 @Name("customReportExecutorAction")
 public class CustomReportExecutorAction extends BaseReportAction {
@@ -230,11 +230,12 @@ public class CustomReportExecutorAction extends BaseReportAction {
 		Class current = cls;
 		
 		while (current != null) {
-			fields.addAll( Arrays.asList( cls.getDeclaredFields() ) );
+			fields.addAll( Arrays.asList( current.getDeclaredFields() ) );
 			current = current.getSuperclass();
 		}
 		
 		for (Field existingField : fields) {
+			System.out.println("Comparing " +existingField.getName() + " with " + fld.getName());
 			if(existingField.getName().equals(fld.getName())) {
 				return existingField;
 			}

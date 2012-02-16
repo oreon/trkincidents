@@ -25,7 +25,7 @@ import org.hibernate.search.annotations.DocumentId;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Index;
 
-import com.oreon.trkincidents.users.User;
+import com.oreon.incidents.users.User;
 
 
 

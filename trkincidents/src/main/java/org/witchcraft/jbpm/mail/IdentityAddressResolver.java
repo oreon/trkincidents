@@ -2,8 +2,8 @@ package org.witchcraft.jbpm.mail;
 
 import org.jboss.seam.Component;
 
-import com.nas.recovery.web.action.users.UserAction;
-import com.oreon.trkincidents.users.User;
+import com.oreon.incidents.users.User;
+import com.oreon.incidents.web.action.users.UserAction;
 
 
 

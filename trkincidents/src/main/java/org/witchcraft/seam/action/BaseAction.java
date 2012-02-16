@@ -47,8 +47,6 @@ import org.witchcraft.model.support.audit.AuditLog;
 import org.witchcraft.model.support.audit.Auditable;
 import org.witchcraft.model.support.audit.EntityAuditLogInterceptor;
 
-import com.nas.recovery.web.action.users.UserAction;
-
 /**
  * The base action class - contains common persistence related methods, also
  * contains comment related functionality
