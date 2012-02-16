@@ -7,14 +7,14 @@ import org.jboss.seam.security.Identity;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import com.oreon.trkincidents.employee.Department;
-import com.oreon.trkincidents.employee.Employee;
-import com.oreon.trkincidents.incidents.FieldType;
-import com.oreon.trkincidents.incidents.FormField;
-import com.oreon.trkincidents.incidents.IncidentType;
-import com.oreon.trkincidents.incidents.Severity;
-import com.oreon.trkincidents.users.Role;
-import com.oreon.trkincidents.users.User;
+import com.oreon.incidents.employee.Department;
+import com.oreon.incidents.employee.Employee;
+import com.oreon.incidents.incidents.FieldType;
+import com.oreon.incidents.incidents.FormField;
+import com.oreon.incidents.incidents.IncidentType;
+import com.oreon.incidents.incidents.Severity;
+import com.oreon.incidents.users.Role;
+import com.oreon.incidents.users.User;
 
 public class AuthenticatorTest extends BaseTest<User> {
 

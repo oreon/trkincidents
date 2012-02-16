@@ -136,6 +136,8 @@ public class MetaEntity extends BusinessEntity implements java.io.Serializable {
 
 		listSearchableFields.add("metaFields.name");
 
+		listSearchableFields.add("metaFields.type");
+
 		return listSearchableFields;
 	}
 

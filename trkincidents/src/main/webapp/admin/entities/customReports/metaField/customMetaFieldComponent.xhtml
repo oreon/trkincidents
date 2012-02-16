@@ -1,25 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <div class="entry errors">
     <h:messages globalOnly="true"/>
   </div>  
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.metaField_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'metaFieldEdit')}"/>  
+        <h:outputText value="#{msg.metaField_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'nameEdit')}"/>  
         <br/>  
         <h:inputText id="name" value="#{metaFieldAction.metaField.name}"/>  
-        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'metaFieldEdit')}"/> 
+        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'nameEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.metaField_metaEntity} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaEntity', 'metaFieldEdit')}"/>  
+        <h:outputText value="#{msg.metaField_metaEntity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'metaEntityEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="metaEntity" value="#{metaFieldAction.metaField.metaEntity}"> 
           <s:selectItems value="#{metaEntityList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="metaEntity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaEntity', 'metaFieldEdit')}"/> 
+        <rich:message styleClass="error errors" for="metaEntity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'metaEntityEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.metaField_type}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'typeEdit')}"/>  
+        <br/>  
+        <h:inputText id="type" value="#{metaFieldAction.metaField.type}"/>  
+        <rich:message styleClass="error errors" for="type" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'typeEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

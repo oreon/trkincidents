@@ -1,54 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <h:panelGroup> 
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewIncidentTypeComponentPanel"> 
     <s:validateAll> 
-      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{incidentTypeAction.load(incidentTypeId )  }"> 
-        <h:outputText value="#{msg.id}"/>  
-        <h:outputText value="#{incidentTypeAction.incidentType.id}"/>  
-        <h:outputText value="#{msg.incidentType_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'incidentTypeView')}"/>  
-        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'incidentTypeView')}" value="#{incidentTypeAction.incidentType.name}"></h:outputText> 
+      <h:panelGrid columns="1" onload="#{incidentTypeAction.load(incidentTypeId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelIncidentType eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.IncidentType}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.incidentType_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incidentType', 'nameView')}"/>  
+        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incidentType', 'nameView')}" value="#{incidentTypeAction.incidentType.name}"></h:outputText> 
       </h:panelGrid>  
-      <rich:dataTable id="referenceFields" var="_referenceField" rendered="#{not empty incidentTypeAction.listReferenceFields and skipPermissionCheck == 'true' || s:hasPermission('referenceFields', 'incidentTypeView') }" value="#{incidentTypeAction.listReferenceFields}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
-        <h:column style="text-align:right">
-          <f:facet name="header">
-            <h:outputText value="#{msg.referenceField_referencesEntity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('referencesEntity', 'referenceFieldView')}"/>
+      <br/>  
+      <rich:dataTable id="referenceFields" var="_referenceField" rendered="#{not empty incidentTypeAction.listReferenceFields and skipPermissionCheck == 'true' || s:hasPermission('incidentType', 'referenceFieldsView') }" value="#{incidentTypeAction.listReferenceFields}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <h:column>
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.referenceField_referencesEntity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('referenceField', 'referencesEntityView')}"/> 
           </f:facet>  
           <h:outputText value="#{_referenceField.referencesEntity}"/> 
         </h:column>  
-        <h:column style="text-align:right">
-          <f:facet name="header">
-            <h:outputText value="#{msg.referenceField_required}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('required', 'referenceFieldView')}"/>
+        <h:column>
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.referenceField_required}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('referenceField', 'requiredView')}"/> 
           </f:facet>  
-          <h:outputText id="required#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('required', 'referenceFieldView')}" value="#{_referenceField.required}"></h:outputText> 
+          <h:outputText id="required#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('referenceField', 'requiredView')}" value="#{_referenceField.required}"></h:outputText> 
         </h:column> 
       </rich:dataTable>  
-      <rich:dataTable id="formFields" var="_formField" rendered="#{not empty incidentTypeAction.listFormFields and skipPermissionCheck == 'true' || s:hasPermission('formFields', 'referenceFieldView') }" value="#{incidentTypeAction.listFormFields}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
-        <h:column style="text-align:right">
-          <f:facet name="header">
-            <h:outputText value="#{msg.formField_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'formFieldView')}"/>
+      <rich:dataTable id="formFields" var="_formField" rendered="#{not empty incidentTypeAction.listFormFields and skipPermissionCheck == 'true' || s:hasPermission('referenceField', 'formFieldsView') }" value="#{incidentTypeAction.listFormFields}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <h:column>
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.formField_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'nameView')}"/> 
           </f:facet>  
-          <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'formFieldView')}" value="#{_formField.name}"></h:outputText> 
+          <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'nameView')}" value="#{_formField.name}"></h:outputText> 
         </h:column>  
-        <h:column style="text-align:right">
-          <f:facet name="header">
-            <h:outputText value="#{msg.formField_type}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('type', 'formFieldView')}"/>
+        <h:column>
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.formField_type}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'typeView')}"/> 
           </f:facet>  
           <h:outputText value="#{_formField.type}"/> 
         </h:column>  
-        <h:column style="text-align:right">
-          <f:facet name="header">
-            <h:outputText value="#{msg.formField_required}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('required', 'formFieldView')}"/>
+        <h:column>
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.formField_required}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'requiredView')}"/> 
           </f:facet>  
-          <h:outputText id="required#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('required', 'formFieldView')}" value="#{_formField.required}"></h:outputText> 
+          <h:outputText id="required#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'requiredView')}" value="#{_formField.required}"></h:outputText> 
         </h:column>  
-        <h:column style="text-align:left">
-          <f:facet name="header">
-            <h:outputText value="#{msg.formField_choiceValues}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('choiceValues', 'formFieldView')}"/>
+        <h:column>
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.formField_choiceValues}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'choiceValuesView')}"/> 
           </f:facet>  
-          <h:outputText id="choiceValues#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('choiceValues', 'formFieldView')}" value="#{_formField.choiceValues}"></h:outputText> 
+          <h:outputText id="choiceValues#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'choiceValuesView')}" value="#{_formField.choiceValues}"></h:outputText> 
         </h:column> 
-      </rich:dataTable> 
+      </rich:dataTable>  
+      <br/> 
     </s:validateAll> 
   </h:panelGroup> 
 </ui:composition>

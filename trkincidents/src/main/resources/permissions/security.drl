@@ -4,7 +4,7 @@ import java.security.Principal;
 import org.jboss.seam.security.permission.PermissionCheck;
 import org.jboss.seam.security.Role;
 import org.witchcraft.base.entity.BusinessEntity;
-import com.oreon.trkincidents.users.User;
+import com.oreon.incidents.users.User;
 
   
 rule "AllowAllToAdmin"

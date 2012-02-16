@@ -84,6 +84,8 @@ public abstract class MetaFieldListQueryBase extends BaseQuery<MetaField, Long> 
 
 			"#{metaFieldList.groupReportToSearch} in elements(metaField.groupReport)",
 
+			"lower(metaField.type) like concat(lower(#{metaFieldList.metaField.type}),'%')",
+
 			"metaField.dateCreated <= #{metaFieldList.dateCreatedRange.end}",
 			"metaField.dateCreated >= #{metaFieldList.dateCreatedRange.begin}",};
 
@@ -121,6 +123,10 @@ public abstract class MetaFieldListQueryBase extends BaseQuery<MetaField, Long> 
 				+ (e.getGroupReport() != null ? e.getGroupReport() : "")
 				+ "\",");
 
+		builder.append("\""
+				+ (e.getType() != null ? e.getType().replace(",", "") : "")
+				+ "\",");
+
 		builder.append("\r\n");
 	}
 
@@ -137,6 +143,8 @@ public abstract class MetaFieldListQueryBase extends BaseQuery<MetaField, Long> 
 		builder.append("CustomReports" + ",");
 
 		builder.append("GroupReport" + ",");
+
+		builder.append("Type" + ",");
 
 		builder.append("\r\n");
 	}

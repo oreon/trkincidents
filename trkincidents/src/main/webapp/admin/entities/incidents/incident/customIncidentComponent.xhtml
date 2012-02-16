@@ -1,137 +1,137 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <div class="entry errors">
     <h:messages globalOnly="true"/>
   </div>  
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.incident_incidentType} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incidentType', 'incidentEdit')}"/>  
+        <h:outputText value="#{msg.incident_incidentType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'incidentTypeEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="incidentType" value="#{incidentAction.incident.incidentType}"> 
           <s:selectItems value="#{incidentTypeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="incidentType" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incidentType', 'incidentEdit')}"/> 
+        <rich:message styleClass="error errors" for="incidentType" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'incidentTypeEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.incident_title} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('title', 'incidentEdit')}"/>  
+        <h:outputText value="#{msg.incident_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'titleEdit')}"/>  
         <br/>  
         <h:inputText id="title" value="#{incidentAction.incident.title}"/>  
-        <rich:message styleClass="error errors" for="title" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('title', 'incidentEdit')}"/> 
+        <rich:message styleClass="error errors" for="title" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'titleEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.incident_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'incidentEdit')}"/>  
+        <h:outputText value="#{msg.incident_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'patientEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="patient" value="#{incidentAction.incident.patient}"> 
           <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="patient" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'incidentEdit')}"/> 
+        <rich:message styleClass="error errors" for="patient" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'patientEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.incident_createdBy}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('createdBy', 'incidentEdit')}"/>  
+        <h:outputText value="#{msg.incident_createdBy}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'createdByEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="createdBy" value="#{incidentAction.incident.createdBy}"> 
           <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="createdBy" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('createdBy', 'incidentEdit')}"/> 
+        <rich:message styleClass="error errors" for="createdBy" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'createdByEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.incident_department} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('department', 'incidentEdit')}"/>  
+        <h:outputText value="#{msg.incident_department}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'departmentEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="department" value="#{incidentAction.incident.department}"> 
           <s:selectItems value="#{departmentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="department" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('department', 'incidentEdit')}"/> 
+        <rich:message styleClass="error errors" for="department" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'departmentEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.incident_dateOfIncident}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateOfIncident', 'incidentEdit')}"/>  
+        <h:outputText value="#{msg.incident_dateOfIncident}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'dateOfIncidentEdit')}"/>  
         <br/>  
         <rich:calendar id="dateOfIncident" value="#{incidentAction.incident.dateOfIncident}"/>  
-        <rich:message styleClass="error errors" for="dateOfIncident" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateOfIncident', 'incidentEdit')}"/> 
+        <rich:message styleClass="error errors" for="dateOfIncident" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'dateOfIncidentEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.incident_document}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'incidentEdit')}"/>  
+        <h:outputText value="#{msg.incident_document}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'documentEdit')}"/>  
         <br/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.incident_proccedure}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('proccedure', 'incidentEdit')}"/>  
+        <h:outputText value="#{msg.incident_proccedure}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'proccedureEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="proccedure" value="#{incidentAction.incident.proccedure}"> 
           <s:selectItems value="#{proccedureList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="proccedure" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('proccedure', 'incidentEdit')}"/> 
+        <rich:message styleClass="error errors" for="proccedure" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'proccedureEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.incident_responsibleEmployee}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('responsibleEmployee', 'incidentEdit')}"/>  
+        <h:outputText value="#{msg.incident_responsibleEmployee}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'responsibleEmployeeEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="responsibleEmployee" value="#{incidentAction.incident.responsibleEmployee}"> 
           <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="responsibleEmployee" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('responsibleEmployee', 'incidentEdit')}"/> 
+        <rich:message styleClass="error errors" for="responsibleEmployee" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'responsibleEmployeeEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.incident_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'incidentEdit')}"/>  
+        <h:outputText value="#{msg.incident_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'descriptionEdit')}"/>  
         <br/>  
         <rich:editor id="description" value="#{incidentAction.incident.description}"/>  
-        <rich:message styleClass="error errors" for="description" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'incidentEdit')}"/> 
+        <rich:message styleClass="error errors" for="description" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'descriptionEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.incident_severity} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('severity', 'incidentEdit')}"/>  
+        <h:outputText value="#{msg.incident_severity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'severityEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="severity" value="#{incidentAction.incident.severity}"> 
           <s:selectItems value="#{severityList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="severity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('severity', 'incidentEdit')}"/> 
+        <rich:message styleClass="error errors" for="severity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'severityEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.incident_ward}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'incidentEdit')}"/>  
+        <h:outputText value="#{msg.incident_ward}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'wardEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="ward" value="#{incidentAction.incident.ward}"> 
           <s:selectItems value="#{wardList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="ward" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'incidentEdit')}"/> 
+        <rich:message styleClass="error errors" for="ward" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'wardEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.incident_reportedTo}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportedTo', 'incidentEdit')}"/>  
+        <h:outputText value="#{msg.incident_reportedTo}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'reportedToEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="reportedTo" value="#{incidentAction.incident.reportedTo}"> 
           <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="reportedTo" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportedTo', 'incidentEdit')}"/> 
+        <rich:message styleClass="error errors" for="reportedTo" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'reportedToEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.incident_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'incidentEdit')}"/>  
+        <h:outputText value="#{msg.incident_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'drugEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="drug" value="#{incidentAction.incident.drug}"> 
           <s:selectItems value="#{drugList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="drug" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'incidentEdit')}"/> 
+        <rich:message styleClass="error errors" for="drug" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'drugEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.incident_morbidity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('morbidity', 'incidentEdit')}"/>  
+        <h:outputText value="#{msg.incident_morbidity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'morbidityEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="morbidity" value="#{incidentAction.incident.morbidity}"> 
           <s:selectItems value="#{morbidityList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="morbidity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('morbidity', 'incidentEdit')}"/> 
+        <rich:message styleClass="error errors" for="morbidity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'morbidityEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.incident_preventiveAction}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('preventiveAction', 'incidentEdit')}"/>  
+        <h:outputText value="#{msg.incident_preventiveAction}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'preventiveActionEdit')}"/>  
         <br/>  
         <rich:editor id="preventiveAction" value="#{incidentAction.incident.preventiveAction}"/>  
-        <rich:message styleClass="error errors" for="preventiveAction" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('preventiveAction', 'incidentEdit')}"/> 
+        <rich:message styleClass="error errors" for="preventiveAction" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'preventiveActionEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

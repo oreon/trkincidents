@@ -48,7 +48,7 @@ public abstract class BaseReportAction {
 	}
 	
 	public enum REPORT_TYPE{
-		PDF, HTML
+		PDF, HTML, LOCAL
 	}
 
 	// ///// Jasper Reports //////////////////////////////////////////////

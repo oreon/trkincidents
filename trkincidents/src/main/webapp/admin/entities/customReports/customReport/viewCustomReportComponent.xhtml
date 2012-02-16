@@ -1,19 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <h:panelGroup> 
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewCustomReportComponentPanel"> 
     <s:validateAll> 
-      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{customReportAction.load(customReportId )  }"> 
-        <h:outputText value="#{msg.id}"/>  
-        <h:outputText value="#{customReportAction.customReport.id}"/>  
-        <h:outputText value="#{msg.customReport_metaEntity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaEntity', 'customReportView')}"/>  
-        <s:link value="#{customReportAction.customReport.metaEntity.displayName}" view="/admin/entities/customReports/metaEntity/viewMetaEntity.xhtml" propagation="none"> 
+      <h:panelGrid columns="1" onload="#{customReportAction.load(customReportId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelCustomReport eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.CustomReport}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.customReport_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customReport', 'nameView')}"/>  
+        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customReport', 'nameView')}" value="#{customReportAction.customReport.name}"></h:outputText>  
+        <h:outputText value="#{msg.customReport_metaEntity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customReport', 'metaEntityView')}"/>  
+        <s:link value="#{customReportAction.customReport.metaEntity.displayName}" action="viewmetaEntity" propagation="none"> 
           <f:param name="metaEntityId" value="#{customReportAction.customReport.metaEntity.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
-        </s:link>  
-        <h:outputText value="#{msg.customReport_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'customReportView')}"/>  
-        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'customReportView')}" value="#{customReportAction.customReport.name}"></h:outputText> 
+        </s:link> 
       </h:panelGrid>  
+      <br/>  
+      <rich:dataTable id="reportParameters" var="_reportParameter" rendered="#{not empty customReportAction.listReportParameters and skipPermissionCheck == 'true' || s:hasPermission('customReport', 'reportParametersView') }" value="#{customReportAction.listReportParameters}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <h:column>
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.reportParameter_metaField}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'metaFieldView')}"/> 
+          </f:facet>  
+          <s:link value="#{_reportParameter.metaField.displayName}" action="viewmetaField" propagation="none"> 
+            <f:param name="metaFieldId" value="#{_reportParameter.metaField.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.reportParameter_comparison}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'comparisonView')}"/> 
+          </f:facet>  
+          <h:outputText value="#{_reportParameter.comparison}"/> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.reportParameter_mandatory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'mandatoryView')}"/> 
+          </f:facet>  
+          <h:outputText id="mandatory#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'mandatoryView')}" value="#{_reportParameter.mandatory}"></h:outputText> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.reportParameter_defaultValue}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'defaultValueView')}"/> 
+          </f:facet>  
+          <h:outputText id="defaultValue#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'defaultValueView')}" value="#{_reportParameter.defaultValue}"></h:outputText> 
+        </h:column> 
+      </rich:dataTable>  
+      <br/>  
       <br/>  
       <rich:simpleTogglePanel label="#{msg.customReport_fields}" switchType="client"> 
         <rich:dataTable value="#{customReportAction.listFields}" var="item"> 

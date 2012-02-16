@@ -3,15 +3,15 @@
 <entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd" version="1.0">  
   <description/>  
   <!--  Patient  JPA Configurations -->  
-  <entity class="com.oreon.trkincidents.patient.Patient" name="Patient"> 
+  <entity class="com.oreon.incidents.patient.Patient" name="Patient"> 
     <table name="patient"></table> 
   </entity>  
   <!--  Incident  JPA Configurations -->  
-  <entity class="com.oreon.trkincidents.incidents.Incident" name="Incident"> 
+  <entity class="com.oreon.incidents.incidents.Incident" name="Incident"> 
     <table name="incident"></table> 
   </entity>  
   <!--  IncidentType  JPA Configurations -->  
-  <entity class="com.oreon.trkincidents.incidents.IncidentType" name="IncidentType"> 
+  <entity class="com.oreon.incidents.incidents.IncidentType" name="IncidentType"> 
     <table name="incidenttype"></table>  
     <named-query name="incidentType.findByUnqName"> 
       <query> <![CDATA[
@@ -20,15 +20,15 @@
     </named-query> 
   </entity>  
   <!--  FormField  JPA Configurations -->  
-  <entity class="com.oreon.trkincidents.incidents.FormField" name="FormField"> 
+  <entity class="com.oreon.incidents.incidents.FormField" name="FormField"> 
     <table name="formfield"></table> 
   </entity>  
   <!--  FormFieldInstance  JPA Configurations -->  
-  <entity class="com.oreon.trkincidents.incidents.FormFieldInstance" name="FormFieldInstance"> 
+  <entity class="com.oreon.incidents.incidents.FormFieldInstance" name="FormFieldInstance"> 
     <table name="formfieldinstance"></table> 
   </entity>  
   <!--  Severity  JPA Configurations -->  
-  <entity class="com.oreon.trkincidents.incidents.Severity" name="Severity"> 
+  <entity class="com.oreon.incidents.incidents.Severity" name="Severity"> 
     <table name="severity"></table>  
     <named-query name="severity.findByUnqName"> 
       <query> <![CDATA[
@@ -37,7 +37,7 @@
     </named-query> 
   </entity>  
   <!--  Proccedure  JPA Configurations -->  
-  <entity class="com.oreon.trkincidents.incidents.Proccedure" name="Proccedure"> 
+  <entity class="com.oreon.incidents.incidents.Proccedure" name="Proccedure"> 
     <table name="proccedure"></table>  
     <named-query name="proccedure.findByUnqName"> 
       <query> <![CDATA[
@@ -46,11 +46,11 @@
     </named-query> 
   </entity>  
   <!--  ReferenceField  JPA Configurations -->  
-  <entity class="com.oreon.trkincidents.incidents.ReferenceField" name="ReferenceField"> 
+  <entity class="com.oreon.incidents.incidents.ReferenceField" name="ReferenceField"> 
     <table name="referencefield"></table> 
   </entity>  
   <!--  Ward  JPA Configurations -->  
-  <entity class="com.oreon.trkincidents.incidents.Ward" name="Ward"> 
+  <entity class="com.oreon.incidents.incidents.Ward" name="Ward"> 
     <table name="ward"></table>  
     <named-query name="ward.findByUnqName"> 
       <query> <![CDATA[
@@ -59,7 +59,7 @@
     </named-query> 
   </entity>  
   <!--  Morbidity  JPA Configurations -->  
-  <entity class="com.oreon.trkincidents.incidents.Morbidity" name="Morbidity"> 
+  <entity class="com.oreon.incidents.incidents.Morbidity" name="Morbidity"> 
     <table name="morbidity"></table>  
     <named-query name="morbidity.findByUnqCode"> 
       <query> <![CDATA[
@@ -68,11 +68,11 @@
     </named-query> 
   </entity>  
   <!--  Employee  JPA Configurations -->  
-  <entity class="com.oreon.trkincidents.employee.Employee" name="Employee"> 
+  <entity class="com.oreon.incidents.employee.Employee" name="Employee"> 
     <table name="employee"></table> 
   </entity>  
   <!--  Department  JPA Configurations -->  
-  <entity class="com.oreon.trkincidents.employee.Department" name="Department"> 
+  <entity class="com.oreon.incidents.employee.Department" name="Department"> 
     <table name="department"></table>  
     <named-query name="department.findByUnqName"> 
       <query> <![CDATA[
@@ -81,7 +81,7 @@
     </named-query> 
   </entity>  
   <!--  User  JPA Configurations -->  
-  <entity class="com.oreon.trkincidents.users.User" name="User"> 
+  <entity class="com.oreon.incidents.users.User" name="User"> 
     <table name="user"></table>  
     <named-query name="user.findByUnqUserName"> 
       <query> <![CDATA[
@@ -95,7 +95,7 @@
     </named-query> 
   </entity>  
   <!--  Role  JPA Configurations -->  
-  <entity class="com.oreon.trkincidents.users.Role" name="Role"> 
+  <entity class="com.oreon.incidents.users.Role" name="Role"> 
     <table name="role"></table>  
     <named-query name="role.findByUnqName"> 
       <query> <![CDATA[
@@ -104,11 +104,11 @@
     </named-query> 
   </entity>  
   <!--  Facility  JPA Configurations -->  
-  <entity class="com.oreon.trkincidents.facility.Facility" name="Facility"> 
+  <entity class="com.oreon.incidents.facility.Facility" name="Facility"> 
     <table name="facility"></table> 
   </entity>  
   <!--  Drug  JPA Configurations -->  
-  <entity class="com.oreon.trkincidents.drugs.Drug" name="Drug"> 
+  <entity class="com.oreon.incidents.drugs.Drug" name="Drug"> 
     <table name="drug"></table>  
     <named-query name="drug.findByUnqName"> 
       <query> <![CDATA[
@@ -122,11 +122,11 @@
     </named-query> 
   </entity>  
   <!--  DrugInteraction  JPA Configurations -->  
-  <entity class="com.oreon.trkincidents.drugs.DrugInteraction" name="DrugInteraction"> 
+  <entity class="com.oreon.incidents.drugs.DrugInteraction" name="DrugInteraction"> 
     <table name="druginteraction"></table> 
   </entity>  
   <!--  DrugCategory  JPA Configurations -->  
-  <entity class="com.oreon.trkincidents.drugs.DrugCategory" name="DrugCategory"> 
+  <entity class="com.oreon.incidents.drugs.DrugCategory" name="DrugCategory"> 
     <table name="drugcategory"></table>  
     <named-query name="drugCategory.findByUnqName"> 
       <query> <![CDATA[
@@ -135,7 +135,7 @@
     </named-query> 
   </entity>  
   <!--  CustomReport  JPA Configurations -->  
-  <entity class="com.oreon.trkincidents.customReports.CustomReport" name="CustomReport"> 
+  <entity class="com.oreon.incidents.customReports.CustomReport" name="CustomReport"> 
     <table name="customreport"></table>  
     <named-query name="customReport.findByUnqName"> 
       <query> <![CDATA[
@@ -144,7 +144,7 @@
     </named-query> 
   </entity>  
   <!--  MetaEntity  JPA Configurations -->  
-  <entity class="com.oreon.trkincidents.customReports.MetaEntity" name="MetaEntity"> 
+  <entity class="com.oreon.incidents.customReports.MetaEntity" name="MetaEntity"> 
     <table name="metaentity"></table>  
     <named-query name="metaEntity.findByUnqName"> 
       <query> <![CDATA[
@@ -153,7 +153,11 @@
     </named-query> 
   </entity>  
   <!--  MetaField  JPA Configurations -->  
-  <entity class="com.oreon.trkincidents.customReports.MetaField" name="MetaField"> 
+  <entity class="com.oreon.incidents.customReports.MetaField" name="MetaField"> 
     <table name="metafield"></table> 
+  </entity>  
+  <!--  ReportParameter  JPA Configurations -->  
+  <entity class="com.oreon.incidents.customReports.ReportParameter" name="ReportParameter"> 
+    <table name="reportparameter"></table> 
   </entity> 
 </entity-mappings>

@@ -1,19 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <h:panelGroup> 
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewMetaFieldComponentPanel"> 
     <s:validateAll> 
-      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{metaFieldAction.load(metaFieldId )  }"> 
-        <h:outputText value="#{msg.id}"/>  
-        <h:outputText value="#{metaFieldAction.metaField.id}"/>  
-        <h:outputText value="#{msg.metaField_metaEntity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaEntity', 'metaFieldView')}"/>  
-        <s:link value="#{metaFieldAction.metaField.metaEntity.displayName}" view="/admin/entities/customReports/metaEntity/viewMetaEntity.xhtml" propagation="none"> 
+      <h:panelGrid columns="1" onload="#{metaFieldAction.load(metaFieldId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelMetaField eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.MetaField}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.metaField_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'nameView')}"/>  
+        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'nameView')}" value="#{metaFieldAction.metaField.name}"></h:outputText>  
+        <h:outputText value="#{msg.metaField_type}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'typeView')}"/>  
+        <h:outputText id="type#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'typeView')}" value="#{metaFieldAction.metaField.type}"></h:outputText>  
+        <h:outputText value="#{msg.metaField_metaEntity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'metaEntityView')}"/>  
+        <s:link value="#{metaFieldAction.metaField.metaEntity.displayName}" action="viewmetaEntity" propagation="none"> 
           <f:param name="metaEntityId" value="#{metaFieldAction.metaField.metaEntity.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
-        </s:link>  
-        <h:outputText value="#{msg.metaField_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'metaFieldView')}"/>  
-        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'metaFieldView')}" value="#{metaFieldAction.metaField.name}"></h:outputText> 
-      </h:panelGrid> 
+        </s:link> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
     </s:validateAll> 
   </h:panelGroup> 
 </ui:composition>

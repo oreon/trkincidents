@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <c:if test="${empty modalId}"> 
     <c:set var="modalId" value="PatientModalPanel"/> 
   </c:if>  
@@ -21,7 +21,7 @@
           </f:facet>  
           <h:outputText value="#{_patient.id}"></h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('firstName', 'patientView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'firstNameView')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{patientList}"/>  
@@ -31,7 +31,7 @@
           </f:facet>  
           <h:outputText value="#{_patient.firstName}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('lastName', 'patientView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'lastNameView')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{patientList}"/>  
@@ -41,7 +41,7 @@
           </f:facet>  
           <h:outputText value="#{_patient.lastName}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('streetAddress', 'patientView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'streetAddressView')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{patientList}"/>  
@@ -51,7 +51,7 @@
           </f:facet>  
           <h:outputText value="#{_patient.address.streetAddress}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('city', 'patientView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'cityView')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{patientList}"/>  
@@ -61,7 +61,7 @@
           </f:facet>  
           <h:outputText value="#{_patient.address.city}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('state', 'patientView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'stateView')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{patientList}"/>  
@@ -71,7 +71,7 @@
           </f:facet>  
           <h:outputText value="#{_patient.address.state}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('phone', 'patientView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'phoneView')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{patientList}"/>  
@@ -81,7 +81,7 @@
           </f:facet>  
           <h:outputText value="#{_patient.address.phone}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('healthNumber', 'patientView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'healthNumberView')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{patientList}"/>  
@@ -91,7 +91,7 @@
           </f:facet>  
           <h:outputText value="#{_patient.healthNumber}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('dateOfBirth', 'patientView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'dateOfBirthView')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{patientList}"/>  
@@ -103,7 +103,7 @@
             <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('gender', 'patientView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'genderView')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{patientList}"/>  
@@ -113,7 +113,7 @@
           </f:facet>  
           <h:outputText value="#{_patient.gender}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('age', 'patientView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'ageView')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{patientList}"/>  

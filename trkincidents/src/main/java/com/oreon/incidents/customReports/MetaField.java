@@ -84,6 +84,13 @@ public class MetaField extends BusinessEntity implements java.io.Serializable {
 	@ManyToMany(mappedBy = "groupFields")
 	private Set<CustomReport> groupReport = new HashSet<CustomReport>();
 
+	@Column(unique = false)
+	@Field(index = Index.TOKENIZED)
+	@Analyzer(definition = "entityAnalyzer")
+	protected String type
+
+	;
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -120,6 +127,16 @@ public class MetaField extends BusinessEntity implements java.io.Serializable {
 		return groupReport;
 	}
 
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public String getType() {
+
+		return type;
+
+	}
+
 	@Transient
 	public String getDisplayName() {
 		try {
@@ -143,6 +160,8 @@ public class MetaField extends BusinessEntity implements java.io.Serializable {
 
 		listSearchableFields.add("name");
 
+		listSearchableFields.add("type");
+
 		return listSearchableFields;
 	}
 
@@ -152,6 +171,8 @@ public class MetaField extends BusinessEntity implements java.io.Serializable {
 		StringBuilder builder = new StringBuilder();
 
 		builder.append(getName() + " ");
+
+		builder.append(getType() + " ");
 
 		if (getMetaEntity() != null)
 			builder.append("metaEntity:" + getMetaEntity().getDisplayName()

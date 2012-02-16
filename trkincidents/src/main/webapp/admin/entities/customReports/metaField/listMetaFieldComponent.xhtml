@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <c:if test="${empty modalId}"> 
     <c:set var="modalId" value="MetaFieldModalPanel"/> 
   </c:if>  
@@ -21,7 +21,7 @@
           </f:facet>  
           <h:outputText value="#{_metaField.id}"></h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('name', 'metaFieldView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'nameView')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{metaFieldList}"/>  
@@ -31,7 +31,7 @@
           </f:facet>  
           <h:outputText value="#{_metaField.name}" escape="false"/> 
         </h:column>  
-        <h:column groupOn="#{metaField.metaEntity.displayName}" rendered="#{s:hasPermission('metaEntity', 'metaFieldView'  )}"> 
+        <h:column groupOn="#{metaField.metaEntity.displayName}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'metaEntityView')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{metaFieldList}"/>  
@@ -39,10 +39,20 @@
               <ui:param name="propertyPath" value="metaField.metaEntity"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_metaField.metaEntity.displayName}" action="viewMetaEntity" propagation="none"> 
+          <s:link value="#{_metaField.metaEntity.displayName}" view="/admin/entities/customReports/metaEntity/viewMetaEntity.xhtml" propagation="none"> 
             <f:param name="metaEntityId" value="#{_metaField.metaEntity.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
+        </h:column>  
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'typeView')}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{metaFieldList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.metaField_type}"/>  
+              <ui:param name="propertyPath" value="metaField.type"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_metaField.type}" escape="false"/> 
         </h:column>  
         <h:column rendered="#{s:hasPermission('creationDate', 'metaFieldView' )}"> 
           <f:facet name="header"> 

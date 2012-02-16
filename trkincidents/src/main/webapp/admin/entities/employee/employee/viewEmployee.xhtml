@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
   <ui:define name="content"> 
     <h:form> 
+      <!--PROTECTED REGION ID(EDITABLE_RGN_VIEW_employee_Employee) ENABLED START-->  
+      <!--PROTECTED REGION END-->  
       <rich:tabPanel switchType="ajax"> 
         <rich:tab label="Employee"> 
           <ui:include src="/admin/entities/employee/employee/viewEmployeeComponent.xhtml"/>  
@@ -26,10 +28,15 @@
             <ui:param name="departmentId" value="#{employeeAction.instance.department.id}"/> 
           </ui:include> 
         </rich:tab> 
-      </rich:tabPanel> 
+      </rich:tabPanel>  
+      <div class="buttonBox"> 
+        <h:commandButton value="retrieveCredentials" rendered="#{s:hasPermission('employee', 'edit', employeeAction.instance)}" action="#{employeeAction.retrieveCredentials}"></h:commandButton>  
+        <h:commandButton value="login" rendered="#{s:hasPermission('employee', 'edit', employeeAction.instance)}" action="#{employeeAction.login}"></h:commandButton>  
+        <h:commandButton value="register" rendered="#{s:hasPermission('employee', 'edit', employeeAction.instance)}" action="#{employeeAction.register}"></h:commandButton> 
+      </div> 
     </h:form>  
     <br/>  
-    <rich:tabPanel> 
+    <rich:tabPanel switchType="client"> 
       <rich:tab label="IncidentsCreated" icon="/images/icons/bricks.png"> 
         <c:set var="modalId" value="EmployeeModalPanel-incidentsCreated"/>  
         <ui:include src="/admin/entities/incidents/incident/listIncidentComponent.xhtml"> 
@@ -92,7 +99,7 @@
       </rich:tab> 
     </rich:tabPanel>  
     <br/>  
-    <rich:tabPanel> 
+    <rich:tabPanel switchType="client"> 
       <rich:tab label="Notes"> 
         <wc:comments backingAction="#{employeeAction}"/> 
       </rich:tab> 

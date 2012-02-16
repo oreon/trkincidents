@@ -1,126 +1,192 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <h:panelGroup> 
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editDrugComponentPanel"> 
     <s:validateAll> 
-      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{drugAction.load(drugId )  }"> 
-        <h:outputText value="#{msg.drug_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'drugEdit')}"/>  
-        <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'drugEdit')}" label="#{msg.drug_name}" required="true" value="#{drugAction.drug.name}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </h:inputText>  
-        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'drugEdit')}"/>  
-        <h:outputText value="#{msg.drug_absorption}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('absorption', 'drugEdit')}"/>  
-        <rich:editor useSeamText="true" id="absorption#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('absorption', 'drugEdit')}" label="#{msg.drug_absorption}" required="false" value="#{drugAction.drug.absorption}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </rich:editor>  
-        <rich:message styleClass="error errors" for="absorption" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('absorption', 'drugEdit')}"/>  
-        <h:outputText value="#{msg.drug_biotransformation}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('biotransformation', 'drugEdit')}"/>  
-        <rich:editor useSeamText="true" id="biotransformation#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('biotransformation', 'drugEdit')}" label="#{msg.drug_biotransformation}" required="false" value="#{drugAction.drug.biotransformation}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </rich:editor>  
-        <rich:message styleClass="error errors" for="biotransformation" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('biotransformation', 'drugEdit')}"/>  
-        <h:outputText value="#{msg.drug_atcCodes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcCodes', 'drugEdit')}"/>  
-        <h:inputText id="atcCodes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcCodes', 'drugEdit')}" label="#{msg.drug_atcCodes}" required="false" value="#{drugAction.drug.atcCodes}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </h:inputText>  
-        <rich:message styleClass="error errors" for="atcCodes" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcCodes', 'drugEdit')}"/>  
-        <h:outputText value="#{msg.drug_contraIndication}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('contraIndication', 'drugEdit')}"/>  
-        <rich:editor useSeamText="true" id="contraIndication#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('contraIndication', 'drugEdit')}" label="#{msg.drug_contraIndication}" required="false" value="#{drugAction.drug.contraIndication}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </rich:editor>  
-        <rich:message styleClass="error errors" for="contraIndication" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('contraIndication', 'drugEdit')}"/>  
-        <h:outputText value="#{msg.drug_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'drugEdit')}"/>  
-        <rich:editor useSeamText="true" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'drugEdit')}" label="#{msg.drug_description}" required="false" value="#{drugAction.drug.description}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </rich:editor>  
-        <rich:message styleClass="error errors" for="description" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'drugEdit')}"/>  
-        <h:outputText value="#{msg.drug_dosageForm}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dosageForm', 'drugEdit')}"/>  
-        <h:inputText id="dosageForm#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dosageForm', 'drugEdit')}" label="#{msg.drug_dosageForm}" required="false" value="#{drugAction.drug.dosageForm}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </h:inputText>  
-        <rich:message styleClass="error errors" for="dosageForm" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dosageForm', 'drugEdit')}"/>  
-        <h:outputText value="#{msg.drug_foodInteractions}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('foodInteractions', 'drugEdit')}"/>  
-        <rich:editor useSeamText="true" id="foodInteractions#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('foodInteractions', 'drugEdit')}" label="#{msg.drug_foodInteractions}" required="false" value="#{drugAction.drug.foodInteractions}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </rich:editor>  
-        <rich:message styleClass="error errors" for="foodInteractions" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('foodInteractions', 'drugEdit')}"/>  
-        <h:outputText value="#{msg.drug_halfLife}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('halfLife', 'drugEdit')}"/>  
-        <rich:editor useSeamText="true" id="halfLife#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('halfLife', 'drugEdit')}" label="#{msg.drug_halfLife}" required="false" value="#{drugAction.drug.halfLife}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </rich:editor>  
-        <rich:message styleClass="error errors" for="halfLife" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('halfLife', 'drugEdit')}"/>  
-        <h:outputText value="#{msg.drug_halfLifeNumberOfHours}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('halfLifeNumberOfHours', 'drugEdit')}"/>  
-        <h:inputText id="halfLifeNumberOfHours#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('halfLifeNumberOfHours', 'drugEdit')}" label="#{msg.drug_halfLifeNumberOfHours}" required="false" value="#{drugAction.drug.halfLifeNumberOfHours}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </h:inputText>  
-        <rich:message styleClass="error errors" for="halfLifeNumberOfHours" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('halfLifeNumberOfHours', 'drugEdit')}"/>  
-        <h:outputText value="#{msg.drug_indication}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('indication', 'drugEdit')}"/>  
-        <rich:editor useSeamText="true" id="indication#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('indication', 'drugEdit')}" label="#{msg.drug_indication}" required="false" value="#{drugAction.drug.indication}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </rich:editor>  
-        <rich:message styleClass="error errors" for="indication" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('indication', 'drugEdit')}"/>  
-        <h:outputText value="#{msg.drug_mechanismOfAction}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mechanismOfAction', 'drugEdit')}"/>  
-        <rich:editor useSeamText="true" id="mechanismOfAction#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mechanismOfAction', 'drugEdit')}" label="#{msg.drug_mechanismOfAction}" required="false" value="#{drugAction.drug.mechanismOfAction}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </rich:editor>  
-        <rich:message styleClass="error errors" for="mechanismOfAction" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mechanismOfAction', 'drugEdit')}"/>  
-        <h:outputText value="#{msg.drug_patientInfo}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientInfo', 'drugEdit')}"/>  
-        <rich:editor useSeamText="true" id="patientInfo#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientInfo', 'drugEdit')}" label="#{msg.drug_patientInfo}" required="false" value="#{drugAction.drug.patientInfo}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </rich:editor>  
-        <rich:message styleClass="error errors" for="patientInfo" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientInfo', 'drugEdit')}"/>  
-        <h:outputText value="#{msg.drug_pharmacology}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('pharmacology', 'drugEdit')}"/>  
-        <rich:editor useSeamText="true" id="pharmacology#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('pharmacology', 'drugEdit')}" label="#{msg.drug_pharmacology}" required="false" value="#{drugAction.drug.pharmacology}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </rich:editor>  
-        <rich:message styleClass="error errors" for="pharmacology" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('pharmacology', 'drugEdit')}"/>  
-        <h:outputText value="#{msg.drug_toxicity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('toxicity', 'drugEdit')}"/>  
-        <rich:editor useSeamText="true" id="toxicity#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('toxicity', 'drugEdit')}" label="#{msg.drug_toxicity}" required="false" value="#{drugAction.drug.toxicity}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </rich:editor>  
-        <rich:message styleClass="error errors" for="toxicity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('toxicity', 'drugEdit')}"/>  
-        <h:outputText value="#{msg.drug_routeOfElimination}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('routeOfElimination', 'drugEdit')}"/>  
-        <rich:editor useSeamText="true" id="routeOfElimination#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('routeOfElimination', 'drugEdit')}" label="#{msg.drug_routeOfElimination}" required="false" value="#{drugAction.drug.routeOfElimination}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </rich:editor>  
-        <rich:message styleClass="error errors" for="routeOfElimination" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('routeOfElimination', 'drugEdit')}"/>  
-        <h:outputText value="#{msg.drug_volumeOfDistribution}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('volumeOfDistribution', 'drugEdit')}"/>  
-        <h:inputText id="volumeOfDistribution#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('volumeOfDistribution', 'drugEdit')}" label="#{msg.drug_volumeOfDistribution}" required="false" value="#{drugAction.drug.volumeOfDistribution}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </h:inputText>  
-        <rich:message styleClass="error errors" for="volumeOfDistribution" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('volumeOfDistribution', 'drugEdit')}"/>  
-        <h:outputText value="#{msg.drug_drugBankId} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugBankId', 'drugEdit')}"/>  
-        <h:inputText id="drugBankId#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugBankId', 'drugEdit')}" label="#{msg.drug_drugBankId}" required="true" value="#{drugAction.drug.drugBankId}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </h:inputText>  
-        <rich:message styleClass="error errors" for="drugBankId" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugBankId', 'drugEdit')}"/> 
+      <h:panelGrid columns="1" onload="#{drugAction.load(drugId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelDrug eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Drug}"/> 
+        </f:facet>  
+        <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.drug_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'nameEdit')}"/>
+          </ui:define>  
+          <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'nameEdit')}" label="#{msg.drug_name}" required="true" disabled="false" value="#{drugAction.drug.name}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="absorptionDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.drug_absorption}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'absorptionEdit')}"/>
+          </ui:define>  
+          <rich:editor useSeamText="true" id="absorption#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'absorptionEdit')}" label="#{msg.drug_absorption}" required="true" disabled="false" value="#{drugAction.drug.absorption}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </rich:editor> 
+        </s:decorate>  
+        <s:decorate id="biotransformationDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.drug_biotransformation}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'biotransformationEdit')}"/>
+          </ui:define>  
+          <rich:editor useSeamText="true" id="biotransformation#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'biotransformationEdit')}" label="#{msg.drug_biotransformation}" required="true" disabled="false" value="#{drugAction.drug.biotransformation}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </rich:editor> 
+        </s:decorate>  
+        <s:decorate id="atcCodesDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.drug_atcCodes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'atcCodesEdit')}"/>
+          </ui:define>  
+          <h:inputText id="atcCodes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'atcCodesEdit')}" label="#{msg.drug_atcCodes}" required="true" disabled="false" value="#{drugAction.drug.atcCodes}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="contraIndicationDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.drug_contraIndication}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'contraIndicationEdit')}"/>
+          </ui:define>  
+          <rich:editor useSeamText="true" id="contraIndication#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'contraIndicationEdit')}" label="#{msg.drug_contraIndication}" required="true" disabled="false" value="#{drugAction.drug.contraIndication}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </rich:editor> 
+        </s:decorate>  
+        <s:decorate id="descriptionDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.drug_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'descriptionEdit')}"/>
+          </ui:define>  
+          <rich:editor useSeamText="true" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'descriptionEdit')}" label="#{msg.drug_description}" required="true" disabled="false" value="#{drugAction.drug.description}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </rich:editor> 
+        </s:decorate>  
+        <s:decorate id="dosageFormDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.drug_dosageForm}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'dosageFormEdit')}"/>
+          </ui:define>  
+          <h:inputText id="dosageForm#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'dosageFormEdit')}" label="#{msg.drug_dosageForm}" required="true" disabled="false" value="#{drugAction.drug.dosageForm}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="foodInteractionsDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.drug_foodInteractions}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'foodInteractionsEdit')}"/>
+          </ui:define>  
+          <rich:editor useSeamText="true" id="foodInteractions#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'foodInteractionsEdit')}" label="#{msg.drug_foodInteractions}" required="true" disabled="false" value="#{drugAction.drug.foodInteractions}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </rich:editor> 
+        </s:decorate>  
+        <s:decorate id="halfLifeDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.drug_halfLife}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'halfLifeEdit')}"/>
+          </ui:define>  
+          <rich:editor useSeamText="true" id="halfLife#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'halfLifeEdit')}" label="#{msg.drug_halfLife}" required="true" disabled="false" value="#{drugAction.drug.halfLife}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </rich:editor> 
+        </s:decorate>  
+        <s:decorate id="halfLifeNumberOfHoursDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.drug_halfLifeNumberOfHours}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'halfLifeNumberOfHoursEdit')}"/>
+          </ui:define>  
+          <h:inputText id="halfLifeNumberOfHours#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'halfLifeNumberOfHoursEdit')}" label="#{msg.drug_halfLifeNumberOfHours}" required="true" disabled="false" value="#{drugAction.drug.halfLifeNumberOfHours}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="indicationDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.drug_indication}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'indicationEdit')}"/>
+          </ui:define>  
+          <rich:editor useSeamText="true" id="indication#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'indicationEdit')}" label="#{msg.drug_indication}" required="true" disabled="false" value="#{drugAction.drug.indication}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </rich:editor> 
+        </s:decorate>  
+        <s:decorate id="mechanismOfActionDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.drug_mechanismOfAction}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'mechanismOfActionEdit')}"/>
+          </ui:define>  
+          <rich:editor useSeamText="true" id="mechanismOfAction#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'mechanismOfActionEdit')}" label="#{msg.drug_mechanismOfAction}" required="true" disabled="false" value="#{drugAction.drug.mechanismOfAction}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </rich:editor> 
+        </s:decorate>  
+        <s:decorate id="patientInfoDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.drug_patientInfo}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'patientInfoEdit')}"/>
+          </ui:define>  
+          <rich:editor useSeamText="true" id="patientInfo#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'patientInfoEdit')}" label="#{msg.drug_patientInfo}" required="true" disabled="false" value="#{drugAction.drug.patientInfo}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </rich:editor> 
+        </s:decorate>  
+        <s:decorate id="pharmacologyDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.drug_pharmacology}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'pharmacologyEdit')}"/>
+          </ui:define>  
+          <rich:editor useSeamText="true" id="pharmacology#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'pharmacologyEdit')}" label="#{msg.drug_pharmacology}" required="true" disabled="false" value="#{drugAction.drug.pharmacology}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </rich:editor> 
+        </s:decorate>  
+        <s:decorate id="toxicityDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.drug_toxicity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'toxicityEdit')}"/>
+          </ui:define>  
+          <rich:editor useSeamText="true" id="toxicity#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'toxicityEdit')}" label="#{msg.drug_toxicity}" required="true" disabled="false" value="#{drugAction.drug.toxicity}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </rich:editor> 
+        </s:decorate>  
+        <s:decorate id="routeOfEliminationDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.drug_routeOfElimination}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'routeOfEliminationEdit')}"/>
+          </ui:define>  
+          <rich:editor useSeamText="true" id="routeOfElimination#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'routeOfEliminationEdit')}" label="#{msg.drug_routeOfElimination}" required="true" disabled="false" value="#{drugAction.drug.routeOfElimination}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </rich:editor> 
+        </s:decorate>  
+        <s:decorate id="volumeOfDistributionDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.drug_volumeOfDistribution}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'volumeOfDistributionEdit')}"/>
+          </ui:define>  
+          <h:inputText id="volumeOfDistribution#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'volumeOfDistributionEdit')}" label="#{msg.drug_volumeOfDistribution}" required="true" disabled="false" value="#{drugAction.drug.volumeOfDistribution}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="drugBankIdDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.drug_drugBankId}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'drugBankIdEdit')}"/>
+          </ui:define>  
+          <h:inputText id="drugBankId#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'drugBankIdEdit')}" label="#{msg.drug_drugBankId}" required="true" disabled="false" value="#{drugAction.drug.drugBankId}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate> 
       </h:panelGrid>  
-      <a:commandButton value="New DrugInteraction" action="#{drugAction.addDrugInteractions}" reRender="drugInteractions" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteractions', 'drugEdit')}"> 
+      <br/>  
+      <a:commandButton value="New DrugInteraction" action="#{drugAction.addDrugInteractions}" reRender="drugInteractions" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'drugInteractionsEdit')}"> 
         <s:conversationId/> 
       </a:commandButton>  
-      <rich:dataTable id="drugInteractions" var="_drugInteraction" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteractions', 'drugEdit')}" value="#{drugAction.listDrugInteractions}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
-        <h:column style="text-align:right">
+      <rich:dataTable id="drugInteractions" var="_drugInteraction" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'drugInteractionsEdit')}" value="#{drugAction.listDrugInteractions}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <h:column>
           <f:facet name="header">
-            <h:outputText value="#{msg.drugInteraction_interactingDrug} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('interactingDrug', 'drugInteractionEdit')}"/>
+            <h:outputText value="#{msg.drugInteraction_interactingDrug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'interactingDrugEdit')}"/>
           </f:facet>  
-          <h:selectOneMenu id="interactingDrug" label="#{msg.drugInteraction_interactingDrug}" value="#{_drugInteraction.interactingDrug}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('interactingDrug', 'drugInteractionEdit')}"> 
-            <s:selectItems value="#{drugList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-            <rich:ajaxValidator event="onsubmit"/>  
-            <s:convertEntity/> 
-          </h:selectOneMenu>  
-          <rich:message styleClass="error errors" for="interactingDrug" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('interactingDrug', 'drugInteractionEdit')}"/> 
+          <s:decorate id="interactingDrugDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:selectOneMenu id="interactingDrug" label="#{msg.drugInteraction_interactingDrug}" value="#{_drugInteraction.interactingDrug}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'interactingDrugEdit')}" disabled="false"> 
+              <s:selectItems value="#{drugList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+              <rich:ajaxValidator event="onsubmit"/>  
+              <s:convertEntity/> 
+            </h:selectOneMenu> 
+          </s:decorate> 
         </h:column>  
-        <h:column style="text-align:right">
+        <h:column>
           <f:facet name="header">
-            <h:outputText value="#{msg.drugInteraction_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'drugInteractionEdit')}"/>
+            <h:outputText value="#{msg.drugInteraction_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'descriptionEdit')}"/>
           </f:facet>  
-          <rich:editor useSeamText="true" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'drugInteractionEdit')}" label="#{msg.drugInteraction_description}" required="false" value="#{_drugInteraction.description}"> 
-            <rich:ajaxValidator event="onsubmit"/> 
-          </rich:editor>  
-          <rich:message styleClass="error errors" for="description" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'drugInteractionEdit')}"/> 
+          <s:decorate id="descriptionDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <rich:editor useSeamText="true" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'descriptionEdit')}" label="#{msg.drugInteraction_description}" required="false" disabled="false" value="#{_drugInteraction.description}"> 
+              <rich:ajaxValidator event="onsubmit"/> 
+            </rich:editor> 
+          </s:decorate> 
         </h:column>  
         <h:column> 
-          <a:commandButton value="New DrugInteraction" action="#{drugAction.addDrugInteractions}" reRender="drugInteractions" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteractions', 'drugInteractionEdit')}"> 
+          <a:commandButton value="New DrugInteraction" action="#{drugAction.addDrugInteractions}" reRender="drugInteractions" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'drugInteractionsEdit')}"> 
             <s:conversationId/> 
           </a:commandButton> 
         </h:column>  
@@ -129,7 +195,8 @@
             <s:conversationId/> 
           </a:commandButton> 
         </h:column> 
-      </rich:dataTable> 
+      </rich:dataTable>  
+      <br/> 
     </s:validateAll> 
   </h:panelGroup> 
 </ui:composition>

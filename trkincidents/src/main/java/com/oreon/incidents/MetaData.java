@@ -318,6 +318,8 @@ public class MetaData {
 
 	"groupReportCount", "java.lang.Integer",
 
+	"type", "java.lang.String",
+
 	},
 
 	{"com.oreon.incidents.customReports.ReportParameter",

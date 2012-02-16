@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <c:if test="${empty modalId}"> 
     <c:set var="modalId" value="ReferenceFieldModalPanel"/> 
   </c:if>  
@@ -21,7 +21,7 @@
           </f:facet>  
           <h:outputText value="#{_referenceField.id}"></h:outputText> 
         </h:column>  
-        <h:column groupOn="#{referenceField.incidentType.displayName}" rendered="#{s:hasPermission('incidentType', 'referenceFieldView'  )}"> 
+        <h:column groupOn="#{referenceField.incidentType.displayName}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('referenceField', 'incidentTypeView')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{referenceFieldList}"/>  
@@ -29,12 +29,12 @@
               <ui:param name="propertyPath" value="referenceField.incidentType"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_referenceField.incidentType.displayName}" action="viewIncidentType" propagation="none"> 
+          <s:link value="#{_referenceField.incidentType.displayName}" view="/admin/entities/incidents/incidentType/viewIncidentType.xhtml" propagation="none"> 
             <f:param name="incidentTypeId" value="#{_referenceField.incidentType.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('referencesEntity', 'referenceFieldView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('referenceField', 'referencesEntityView')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{referenceFieldList}"/>  
@@ -44,7 +44,7 @@
           </f:facet>  
           <h:outputText value="#{_referenceField.referencesEntity}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('required', 'referenceFieldView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('referenceField', 'requiredView')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{referenceFieldList}"/>  

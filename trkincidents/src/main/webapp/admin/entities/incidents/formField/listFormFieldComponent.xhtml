@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <c:if test="${empty modalId}"> 
     <c:set var="modalId" value="FormFieldModalPanel"/> 
   </c:if>  
@@ -21,7 +21,7 @@
           </f:facet>  
           <h:outputText value="#{_formField.id}"></h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('name', 'formFieldView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'nameView')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{formFieldList}"/>  
@@ -31,7 +31,7 @@
           </f:facet>  
           <h:outputText value="#{_formField.name}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('type', 'formFieldView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'typeView')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{formFieldList}"/>  
@@ -41,7 +41,7 @@
           </f:facet>  
           <h:outputText value="#{_formField.type}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('required', 'formFieldView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'requiredView')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{formFieldList}"/>  
@@ -51,7 +51,7 @@
           </f:facet>  
           <h:outputText value="#{_formField.required? msg.yes : msg.no }"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('choiceValues', 'formFieldView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'choiceValuesView')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{formFieldList}"/>  
@@ -61,7 +61,7 @@
           </f:facet>  
           <h:outputText value="#{_formField.choiceValues}" escape="false"/> 
         </h:column>  
-        <h:column groupOn="#{formField.incidentType.displayName}" rendered="#{s:hasPermission('incidentType', 'formFieldView'  )}"> 
+        <h:column groupOn="#{formField.incidentType.displayName}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'incidentTypeView')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{formFieldList}"/>  
@@ -69,7 +69,7 @@
               <ui:param name="propertyPath" value="formField.incidentType"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_formField.incidentType.displayName}" action="viewIncidentType" propagation="none"> 
+          <s:link value="#{_formField.incidentType.displayName}" view="/admin/entities/incidents/incidentType/viewIncidentType.xhtml" propagation="none"> 
             <f:param name="incidentTypeId" value="#{_formField.incidentType.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 

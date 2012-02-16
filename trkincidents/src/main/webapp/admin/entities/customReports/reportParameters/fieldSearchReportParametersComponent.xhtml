@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <h:panelGrid columns="6"> 
+    <h:panelGroup> 
+      <h:outputText value="#{msg.reportParameters_customReport}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameters', 'customReportEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="customReport" value="#{ reportParametersList.reportParameters.customReport}"> 
+        <s:selectItems value="#{customReportList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.reportParameters_metaField}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameters', 'metaFieldEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="metaField" value="#{ reportParametersList.reportParameters.metaField}"> 
+        <s:selectItems value="#{metaFieldList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
+        <s:convertEntity/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.reportParameters_comparison}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameters', 'comparisonEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="comparison" value="#{reportParametersList.reportParameters.comparison}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="None" itemValue=""/>  
+        <f:selectItem itemValue="GREATER_THAN" itemLabel="Greater_than"/>  
+        <f:selectItem itemValue="LESS_THAN" itemLabel="Less_than"/>  
+        <f:selectItem itemValue="EQUAL" itemLabel="Equal"/>  
+        <f:selectItem itemValue="NOT_EQUAL" itemLabel="Not_equal"/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.reportParameters_mandatory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameters', 'mandatoryEdit')}"/>  
+      <br/>  
+      <h:selectOneMenu id="mandatory" value="#{reportParametersList.reportParameters.mandatory}" required="false"> 
+        <f:selectItem itemLabel="Any" itemValue=""/>  
+        <f:selectItem itemLabel="True" itemValue="true"/>  
+        <f:selectItem itemLabel="False" itemValue="false"/> 
+      </h:selectOneMenu> 
+    </h:panelGroup>  
+    <h:panelGroup> 
+      <h:outputText value="#{msg.reportParameters_default}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameters', 'defaultEdit')}"/>  
+      <br/>  
+      <h:inputText id="default" value="#{reportParametersList.reportParameters.default}"/> 
+    </h:panelGroup> 
+  </h:panelGrid>  
+  <h:panelGrid columns="2"> 
+    <h:outputText value="Creation Date From"/>  
+    <h:outputText value="Creation Date To"/>  
+    <rich:calendar id="from" value="#{reportParametersList.dateCreatedRange.begin}"/>  
+    <rich:calendar id="to" value="#{reportParametersList.dateCreatedRange.end}"/> 
+  </h:panelGrid> 
+</ui:composition>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <c:if test="${empty modalId}"> 
+    <c:set var="modalId" value="ReportParametersModalPanel"/> 
+  </c:if>  
+  <c:if test="${empty listTitle}"> 
+    <c:set var="listTitle" value="ReportParameters Search Results (#{empty records ? 0 : (reportParametersList.paginated ? reportParametersList.resultCount : records.size)})"/> 
+  </c:if>  
+  <rich:panel> 
+    <f:facet name="header">${listTitle}</f:facet>  
+    <a:form> 
+      <rich:dataTable var="_reportParameters" value="#{records}" id="reportParametersList" rowClasses="odd, even" styleClass="dataTable" onRowMouseOver="this.style.backgroundColor='#F8F8F8'" onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"> 
+        <h:column rendered="#{s:hasPermission('id', 'reportParametersView' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{reportParametersList}"/>  
+              <ui:param name="propertyLabel" value="Id"/>  
+              <ui:param name="propertyPath" value="reportParameters.id"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_reportParameters.id}"></h:outputText> 
+        </h:column>  
+        <h:column groupOn="#{reportParameters.customReport.displayName}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameters', 'customReportView')}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{reportParametersList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.reportParameters_customReport}"/>  
+              <ui:param name="propertyPath" value="reportParameters.customReport"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_reportParameters.customReport.displayName}" view="/admin/entities/customReports/customReport/viewCustomReport.xhtml" propagation="none"> 
+            <f:param name="customReportId" value="#{_reportParameters.customReport.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameters', 'metaFieldView')}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{reportParametersList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.reportParameters_metaField}"/>  
+              <ui:param name="propertyPath" value="reportParameters.metaField"/> 
+            </ui:include> 
+          </f:facet>  
+          <s:link value="#{_reportParameters.metaField.displayName}" view="/admin/entities/customReports/metaField/viewMetaField.xhtml" propagation="none"> 
+            <f:param name="metaFieldId" value="#{_reportParameters.metaField.id}"/>  
+            <f:param name="from" value="#{request.servletPath}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameters', 'comparisonView')}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{reportParametersList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.reportParameters_comparison}"/>  
+              <ui:param name="propertyPath" value="reportParameters.comparison"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_reportParameters.comparison}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameters', 'mandatoryView')}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{reportParametersList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.reportParameters_mandatory}"/>  
+              <ui:param name="propertyPath" value="reportParameters.mandatory"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_reportParameters.mandatory? msg.yes : msg.no }"/> 
+        </h:column>  
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameters', 'defaultView')}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{reportParametersList}"/>  
+              <ui:param name="propertyLabel" value="#{msg.reportParameters_default}"/>  
+              <ui:param name="propertyPath" value="reportParameters.default"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_reportParameters.default}" escape="false"/> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('creationDate', 'reportParametersView' )}"> 
+          <f:facet name="header"> 
+            <ui:include src="/layout/sort.xhtml"> 
+              <ui:param name="entityList" value="#{reportParametersList}"/>  
+              <ui:param name="propertyLabel" value="Creation Date"/>  
+              <ui:param name="propertyPath" value="reportParameters.dateCreated"/> 
+            </ui:include> 
+          </f:facet>  
+          <h:outputText value="#{_reportParameters.dateCreated}"> 
+            <s:convertDateTime type="date" dateStyle="medium"/> 
+          </h:outputText> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_reportParameters', 'view')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/customReports/reportParameters/viewReportParameters.xhtml" rendered="#{s:hasPermission(_reportParameters, 'view')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/eye.png" style="border: 0px" alt="view"/>  
+            <f:param name="reportParametersId" value="#{_reportParameters.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('_reportParameters', 'edit')}"> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <s:link view="/admin/entities/customReports/reportParameters/editReportParameters.xhtml" rendered="#{s:hasPermission(_reportParameters, 'edit')}" propagation="none"> 
+            <h:graphicImage value="/images/icons/edit.png" style="border: 0px" alt="edit"/>  
+            <f:param name="reportParametersId" value="#{_reportParameters.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column rendered="#{s:hasPermission('reportParametersAction', 'archive')}" propagation="none"> 
+          <f:facet name="header"> 
+            <h:outputText value=""/> 
+          </f:facet>  
+          <s:link action="#{reportParametersAction.archiveById}" onclick="javascript:if(!confirm('Do you really want to delete #{_reportParameters.displayName} ?')){ return false; } else { return true; }"> 
+            <h:graphicImage value="/images/icons/delete.png" style="border: 0px" alt="archive"/>  
+            <f:param name="idToArchive" value="#{_reportParameters.id}"/> 
+          </s:link> 
+        </h:column>  
+        <h:column> 
+          <f:facet name="header"> 
+            <h:outputText value=" "/> 
+          </f:facet>  
+          <a:commandLink action="#{reportParametersAction.setReportParametersIdForModalDlg(_reportParameters.id)}" rendered="#{s:hasPermission(_reportParameters, 'quickEdit')}" oncomplete="Richfaces.showModalPanel('${modalId}',{});" reRender="${modalId}"> 
+            <h:graphicImage value="/images/icons/editQuick.png" style="border: 0px" alt="Quick Edit"/>  
+            <s:conversationPropagation type="join"/> 
+          </a:commandLink> 
+        </h:column> 
+      </rich:dataTable> 
+    </a:form> 
+  </rich:panel>  
+  <div class="tableControl"> 
+    <s:link view="#{request.servletPath}" rendered="#{reportParametersList.previousExists}" value="#{messages.left}#{messages.left} First Page"> 
+      <f:param name="firstResult" value="0"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{reportParametersList.previousExists}" value="#{messages.left} Previous Page"> 
+      <f:param name="firstResult" value="#{reportParametersList.previousFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{reportParametersList.nextExists}" value="Next Page #{messages.right}"> 
+      <f:param name="firstResult" value="#{reportParametersList.nextFirstResult}"/> 
+    </s:link>  
+    <s:link view="#{request.servletPath}" rendered="#{reportParametersList.nextExists}" value="Last Page #{messages.right}#{messages.right}"> 
+      <f:param name="firstResult" value="#{reportParametersList.lastFirstResult}"/> 
+    </s:link> 
+  </div> 
+</ui:composition>

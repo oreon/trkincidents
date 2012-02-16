@@ -1,7 +1,11 @@
 package com.nas.recovery.web.action.reports;
 
+import org.jboss.seam.Component;
 import org.testng.annotations.Test;
 import org.witchcraft.action.test.BaseReportsTest;
+import org.witchcraft.jasperreports.BaseReportAction;
+
+import com.oreon.incidents.web.action.reports.IncidentsByWardAction;
 
 public class IncidentsByWardTest extends BaseReportsTest {
 
@@ -12,6 +16,18 @@ public class IncidentsByWardTest extends BaseReportsTest {
 		} catch (Exception e) {
 			throw new RuntimeException(e.getMessage());
 		}
+	}
+
+	//@Test
+	public void testIncidentsByWardReportAction() throws Exception {
+		new ComponentTest() {
+			protected void testComponents() throws Exception {
+				IncidentsByWardAction incidentsByWardAction = (IncidentsByWardAction) Component
+						.getInstance("incidentsByWardAction");
+				incidentsByWardAction.runReport("IncidentsByWard",
+						BaseReportAction.REPORT_TYPE.LOCAL.name());
+			}
+		}.run();
 	}
 
 }

@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <h:panelGroup> 
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewUserComponentPanel"> 
     <s:validateAll> 
-      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{userAction.load(userId )  }"> 
-        <h:outputText value="#{msg.id}"/>  
-        <h:outputText value="#{userAction.user.id}"/>  
-        <h:outputText value="#{msg.user_userName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('userName', 'userView')}"/>  
-        <h:outputText id="userName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('userName', 'userView')}" value="#{userAction.user.userName}"></h:outputText>  
-        <h:outputText value="#{msg.user_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('email', 'userView')}"/>  
-        <h:outputText id="email#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('email', 'userView')}" value="#{userAction.user.email}"></h:outputText>  
-        <h:outputText value="#{msg.user_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enabled', 'userView')}"/>  
-        <h:outputText id="enabled#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enabled', 'userView')}" value="#{userAction.user.enabled}"></h:outputText> 
+      <h:panelGrid columns="1" onload="#{userAction.load(userId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelUser eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.User}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.user_userName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('user', 'userNameView')}"/>  
+        <h:outputText id="userName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('user', 'userNameView')}" value="#{userAction.user.userName}"></h:outputText>  
+        <h:outputText value="#{msg.user_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('user', 'emailView')}"/>  
+        <h:outputText id="email#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('user', 'emailView')}" value="#{userAction.user.email}"></h:outputText>  
+        <h:outputText value="#{msg.user_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('user', 'enabledView')}"/>  
+        <h:outputText id="enabled#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('user', 'enabledView')}" value="#{userAction.user.enabled}"></h:outputText> 
       </h:panelGrid>  
+      <br/>  
+      <br/>  
       <br/>  
       <rich:simpleTogglePanel label="#{msg.user_roles}" switchType="client"> 
         <rich:dataTable value="#{userAction.listRoles}" var="item"> 

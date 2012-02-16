@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
   <ui:define name="content"> 
     <h:form> 
+      <!--PROTECTED REGION ID(EDITABLE_RGN_VIEW_employee_Department) ENABLED START-->  
+      <!--PROTECTED REGION END-->  
       <rich:tabPanel switchType="ajax"> 
         <rich:tab label="Department"> 
           <ui:include src="/admin/entities/employee/department/viewDepartmentComponent.xhtml"/>  
@@ -14,10 +16,11 @@
             </h:commandButton> 
           </div> 
         </rich:tab> 
-      </rich:tabPanel> 
+      </rich:tabPanel>  
+      <div class="buttonBox"></div> 
     </h:form>  
     <br/>  
-    <rich:tabPanel> 
+    <rich:tabPanel switchType="client"> 
       <rich:tab label="Employees" icon="/images/icons/bricks.png"> 
         <c:set var="modalId" value="DepartmentModalPanel-employees"/>  
         <ui:include src="/admin/entities/employee/employee/listEmployeeComponent.xhtml"> 
@@ -60,7 +63,7 @@
       </rich:tab> 
     </rich:tabPanel>  
     <br/>  
-    <rich:tabPanel> 
+    <rich:tabPanel switchType="client"> 
       <rich:tab label="Notes"> 
         <wc:comments backingAction="#{departmentAction}"/> 
       </rich:tab> 
