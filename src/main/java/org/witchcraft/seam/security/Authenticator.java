@@ -17,8 +17,8 @@ import org.jboss.seam.security.Credentials;
 import org.jboss.seam.security.Identity;
 import org.witchcraft.base.entity.UserUtilAction;
 
-import com.oreon.trkincidents.users.Role;
-import com.oreon.trkincidents.users.User;
+import com.oreon.incidents.users.Role;
+import com.oreon.incidents.users.User;
 
 @Name("authenticator")
 public class Authenticator {

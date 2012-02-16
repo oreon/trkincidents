@@ -36,8 +36,6 @@ import org.jboss.seam.log.Log;
 import org.jboss.seam.persistence.PersistenceProvider;
 import org.witchcraft.exceptions.ContractViolationException;
 
-import com.oreon.trkincidents.incidents.Incident;
-
 /**
  * @author User
  *
