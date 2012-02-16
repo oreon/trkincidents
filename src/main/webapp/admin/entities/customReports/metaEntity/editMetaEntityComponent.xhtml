@@ -1,30 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <h:panelGroup> 
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editMetaEntityComponentPanel"> 
     <s:validateAll> 
-      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{metaEntityAction.load(metaEntityId )  }"> 
-        <h:outputText value="#{msg.metaEntity_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'metaEntityEdit')}"/>  
-        <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'metaEntityEdit')}" label="#{msg.metaEntity_name}" required="true" value="#{metaEntityAction.metaEntity.name}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </h:inputText>  
-        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'metaEntityEdit')}"/> 
+      <h:panelGrid columns="1" onload="#{metaEntityAction.load(metaEntityId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelMetaEntity eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.MetaEntity}"/> 
+        </f:facet>  
+        <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.metaEntity_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaEntity', 'nameEdit')}"/>
+          </ui:define>  
+          <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaEntity', 'nameEdit')}" label="#{msg.metaEntity_name}" required="true" disabled="false" value="#{metaEntityAction.metaEntity.name}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate> 
       </h:panelGrid>  
-      <a:commandButton value="New MetaField" action="#{metaEntityAction.addMetaFields}" reRender="metaFields" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaFields', 'metaEntityEdit')}"> 
+      <br/>  
+      <a:commandButton value="New MetaField" action="#{metaEntityAction.addMetaFields}" reRender="metaFields" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaEntity', 'metaFieldsEdit')}"> 
         <s:conversationId/> 
       </a:commandButton>  
-      <rich:dataTable id="metaFields" var="_metaField" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaFields', 'metaEntityEdit')}" value="#{metaEntityAction.listMetaFields}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
-        <h:column style="text-align:right">
+      <rich:dataTable id="metaFields" var="_metaField" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaEntity', 'metaFieldsEdit')}" value="#{metaEntityAction.listMetaFields}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <h:column>
           <f:facet name="header">
-            <h:outputText value="#{msg.metaField_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'metaFieldEdit')}"/>
+            <h:outputText value="#{msg.metaField_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'nameEdit')}"/>
           </f:facet>  
-          <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'metaFieldEdit')}" label="#{msg.metaField_name}" required="true" value="#{_metaField.name}"> 
-            <rich:ajaxValidator event="onsubmit"/> 
-          </h:inputText>  
-          <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'metaFieldEdit')}"/> 
+          <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'nameEdit')}" label="#{msg.metaField_name}" required="true" disabled="false" value="#{_metaField.name}"> 
+              <rich:ajaxValidator event="onsubmit"/> 
+            </h:inputText> 
+          </s:decorate> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.metaField_type}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'typeEdit')}"/>
+          </f:facet>  
+          <s:decorate id="typeDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText id="type#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'typeEdit')}" label="#{msg.metaField_type}" required="false" disabled="false" value="#{_metaField.type}"> 
+              <rich:ajaxValidator event="onsubmit"/> 
+            </h:inputText> 
+          </s:decorate> 
         </h:column>  
         <h:column> 
-          <a:commandButton value="New MetaField" action="#{metaEntityAction.addMetaFields}" reRender="metaFields" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaFields', 'metaFieldEdit')}"> 
+          <a:commandButton value="New MetaField" action="#{metaEntityAction.addMetaFields}" reRender="metaFields" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'metaFieldsEdit')}"> 
             <s:conversationId/> 
           </a:commandButton> 
         </h:column>  
@@ -33,7 +57,8 @@
             <s:conversationId/> 
           </a:commandButton> 
         </h:column> 
-      </rich:dataTable> 
+      </rich:dataTable>  
+      <br/> 
     </s:validateAll> 
   </h:panelGroup> 
 </ui:composition>

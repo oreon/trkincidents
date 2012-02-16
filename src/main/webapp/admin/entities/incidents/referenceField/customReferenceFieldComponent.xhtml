@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <div class="entry errors">
     <h:messages globalOnly="true"/>
   </div>  
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.referenceField_incidentType} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incidentType', 'referenceFieldEdit')}"/>  
+        <h:outputText value="#{msg.referenceField_incidentType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('referenceField', 'incidentTypeEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="incidentType" value="#{referenceFieldAction.referenceField.incidentType}"> 
           <s:selectItems value="#{incidentTypeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="incidentType" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incidentType', 'referenceFieldEdit')}"/> 
+        <rich:message styleClass="error errors" for="incidentType" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('referenceField', 'incidentTypeEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.referenceField_referencesEntity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('referencesEntity', 'referenceFieldEdit')}"/>  
+        <h:outputText value="#{msg.referenceField_referencesEntity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('referenceField', 'referencesEntityEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="referencesEntity" value="#{referenceFieldAction.referenceField.referencesEntity}" required="false"> 
           <f:selectItem itemLabel="Please Select..." itemValue=""/>  
@@ -26,13 +26,13 @@
           <f:selectItem itemValue="Ward" itemLabel="Ward"/>  
           <f:selectItem itemValue="Morbidity" itemLabel="Morbidity"/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="referencesEntity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('referencesEntity', 'referenceFieldEdit')}"/> 
+        <rich:message styleClass="error errors" for="referencesEntity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('referenceField', 'referencesEntityEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.referenceField_required}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('required', 'referenceFieldEdit')}"/>  
+        <h:outputText value="#{msg.referenceField_required}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('referenceField', 'requiredEdit')}"/>  
         <br/>  
         <h:selectBooleanCheckbox id="required" value="#{referenceFieldAction.referenceField.required}"/>  
-        <rich:message styleClass="error errors" for="required" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('required', 'referenceFieldEdit')}"/> 
+        <rich:message styleClass="error errors" for="required" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('referenceField', 'requiredEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

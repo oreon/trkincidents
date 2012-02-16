@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <div class="entry errors">
     <h:messages globalOnly="true"/>
   </div>  
   <s:validateAll> 
     <h:panelGrid columns="3" styleClass="summarywrap"> 
       <h:panelGroup> 
-        <h:outputText value="#{msg.formField_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'formFieldEdit')}"/>  
+        <h:outputText value="#{msg.formField_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'nameEdit')}"/>  
         <br/>  
         <h:inputText id="name" value="#{formFieldAction.formField.name}"/>  
-        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'formFieldEdit')}"/> 
+        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'nameEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.formField_type}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('type', 'formFieldEdit')}"/>  
+        <h:outputText value="#{msg.formField_type}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'typeEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="type" value="#{formFieldAction.formField.type}" required="false"> 
           <f:selectItem itemLabel="Please Select..." itemValue=""/>  
@@ -23,28 +23,28 @@
           <f:selectItem itemValue="DATE" itemLabel="Date"/>  
           <f:selectItem itemValue="CHOICE" itemLabel="Choice"/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="type" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('type', 'formFieldEdit')}"/> 
+        <rich:message styleClass="error errors" for="type" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'typeEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.formField_required}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('required', 'formFieldEdit')}"/>  
+        <h:outputText value="#{msg.formField_required}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'requiredEdit')}"/>  
         <br/>  
         <h:selectBooleanCheckbox id="required" value="#{formFieldAction.formField.required}"/>  
-        <rich:message styleClass="error errors" for="required" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('required', 'formFieldEdit')}"/> 
+        <rich:message styleClass="error errors" for="required" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'requiredEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.formField_choiceValues}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('choiceValues', 'formFieldEdit')}"/>  
+        <h:outputText value="#{msg.formField_choiceValues}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'choiceValuesEdit')}"/>  
         <br/>  
         <h:inputText id="choiceValues" value="#{formFieldAction.formField.choiceValues}"/>  
-        <rich:message styleClass="error errors" for="choiceValues" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('choiceValues', 'formFieldEdit')}"/> 
+        <rich:message styleClass="error errors" for="choiceValues" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'choiceValuesEdit')}"/> 
       </h:panelGroup>  
       <h:panelGroup> 
-        <h:outputText value="#{msg.formField_incidentType} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incidentType', 'formFieldEdit')}"/>  
+        <h:outputText value="#{msg.formField_incidentType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'incidentTypeEdit')}"/>  
         <br/>  
         <h:selectOneMenu id="incidentType" value="#{formFieldAction.formField.incidentType}"> 
           <s:selectItems value="#{incidentTypeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
           <s:convertEntity/> 
         </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="incidentType" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incidentType', 'formFieldEdit')}"/> 
+        <rich:message styleClass="error errors" for="incidentType" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'incidentTypeEdit')}"/> 
       </h:panelGroup> 
     </h:panelGrid> 
   </s:validateAll> 

@@ -1,22 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <h:panelGroup> 
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editMetaFieldComponentPanel"> 
     <s:validateAll> 
-      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{metaFieldAction.load(metaFieldId )  }"> 
-        <h:outputText value="#{msg.metaField_metaEntity} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaEntity', 'metaFieldEdit')}"/>  
-        <h:selectOneMenu id="metaEntity" label="#{msg.metaField_metaEntity}" value="#{metaFieldAction.metaField.metaEntity}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaEntity', 'metaFieldEdit')}"> 
-          <s:selectItems value="#{metaEntityList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onsubmit"/>  
-          <s:convertEntity/> 
-        </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="metaEntity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaEntity', 'metaFieldEdit')}"/>  
-        <h:outputText value="#{msg.metaField_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'metaFieldEdit')}"/>  
-        <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'metaFieldEdit')}" label="#{msg.metaField_name}" required="true" value="#{metaFieldAction.metaField.name}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </h:inputText>  
-        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'metaFieldEdit')}"/> 
-      </h:panelGrid> 
+      <h:panelGrid columns="1" onload="#{metaFieldAction.load(metaFieldId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelMetaField eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.MetaField}"/> 
+        </f:facet>  
+        <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.metaField_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'nameEdit')}"/>
+          </ui:define>  
+          <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'nameEdit')}" label="#{msg.metaField_name}" required="true" disabled="false" value="#{metaFieldAction.metaField.name}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="typeDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.metaField_type}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'typeEdit')}"/>
+          </ui:define>  
+          <h:inputText id="type#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'typeEdit')}" label="#{msg.metaField_type}" required="false" disabled="false" value="#{metaFieldAction.metaField.type}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="metaEntityDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.metaField_metaEntity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'metaEntityEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="metaEntity" label="#{msg.metaField_metaEntity}" value="#{metaFieldAction.metaField.metaEntity}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaField', 'metaEntityEdit')}" disabled="false"> 
+            <s:selectItems value="#{metaEntityList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
     </s:validateAll> 
   </h:panelGroup> 
 </ui:composition>

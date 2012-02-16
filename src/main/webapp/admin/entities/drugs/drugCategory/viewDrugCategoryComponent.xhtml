@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <h:panelGroup> 
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewDrugCategoryComponentPanel"> 
     <s:validateAll> 
-      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{drugCategoryAction.load(drugCategoryId )  }"> 
-        <h:outputText value="#{msg.id}"/>  
-        <h:outputText value="#{drugCategoryAction.drugCategory.id}"/>  
-        <h:outputText value="#{msg.drugCategory_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'drugCategoryView')}"/>  
-        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'drugCategoryView')}" value="#{drugCategoryAction.drugCategory.name}"></h:outputText> 
+      <h:panelGrid columns="1" onload="#{drugCategoryAction.load(drugCategoryId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelDrugCategory eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.DrugCategory}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.drugCategory_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugCategory', 'nameView')}"/>  
+        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugCategory', 'nameView')}" value="#{drugCategoryAction.drugCategory.name}"></h:outputText> 
       </h:panelGrid>  
+      <br/>  
+      <br/>  
       <br/>  
       <rich:simpleTogglePanel label="#{msg.drugCategory_drugs}" switchType="client"> 
         <rich:dataTable value="#{drugCategoryAction.listDrugs}" var="item"> 

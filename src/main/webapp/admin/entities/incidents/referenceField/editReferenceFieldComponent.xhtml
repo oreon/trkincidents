@@ -1,33 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <h:panelGroup> 
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editReferenceFieldComponentPanel"> 
     <s:validateAll> 
-      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{referenceFieldAction.load(referenceFieldId )  }"> 
-        <h:outputText value="#{msg.referenceField_incidentType} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incidentType', 'referenceFieldEdit')}"/>  
-        <h:selectOneMenu id="incidentType" label="#{msg.referenceField_incidentType}" value="#{referenceFieldAction.referenceField.incidentType}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incidentType', 'referenceFieldEdit')}"> 
-          <s:selectItems value="#{incidentTypeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onsubmit"/>  
-          <s:convertEntity/> 
-        </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="incidentType" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incidentType', 'referenceFieldEdit')}"/>  
-        <h:outputText value="#{msg.referenceField_referencesEntity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('referencesEntity', 'referenceFieldEdit')}"/>  
-        <h:selectOneMenu id="referencesEntity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('referencesEntity', 'referenceFieldEdit')}" value="#{referenceFieldAction.referenceField.referencesEntity}" required="false" label="#{msg.referenceField_referencesEntity}"> 
-          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
-          <f:selectItem itemValue="Patient" itemLabel="#{msg.Patient}"/>  
-          <f:selectItem itemValue="Drug" itemLabel="#{msg.Drug}"/>  
-          <f:selectItem itemValue="Procedure" itemLabel="#{msg.Procedure}"/>  
-          <f:selectItem itemValue="Ward" itemLabel="#{msg.Ward}"/>  
-          <f:selectItem itemValue="Morbidity" itemLabel="#{msg.Morbidity}"/>  
-          <rich:ajaxValidator event="onsubmit"/> 
-        </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="referencesEntity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('referencesEntity', 'referenceFieldEdit')}"/>  
-        <h:outputText value="#{msg.referenceField_required}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('required', 'referenceFieldEdit')}"/>  
-        <h:selectBooleanCheckbox id="required#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('required', 'referenceFieldEdit')}" label="#{msg.referenceField_required}" required="false" value="#{referenceFieldAction.referenceField.required}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </h:selectBooleanCheckbox>  
-        <rich:message styleClass="error errors" for="required" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('required', 'referenceFieldEdit')}"/> 
-      </h:panelGrid> 
+      <h:panelGrid columns="1" onload="#{referenceFieldAction.load(referenceFieldId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelReferenceField eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.ReferenceField}"/> 
+        </f:facet>  
+        <s:decorate id="referencesEntityDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.referenceField_referencesEntity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('referenceField', 'referencesEntityEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="referencesEntity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('referenceField', 'referencesEntityEdit')}" value="#{referenceFieldAction.referenceField.referencesEntity}" required="false" label="#{msg.referenceField_referencesEntity}"> 
+            <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+            <f:selectItem itemValue="Patient" itemLabel="#{msg.Patient}"/>  
+            <f:selectItem itemValue="Drug" itemLabel="#{msg.Drug}"/>  
+            <f:selectItem itemValue="Procedure" itemLabel="#{msg.Procedure}"/>  
+            <f:selectItem itemValue="Ward" itemLabel="#{msg.Ward}"/>  
+            <f:selectItem itemValue="Morbidity" itemLabel="#{msg.Morbidity}"/>  
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="requiredDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.referenceField_required}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('referenceField', 'requiredEdit')}"/>
+          </ui:define>  
+          <h:selectBooleanCheckbox id="required#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('referenceField', 'requiredEdit')}" label="#{msg.referenceField_required}" required="false" disabled="false" value="#{referenceFieldAction.referenceField.required}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:selectBooleanCheckbox> 
+        </s:decorate>  
+        <s:decorate id="incidentTypeDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.referenceField_incidentType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('referenceField', 'incidentTypeEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="incidentType" label="#{msg.referenceField_incidentType}" value="#{referenceFieldAction.referenceField.incidentType}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('referenceField', 'incidentTypeEdit')}" disabled="false"> 
+            <s:selectItems value="#{incidentTypeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
     </s:validateAll> 
   </h:panelGroup> 
 </ui:composition>

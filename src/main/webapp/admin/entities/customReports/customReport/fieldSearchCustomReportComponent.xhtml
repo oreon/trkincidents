@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <div class="entry errors">
     <h:messages globalOnly="true"/>
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.customReport_fields}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('fields', 'customReportEdit')}"/>  
+      <h:outputText value="#{msg.customReport_fields}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customReport', 'fieldsEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="fields" value="#{ customReportList.fieldsToSearch}"> 
         <s:selectItems value="#{metaFieldList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -15,7 +15,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.customReport_groupFields}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('groupFields', 'customReportEdit')}"/>  
+      <h:outputText value="#{msg.customReport_groupFields}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customReport', 'groupFieldsEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="groupFields" value="#{ customReportList.groupFieldsToSearch}"> 
         <s:selectItems value="#{metaFieldList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  
@@ -24,12 +24,12 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.customReport_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'customReportEdit')}"/>  
+      <h:outputText value="#{msg.customReport_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customReport', 'nameEdit')}"/>  
       <br/>  
       <h:inputText id="name" value="#{customReportList.customReport.name}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.customReport_metaEntity} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaEntity', 'customReportEdit')}"/>  
+      <h:outputText value="#{msg.customReport_metaEntity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customReport', 'metaEntityEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="metaEntity" value="#{ customReportList.customReport.metaEntity}"> 
         <s:selectItems value="#{metaEntityList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  

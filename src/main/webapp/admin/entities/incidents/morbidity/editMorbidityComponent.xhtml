@@ -1,20 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <h:panelGroup> 
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editMorbidityComponentPanel"> 
     <s:validateAll> 
-      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{morbidityAction.load(morbidityId )  }"> 
-        <h:outputText value="#{msg.morbidity_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'morbidityEdit')}"/>  
-        <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'morbidityEdit')}" label="#{msg.morbidity_name}" required="true" value="#{morbidityAction.morbidity.name}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </h:inputText>  
-        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'morbidityEdit')}"/>  
-        <h:outputText value="#{msg.morbidity_code} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'morbidityEdit')}"/>  
-        <h:inputText id="code#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'morbidityEdit')}" label="#{msg.morbidity_code}" required="true" value="#{morbidityAction.morbidity.code}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </h:inputText>  
-        <rich:message styleClass="error errors" for="code" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'morbidityEdit')}"/> 
-      </h:panelGrid> 
+      <h:panelGrid columns="1" onload="#{morbidityAction.load(morbidityId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelMorbidity eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Morbidity}"/> 
+        </f:facet>  
+        <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.morbidity_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('morbidity', 'nameEdit')}"/>
+          </ui:define>  
+          <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('morbidity', 'nameEdit')}" label="#{msg.morbidity_name}" required="true" disabled="false" value="#{morbidityAction.morbidity.name}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="codeDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.morbidity_code}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('morbidity', 'codeEdit')}"/>
+          </ui:define>  
+          <h:inputText id="code#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('morbidity', 'codeEdit')}" label="#{msg.morbidity_code}" required="true" disabled="false" value="#{morbidityAction.morbidity.code}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
     </s:validateAll> 
   </h:panelGroup> 
 </ui:composition>

@@ -299,6 +299,18 @@
       <rule if-outcome="editMetaField"> 
         <redirect view-id="/admin/entities/customReports/metaField/editMetaField.xhtml"/>  
         <end-conversation/> 
+      </rule>  
+      <rule if-outcome="reportParameter"> 
+        <redirect view-id="/admin/entities/customReports/reportParameter/listReportParameter.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="viewReportParameter"> 
+        <redirect view-id="/admin/entities/customReports/reportParameter/viewReportParameter.xhtml"/>  
+        <end-conversation/> 
+      </rule>  
+      <rule if-outcome="editReportParameter"> 
+        <redirect view-id="/admin/entities/customReports/reportParameter/editReportParameter.xhtml"/>  
+        <end-conversation/> 
       </rule> 
     </navigation> 
   </page>  
@@ -333,6 +345,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/patient/patient/editPatient.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/patient/patient/textSearchResultsPatient.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{patientList.firstResult}"/>  
@@ -393,6 +408,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/incidents/incident/editIncident.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/incidents/incident/textSearchResultsIncident.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{incidentList.firstResult}"/>  
@@ -447,6 +465,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/incidents/incidentType/editIncidentType.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/incidents/incidentType/textSearchResultsIncidentType.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{incidentTypeList.firstResult}"/>  
@@ -488,6 +509,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/incidents/formField/editFormField.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/incidents/formField/textSearchResultsFormField.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{formFieldList.firstResult}"/>  
@@ -534,6 +558,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/incidents/formFieldInstance/editFormFieldInstance.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/incidents/formFieldInstance/textSearchResultsFormFieldInstance.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{formFieldInstanceList.firstResult}"/>  
@@ -580,6 +607,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/incidents/severity/editSeverity.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/incidents/severity/textSearchResultsSeverity.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{severityList.firstResult}"/>  
@@ -620,6 +650,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/incidents/proccedure/editProccedure.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/incidents/proccedure/textSearchResultsProccedure.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{proccedureList.firstResult}"/>  
@@ -661,6 +694,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/incidents/referenceField/editReferenceField.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/incidents/referenceField/textSearchResultsReferenceField.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{referenceFieldList.firstResult}"/>  
@@ -703,6 +739,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/incidents/ward/editWard.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/incidents/ward/textSearchResultsWard.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{wardList.firstResult}"/>  
@@ -743,6 +782,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/incidents/morbidity/editMorbidity.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/incidents/morbidity/textSearchResultsMorbidity.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{morbidityList.firstResult}"/>  
@@ -786,6 +828,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/employee/employee/editEmployee.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/employee/employee/textSearchResultsEmployee.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{employeeList.firstResult}"/>  
@@ -837,6 +882,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/employee/department/editDepartment.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/employee/department/textSearchResultsDepartment.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{departmentList.firstResult}"/>  
@@ -877,6 +925,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/users/user/editUser.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/users/user/textSearchResultsUser.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{userList.firstResult}"/>  
@@ -919,6 +970,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/users/role/editRole.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/users/role/textSearchResultsRole.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{roleList.firstResult}"/>  
@@ -959,6 +1013,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/facility/facility/editFacility.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/facility/facility/textSearchResultsFacility.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{facilityList.firstResult}"/>  
@@ -999,6 +1056,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/drugs/drug/editDrug.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/drugs/drug/textSearchResultsDrug.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{drugList.firstResult}"/>  
@@ -1023,8 +1083,7 @@
     <param name="toxicity" value="#{drugList.drug.toxicity}" validateModel="false"/>  
     <param name="routeOfElimination" value="#{drugList.drug.routeOfElimination}" validateModel="false"/>  
     <param name="volumeOfDistribution" value="#{drugList.drug.volumeOfDistribution}" validateModel="false"/>  
-    <param name="drugBankId" value="#{drugList.drug.drugBankId}" validateModel="false"/>  
-    <param name="categories" value="#{drugList.drug.categories}" validateModel="false"/> 
+    <param name="drugBankId" value="#{drugList.drug.drugBankId}" validateModel="false"/> 
   </page>  
   <page view-id="/admin/entities/drugs/drugInteraction/editDrugInteraction.xhtml"> 
     <!-- <description>Edit DrugInteraction: #{drugInteraction.displayName}</description> -->  
@@ -1059,6 +1118,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/drugs/drugInteraction/editDrugInteraction.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/drugs/drugInteraction/textSearchResultsDrugInteraction.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{drugInteractionList.firstResult}"/>  
@@ -1101,6 +1163,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/drugs/drugCategory/editDrugCategory.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/drugs/drugCategory/textSearchResultsDrugCategory.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{drugCategoryList.firstResult}"/>  
@@ -1142,6 +1207,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/customReports/customReport/editCustomReport.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/customReports/customReport/textSearchResultsCustomReport.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{customReportList.firstResult}"/>  
@@ -1183,6 +1251,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/customReports/metaEntity/editMetaEntity.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/customReports/metaEntity/textSearchResultsMetaEntity.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{metaEntityList.firstResult}"/>  
@@ -1224,6 +1295,9 @@
       </rule>  
       <rule if-outcome="edit"> 
         <redirect view-id="/admin/entities/customReports/metaField/editMetaField.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/customReports/metaField/textSearchResultsMetaField.xhtml"/> 
       </rule> 
     </navigation>  
     <param name="firstResult" value="#{metaFieldList.firstResult}"/>  
@@ -1232,7 +1306,57 @@
     <param name="from"/>  
     <param name="id" value="#{metaFieldList.metaField.id}"/>  
     <param name="name" value="#{metaFieldList.metaField.name}" validateModel="false"/>  
-    <param name="metaEntity" value="#{metaFieldList.metaField.metaEntity.id}" validateModel="false"/> 
+    <param name="metaEntity" value="#{metaFieldList.metaField.metaEntity.id}" validateModel="false"/>  
+    <param name="type" value="#{metaFieldList.metaField.type}" validateModel="false"/> 
+  </page>  
+  <page view-id="/admin/entities/customReports/reportParameter/editReportParameter.xhtml"> 
+    <!-- <description>Edit ReportParameter: #{reportParameter.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="save"> 
+        <redirect view-id="/admin/entities/customReports/reportParameter/viewReportParameter.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/customReports/reportParameter/listReportParameter.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="reportParameterId" value="#{reportParameterAction.reportParameterId}"/>  
+    <param name="customReportId" value="#{reportParameterAction.customReportId}"/>  
+    <param name="metaFieldId" value="#{reportParameterAction.metaFieldId}"/> 
+  </page>  
+  <page view-id="/admin/entities/customReports/reportParameter/viewReportParameter.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <!-- <description>View ReportParameter: #{reportParameter.displayName}</description> -->  
+    <navigation> 
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/customReports/reportParameter/editReportParameter.xhtml"/> 
+      </rule>  
+      <rule if-outcome="cancel"> 
+        <redirect view-id="/admin/entities/customReports/reportParameter/listReportParameter.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="reportParameterId" value="#{reportParameterAction.reportParameterId}"/> 
+  </page>  
+  <page view-id="/admin/entities/customReports/reportParameter/listReportParameter.xhtml" action="#{redirect.captureCurrentView()}"> 
+    <navigation> 
+      <rule if-outcome="viewReportParameter"> 
+        <redirect view-id="/admin/entities/customReports/reportParameter/viewReportParameter.xhtml"/> 
+      </rule>  
+      <rule if-outcome="edit"> 
+        <redirect view-id="/admin/entities/customReports/reportParameter/editReportParameter.xhtml"/> 
+      </rule>  
+      <rule if-outcome="textSearch"> 
+        <redirect view-id="/admin/entities/customReports/reportParameter/textSearchResultsReportParameter.xhtml"/> 
+      </rule> 
+    </navigation>  
+    <param name="firstResult" value="#{reportParameterList.firstResult}"/>  
+    <param name="sort" value="#{reportParameterList.orderColumn}"/>  
+    <param name="dir" value="#{reportParameterList.orderDirection}"/>  
+    <param name="from"/>  
+    <param name="id" value="#{reportParameterList.reportParameter.id}"/>  
+    <param name="customReport" value="#{reportParameterList.reportParameter.customReport.id}" validateModel="false"/>  
+    <param name="metaField" value="#{reportParameterList.reportParameter.metaField.id}" validateModel="false"/>  
+    <param name="comparison" value="#{reportParameterList.reportParameter.comparison}" validateModel="false"/>  
+    <param name="mandatory" value="#{reportParameterList.reportParameter.mandatory}" validateModel="false"/>  
+    <param name="defaultValue" value="#{reportParameterList.reportParameter.defaultValue}" validateModel="false"/> 
   </page>  
   <!--PROTECTED REGION ID(USER_EDITABLE_XCPT) ENABLED START-->  
   <exception class="org.jboss.seam.framework.EntityNotFoundException"> 

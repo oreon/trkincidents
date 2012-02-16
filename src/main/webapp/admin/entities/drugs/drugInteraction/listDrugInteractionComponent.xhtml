@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <c:if test="${empty modalId}"> 
     <c:set var="modalId" value="DrugInteractionModalPanel"/> 
   </c:if>  
@@ -21,7 +21,7 @@
           </f:facet>  
           <h:outputText value="#{_drugInteraction.id}"></h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('description', 'drugInteractionView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'descriptionView')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugInteractionList}"/>  
@@ -29,9 +29,10 @@
               <ui:param name="propertyPath" value="drugInteraction.description"/> 
             </ui:include> 
           </f:facet>  
-          <h:outputText value="#{_drugInteraction.description}" escape="false"/> 
+          <rich:toolTip value="#{_drugInteraction.description}" for="descriptionAbbr"></rich:toolTip>  
+          <h:outputText id="descriptionAbbr" value="#{_drugInteraction.descriptionAbbreviated}" escape="false"/> 
         </h:column>  
-        <h:column groupOn="#{drugInteraction.drug.displayName}" rendered="#{s:hasPermission('drug', 'drugInteractionView'  )}"> 
+        <h:column groupOn="#{drugInteraction.drug.displayName}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'drugView')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugInteractionList}"/>  
@@ -39,7 +40,7 @@
               <ui:param name="propertyPath" value="drugInteraction.drug"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_drugInteraction.drug.displayName}" action="viewDrug" propagation="none"> 
+          <s:link value="#{_drugInteraction.drug.displayName}" view="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
             <f:param name="drugId" value="#{_drugInteraction.drug.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/>  
             <rich:toolTip> 
@@ -47,7 +48,7 @@
             </rich:toolTip> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('interactingDrug', 'drugInteractionView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'interactingDrugView')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{drugInteractionList}"/>  
@@ -55,8 +56,8 @@
               <ui:param name="propertyPath" value="drugInteraction.interactingDrug"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_drugInteraction.interactingDrug.displayName}" action="viewDrug" propagation="none"> 
-            <f:param name="interactingDrugId" value="#{_drugInteraction.interactingDrug.id}"/>  
+          <s:link value="#{_drugInteraction.interactingDrug.displayName}" view="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
+            <f:param name="drugId" value="#{_drugInteraction.interactingDrug.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/>  
             <rich:toolTip> 
               <span>#{_drugInteraction.interactingDrug.popupInfo}</span> 

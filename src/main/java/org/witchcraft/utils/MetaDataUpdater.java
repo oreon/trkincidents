@@ -22,9 +22,10 @@ public class MetaDataUpdater {
 		for (String[] arr : MetaData.ARR_FIELDS) {
 			MetaEntity metaEntity = new MetaEntity();
 			metaEntity.setName(arr[0]);
-			for (int i = 1; i < arr.length; i++) {
+			for (int i = 1; i < arr.length; i += 2) {
 				MetaField metaField = new MetaField();
 				metaField.setName(arr[i]);
+				metaField.setType(arr[i+1]);
 				metaEntity.getMetaFields().add(metaField);
 				metaField.setMetaEntity(metaEntity);
 			}
@@ -40,6 +41,9 @@ public class MetaDataUpdater {
 				em.getTransaction().rollback();
 			}
 		}
+		
+		em.close();
+		emf.close();
 	}
 
 	public static void main(String[] args) {

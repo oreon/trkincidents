@@ -1,25 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <h:panelGroup> 
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewFormFieldComponentPanel"> 
     <s:validateAll> 
-      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{formFieldAction.load(formFieldId )  }"> 
-        <h:outputText value="#{msg.id}"/>  
-        <h:outputText value="#{formFieldAction.formField.id}"/>  
-        <h:outputText value="#{msg.formField_incidentType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incidentType', 'formFieldView')}"/>  
-        <s:link value="#{formFieldAction.formField.incidentType.displayName}" view="/admin/entities/incidents/incidentType/viewIncidentType.xhtml" propagation="none"> 
+      <h:panelGrid columns="1" onload="#{formFieldAction.load(formFieldId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelFormField eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.FormField}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.formField_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'nameView')}"/>  
+        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'nameView')}" value="#{formFieldAction.formField.name}"></h:outputText>  
+        <h:outputText value="#{msg.formField_type}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'typeView')}"/>  
+        <h:outputText value="#{formFieldAction.formField.type}"/>  
+        <h:outputText value="#{msg.formField_required}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'requiredView')}"/>  
+        <h:outputText id="required#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'requiredView')}" value="#{formFieldAction.formField.required}"></h:outputText>  
+        <h:outputText value="#{msg.formField_choiceValues}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'choiceValuesView')}"/>  
+        <h:outputText id="choiceValues#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'choiceValuesView')}" value="#{formFieldAction.formField.choiceValues}"></h:outputText>  
+        <h:outputText value="#{msg.formField_incidentType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'incidentTypeView')}"/>  
+        <s:link value="#{formFieldAction.formField.incidentType.displayName}" action="viewincidentType" propagation="none"> 
           <f:param name="incidentTypeId" value="#{formFieldAction.formField.incidentType.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
-        </s:link>  
-        <h:outputText value="#{msg.formField_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'formFieldView')}"/>  
-        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'formFieldView')}" value="#{formFieldAction.formField.name}"></h:outputText>  
-        <h:outputText value="#{msg.formField_type}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('type', 'formFieldView')}"/>  
-        <h:outputText value="#{formFieldAction.formField.type}"/>  
-        <h:outputText value="#{msg.formField_required}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('required', 'formFieldView')}"/>  
-        <h:outputText id="required#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('required', 'formFieldView')}" value="#{formFieldAction.formField.required}"></h:outputText>  
-        <h:outputText value="#{msg.formField_choiceValues}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('choiceValues', 'formFieldView')}"/>  
-        <h:outputText id="choiceValues#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('choiceValues', 'formFieldView')}" value="#{formFieldAction.formField.choiceValues}"></h:outputText> 
-      </h:panelGrid> 
+        </s:link> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
     </s:validateAll> 
   </h:panelGroup> 
 </ui:composition>

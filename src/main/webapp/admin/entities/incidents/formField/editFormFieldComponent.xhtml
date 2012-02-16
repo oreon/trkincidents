@@ -1,43 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <h:panelGroup> 
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editFormFieldComponentPanel"> 
     <s:validateAll> 
-      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{formFieldAction.load(formFieldId )  }"> 
-        <h:outputText value="#{msg.formField_incidentType} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incidentType', 'formFieldEdit')}"/>  
-        <h:selectOneMenu id="incidentType" label="#{msg.formField_incidentType}" value="#{formFieldAction.formField.incidentType}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incidentType', 'formFieldEdit')}"> 
-          <s:selectItems value="#{incidentTypeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onsubmit"/>  
-          <s:convertEntity/> 
-        </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="incidentType" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incidentType', 'formFieldEdit')}"/>  
-        <h:outputText value="#{msg.formField_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'formFieldEdit')}"/>  
-        <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'formFieldEdit')}" label="#{msg.formField_name}" required="true" value="#{formFieldAction.formField.name}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </h:inputText>  
-        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'formFieldEdit')}"/>  
-        <h:outputText value="#{msg.formField_type}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('type', 'formFieldEdit')}"/>  
-        <h:selectOneMenu id="type" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('type', 'formFieldEdit')}" value="#{formFieldAction.formField.type}" required="false" label="#{msg.formField_type}"> 
-          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
-          <f:selectItem itemValue="YES_NO" itemLabel="#{msg.YES_NO}"/>  
-          <f:selectItem itemValue="TEXT" itemLabel="#{msg.TEXT}"/>  
-          <f:selectItem itemValue="LARGE_TEXT" itemLabel="#{msg.LARGE_TEXT}"/>  
-          <f:selectItem itemValue="DATE" itemLabel="#{msg.DATE}"/>  
-          <f:selectItem itemValue="CHOICE" itemLabel="#{msg.CHOICE}"/>  
-          <rich:ajaxValidator event="onsubmit"/> 
-        </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="type" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('type', 'formFieldEdit')}"/>  
-        <h:outputText value="#{msg.formField_required}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('required', 'formFieldEdit')}"/>  
-        <h:selectBooleanCheckbox id="required#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('required', 'formFieldEdit')}" label="#{msg.formField_required}" required="false" value="#{formFieldAction.formField.required}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </h:selectBooleanCheckbox>  
-        <rich:message styleClass="error errors" for="required" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('required', 'formFieldEdit')}"/>  
-        <h:outputText value="#{msg.formField_choiceValues}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('choiceValues', 'formFieldEdit')}"/>  
-        <h:inputText id="choiceValues#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('choiceValues', 'formFieldEdit')}" label="#{msg.formField_choiceValues}" required="false" value="#{formFieldAction.formField.choiceValues}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </h:inputText>  
-        <rich:message styleClass="error errors" for="choiceValues" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('choiceValues', 'formFieldEdit')}"/> 
-      </h:panelGrid> 
+      <h:panelGrid columns="1" onload="#{formFieldAction.load(formFieldId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelFormField eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.FormField}"/> 
+        </f:facet>  
+        <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.formField_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'nameEdit')}"/>
+          </ui:define>  
+          <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'nameEdit')}" label="#{msg.formField_name}" required="true" disabled="false" value="#{formFieldAction.formField.name}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="typeDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.formField_type}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'typeEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="type" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'typeEdit')}" value="#{formFieldAction.formField.type}" required="false" label="#{msg.formField_type}"> 
+            <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+            <f:selectItem itemValue="YES_NO" itemLabel="#{msg.YES_NO}"/>  
+            <f:selectItem itemValue="TEXT" itemLabel="#{msg.TEXT}"/>  
+            <f:selectItem itemValue="LARGE_TEXT" itemLabel="#{msg.LARGE_TEXT}"/>  
+            <f:selectItem itemValue="DATE" itemLabel="#{msg.DATE}"/>  
+            <f:selectItem itemValue="CHOICE" itemLabel="#{msg.CHOICE}"/>  
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="requiredDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.formField_required}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'requiredEdit')}"/>
+          </ui:define>  
+          <h:selectBooleanCheckbox id="required#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'requiredEdit')}" label="#{msg.formField_required}" required="false" disabled="false" value="#{formFieldAction.formField.required}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:selectBooleanCheckbox> 
+        </s:decorate>  
+        <s:decorate id="choiceValuesDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.formField_choiceValues}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'choiceValuesEdit')}"/>
+          </ui:define>  
+          <h:inputText id="choiceValues#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'choiceValuesEdit')}" label="#{msg.formField_choiceValues}" required="false" disabled="false" value="#{formFieldAction.formField.choiceValues}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="incidentTypeDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.formField_incidentType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'incidentTypeEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="incidentType" label="#{msg.formField_incidentType}" value="#{formFieldAction.formField.incidentType}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'incidentTypeEdit')}" disabled="false"> 
+            <s:selectItems value="#{incidentTypeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
     </s:validateAll> 
   </h:panelGroup> 
 </ui:composition>

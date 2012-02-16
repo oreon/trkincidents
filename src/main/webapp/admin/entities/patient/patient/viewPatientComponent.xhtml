@@ -1,32 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <h:panelGroup> 
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewPatientComponentPanel"> 
     <s:validateAll> 
-      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{patientAction.load(patientId )  }"> 
-        <h:outputText value="#{msg.id}"/>  
-        <h:outputText value="#{patientAction.patient.id}"/>  
-        <h:outputText value="#{msg.address_streetAddress}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('streetAddress', 'patientView')}"/>  
-        <h:outputText id="address_streetAddress#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('streetAddress', 'patientView')}" value="#{patientAction.patient.address.streetAddress}"></h:outputText>  
-        <h:outputText value="#{msg.address_city}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('city', 'patientView')}"/>  
-        <h:outputText id="address_city#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('city', 'patientView')}" value="#{patientAction.patient.address.city}"></h:outputText>  
-        <h:outputText value="#{msg.address_state}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('state', 'patientView')}"/>  
-        <h:outputText id="address_state#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('state', 'patientView')}" value="#{patientAction.patient.address.state}"></h:outputText>  
-        <h:outputText value="#{msg.address_phone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('phone', 'patientView')}"/>  
-        <h:outputText id="address_phone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('phone', 'patientView')}" value="#{patientAction.patient.address.phone}"></h:outputText>  
-        <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'patientView')}"/>  
-        <h:outputText id="firstName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'patientView')}" value="#{patientAction.patient.firstName}"></h:outputText>  
-        <h:outputText value="#{msg.person_lastName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('lastName', 'patientView')}"/>  
-        <h:outputText id="lastName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('lastName', 'patientView')}" value="#{patientAction.patient.lastName}"></h:outputText>  
-        <h:outputText value="#{msg.patient_healthNumber}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('healthNumber', 'patientView')}"/>  
-        <h:outputText id="healthNumber#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('healthNumber', 'patientView')}" value="#{patientAction.patient.healthNumber}"></h:outputText>  
-        <h:outputText value="#{msg.patient_dateOfBirth}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateOfBirth', 'patientView')}"/>  
-        <h:outputText id="dateOfBirth#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateOfBirth', 'patientView')}" value="#{patientAction.patient.dateOfBirth}"></h:outputText>  
-        <h:outputText value="#{msg.patient_gender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('gender', 'patientView')}"/>  
+      <h:panelGrid columns="1" onload="#{patientAction.load(patientId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelPatient eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Patient}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'firstNameView')}"/>  
+        <h:outputText id="firstName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'firstNameView')}" value="#{patientAction.patient.firstName}"></h:outputText>  
+        <h:outputText value="#{msg.person_lastName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'lastNameView')}"/>  
+        <h:outputText id="lastName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'lastNameView')}" value="#{patientAction.patient.lastName}"></h:outputText>  
+        <h:outputText value="#{msg.patient_healthNumber}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'healthNumberView')}"/>  
+        <h:outputText id="healthNumber#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'healthNumberView')}" value="#{patientAction.patient.healthNumber}"></h:outputText>  
+        <h:outputText value="#{msg.patient_dateOfBirth}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'dateOfBirthView')}"/>  
+        <h:outputText direction="auto" id="dateOfBirth#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'dateOfBirthView')}" value="#{patientAction.patient.dateOfBirth}"></h:outputText>  
+        <h:outputText value="#{msg.patient_gender}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'genderView')}"/>  
         <h:outputText value="#{patientAction.patient.gender}"/>  
-        <h:outputText value="#{msg.patient_age}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('age', 'patientView')}"/>  
-        <h:outputText id="age#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('age', 'patientView')}" value="#{patientAction.patient.age}"></h:outputText> 
-      </h:panelGrid> 
+        <h:outputText value="#{msg.patient_age}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'ageView')}"/>  
+        <h:outputText id="age#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'ageView')}" value="#{patientAction.patient.age}"></h:outputText> 
+      </h:panelGrid>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelAddress eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Address}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.address_streetAddress}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'streetAddressView')}"/>  
+        <h:outputText id="address_streetAddress#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'streetAddressView')}" value="#{patientAction.patient.address.streetAddress}"></h:outputText>  
+        <h:outputText value="#{msg.address_city}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'cityView')}"/>  
+        <h:outputText id="address_city#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'cityView')}" value="#{patientAction.patient.address.city}"></h:outputText>  
+        <h:outputText value="#{msg.address_state}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'stateView')}"/>  
+        <h:outputText id="address_state#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'stateView')}" value="#{patientAction.patient.address.state}"></h:outputText>  
+        <h:outputText value="#{msg.address_phone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'phoneView')}"/>  
+        <h:outputText id="address_phone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'phoneView')}" value="#{patientAction.patient.address.phone}"></h:outputText> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
     </s:validateAll> 
   </h:panelGroup> 
 </ui:composition>

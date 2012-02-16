@@ -4,7 +4,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:s="http://jboss.com/products/seam/taglib"
 	xmlns:a="http://richfaces.org/a4j"
-	
+	xmlns:p="http://primefaces.prime.com.tr/ui"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:c="http://java.sun.com/jstl/core"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
@@ -18,13 +18,13 @@
 			<h:outputText value="IncidentsBySeverity" />
 		</f:facet>
 	
-		<h:panelGroup> <h:outputText value="#{msg.incidentsBySeverity_fromDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('fromDate', 'nullView')}"/> * </h:panelGroup>
+		<h:panelGroup> <h:outputText value="#{msg.incidentsBySeverity_fromDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'fromDateEdit')}"/> * </h:panelGroup>
 <rich:calendar  id="fromDate"  label="#{msg.incidentsBySeverity_fromDate}"  required="true"  value="#{incidentsBySeverityAction.fromDate}" />
-		<rich:message styleClass="error errors" for="fromDate" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('fromDate', 'nullEdit')}"/>
+		<rich:message styleClass="error errors" for="fromDate" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'fromDateEdit')}"/>
 	
-		<h:panelGroup> <h:outputText value="#{msg.incidentsBySeverity_toDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('toDate', 'nullView')}"/> * </h:panelGroup>
+		<h:panelGroup> <h:outputText value="#{msg.incidentsBySeverity_toDate}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'toDateEdit')}"/> * </h:panelGroup>
 <rich:calendar  id="toDate"  label="#{msg.incidentsBySeverity_toDate}"  required="true"  value="#{incidentsBySeverityAction.toDate}" />
-		<rich:message styleClass="error errors" for="toDate" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('toDate', 'nullEdit')}"/>
+		<rich:message styleClass="error errors" for="toDate" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'toDateEdit')}"/>
 	
 	</h:panelGrid>
 	</s:validateAll>

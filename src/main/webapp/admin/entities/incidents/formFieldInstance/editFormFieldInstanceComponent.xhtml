@@ -1,49 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <h:panelGroup> 
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editFormFieldInstanceComponentPanel"> 
     <s:validateAll> 
-      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{formFieldInstanceAction.load(formFieldInstanceId )  }"> 
-        <h:outputText value="#{msg.formFieldInstance_formField} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'formFieldInstanceEdit')}"/>  
-        <h:selectOneMenu id="formField" label="#{msg.formFieldInstance_formField}" value="#{formFieldInstanceAction.formFieldInstance.formField}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'formFieldInstanceEdit')}"> 
-          <s:selectItems value="#{formFieldList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onsubmit"/>  
-          <s:convertEntity/> 
-        </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="formField" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'formFieldInstanceEdit')}"/>  
-        <h:outputText value="#{msg.formFieldInstance_incident} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'formFieldInstanceEdit')}"/>  
-        <h:selectOneMenu id="incident" label="#{msg.formFieldInstance_incident}" value="#{formFieldInstanceAction.formFieldInstance.incident}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'formFieldInstanceEdit')}"> 
-          <s:selectItems value="#{incidentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onsubmit"/>  
-          <s:convertEntity/> 
-        </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="incident" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'formFieldInstanceEdit')}"/>  
-        <h:outputText value="#{msg.formFieldInstance_value}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('value', 'formFieldInstanceEdit')}"/>  
-        <h:inputText id="value#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('value', 'formFieldInstanceEdit')}" label="#{msg.formFieldInstance_value}" required="false" value="#{formFieldInstanceAction.formFieldInstance.value}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </h:inputText>  
-        <rich:message styleClass="error errors" for="value" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('value', 'formFieldInstanceEdit')}"/>  
-        <h:outputText value="#{msg.formFieldInstance_boolValue}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('boolValue', 'formFieldInstanceEdit')}"/>  
-        <h:selectBooleanCheckbox id="boolValue#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('boolValue', 'formFieldInstanceEdit')}" label="#{msg.formFieldInstance_boolValue}" required="false" value="#{formFieldInstanceAction.formFieldInstance.boolValue}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </h:selectBooleanCheckbox>  
-        <rich:message styleClass="error errors" for="boolValue" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('boolValue', 'formFieldInstanceEdit')}"/>  
-        <h:outputText value="#{msg.formFieldInstance_dateValue}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateValue', 'formFieldInstanceEdit')}"/>  
-        <rich:calendar id="dateValue#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateValue', 'formFieldInstanceEdit')}" label="#{msg.formFieldInstance_dateValue}" required="false" value="#{formFieldInstanceAction.formFieldInstance.dateValue}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </rich:calendar>  
-        <rich:message styleClass="error errors" for="dateValue" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateValue', 'formFieldInstanceEdit')}"/>  
-        <h:outputText value="#{msg.formFieldInstance_enumOrdinal}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enumOrdinal', 'formFieldInstanceEdit')}"/>  
-        <h:inputText id="enumOrdinal#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enumOrdinal', 'formFieldInstanceEdit')}" label="#{msg.formFieldInstance_enumOrdinal}" required="false" value="#{formFieldInstanceAction.formFieldInstance.enumOrdinal}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </h:inputText>  
-        <rich:message styleClass="error errors" for="enumOrdinal" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enumOrdinal', 'formFieldInstanceEdit')}"/>  
-        <h:outputText value="#{msg.formFieldInstance_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'formFieldInstanceEdit')}"/>  
-        <rich:editor useSeamText="true" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'formFieldInstanceEdit')}" label="#{msg.formFieldInstance_description}" required="false" value="#{formFieldInstanceAction.formFieldInstance.description}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </rich:editor>  
-        <rich:message styleClass="error errors" for="description" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'formFieldInstanceEdit')}"/> 
-      </h:panelGrid> 
+      <h:panelGrid columns="1" onload="#{formFieldInstanceAction.load(formFieldInstanceId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelFormFieldInstance eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.FormFieldInstance}"/> 
+        </f:facet>  
+        <s:decorate id="valueDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.formFieldInstance_value}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formFieldInstance', 'valueEdit')}"/>
+          </ui:define>  
+          <h:inputText id="value#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formFieldInstance', 'valueEdit')}" label="#{msg.formFieldInstance_value}" required="true" disabled="false" value="#{formFieldInstanceAction.formFieldInstance.value}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="boolValueDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.formFieldInstance_boolValue}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formFieldInstance', 'boolValueEdit')}"/>
+          </ui:define>  
+          <h:selectBooleanCheckbox id="boolValue#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formFieldInstance', 'boolValueEdit')}" label="#{msg.formFieldInstance_boolValue}" required="false" disabled="false" value="#{formFieldInstanceAction.formFieldInstance.boolValue}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:selectBooleanCheckbox> 
+        </s:decorate>  
+        <s:decorate id="dateValueDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.formFieldInstance_dateValue}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formFieldInstance', 'dateValueEdit')}"/>
+          </ui:define>  
+          <rich:calendar direction="auto" id="dateValue#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formFieldInstance', 'dateValueEdit')}" label="#{msg.formFieldInstance_dateValue}" required="true" disabled="false" value="#{formFieldInstanceAction.formFieldInstance.dateValue}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </rich:calendar> 
+        </s:decorate>  
+        <s:decorate id="enumOrdinalDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.formFieldInstance_enumOrdinal}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formFieldInstance', 'enumOrdinalEdit')}"/>
+          </ui:define>  
+          <h:inputText id="enumOrdinal#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formFieldInstance', 'enumOrdinalEdit')}" label="#{msg.formFieldInstance_enumOrdinal}" required="true" disabled="false" value="#{formFieldInstanceAction.formFieldInstance.enumOrdinal}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="descriptionDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.formFieldInstance_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formFieldInstance', 'descriptionEdit')}"/>
+          </ui:define>  
+          <rich:editor useSeamText="true" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formFieldInstance', 'descriptionEdit')}" label="#{msg.formFieldInstance_description}" required="true" disabled="false" value="#{formFieldInstanceAction.formFieldInstance.description}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </rich:editor> 
+        </s:decorate>  
+        <s:decorate id="formFieldDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.formFieldInstance_formField}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formFieldInstance', 'formFieldEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="formField" label="#{msg.formFieldInstance_formField}" value="#{formFieldInstanceAction.formFieldInstance.formField}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formFieldInstance', 'formFieldEdit')}" disabled="false"> 
+            <s:selectItems value="#{formFieldList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="incidentDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.formFieldInstance_incident}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formFieldInstance', 'incidentEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="incident" label="#{msg.formFieldInstance_incident}" value="#{formFieldInstanceAction.formFieldInstance.incident}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formFieldInstance', 'incidentEdit')}" disabled="false"> 
+            <s:selectItems value="#{incidentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
     </s:validateAll> 
   </h:panelGroup> 
 </ui:composition>

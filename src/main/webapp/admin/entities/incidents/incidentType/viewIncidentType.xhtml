@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf" template="/admin/template.xhtml">  
   <ui:define name="content"> 
     <h:form> 
+      <!--PROTECTED REGION ID(EDITABLE_RGN_VIEW_incidents_IncidentType) ENABLED START-->  
+      <!--PROTECTED REGION END-->  
       <rich:tabPanel switchType="ajax"> 
         <rich:tab label="IncidentType"> 
           <ui:include src="/admin/entities/incidents/incidentType/viewIncidentTypeComponent.xhtml"/>  
@@ -14,12 +16,13 @@
             </h:commandButton> 
           </div> 
         </rich:tab> 
-      </rich:tabPanel> 
+      </rich:tabPanel>  
+      <div class="buttonBox"></div> 
     </h:form>  
     <br/>  
-    <rich:tabPanel></rich:tabPanel>  
+    <rich:tabPanel switchType="client"></rich:tabPanel>  
     <br/>  
-    <rich:tabPanel> 
+    <rich:tabPanel switchType="client"> 
       <rich:tab label="Notes"> 
         <wc:comments backingAction="#{incidentTypeAction}"/> 
       </rich:tab> 

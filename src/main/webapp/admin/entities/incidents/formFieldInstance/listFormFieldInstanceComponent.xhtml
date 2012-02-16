@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <c:if test="${empty modalId}"> 
     <c:set var="modalId" value="FormFieldInstanceModalPanel"/> 
   </c:if>  
@@ -21,7 +21,7 @@
           </f:facet>  
           <h:outputText value="#{_formFieldInstance.id}"></h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('value', 'formFieldInstanceView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formFieldInstance', 'valueView')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{formFieldInstanceList}"/>  
@@ -31,7 +31,7 @@
           </f:facet>  
           <h:outputText value="#{_formFieldInstance.value}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('formField', 'formFieldInstanceView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formFieldInstance', 'formFieldView')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{formFieldInstanceList}"/>  
@@ -39,12 +39,12 @@
               <ui:param name="propertyPath" value="formFieldInstance.formField"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_formFieldInstance.formField.displayName}" action="viewFormField" propagation="none"> 
+          <s:link value="#{_formFieldInstance.formField.displayName}" view="/admin/entities/incidents/formField/viewFormField.xhtml" propagation="none"> 
             <f:param name="formFieldId" value="#{_formFieldInstance.formField.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('boolValue', 'formFieldInstanceView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formFieldInstance', 'boolValueView')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{formFieldInstanceList}"/>  
@@ -54,7 +54,7 @@
           </f:facet>  
           <h:outputText value="#{_formFieldInstance.boolValue? msg.yes : msg.no }"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('dateValue', 'formFieldInstanceView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formFieldInstance', 'dateValueView')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{formFieldInstanceList}"/>  
@@ -66,7 +66,7 @@
             <s:convertDateTime type="date" dateStyle="medium"/> 
           </h:outputText> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('enumOrdinal', 'formFieldInstanceView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formFieldInstance', 'enumOrdinalView')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{formFieldInstanceList}"/>  
@@ -76,7 +76,7 @@
           </f:facet>  
           <h:outputText value="#{_formFieldInstance.enumOrdinal}" escape="false"/> 
         </h:column>  
-        <h:column rendered="#{s:hasPermission('description', 'formFieldInstanceView'  )}"> 
+        <h:column rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formFieldInstance', 'descriptionView')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{formFieldInstanceList}"/>  
@@ -86,7 +86,7 @@
           </f:facet>  
           <h:outputText value="#{_formFieldInstance.description}" escape="false"/> 
         </h:column>  
-        <h:column groupOn="#{formFieldInstance.incident.displayName}" rendered="#{s:hasPermission('incident', 'formFieldInstanceView'  )}"> 
+        <h:column groupOn="#{formFieldInstance.incident.displayName}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formFieldInstance', 'incidentView')}"> 
           <f:facet name="header"> 
             <ui:include src="/layout/sort.xhtml"> 
               <ui:param name="entityList" value="#{formFieldInstanceList}"/>  
@@ -94,7 +94,7 @@
               <ui:param name="propertyPath" value="formFieldInstance.incident"/> 
             </ui:include> 
           </f:facet>  
-          <s:link value="#{_formFieldInstance.incident.displayName}" action="viewIncident" propagation="none"> 
+          <s:link value="#{_formFieldInstance.incident.displayName}" view="/admin/entities/incidents/incident/viewIncident.xhtml" propagation="none"> 
             <f:param name="incidentId" value="#{_formFieldInstance.incident.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/> 
           </s:link> 

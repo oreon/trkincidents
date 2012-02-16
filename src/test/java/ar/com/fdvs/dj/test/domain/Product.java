@@ -30,7 +30,6 @@
 package ar.com.fdvs.dj.test.domain;
 
 import java.io.InputStream;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;

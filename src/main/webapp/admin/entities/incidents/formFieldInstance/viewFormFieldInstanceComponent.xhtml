@@ -1,32 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <h:panelGroup> 
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewFormFieldInstanceComponentPanel"> 
     <s:validateAll> 
-      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{formFieldInstanceAction.load(formFieldInstanceId )  }"> 
-        <h:outputText value="#{msg.id}"/>  
-        <h:outputText value="#{formFieldInstanceAction.formFieldInstance.id}"/>  
-        <h:outputText value="#{msg.formFieldInstance_formField}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'formFieldInstanceView')}"/>  
-        <s:link value="#{formFieldInstanceAction.formFieldInstance.formField.displayName}" view="/admin/entities/incidents/formField/viewFormField.xhtml" propagation="none"> 
+      <h:panelGrid columns="1" onload="#{formFieldInstanceAction.load(formFieldInstanceId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelFormFieldInstance eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.FormFieldInstance}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.formFieldInstance_value}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formFieldInstance', 'valueView')}"/>  
+        <h:outputText id="value#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formFieldInstance', 'valueView')}" value="#{formFieldInstanceAction.formFieldInstance.value}"></h:outputText>  
+        <h:outputText value="#{msg.formFieldInstance_boolValue}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formFieldInstance', 'boolValueView')}"/>  
+        <h:outputText id="boolValue#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formFieldInstance', 'boolValueView')}" value="#{formFieldInstanceAction.formFieldInstance.boolValue}"></h:outputText>  
+        <h:outputText value="#{msg.formFieldInstance_dateValue}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formFieldInstance', 'dateValueView')}"/>  
+        <h:outputText direction="auto" id="dateValue#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formFieldInstance', 'dateValueView')}" value="#{formFieldInstanceAction.formFieldInstance.dateValue}"></h:outputText>  
+        <h:outputText value="#{msg.formFieldInstance_enumOrdinal}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formFieldInstance', 'enumOrdinalView')}"/>  
+        <h:outputText id="enumOrdinal#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formFieldInstance', 'enumOrdinalView')}" value="#{formFieldInstanceAction.formFieldInstance.enumOrdinal}"></h:outputText>  
+        <h:outputText value="#{msg.formFieldInstance_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formFieldInstance', 'descriptionView')}"/>  
+        <h:outputText escape="false" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formFieldInstance', 'descriptionView')}" value="#{formFieldInstanceAction.formFieldInstance.description}"></h:outputText>  
+        <h:outputText value="#{msg.formFieldInstance_formField}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formFieldInstance', 'formFieldView')}"/>  
+        <s:link value="#{formFieldInstanceAction.formFieldInstance.formField.displayName}" action="viewformField" propagation="none"> 
           <f:param name="formFieldId" value="#{formFieldInstanceAction.formFieldInstance.formField.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
         </s:link>  
-        <h:outputText value="#{msg.formFieldInstance_incident}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'formFieldInstanceView')}"/>  
-        <s:link value="#{formFieldInstanceAction.formFieldInstance.incident.displayName}" view="/admin/entities/incidents/incident/viewIncident.xhtml" propagation="none"> 
+        <h:outputText value="#{msg.formFieldInstance_incident}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formFieldInstance', 'incidentView')}"/>  
+        <s:link value="#{formFieldInstanceAction.formFieldInstance.incident.displayName}" action="viewincident" propagation="none"> 
           <f:param name="incidentId" value="#{formFieldInstanceAction.formFieldInstance.incident.id}"/>  
           <f:param name="from" value="#{request.servletPath}"/> 
-        </s:link>  
-        <h:outputText value="#{msg.formFieldInstance_value}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('value', 'formFieldInstanceView')}"/>  
-        <h:outputText id="value#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('value', 'formFieldInstanceView')}" value="#{formFieldInstanceAction.formFieldInstance.value}"></h:outputText>  
-        <h:outputText value="#{msg.formFieldInstance_boolValue}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('boolValue', 'formFieldInstanceView')}"/>  
-        <h:outputText id="boolValue#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('boolValue', 'formFieldInstanceView')}" value="#{formFieldInstanceAction.formFieldInstance.boolValue}"></h:outputText>  
-        <h:outputText value="#{msg.formFieldInstance_dateValue}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateValue', 'formFieldInstanceView')}"/>  
-        <h:outputText id="dateValue#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateValue', 'formFieldInstanceView')}" value="#{formFieldInstanceAction.formFieldInstance.dateValue}"></h:outputText>  
-        <h:outputText value="#{msg.formFieldInstance_enumOrdinal}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enumOrdinal', 'formFieldInstanceView')}"/>  
-        <h:outputText id="enumOrdinal#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enumOrdinal', 'formFieldInstanceView')}" value="#{formFieldInstanceAction.formFieldInstance.enumOrdinal}"></h:outputText>  
-        <h:outputText value="#{msg.formFieldInstance_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'formFieldInstanceView')}"/>  
-        <h:outputText escape="false" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'formFieldInstanceView')}" value="#{formFieldInstanceAction.formFieldInstance.description}"></h:outputText> 
-      </h:panelGrid> 
+        </s:link> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
     </s:validateAll> 
   </h:panelGroup> 
 </ui:composition>

@@ -1,77 +1,141 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <h:panelGroup> 
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editEmployeeComponentPanel"> 
     <s:validateAll> 
-      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{employeeAction.load(employeeId )  }"> 
-        <h:outputText value="#{msg.user_userName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('userName', 'employeeEdit')}"/>  
-        <h:inputText id="user_userName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('userName', 'employeeEdit')}" label="#{msg.user_userName}" required="true" value="#{employeeAction.employee.user.userName}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </h:inputText>  
-        <rich:message styleClass="error errors" for="user_userName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('userName', 'employeeEdit')}"/>  
-        <h:outputText value="#{msg.user_password} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('password', 'employeeEdit')}"/>  
-        <h:inputSecret redisplay="true" id="user_password#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('password', 'employeeEdit')}" label="#{msg.user_password}" required="true" value="#{employeeAction.employee.user.password}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </h:inputSecret>  
-        <rich:message styleClass="error errors" for="user_password" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('password', 'employeeEdit')}"/>  
-        <h:outputText value="#{msg.user_email} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('email', 'employeeEdit')}"/>  
-        <h:inputText id="user_email#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('email', 'employeeEdit')}" label="#{msg.user_email}" required="true" value="#{employeeAction.employee.user.email}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </h:inputText>  
-        <rich:message styleClass="error errors" for="user_email" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('email', 'employeeEdit')}"/>  
-        <h:outputText value="#{msg.user_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enabled', 'employeeEdit')}"/>  
-        <h:selectBooleanCheckbox id="user_enabled#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enabled', 'employeeEdit')}" label="#{msg.user_enabled}" required="false" value="#{employeeAction.employee.user.enabled}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </h:selectBooleanCheckbox>  
-        <rich:message styleClass="error errors" for="user_enabled" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enabled', 'employeeEdit')}"/>  
-        <h:outputText value="#{msg.employee_department} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('department', 'employeeEdit')}"/>  
-        <h:selectOneMenu id="department" label="#{msg.employee_department}" value="#{employeeAction.employee.department}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('department', 'employeeEdit')}"> 
-          <s:selectItems value="#{departmentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onsubmit"/>  
-          <s:convertEntity/> 
-        </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="department" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('department', 'employeeEdit')}"/>  
-        <h:outputText value="#{msg.contactDetails_primaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('primaryPhone', 'employeeEdit')}"/>  
-        <h:inputText id="contactDetails_primaryPhone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('primaryPhone', 'employeeEdit')}" label="#{msg.contactDetails_primaryPhone}" required="false" value="#{employeeAction.employee.contactDetails.primaryPhone}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </h:inputText>  
-        <rich:message styleClass="error errors" for="contactDetails_primaryPhone" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('primaryPhone', 'employeeEdit')}"/>  
-        <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('secondaryPhone', 'employeeEdit')}"/>  
-        <h:inputText id="contactDetails_secondaryPhone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('secondaryPhone', 'employeeEdit')}" label="#{msg.contactDetails_secondaryPhone}" required="false" value="#{employeeAction.employee.contactDetails.secondaryPhone}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </h:inputText>  
-        <rich:message styleClass="error errors" for="contactDetails_secondaryPhone" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('secondaryPhone', 'employeeEdit')}"/>  
-        <h:outputText value="#{msg.contactDetails_streetAddress}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('streetAddress', 'employeeEdit')}"/>  
-        <h:inputText id="contactDetails_streetAddress#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('streetAddress', 'employeeEdit')}" label="#{msg.contactDetails_streetAddress}" required="false" value="#{employeeAction.employee.contactDetails.streetAddress}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </h:inputText>  
-        <rich:message styleClass="error errors" for="contactDetails_streetAddress" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('streetAddress', 'employeeEdit')}"/>  
-        <h:outputText value="#{msg.contactDetails_city}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('city', 'employeeEdit')}"/>  
-        <h:inputText id="contactDetails_city#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('city', 'employeeEdit')}" label="#{msg.contactDetails_city}" required="false" value="#{employeeAction.employee.contactDetails.city}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </h:inputText>  
-        <rich:message styleClass="error errors" for="contactDetails_city" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('city', 'employeeEdit')}"/>  
-        <h:outputText value="#{msg.contactDetails_zip}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('zip', 'employeeEdit')}"/>  
-        <h:inputText id="contactDetails_zip#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('zip', 'employeeEdit')}" label="#{msg.contactDetails_zip}" required="false" value="#{employeeAction.employee.contactDetails.zip}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </h:inputText>  
-        <rich:message styleClass="error errors" for="contactDetails_zip" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('zip', 'employeeEdit')}"/>  
-        <h:outputText value="#{msg.person_firstName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'employeeEdit')}"/>  
-        <h:inputText id="firstName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'employeeEdit')}" label="#{msg.person_firstName}" required="true" value="#{employeeAction.employee.firstName}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </h:inputText>  
-        <rich:message styleClass="error errors" for="firstName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('firstName', 'employeeEdit')}"/>  
-        <h:outputText value="#{msg.person_lastName} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('lastName', 'employeeEdit')}"/>  
-        <h:inputText id="lastName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('lastName', 'employeeEdit')}" label="#{msg.person_lastName}" required="true" value="#{employeeAction.employee.lastName}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </h:inputText>  
-        <rich:message styleClass="error errors" for="lastName" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('lastName', 'employeeEdit')}"/>  
-        <h:outputText value="#{msg.employee_employeeNumber}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employeeNumber', 'employeeEdit')}"/>  
-        <h:inputText id="employeeNumber#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employeeNumber', 'employeeEdit')}" label="#{msg.employee_employeeNumber}" required="false" value="#{employeeAction.employee.employeeNumber}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </h:inputText>  
-        <rich:message styleClass="error errors" for="employeeNumber" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employeeNumber', 'employeeEdit')}"/> 
-      </h:panelGrid> 
+      <h:panelGrid columns="1" onload="#{employeeAction.load(employeeId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelEmployee eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Employee}"/> 
+        </f:facet>  
+        <s:decorate id="firstNameDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.person_firstName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'firstNameEdit')}"/>
+          </ui:define>  
+          <h:inputText id="firstName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'firstNameEdit')}" label="#{msg.person_firstName}" required="true" disabled="false" value="#{employeeAction.employee.firstName}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="lastNameDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.person_lastName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'lastNameEdit')}"/>
+          </ui:define>  
+          <h:inputText id="lastName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'lastNameEdit')}" label="#{msg.person_lastName}" required="true" disabled="false" value="#{employeeAction.employee.lastName}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="employeeNumberDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.employee_employeeNumber}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'employeeNumberEdit')}"/>
+          </ui:define>  
+          <h:inputText id="employeeNumber#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'employeeNumberEdit')}" label="#{msg.employee_employeeNumber}" required="true" disabled="false" value="#{employeeAction.employee.employeeNumber}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="departmentDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.employee_department}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'departmentEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="department" label="#{msg.employee_department}" value="#{employeeAction.employee.department}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'departmentEdit')}" disabled="false"> 
+            <s:selectItems value="#{departmentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelUser eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.User}"/> 
+        </f:facet>  
+        <s:decorate id="user_userNameDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.user_userName}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'userNameEdit')}"/>
+          </ui:define>  
+          <h:inputText id="user_userName#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'userNameEdit')}" label="#{msg.user_userName}" required="true" disabled="false" value="#{employeeAction.employee.user.userName}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="user_passwordDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.user_password}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'passwordEdit')}"/>
+          </ui:define>  
+          <h:inputSecret redisplay="true" id="user_password#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'passwordEdit')}" label="#{msg.user_password}" required="true" disabled="false" value="#{employeeAction.employee.user.password}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputSecret> 
+        </s:decorate>  
+        <s:decorate id="user_emailDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.user_email}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'emailEdit')}"/>
+          </ui:define>  
+          <h:inputText id="user_email#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'emailEdit')}" label="#{msg.user_email}" required="true" disabled="false" value="#{employeeAction.employee.user.email}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="user_enabledDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.user_enabled}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'enabledEdit')}"/>
+          </ui:define>  
+          <h:selectBooleanCheckbox id="user_enabled#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'enabledEdit')}" label="#{msg.user_enabled}" required="false" disabled="false" value="#{employeeAction.employee.user.enabled}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:selectBooleanCheckbox> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelContactDetails eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.ContactDetails}"/> 
+        </f:facet>  
+        <s:decorate id="contactDetails_primaryPhoneDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.contactDetails_primaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'primaryPhoneEdit')}"/>
+          </ui:define>  
+          <h:inputText id="contactDetails_primaryPhone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'primaryPhoneEdit')}" label="#{msg.contactDetails_primaryPhone}" required="true" disabled="false" value="#{employeeAction.employee.contactDetails.primaryPhone}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="contactDetails_secondaryPhoneDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.contactDetails_secondaryPhone}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'secondaryPhoneEdit')}"/>
+          </ui:define>  
+          <h:inputText id="contactDetails_secondaryPhone#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'secondaryPhoneEdit')}" label="#{msg.contactDetails_secondaryPhone}" required="true" disabled="false" value="#{employeeAction.employee.contactDetails.secondaryPhone}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="contactDetails_streetAddressDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.contactDetails_streetAddress}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'streetAddressEdit')}"/>
+          </ui:define>  
+          <h:inputText id="contactDetails_streetAddress#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'streetAddressEdit')}" label="#{msg.contactDetails_streetAddress}" required="true" disabled="false" value="#{employeeAction.employee.contactDetails.streetAddress}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="contactDetails_cityDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.contactDetails_city}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'cityEdit')}"/>
+          </ui:define>  
+          <h:inputText id="contactDetails_city#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'cityEdit')}" label="#{msg.contactDetails_city}" required="true" disabled="false" value="#{employeeAction.employee.contactDetails.city}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="contactDetails_zipDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.contactDetails_zip}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'zipEdit')}"/>
+          </ui:define>  
+          <h:inputText id="contactDetails_zip#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('employee', 'zipEdit')}" label="#{msg.contactDetails_zip}" required="true" disabled="false" value="#{employeeAction.employee.contactDetails.zip}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
     </s:validateAll> 
   </h:panelGroup> 
 </ui:composition>

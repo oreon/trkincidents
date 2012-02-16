@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <div class="entry errors">
     <h:messages globalOnly="true"/>
   </div>  
   <h:panelGrid columns="6"> 
     <h:panelGroup> 
-      <h:outputText value="#{msg.formField_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'formFieldEdit')}"/>  
+      <h:outputText value="#{msg.formField_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'nameEdit')}"/>  
       <br/>  
       <h:inputText id="name" value="#{formFieldList.formField.name}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.formField_type}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('type', 'formFieldEdit')}"/>  
+      <h:outputText value="#{msg.formField_type}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'typeEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="type" value="#{formFieldList.formField.type}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  
@@ -24,7 +24,7 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.formField_required}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('required', 'formFieldEdit')}"/>  
+      <h:outputText value="#{msg.formField_required}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'requiredEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="required" value="#{formFieldList.formField.required}" required="false"> 
         <f:selectItem itemLabel="Any" itemValue=""/>  
@@ -33,12 +33,12 @@
       </h:selectOneMenu> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.formField_choiceValues}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('choiceValues', 'formFieldEdit')}"/>  
+      <h:outputText value="#{msg.formField_choiceValues}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'choiceValuesEdit')}"/>  
       <br/>  
       <h:inputText id="choiceValues" value="#{formFieldList.formField.choiceValues}"/> 
     </h:panelGroup>  
     <h:panelGroup> 
-      <h:outputText value="#{msg.formField_incidentType} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incidentType', 'formFieldEdit')}"/>  
+      <h:outputText value="#{msg.formField_incidentType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'incidentTypeEdit')}"/>  
       <br/>  
       <h:selectOneMenu id="incidentType" value="#{ formFieldList.formField.incidentType}"> 
         <s:selectItems value="#{incidentTypeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Any..."/>  

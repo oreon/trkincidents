@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
   <h:form> 
     <rich:panelMenu style="width:162px" mode="ajax" iconExpandedGroup="disc" iconCollapsedGroup="disc" iconExpandedTopGroup="chevronUp" iconGroupTopPosition="right" iconCollapsedTopGroup="chevronDown" iconCollapsedTopPosition="right"> 
-      <rich:panelMenuGroup label="Patient" expanded="true"> 
+      <rich:panelMenuGroup label="Patient" expanded="#{panelMenuStateBean.state['Patient']}"> 
         <rich:panelMenuItem> 
           <h:commandLink value="Patient" action="patient"> 
             <s:conversationPropagation type="none"/> 
           </h:commandLink> 
         </rich:panelMenuItem> 
       </rich:panelMenuGroup>  
-      <rich:panelMenuGroup label="Incidents" expanded="true"> 
+      <rich:panelMenuGroup label="Incidents" expanded="#{panelMenuStateBean.state['Incidents']}"> 
         <rich:panelMenuItem> 
           <h:commandLink value="Incident" action="incident"> 
             <s:conversationPropagation type="none"/> 
@@ -57,7 +57,7 @@
           </h:commandLink> 
         </rich:panelMenuItem> 
       </rich:panelMenuGroup>  
-      <rich:panelMenuGroup label="Employee" expanded="true"> 
+      <rich:panelMenuGroup label="Employee" expanded="#{panelMenuStateBean.state['Employee']}"> 
         <rich:panelMenuItem> 
           <h:commandLink value="Employee" action="employee"> 
             <s:conversationPropagation type="none"/> 
@@ -69,7 +69,7 @@
           </h:commandLink> 
         </rich:panelMenuItem> 
       </rich:panelMenuGroup>  
-      <rich:panelMenuGroup label="Users" expanded="true"> 
+      <rich:panelMenuGroup label="Users" expanded="#{panelMenuStateBean.state['Users']}"> 
         <rich:panelMenuItem> 
           <h:commandLink value="User" action="user"> 
             <s:conversationPropagation type="none"/> 
@@ -81,14 +81,14 @@
           </h:commandLink> 
         </rich:panelMenuItem> 
       </rich:panelMenuGroup>  
-      <rich:panelMenuGroup label="Facility" expanded="true"> 
+      <rich:panelMenuGroup label="Facility" expanded="#{panelMenuStateBean.state['Facility']}"> 
         <rich:panelMenuItem> 
           <h:commandLink value="Facility" action="facility"> 
             <s:conversationPropagation type="none"/> 
           </h:commandLink> 
         </rich:panelMenuItem> 
       </rich:panelMenuGroup>  
-      <rich:panelMenuGroup label="Drugs" expanded="true"> 
+      <rich:panelMenuGroup label="Drugs" expanded="#{panelMenuStateBean.state['Drugs']}"> 
         <rich:panelMenuItem> 
           <h:commandLink value="Drug" action="drug"> 
             <s:conversationPropagation type="none"/> 
@@ -105,7 +105,7 @@
           </h:commandLink> 
         </rich:panelMenuItem> 
       </rich:panelMenuGroup>  
-      <rich:panelMenuGroup label="CustomReports" expanded="true"> 
+      <rich:panelMenuGroup label="CustomReports" expanded="#{panelMenuStateBean.state['CustomReports']}"> 
         <rich:panelMenuItem> 
           <h:commandLink value="CustomReport" action="customReport"> 
             <s:conversationPropagation type="none"/> 
@@ -118,6 +118,11 @@
         </rich:panelMenuItem>  
         <rich:panelMenuItem> 
           <h:commandLink value="MetaField" action="metaField"> 
+            <s:conversationPropagation type="none"/> 
+          </h:commandLink> 
+        </rich:panelMenuItem>  
+        <rich:panelMenuItem> 
+          <h:commandLink value="ReportParameter" action="reportParameter"> 
             <s:conversationPropagation type="none"/> 
           </h:commandLink> 
         </rich:panelMenuItem> 

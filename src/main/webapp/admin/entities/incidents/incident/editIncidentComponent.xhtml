@@ -1,181 +1,249 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <h:panelGroup> 
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editIncidentComponentPanel"> 
     <s:validateAll> 
-      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{incidentAction.load(incidentId )  }"> 
-        <h:outputText value="#{msg.incident_incidentType} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incidentType', 'incidentEdit')}"/>  
-        <h:selectOneMenu id="incidentType" label="#{msg.incident_incidentType}" value="#{incidentAction.incident.incidentType}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incidentType', 'incidentEdit')}"> 
-          <s:selectItems value="#{incidentTypeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onsubmit"/>  
-          <s:convertEntity/> 
-        </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="incidentType" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incidentType', 'incidentEdit')}"/>  
-        <h:outputText value="#{msg.incident_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'incidentEdit')}"/>  
-        <h:selectOneMenu id="patient" label="#{msg.incident_patient}" value="#{incidentAction.incident.patient}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'incidentEdit')}"> 
-          <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onsubmit"/>  
-          <s:convertEntity/> 
-        </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="patient" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patient', 'incidentEdit')}"/>  
-        <h:outputText value="#{msg.incident_createdBy}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('createdBy', 'incidentEdit')}"/>  
-        <h:selectOneMenu id="createdBy" label="#{msg.incident_createdBy}" value="#{incidentAction.incident.createdBy}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('createdBy', 'incidentEdit')}"> 
-          <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onsubmit"/>  
-          <s:convertEntity/> 
-        </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="createdBy" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('createdBy', 'incidentEdit')}"/>  
-        <h:outputText value="#{msg.incident_department} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('department', 'incidentEdit')}"/>  
-        <h:selectOneMenu id="department" label="#{msg.incident_department}" value="#{incidentAction.incident.department}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('department', 'incidentEdit')}"> 
-          <s:selectItems value="#{departmentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onsubmit"/>  
-          <s:convertEntity/> 
-        </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="department" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('department', 'incidentEdit')}"/>  
-        <h:outputText value="#{msg.incident_proccedure}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('proccedure', 'incidentEdit')}"/>  
-        <h:selectOneMenu id="proccedure" label="#{msg.incident_proccedure}" value="#{incidentAction.incident.proccedure}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('proccedure', 'incidentEdit')}"> 
-          <s:selectItems value="#{proccedureList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onsubmit"/>  
-          <s:convertEntity/> 
-        </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="proccedure" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('proccedure', 'incidentEdit')}"/>  
-        <h:outputText value="#{msg.incident_responsibleEmployee}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('responsibleEmployee', 'incidentEdit')}"/>  
-        <h:selectOneMenu id="responsibleEmployee" label="#{msg.incident_responsibleEmployee}" value="#{incidentAction.incident.responsibleEmployee}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('responsibleEmployee', 'incidentEdit')}"> 
-          <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onsubmit"/>  
-          <s:convertEntity/> 
-        </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="responsibleEmployee" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('responsibleEmployee', 'incidentEdit')}"/>  
-        <h:outputText value="#{msg.incident_severity} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('severity', 'incidentEdit')}"/>  
-        <h:selectOneMenu id="severity" label="#{msg.incident_severity}" value="#{incidentAction.incident.severity}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('severity', 'incidentEdit')}"> 
-          <s:selectItems value="#{severityList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onsubmit"/>  
-          <s:convertEntity/> 
-        </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="severity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('severity', 'incidentEdit')}"/>  
-        <h:outputText value="#{msg.incident_ward}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'incidentEdit')}"/>  
-        <h:selectOneMenu id="ward" label="#{msg.incident_ward}" value="#{incidentAction.incident.ward}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'incidentEdit')}"> 
-          <s:selectItems value="#{wardList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onsubmit"/>  
-          <s:convertEntity/> 
-        </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="ward" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('ward', 'incidentEdit')}"/>  
-        <h:outputText value="#{msg.incident_reportedTo}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportedTo', 'incidentEdit')}"/>  
-        <h:selectOneMenu id="reportedTo" label="#{msg.incident_reportedTo}" value="#{incidentAction.incident.reportedTo}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportedTo', 'incidentEdit')}"> 
-          <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onsubmit"/>  
-          <s:convertEntity/> 
-        </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="reportedTo" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportedTo', 'incidentEdit')}"/>  
-        <h:outputText value="#{msg.incident_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'incidentEdit')}"/>  
-        <h:selectOneMenu id="drug" label="#{msg.incident_drug}" value="#{incidentAction.incident.drug}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'incidentEdit')}"> 
-          <s:selectItems value="#{drugList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onsubmit"/>  
-          <s:convertEntity/> 
-        </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="drug" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'incidentEdit')}"/>  
-        <h:outputText value="#{msg.incident_morbidity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('morbidity', 'incidentEdit')}"/>  
-        <h:selectOneMenu id="morbidity" label="#{msg.incident_morbidity}" value="#{incidentAction.incident.morbidity}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('morbidity', 'incidentEdit')}"> 
-          <s:selectItems value="#{morbidityList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onsubmit"/>  
-          <s:convertEntity/> 
-        </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="morbidity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('morbidity', 'incidentEdit')}"/>  
-        <h:outputText value="#{msg.incident_title} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('title', 'incidentEdit')}"/>  
-        <h:inputText id="title#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('title', 'incidentEdit')}" label="#{msg.incident_title}" required="true" value="#{incidentAction.incident.title}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </h:inputText>  
-        <rich:message styleClass="error errors" for="title" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('title', 'incidentEdit')}"/>  
-        <h:outputText value="#{msg.incident_dateOfIncident}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateOfIncident', 'incidentEdit')}"/>  
-        <rich:calendar id="dateOfIncident#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateOfIncident', 'incidentEdit')}" label="#{msg.incident_dateOfIncident}" required="false" value="#{incidentAction.incident.dateOfIncident}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </rich:calendar>  
-        <rich:message styleClass="error errors" for="dateOfIncident" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateOfIncident', 'incidentEdit')}"/>  
-        <h:outputText value="#{msg.incident_document}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'incidentEdit')}"/>  
-        <h:panelGroup> 
-          <h:outputText value="Current File:"/>  
-          <s:link value="#{incidentAction.incident.document.name}" id="document_file" action="#{incidentAction.downloadFile(null)}" propagation="none"> 
-            <f:param name="currentEntityId" value="#{incidentAction.instance.id}"/> 
-          </s:link>  
-          <rich:fileUpload fileUploadListener="#{incidentAction.documentUploadListener}" immediateUpload="true" ajaxSingle="true" autoclear="false" listHeight="50"> 
-            <s:conversationPropagation type="join"/>  
-            <a:support event="onuploadcomplete" reRender="document_file"/> 
-          </rich:fileUpload> 
-        </h:panelGroup>  
-        <rich:message styleClass="error errors" for="document" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('document', 'incidentEdit')}"/>  
-        <h:outputText value="#{msg.incident_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'incidentEdit')}"/>  
-        <rich:editor useSeamText="true" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'incidentEdit')}" label="#{msg.incident_description}" required="false" value="#{incidentAction.incident.description}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </rich:editor>  
-        <rich:message styleClass="error errors" for="description" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'incidentEdit')}"/>  
-        <h:outputText value="#{msg.incident_preventiveAction}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('preventiveAction', 'incidentEdit')}"/>  
-        <rich:editor useSeamText="true" id="preventiveAction#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('preventiveAction', 'incidentEdit')}" label="#{msg.incident_preventiveAction}" required="false" value="#{incidentAction.incident.preventiveAction}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </rich:editor>  
-        <rich:message styleClass="error errors" for="preventiveAction" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('preventiveAction', 'incidentEdit')}"/> 
-      </h:panelGrid>  
-      <a:commandButton value="New FormFieldInstance" action="#{incidentAction.addFormFieldInstances}" reRender="formFieldInstances" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formFieldInstances', 'incidentEdit')}"> 
-        <s:conversationId/> 
-      </a:commandButton>  
-      <rich:dataTable id="formFieldInstances" var="_formFieldInstance" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formFieldInstances', 'incidentEdit')}" value="#{incidentAction.listFormFieldInstances}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
-        <h:column style="text-align:right">
-          <f:facet name="header">
-            <h:outputText value="#{msg.formFieldInstance_formField} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'formFieldInstanceEdit')}"/>
-          </f:facet>  
-          <h:selectOneMenu id="formField" label="#{msg.formFieldInstance_formField}" value="#{_formFieldInstance.formField}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'formFieldInstanceEdit')}"> 
-            <s:selectItems value="#{formFieldList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+      <h:panelGrid columns="1" onload="#{incidentAction.load(incidentId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelIncident eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Incident}"/> 
+        </f:facet>  
+        <s:decorate id="titleDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.incident_title}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'titleEdit')}"/>
+          </ui:define>  
+          <h:inputText id="title#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'titleEdit')}" label="#{msg.incident_title}" required="true" disabled="false" value="#{incidentAction.incident.title}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="dateOfIncidentDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.incident_dateOfIncident}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'dateOfIncidentEdit')}"/>
+          </ui:define>  
+          <rich:calendar direction="auto" id="dateOfIncident#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'dateOfIncidentEdit')}" label="#{msg.incident_dateOfIncident}" required="false" disabled="false" value="#{incidentAction.incident.dateOfIncident}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </rich:calendar> 
+        </s:decorate>  
+        <s:decorate id="documentDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.incident_document}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'documentEdit')}"/>
+          </ui:define>  
+          <h:panelGroup rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'documentEdit')}"> 
+            <h:outputText value="Current File:"/>  
+            <s:link value="#{incidentAction.incident.document.name}" id="document_file" action="#{incidentAction.downloadFile(null)}" propagation="none"> 
+              <f:param name="currentEntityId" value="#{incidentAction.instance.id}"/> 
+            </s:link>  
+            <rich:fileUpload fileUploadListener="#{incidentAction.documentUploadListener}" immediateUpload="true" ajaxSingle="true" autoclear="false" listHeight="30" listWidth="250"> 
+              <s:conversationPropagation type="join"/>  
+              <a:support event="onuploadcomplete" reRender="document_file"/> 
+            </rich:fileUpload> 
+          </h:panelGroup> 
+        </s:decorate>  
+        <s:decorate id="descriptionDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.incident_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'descriptionEdit')}"/>
+          </ui:define>  
+          <rich:editor useSeamText="true" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'descriptionEdit')}" label="#{msg.incident_description}" required="true" disabled="false" value="#{incidentAction.incident.description}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </rich:editor> 
+        </s:decorate>  
+        <s:decorate id="preventiveActionDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.incident_preventiveAction}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'preventiveActionEdit')}"/>
+          </ui:define>  
+          <rich:editor useSeamText="true" id="preventiveAction#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'preventiveActionEdit')}" label="#{msg.incident_preventiveAction}" required="true" disabled="false" value="#{incidentAction.incident.preventiveAction}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </rich:editor> 
+        </s:decorate>  
+        <s:decorate id="incidentTypeDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.incident_incidentType}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'incidentTypeEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="incidentType" label="#{msg.incident_incidentType}" value="#{incidentAction.incident.incidentType}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'incidentTypeEdit')}" disabled="false"> 
+            <s:selectItems value="#{incidentTypeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
             <rich:ajaxValidator event="onsubmit"/>  
             <s:convertEntity/> 
-          </h:selectOneMenu>  
-          <rich:message styleClass="error errors" for="formField" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formField', 'formFieldInstanceEdit')}"/> 
-        </h:column>  
-        <h:column style="text-align:left">
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="patientDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.incident_patient}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'patientEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="patient" label="#{msg.incident_patient}" value="#{incidentAction.incident.patient}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'patientEdit')}" disabled="false"> 
+            <s:selectItems value="#{patientList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="createdByDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.incident_createdBy}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'createdByEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="createdBy" label="#{msg.incident_createdBy}" value="#{incidentAction.incident.createdBy}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'createdByEdit')}" disabled="false"> 
+            <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="departmentDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.incident_department}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'departmentEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="department" label="#{msg.incident_department}" value="#{incidentAction.incident.department}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'departmentEdit')}" disabled="false"> 
+            <s:selectItems value="#{departmentList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="proccedureDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.incident_proccedure}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'proccedureEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="proccedure" label="#{msg.incident_proccedure}" value="#{incidentAction.incident.proccedure}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'proccedureEdit')}" disabled="false"> 
+            <s:selectItems value="#{proccedureList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="responsibleEmployeeDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.incident_responsibleEmployee}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'responsibleEmployeeEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="responsibleEmployee" label="#{msg.incident_responsibleEmployee}" value="#{incidentAction.incident.responsibleEmployee}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'responsibleEmployeeEdit')}" disabled="false"> 
+            <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="severityDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.incident_severity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'severityEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="severity" label="#{msg.incident_severity}" value="#{incidentAction.incident.severity}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'severityEdit')}" disabled="false"> 
+            <s:selectItems value="#{severityList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="wardDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.incident_ward}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'wardEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="ward" label="#{msg.incident_ward}" value="#{incidentAction.incident.ward}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'wardEdit')}" disabled="false"> 
+            <s:selectItems value="#{wardList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="reportedToDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.incident_reportedTo}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'reportedToEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="reportedTo" label="#{msg.incident_reportedTo}" value="#{incidentAction.incident.reportedTo}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'reportedToEdit')}" disabled="false"> 
+            <s:selectItems value="#{employeeList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="drugDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.incident_drug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'drugEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="drug" label="#{msg.incident_drug}" value="#{incidentAction.incident.drug}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'drugEdit')}" disabled="false"> 
+            <s:selectItems value="#{drugList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="morbidityDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.incident_morbidity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'morbidityEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="morbidity" label="#{msg.incident_morbidity}" value="#{incidentAction.incident.morbidity}" required="false" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'morbidityEdit')}" disabled="false"> 
+            <s:selectItems value="#{morbidityList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <a:commandButton value="New FormFieldInstance" action="#{incidentAction.addFormFieldInstances}" reRender="formFieldInstances" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'formFieldInstancesEdit')}"> 
+        <s:conversationId/> 
+      </a:commandButton>  
+      <rich:dataTable id="formFieldInstances" var="_formFieldInstance" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('incident', 'formFieldInstancesEdit')}" value="#{incidentAction.listFormFieldInstances}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <h:column>
           <f:facet name="header">
-            <h:outputText value="#{msg.formFieldInstance_value}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('value', 'formFieldInstanceEdit')}"/>
+            <h:outputText value="#{msg.formFieldInstance_formField}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formFieldInstance', 'formFieldEdit')}"/>
           </f:facet>  
-          <h:inputText id="value#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('value', 'formFieldInstanceEdit')}" label="#{msg.formFieldInstance_value}" required="false" value="#{_formFieldInstance.value}"> 
-            <rich:ajaxValidator event="onsubmit"/> 
-          </h:inputText>  
-          <rich:message styleClass="error errors" for="value" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('value', 'formFieldInstanceEdit')}"/> 
+          <s:decorate id="formFieldDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:selectOneMenu id="formField" label="#{msg.formFieldInstance_formField}" value="#{_formFieldInstance.formField}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formFieldInstance', 'formFieldEdit')}" disabled="false"> 
+              <s:selectItems value="#{formFieldList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+              <rich:ajaxValidator event="onsubmit"/>  
+              <s:convertEntity/> 
+            </h:selectOneMenu> 
+          </s:decorate> 
         </h:column>  
-        <h:column style="text-align:right">
+        <h:column>
           <f:facet name="header">
-            <h:outputText value="#{msg.formFieldInstance_boolValue}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('boolValue', 'formFieldInstanceEdit')}"/>
+            <h:outputText value="#{msg.formFieldInstance_value}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formFieldInstance', 'valueEdit')}"/>
           </f:facet>  
-          <h:selectBooleanCheckbox id="boolValue#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('boolValue', 'formFieldInstanceEdit')}" label="#{msg.formFieldInstance_boolValue}" required="false" value="#{_formFieldInstance.boolValue}"> 
-            <rich:ajaxValidator event="onsubmit"/> 
-          </h:selectBooleanCheckbox>  
-          <rich:message styleClass="error errors" for="boolValue" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('boolValue', 'formFieldInstanceEdit')}"/> 
+          <s:decorate id="valueDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText id="value#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formFieldInstance', 'valueEdit')}" label="#{msg.formFieldInstance_value}" required="true" disabled="false" value="#{_formFieldInstance.value}"> 
+              <rich:ajaxValidator event="onsubmit"/> 
+            </h:inputText> 
+          </s:decorate> 
         </h:column>  
-        <h:column style="text-align:right">
+        <h:column>
           <f:facet name="header">
-            <h:outputText value="#{msg.formFieldInstance_dateValue}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateValue', 'formFieldInstanceEdit')}"/>
+            <h:outputText value="#{msg.formFieldInstance_boolValue}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formFieldInstance', 'boolValueEdit')}"/>
           </f:facet>  
-          <rich:calendar id="dateValue#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateValue', 'formFieldInstanceEdit')}" label="#{msg.formFieldInstance_dateValue}" required="false" value="#{_formFieldInstance.dateValue}"> 
-            <rich:ajaxValidator event="onsubmit"/> 
-          </rich:calendar>  
-          <rich:message styleClass="error errors" for="dateValue" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dateValue', 'formFieldInstanceEdit')}"/> 
+          <s:decorate id="boolValueDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:selectBooleanCheckbox id="boolValue#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formFieldInstance', 'boolValueEdit')}" label="#{msg.formFieldInstance_boolValue}" required="false" disabled="false" value="#{_formFieldInstance.boolValue}"> 
+              <rich:ajaxValidator event="onsubmit"/> 
+            </h:selectBooleanCheckbox> 
+          </s:decorate> 
         </h:column>  
-        <h:column style="text-align:right">
+        <h:column>
           <f:facet name="header">
-            <h:outputText value="#{msg.formFieldInstance_enumOrdinal}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enumOrdinal', 'formFieldInstanceEdit')}"/>
+            <h:outputText value="#{msg.formFieldInstance_dateValue}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formFieldInstance', 'dateValueEdit')}"/>
           </f:facet>  
-          <h:inputText id="enumOrdinal#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enumOrdinal', 'formFieldInstanceEdit')}" label="#{msg.formFieldInstance_enumOrdinal}" required="false" value="#{_formFieldInstance.enumOrdinal}"> 
-            <rich:ajaxValidator event="onsubmit"/> 
-          </h:inputText>  
-          <rich:message styleClass="error errors" for="enumOrdinal" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('enumOrdinal', 'formFieldInstanceEdit')}"/> 
+          <s:decorate id="dateValueDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <rich:calendar direction="auto" id="dateValue#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formFieldInstance', 'dateValueEdit')}" label="#{msg.formFieldInstance_dateValue}" required="true" disabled="false" value="#{_formFieldInstance.dateValue}"> 
+              <rich:ajaxValidator event="onsubmit"/> 
+            </rich:calendar> 
+          </s:decorate> 
         </h:column>  
-        <h:column style="text-align:right">
+        <h:column>
           <f:facet name="header">
-            <h:outputText value="#{msg.formFieldInstance_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'formFieldInstanceEdit')}"/>
+            <h:outputText value="#{msg.formFieldInstance_enumOrdinal}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formFieldInstance', 'enumOrdinalEdit')}"/>
           </f:facet>  
-          <rich:editor useSeamText="true" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'formFieldInstanceEdit')}" label="#{msg.formFieldInstance_description}" required="false" value="#{_formFieldInstance.description}"> 
-            <rich:ajaxValidator event="onsubmit"/> 
-          </rich:editor>  
-          <rich:message styleClass="error errors" for="description" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'formFieldInstanceEdit')}"/> 
+          <s:decorate id="enumOrdinalDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText id="enumOrdinal#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formFieldInstance', 'enumOrdinalEdit')}" label="#{msg.formFieldInstance_enumOrdinal}" required="true" disabled="false" value="#{_formFieldInstance.enumOrdinal}"> 
+              <rich:ajaxValidator event="onsubmit"/> 
+            </h:inputText> 
+          </s:decorate> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.formFieldInstance_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formFieldInstance', 'descriptionEdit')}"/>
+          </f:facet>  
+          <s:decorate id="descriptionDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <rich:editor useSeamText="true" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formFieldInstance', 'descriptionEdit')}" label="#{msg.formFieldInstance_description}" required="true" disabled="false" value="#{_formFieldInstance.description}"> 
+              <rich:ajaxValidator event="onsubmit"/> 
+            </rich:editor> 
+          </s:decorate> 
         </h:column>  
         <h:column> 
-          <a:commandButton value="New FormFieldInstance" action="#{incidentAction.addFormFieldInstances}" reRender="formFieldInstances" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formFieldInstances', 'formFieldInstanceEdit')}"> 
+          <a:commandButton value="New FormFieldInstance" action="#{incidentAction.addFormFieldInstances}" reRender="formFieldInstances" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('formFieldInstance', 'formFieldInstancesEdit')}"> 
             <s:conversationId/> 
           </a:commandButton> 
         </h:column>  
@@ -184,7 +252,8 @@
             <s:conversationId/> 
           </a:commandButton> 
         </h:column> 
-      </rich:dataTable> 
+      </rich:dataTable>  
+      <br/> 
     </s:validateAll> 
   </h:panelGroup> 
 </ui:composition>

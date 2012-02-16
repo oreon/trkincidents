@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <div class="entry errors">
+    <h:messages globalOnly="true"/>
+  </div>  
+  <s:validateAll> 
+    <h:panelGrid columns="3" styleClass="summarywrap"> 
+      <h:panelGroup> 
+        <h:outputText value="#{msg.reportParameter_customReport}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'customReportEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="customReport" value="#{reportParameterAction.reportParameter.customReport}"> 
+          <s:selectItems value="#{customReportList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="customReport" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'customReportEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.reportParameter_metaField}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'metaFieldEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="metaField" value="#{reportParameterAction.reportParameter.metaField}"> 
+          <s:selectItems value="#{metaFieldList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Select.."/>  
+          <s:convertEntity/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="metaField" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'metaFieldEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.reportParameter_comparison}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'comparisonEdit')}"/>  
+        <br/>  
+        <h:selectOneMenu id="comparison" value="#{reportParameterAction.reportParameter.comparison}" required="false"> 
+          <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+          <f:selectItem itemValue="GREATER_THAN" itemLabel="Greater_than"/>  
+          <f:selectItem itemValue="LESS_THAN" itemLabel="Less_than"/>  
+          <f:selectItem itemValue="EQUAL" itemLabel="Equal"/>  
+          <f:selectItem itemValue="NOT_EQUAL" itemLabel="Not_equal"/> 
+        </h:selectOneMenu>  
+        <rich:message styleClass="error errors" for="comparison" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'comparisonEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.reportParameter_mandatory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'mandatoryEdit')}"/>  
+        <br/>  
+        <h:selectBooleanCheckbox id="mandatory" value="#{reportParameterAction.reportParameter.mandatory}"/>  
+        <rich:message styleClass="error errors" for="mandatory" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'mandatoryEdit')}"/> 
+      </h:panelGroup>  
+      <h:panelGroup> 
+        <h:outputText value="#{msg.reportParameter_defaultValue}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'defaultValueEdit')}"/>  
+        <br/>  
+        <h:inputText id="defaultValue" value="#{reportParameterAction.reportParameter.defaultValue}"/>  
+        <rich:message styleClass="error errors" for="defaultValue" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'defaultValueEdit')}"/> 
+      </h:panelGroup> 
+    </h:panelGrid> 
+  </s:validateAll> 
+</ui:composition>

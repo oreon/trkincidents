@@ -1,56 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <h:panelGroup> 
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewDrugComponentPanel"> 
     <s:validateAll> 
-      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{drugAction.load(drugId )  }"> 
-        <h:outputText value="#{msg.id}"/>  
-        <h:outputText value="#{drugAction.drug.id}"/>  
-        <h:outputText value="#{msg.drug_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'drugView')}"/>  
-        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'drugView')}" value="#{drugAction.drug.name}"></h:outputText>  
-        <h:outputText value="#{msg.drug_absorption}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('absorption', 'drugView')}"/>  
-        <h:outputText escape="false" id="absorption#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('absorption', 'drugView')}" value="#{drugAction.drug.absorption}"></h:outputText>  
-        <h:outputText value="#{msg.drug_biotransformation}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('biotransformation', 'drugView')}"/>  
-        <h:outputText escape="false" id="biotransformation#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('biotransformation', 'drugView')}" value="#{drugAction.drug.biotransformation}"></h:outputText>  
-        <h:outputText value="#{msg.drug_atcCodes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcCodes', 'drugView')}"/>  
-        <h:outputText id="atcCodes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('atcCodes', 'drugView')}" value="#{drugAction.drug.atcCodes}"></h:outputText>  
-        <h:outputText value="#{msg.drug_contraIndication}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('contraIndication', 'drugView')}"/>  
-        <h:outputText escape="false" id="contraIndication#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('contraIndication', 'drugView')}" value="#{drugAction.drug.contraIndication}"></h:outputText>  
-        <h:outputText value="#{msg.drug_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'drugView')}"/>  
-        <h:outputText escape="false" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'drugView')}" value="#{drugAction.drug.description}"></h:outputText>  
-        <h:outputText value="#{msg.drug_dosageForm}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dosageForm', 'drugView')}"/>  
-        <h:outputText id="dosageForm#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('dosageForm', 'drugView')}" value="#{drugAction.drug.dosageForm}"></h:outputText>  
-        <h:outputText value="#{msg.drug_foodInteractions}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('foodInteractions', 'drugView')}"/>  
-        <h:outputText escape="false" id="foodInteractions#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('foodInteractions', 'drugView')}" value="#{drugAction.drug.foodInteractions}"></h:outputText>  
-        <h:outputText value="#{msg.drug_halfLife}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('halfLife', 'drugView')}"/>  
-        <h:outputText escape="false" id="halfLife#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('halfLife', 'drugView')}" value="#{drugAction.drug.halfLife}"></h:outputText>  
-        <h:outputText value="#{msg.drug_halfLifeNumberOfHours}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('halfLifeNumberOfHours', 'drugView')}"/>  
-        <h:outputText id="halfLifeNumberOfHours#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('halfLifeNumberOfHours', 'drugView')}" value="#{drugAction.drug.halfLifeNumberOfHours}"></h:outputText>  
-        <h:outputText value="#{msg.drug_indication}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('indication', 'drugView')}"/>  
-        <h:outputText escape="false" id="indication#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('indication', 'drugView')}" value="#{drugAction.drug.indication}"></h:outputText>  
-        <h:outputText value="#{msg.drug_mechanismOfAction}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mechanismOfAction', 'drugView')}"/>  
-        <h:outputText escape="false" id="mechanismOfAction#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('mechanismOfAction', 'drugView')}" value="#{drugAction.drug.mechanismOfAction}"></h:outputText>  
-        <h:outputText value="#{msg.drug_patientInfo}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientInfo', 'drugView')}"/>  
-        <h:outputText escape="false" id="patientInfo#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('patientInfo', 'drugView')}" value="#{drugAction.drug.patientInfo}"></h:outputText>  
-        <h:outputText value="#{msg.drug_pharmacology}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('pharmacology', 'drugView')}"/>  
-        <h:outputText escape="false" id="pharmacology#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('pharmacology', 'drugView')}" value="#{drugAction.drug.pharmacology}"></h:outputText>  
-        <h:outputText value="#{msg.drug_toxicity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('toxicity', 'drugView')}"/>  
-        <h:outputText escape="false" id="toxicity#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('toxicity', 'drugView')}" value="#{drugAction.drug.toxicity}"></h:outputText>  
-        <h:outputText value="#{msg.drug_routeOfElimination}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('routeOfElimination', 'drugView')}"/>  
-        <h:outputText escape="false" id="routeOfElimination#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('routeOfElimination', 'drugView')}" value="#{drugAction.drug.routeOfElimination}"></h:outputText>  
-        <h:outputText value="#{msg.drug_volumeOfDistribution}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('volumeOfDistribution', 'drugView')}"/>  
-        <h:outputText id="volumeOfDistribution#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('volumeOfDistribution', 'drugView')}" value="#{drugAction.drug.volumeOfDistribution}"></h:outputText>  
-        <h:outputText value="#{msg.drug_drugBankId}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugBankId', 'drugView')}"/>  
-        <h:outputText id="drugBankId#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugBankId', 'drugView')}" value="#{drugAction.drug.drugBankId}"></h:outputText>  
-        <h:outputText value="#{msg.drug_categories}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('categories', 'drugView')}"/>  
-        <h:outputText id="categories#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('categories', 'drugView')}" value="#{drugAction.drug.categories}"></h:outputText> 
+      <h:panelGrid columns="1" onload="#{drugAction.load(drugId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelDrug eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Drug}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.drug_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'nameView')}"/>  
+        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'nameView')}" value="#{drugAction.drug.name}"></h:outputText>  
+        <h:outputText value="#{msg.drug_absorption}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'absorptionView')}"/>  
+        <h:outputText escape="false" id="absorption#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'absorptionView')}" value="#{drugAction.drug.absorption}"></h:outputText>  
+        <h:outputText value="#{msg.drug_biotransformation}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'biotransformationView')}"/>  
+        <h:outputText escape="false" id="biotransformation#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'biotransformationView')}" value="#{drugAction.drug.biotransformation}"></h:outputText>  
+        <h:outputText value="#{msg.drug_atcCodes}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'atcCodesView')}"/>  
+        <h:outputText id="atcCodes#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'atcCodesView')}" value="#{drugAction.drug.atcCodes}"></h:outputText>  
+        <h:outputText value="#{msg.drug_contraIndication}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'contraIndicationView')}"/>  
+        <h:outputText escape="false" id="contraIndication#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'contraIndicationView')}" value="#{drugAction.drug.contraIndication}"></h:outputText>  
+        <h:outputText value="#{msg.drug_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'descriptionView')}"/>  
+        <h:outputText escape="false" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'descriptionView')}" value="#{drugAction.drug.description}"></h:outputText>  
+        <h:outputText value="#{msg.drug_dosageForm}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'dosageFormView')}"/>  
+        <h:outputText id="dosageForm#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'dosageFormView')}" value="#{drugAction.drug.dosageForm}"></h:outputText>  
+        <h:outputText value="#{msg.drug_foodInteractions}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'foodInteractionsView')}"/>  
+        <h:outputText escape="false" id="foodInteractions#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'foodInteractionsView')}" value="#{drugAction.drug.foodInteractions}"></h:outputText>  
+        <h:outputText value="#{msg.drug_halfLife}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'halfLifeView')}"/>  
+        <h:outputText escape="false" id="halfLife#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'halfLifeView')}" value="#{drugAction.drug.halfLife}"></h:outputText>  
+        <h:outputText value="#{msg.drug_halfLifeNumberOfHours}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'halfLifeNumberOfHoursView')}"/>  
+        <h:outputText id="halfLifeNumberOfHours#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'halfLifeNumberOfHoursView')}" value="#{drugAction.drug.halfLifeNumberOfHours}"></h:outputText>  
+        <h:outputText value="#{msg.drug_indication}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'indicationView')}"/>  
+        <h:outputText escape="false" id="indication#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'indicationView')}" value="#{drugAction.drug.indication}"></h:outputText>  
+        <h:outputText value="#{msg.drug_mechanismOfAction}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'mechanismOfActionView')}"/>  
+        <h:outputText escape="false" id="mechanismOfAction#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'mechanismOfActionView')}" value="#{drugAction.drug.mechanismOfAction}"></h:outputText>  
+        <h:outputText value="#{msg.drug_patientInfo}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'patientInfoView')}"/>  
+        <h:outputText escape="false" id="patientInfo#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'patientInfoView')}" value="#{drugAction.drug.patientInfo}"></h:outputText>  
+        <h:outputText value="#{msg.drug_pharmacology}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'pharmacologyView')}"/>  
+        <h:outputText escape="false" id="pharmacology#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'pharmacologyView')}" value="#{drugAction.drug.pharmacology}"></h:outputText>  
+        <h:outputText value="#{msg.drug_toxicity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'toxicityView')}"/>  
+        <h:outputText escape="false" id="toxicity#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'toxicityView')}" value="#{drugAction.drug.toxicity}"></h:outputText>  
+        <h:outputText value="#{msg.drug_routeOfElimination}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'routeOfEliminationView')}"/>  
+        <h:outputText escape="false" id="routeOfElimination#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'routeOfEliminationView')}" value="#{drugAction.drug.routeOfElimination}"></h:outputText>  
+        <h:outputText value="#{msg.drug_volumeOfDistribution}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'volumeOfDistributionView')}"/>  
+        <h:outputText id="volumeOfDistribution#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'volumeOfDistributionView')}" value="#{drugAction.drug.volumeOfDistribution}"></h:outputText>  
+        <h:outputText value="#{msg.drug_drugBankId}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'drugBankIdView')}"/>  
+        <h:outputText id="drugBankId#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'drugBankIdView')}" value="#{drugAction.drug.drugBankId}"></h:outputText>  
+        <h:outputText value="#{msg.drug_categories}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'categoriesView')}"/>  
+        <h:outputText id="categories#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drug', 'categoriesView')}" value="#{drugAction.drug.categories}"></h:outputText> 
       </h:panelGrid>  
-      <rich:dataTable id="drugInteractions" var="_drugInteraction" rendered="#{not empty drugAction.listDrugInteractions and skipPermissionCheck == 'true' || s:hasPermission('drugInteractions', 'drugView') }" value="#{drugAction.listDrugInteractions}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="dataTable" rules="all"> 
-        <h:column style="text-align:right">
-          <f:facet name="header">
-            <h:outputText value="#{msg.drugInteraction_interactingDrug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('interactingDrug', 'drugInteractionView')}"/>
+      <br/>  
+      <rich:dataTable id="drugInteractions" var="_drugInteraction" rendered="#{not empty drugAction.listDrugInteractions and skipPermissionCheck == 'true' || s:hasPermission('drug', 'drugInteractionsView') }" value="#{drugAction.listDrugInteractions}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <h:column>
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.drugInteraction_interactingDrug}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'interactingDrugView')}"/> 
           </f:facet>  
-          <s:link value="#{_drugInteraction.interactingDrug.displayName}" view="/admin/entities/drugs/drug/viewDrug.xhtml" propagation="none"> 
+          <s:link value="#{_drugInteraction.interactingDrug.displayName}" action="viewinteractingDrug" propagation="none"> 
             <f:param name="interactingDrugId" value="#{_drugInteraction.interactingDrug.id}"/>  
             <f:param name="from" value="#{request.servletPath}"/>  
             <rich:toolTip> 
@@ -58,13 +64,14 @@
             </rich:toolTip> 
           </s:link> 
         </h:column>  
-        <h:column style="text-align:right">
-          <f:facet name="header">
-            <h:outputText value="#{msg.drugInteraction_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'drugInteractionView')}"/>
+        <h:column>
+          <f:facet name="header"> 
+            <h:outputText value="#{msg.drugInteraction_description}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'descriptionView')}"/> 
           </f:facet>  
-          <h:outputText escape="false" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('description', 'drugInteractionView')}" value="#{_drugInteraction.description}"></h:outputText> 
+          <h:outputText escape="false" id="description#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('drugInteraction', 'descriptionView')}" value="#{_drugInteraction.description}"></h:outputText> 
         </h:column> 
-      </rich:dataTable> 
+      </rich:dataTable>  
+      <br/> 
     </s:validateAll> 
   </h:panelGroup> 
 </ui:composition>

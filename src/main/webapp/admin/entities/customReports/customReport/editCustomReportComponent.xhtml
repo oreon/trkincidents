@@ -1,23 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <h:panelGroup> 
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editCustomReportComponentPanel"> 
     <s:validateAll> 
-      <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{customReportAction.load(customReportId )  }"> 
-        <h:outputText value="#{msg.customReport_metaEntity} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaEntity', 'customReportEdit')}"/>  
-        <h:selectOneMenu id="metaEntity" label="#{msg.customReport_metaEntity}" value="#{customReportAction.customReport.metaEntity}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaEntity', 'customReportEdit')}"> 
-          <a:support event="onchange" reRender="fields, groupFields" ajaxSingle="true"/>  
-          <s:selectItems value="#{metaEntityList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
-          <rich:ajaxValidator event="onsubmit"/>  
-          <s:convertEntity/> 
-        </h:selectOneMenu>  
-        <rich:message styleClass="error errors" for="metaEntity" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaEntity', 'customReportEdit')}"/>  
-        <h:outputText value="#{msg.customReport_name} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'customReportEdit')}"/>  
-        <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'customReportEdit')}" label="#{msg.customReport_name}" required="true" value="#{customReportAction.customReport.name}"> 
-          <rich:ajaxValidator event="onsubmit"/> 
-        </h:inputText>  
-        <rich:message styleClass="error errors" for="name" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'customReportEdit')}"/> 
+      <h:panelGrid columns="1" onload="#{customReportAction.load(customReportId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelCustomReport eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.CustomReport}"/> 
+        </f:facet>  
+        <s:decorate id="nameDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.customReport_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customReport', 'nameEdit')}"/>
+          </ui:define>  
+          <h:inputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customReport', 'nameEdit')}" label="#{msg.customReport_name}" required="true" disabled="false" value="#{customReportAction.customReport.name}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="metaEntityDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.customReport_metaEntity}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customReport', 'metaEntityEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="metaEntity" label="#{msg.customReport_metaEntity}" value="#{customReportAction.customReport.metaEntity}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customReport', 'metaEntityEdit')}" disabled="false"> 
+            <a:support event="onchange" action="#{customReportAction.onChangeMetaEntity}" reRender="fields, groupFields, reportParameters" ajaxSingle="true"/>  
+            <s:selectItems value="#{metaEntityList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate> 
       </h:panelGrid>  
+      <br/>  
+      <a:commandButton value="New ReportParameter" action="#{customReportAction.addReportParameters}" reRender="reportParameters" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customReport', 'reportParametersEdit')}"> 
+        <s:conversationId/> 
+      </a:commandButton>  
+      <rich:dataTable id="reportParameters" var="_reportParameter" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('customReport', 'reportParametersEdit')}" value="#{customReportAction.listReportParameters}" rowKeyVar="rowIndex" rowClasses="odd, even" styleClass="viewInfo" rules="all"> 
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.reportParameter_metaField}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'metaFieldEdit')}"/>
+          </f:facet>  
+          <s:decorate id="metaFieldDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:selectOneMenu id="metaField" label="#{msg.reportParameter_metaField}" value="#{_reportParameter.metaField}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'metaFieldEdit')}" disabled="false"> 
+              <s:selectItems value="#{customReportAction.listAvailableFields}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+              <rich:ajaxValidator event="onsubmit"/>  
+              <s:convertEntity/> 
+            </h:selectOneMenu> 
+          </s:decorate> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.reportParameter_comparison}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'comparisonEdit')}"/>
+          </f:facet>  
+          <s:decorate id="comparisonDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:selectOneMenu id="comparison" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'comparisonEdit')}" value="#{_reportParameter.comparison}" required="false" label="#{msg.reportParameter_comparison}"> 
+              <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+              <f:selectItem itemValue="GREATER_THAN" itemLabel="#{msg.GREATER_THAN}"/>  
+              <f:selectItem itemValue="LESS_THAN" itemLabel="#{msg.LESS_THAN}"/>  
+              <f:selectItem itemValue="EQUAL" itemLabel="#{msg.EQUAL}"/>  
+              <f:selectItem itemValue="NOT_EQUAL" itemLabel="#{msg.NOT_EQUAL}"/>  
+              <rich:ajaxValidator event="onsubmit"/> 
+            </h:selectOneMenu> 
+          </s:decorate> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.reportParameter_mandatory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'mandatoryEdit')}"/>
+          </f:facet>  
+          <s:decorate id="mandatoryDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:selectBooleanCheckbox id="mandatory#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'mandatoryEdit')}" label="#{msg.reportParameter_mandatory}" required="false" disabled="false" value="#{_reportParameter.mandatory}"> 
+              <rich:ajaxValidator event="onsubmit"/> 
+            </h:selectBooleanCheckbox> 
+          </s:decorate> 
+        </h:column>  
+        <h:column>
+          <f:facet name="header">
+            <h:outputText value="#{msg.reportParameter_defaultValue}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'defaultValueEdit')}"/>
+          </f:facet>  
+          <s:decorate id="defaultValueDecorate" template="/layout/edit.xhtml"> 
+            <ui:define name="label"></ui:define>  
+            <h:inputText id="defaultValue#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'defaultValueEdit')}" label="#{msg.reportParameter_defaultValue}" required="false" disabled="false" value="#{_reportParameter.defaultValue}"> 
+              <rich:ajaxValidator event="onsubmit"/> 
+            </h:inputText> 
+          </s:decorate> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="New ReportParameter" action="#{customReportAction.addReportParameters}" reRender="reportParameters" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'reportParametersEdit')}"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column>  
+        <h:column> 
+          <a:commandButton value="Delete" immediate="true" action="#{customReportAction.deleteReportParameters(rowIndex)}" reRender="reportParameters"> 
+            <s:conversationId/> 
+          </a:commandButton> 
+        </h:column> 
+      </rich:dataTable>  
+      <br/>  
       <br/>  
       <rich:simpleTogglePanel label="#{msg.customReport_fields}" switchType="client" id="fields"> 
         <rich:listShuttle sourceValue="#{customReportAction.listAvailableFields}" targetValue="#{customReportAction.listFields}" var="item"> 

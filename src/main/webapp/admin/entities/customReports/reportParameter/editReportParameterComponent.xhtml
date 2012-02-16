@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="editReportParameterComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{reportParameterAction.load(reportParameterId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="editInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelReportParameter eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.ReportParameter}"/> 
+        </f:facet>  
+        <s:decorate id="comparisonDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.reportParameter_comparison}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'comparisonEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="comparison" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'comparisonEdit')}" value="#{reportParameterAction.reportParameter.comparison}" required="false" label="#{msg.reportParameter_comparison}"> 
+            <f:selectItem itemLabel="Please Select..." itemValue=""/>  
+            <f:selectItem itemValue="GREATER_THAN" itemLabel="#{msg.GREATER_THAN}"/>  
+            <f:selectItem itemValue="LESS_THAN" itemLabel="#{msg.LESS_THAN}"/>  
+            <f:selectItem itemValue="EQUAL" itemLabel="#{msg.EQUAL}"/>  
+            <f:selectItem itemValue="NOT_EQUAL" itemLabel="#{msg.NOT_EQUAL}"/>  
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="mandatoryDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.reportParameter_mandatory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'mandatoryEdit')}"/>
+          </ui:define>  
+          <h:selectBooleanCheckbox id="mandatory#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'mandatoryEdit')}" label="#{msg.reportParameter_mandatory}" required="false" disabled="false" value="#{reportParameterAction.reportParameter.mandatory}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:selectBooleanCheckbox> 
+        </s:decorate>  
+        <s:decorate id="defaultValueDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.reportParameter_defaultValue}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'defaultValueEdit')}"/>
+          </ui:define>  
+          <h:inputText id="defaultValue#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'defaultValueEdit')}" label="#{msg.reportParameter_defaultValue}" required="false" disabled="false" value="#{reportParameterAction.reportParameter.defaultValue}"> 
+            <rich:ajaxValidator event="onsubmit"/> 
+          </h:inputText> 
+        </s:decorate>  
+        <s:decorate id="customReportDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.reportParameter_customReport}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'customReportEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="customReport" label="#{msg.reportParameter_customReport}" value="#{reportParameterAction.reportParameter.customReport}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'customReportEdit')}" disabled="false"> 
+            <s:selectItems value="#{listAvailableFields}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate>  
+        <s:decorate id="metaFieldDecorate" template="/layout/edit.xhtml"> 
+          <ui:define name="label"> 
+            <h:outputText value="#{msg.reportParameter_metaField}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'metaFieldEdit')}"/>
+          </ui:define>  
+          <h:selectOneMenu id="metaField" label="#{msg.reportParameter_metaField}" value="#{reportParameterAction.reportParameter.metaField}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameter', 'metaFieldEdit')}" disabled="false"> 
+            <s:selectItems value="#{metaFieldList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  
+            <rich:ajaxValidator event="onsubmit"/>  
+            <s:convertEntity/> 
+          </h:selectOneMenu> 
+        </s:decorate> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

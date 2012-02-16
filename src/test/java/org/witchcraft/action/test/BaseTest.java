@@ -6,8 +6,6 @@ import javax.persistence.Persistence;
 
 import org.jboss.seam.mock.SeamTest;
 import org.testng.annotations.AfterClass;
-import org.witchcraft.base.entity.BusinessEntity;
-import org.witchcraft.seam.action.BaseAction;
 
 public abstract class BaseTest<T> extends SeamTest{
 	

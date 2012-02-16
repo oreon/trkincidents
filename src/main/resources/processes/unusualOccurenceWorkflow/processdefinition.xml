@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <process-definition name="unusualOccurenceWorkflow">  
+  <!--PROTECTED REGION ID(USER_EDITABLE_RGN_unusualOccurenceWorkflow) ENABLED START-->  
+  <!--PROTECTED REGION END-->  
   <swimlane name="initiator"> 
-    <assignment class="com.nas.recovery.web.action.workflowmgt.unusualOccurenceWorkflow.assign.InitiatorAssignment"/> 
+    <assignment class="com.oreon.incidents.web.action.workflowmgt.unusualOccurenceWorkflow.assign.InitiatorAssignment"/> 
   </swimlane>  
   <swimlane name="incidentReviewer"> 
-    <assignment class="com.nas.recovery.web.action.workflowmgt.unusualOccurenceWorkflow.assign.IncidentReviewerAssignment"/> 
+    <assignment class="com.oreon.incidents.web.action.workflowmgt.unusualOccurenceWorkflow.assign.IncidentReviewerAssignment"/> 
   </swimlane>  
   <start-state name=""> 
     <task name="" swimlane="initiator"></task>  
     <transition to="reviewOccurence" name="createIncident"></transition> 
   </start-state>  
   <task-node name="reviewOccurence"> 
-    <task name="reviewOccurence" swimlane="incidentReviewer" notify="true"></task>  
+    <task name="reviewOccurence" swimlane="incidentReviewer" notify="false"></task>  
     <transition to="provideInfo" name="requestMoreInfo"></transition>  
     <transition to="endState1" name="closeOccurence"></transition> 
   </task-node>  
   <task-node name="provideInfo"> 
-    <task name="provideInfo" swimlane="initiator" notify="true"></task>  
+    <task name="provideInfo" swimlane="initiator" notify="false"></task>  
     <transition to="reviewOccurence" name="done"></transition> 
   </task-node>  
   <end-state name="endState1"/> 

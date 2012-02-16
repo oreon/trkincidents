@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewReportParametersComponentPanel"> 
+    <s:validateAll> 
+      <h:panelGrid columns="1" onload="#{reportParametersAction.load(reportParametersId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelReportParameters eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.ReportParameters}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.reportParameters_comparison}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameters', 'comparisonView')}"/>  
+        <h:outputText value="#{reportParametersAction.reportParameters.comparison}"/>  
+        <h:outputText value="#{msg.reportParameters_mandatory}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameters', 'mandatoryView')}"/>  
+        <h:outputText id="mandatory#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameters', 'mandatoryView')}" value="#{reportParametersAction.reportParameters.mandatory}"></h:outputText>  
+        <h:outputText value="#{msg.reportParameters_default}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameters', 'defaultView')}"/>  
+        <h:outputText id="default#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameters', 'defaultView')}" value="#{reportParametersAction.reportParameters.default}"></h:outputText>  
+        <h:outputText value="#{msg.reportParameters_customReport}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameters', 'customReportView')}"/>  
+        <s:link value="#{reportParametersAction.reportParameters.customReport.displayName}" action="viewcustomReport" propagation="none"> 
+          <f:param name="customReportId" value="#{reportParametersAction.reportParameters.customReport.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link>  
+        <h:outputText value="#{msg.reportParameters_metaField}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('reportParameters', 'metaFieldView')}"/>  
+        <s:link value="#{reportParametersAction.reportParameters.metaField.displayName}" action="viewmetaField" propagation="none"> 
+          <f:param name="metaFieldId" value="#{reportParametersAction.reportParameters.metaField.id}"/>  
+          <f:param name="from" value="#{request.servletPath}"/> 
+        </s:link> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
+    </s:validateAll> 
+  </h:panelGroup> 
+</ui:composition>

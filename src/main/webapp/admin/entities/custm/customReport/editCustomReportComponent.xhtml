@@ -4,7 +4,7 @@
   <h:panelGroup> 
     <s:validateAll> 
       <h:panelGrid columns="3" styleClass="editInfo" columnClasses="leftCol, rightCol" onload="#{customReportAction.load(customReportId )  }"> 
-        <h:outputText value="#{msg.customReport_metaEntity} * " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaEntity', 'customReportEdit')}"/>  
+        <h:outputText value="#{msg.customReport_metaEntity}  *" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaEntity', 'customReportEdit')}"/>  
         <h:selectOneMenu id="metaEntity" label="#{msg.customReport_metaEntity}" value="#{customReportAction.customReport.metaEntity}" required="true" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('metaEntity', 'customReportEdit')}"> 
           <a:support event="onchange" reRender="metaField" ajaxSingle="true"/>  
           <s:selectItems value="#{metaEntityList}" var="itemIter" label="#{itemIter.displayName}" noSelectionLabel="Please Select..."/>  

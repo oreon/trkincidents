@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
-  <h:panelGroup> 
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:s="http://jboss.com/products/seam/taglib" xmlns:a="http://richfaces.org/a4j" xmlns:p="http://primefaces.prime.com.tr/ui" xmlns:rich="http://richfaces.org/rich" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:wc="http://witchcraft.sourceforge.net/jsf">  
+  <h:panelGroup id="viewMorbidityComponentPanel"> 
     <s:validateAll> 
-      <h:panelGrid columns="6" styleClass="viewInfo" columnClasses="leftCol, rightCol" onload="#{morbidityAction.load(morbidityId )  }"> 
-        <h:outputText value="#{msg.id}"/>  
-        <h:outputText value="#{morbidityAction.morbidity.id}"/>  
-        <h:outputText value="#{msg.morbidity_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'morbidityView')}"/>  
-        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('name', 'morbidityView')}" value="#{morbidityAction.morbidity.name}"></h:outputText>  
-        <h:outputText value="#{msg.morbidity_code}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'morbidityView')}"/>  
-        <h:outputText id="code#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('code', 'morbidityView')}" value="#{morbidityAction.morbidity.code}"></h:outputText> 
-      </h:panelGrid> 
+      <h:panelGrid columns="1" onload="#{morbidityAction.load(morbidityId )  }"/>  
+      <c:if test="${numColumns == null }"> 
+        <c:set var="numColumns" value="2"/> 
+      </c:if>  
+      <h:panelGrid columns="${numColumns}" styleClass="viewInfo" columnClasses="leftCol, rightCol" rendered="#{ hidePanelMorbidity eq null}"> 
+        <f:facet name="header"> 
+          <h:outputText value="#{msg.Morbidity}"/> 
+        </f:facet>  
+        <h:outputText value="#{msg.morbidity_name}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('morbidity', 'nameView')}"/>  
+        <h:outputText id="name#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('morbidity', 'nameView')}" value="#{morbidityAction.morbidity.name}"></h:outputText>  
+        <h:outputText value="#{msg.morbidity_code}  " rendered="#{skipPermissionCheck == 'true' || s:hasPermission('morbidity', 'codeView')}"/>  
+        <h:outputText id="code#{entityId}" rendered="#{skipPermissionCheck == 'true' || s:hasPermission('morbidity', 'codeView')}" value="#{morbidityAction.morbidity.code}"></h:outputText> 
+      </h:panelGrid>  
+      <br/>  
+      <br/> 
     </s:validateAll> 
   </h:panelGroup> 
 </ui:composition>
