@@ -17,7 +17,7 @@ public class EntityListener {
 	
 	
 	@PrePersist
-	public void setDatesAndUser(BusinessEntity modelBase) {
+	public void setDatesAndUser(BaseEntity modelBase) {
 		Date now = new Date();
 		if (modelBase.getDateCreated() == null) {
 			modelBase.setDateCreated(now);
@@ -46,7 +46,7 @@ public class EntityListener {
 	}
 	
 	@PreUpdate
-	public void setUpdateDateAndUser(BusinessEntity modelBase){
+	public void setUpdateDateAndUser(BaseEntity modelBase){
 		Date now = new Date();
 		modelBase.setDateUpdated(now);
 	}

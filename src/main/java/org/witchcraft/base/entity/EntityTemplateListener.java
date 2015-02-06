@@ -29,7 +29,7 @@ public class EntityTemplateListener {
 	@PostLoad
 	public void decode(EntityTemplate entity){
 		XMLDecoder decoder = new XMLDecoder(new BufferedInputStream(new ByteArrayInputStream(entity.getEncodedXml().getBytes()) ));
-		entity.setEntity((BusinessEntity) decoder.readObject());
+		entity.setEntity((BaseEntity) decoder.readObject());
 		decoder.close();
 	}
 

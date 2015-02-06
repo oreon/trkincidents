@@ -13,7 +13,7 @@ import org.jboss.seam.annotations.Name;
 @Table(name = "comment")
 @Name("entitycomment")
 @NamedQuery(name="commentsForRecord", query= "Select c from EntityComment c where c.entityId = ?1 and c.entityName = ?2 ")
-public class EntityComment extends BusinessEntity {
+public class EntityComment extends BaseEntity {
 
 	/**
 	 * 

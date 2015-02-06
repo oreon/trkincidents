@@ -37,7 +37,7 @@ public class UniqueValidator implements Validator<Unique>, PropertyConstraint {
 	public boolean isValid(Object value) {
 		//return true;
 		
-		BaseAction<BusinessEntity> action = (BaseAction<BusinessEntity>) Component.getInstance(idProvider);
+		BaseAction<BaseEntity> action = (BaseAction<BaseEntity>) Component.getInstance(idProvider);
 		
 		boolean isEdit = action.getId() != null;
 		
