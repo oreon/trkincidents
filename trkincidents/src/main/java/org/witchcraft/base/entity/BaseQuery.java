@@ -43,7 +43,7 @@ import org.witchcraft.exceptions.ContractViolationException;
  * @param <PK>
  */
 @SuppressWarnings("serial")
-public abstract class BaseQuery<E extends BusinessEntity, PK extends Serializable>
+public abstract class BaseQuery<E extends BaseEntity, PK extends Serializable>
 		extends EntityQuery<E> {
 
 	private static final String SEARCH_DATA = "searchData";

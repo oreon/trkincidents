@@ -20,7 +20,7 @@ import org.jboss.seam.annotations.Name;
 @NamedQuery(name="entityTemplates.templatesForEntity", query= "Select c from EntityTemplate c where c.entityName = ?1  and c.createdByUser.userName = ?2 order by c.templateName "),
 @NamedQuery(name="entityTemplate.templateEntityByName", query= "Select c from EntityTemplate c where c.entityName = ?1 and c.templateName = ?2 ")
 })
-public class EntityTemplate<T extends BusinessEntity> extends BusinessEntity {
+public class EntityTemplate<T extends BaseEntity> extends BaseEntity {
 
 	/**
 	 * 
