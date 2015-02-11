@@ -43,7 +43,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.jboss.seam.annotations.Name;
 
-import org.witchcraft.base.entity.BusinessEntity;
+import org.witchcraft.base.entity.BaseEntity;
 import org.witchcraft.model.support.audit.Auditable;
 import org.witchcraft.base.entity.FileAttachment;
 

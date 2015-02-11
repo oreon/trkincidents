@@ -14,7 +14,7 @@ import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Observer;
 import org.jboss.seam.security.Credentials;
 import org.jboss.seam.security.Identity;
-import org.witchcraft.base.entity.BusinessEntity;
+import org.witchcraft.base.entity.BaseEntity;
 import org.witchcraft.seam.action.BaseAction;
 import org.witchcraft.seam.action.EventTypes;
 
@@ -44,7 +44,7 @@ public class EntityAuditLogInterceptor extends BaseAction<AuditLog>{
 		if (entity instanceof Auditable) {
 			Credentials credentials = Identity.instance().getCredentials();
 			String userName = credentials == null ? "UNKNOWN": credentials.getUsername();
-			BusinessEntity businessEntity = (BusinessEntity) entity	;
+			BaseEntity businessEntity = (BaseEntity) entity	;
 			AuditLog auditLog = new AuditLog(action, businessEntity,  entity.getClass().getCanonicalName(), businessEntity.getId(),  userName);
 			persist(auditLog);
 		}

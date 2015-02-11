@@ -43,7 +43,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.jboss.seam.annotations.Name;
 
-import org.witchcraft.base.entity.BusinessEntity;
+import org.witchcraft.base.entity.BaseEntity;
 import org.witchcraft.model.support.audit.Auditable;
 import org.witchcraft.base.entity.FileAttachment;
 
@@ -59,7 +59,7 @@ import com.oreon.incidents.ProjectUtils;
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @Analyzer(definition = "entityAnalyzer")
 @XmlRootElement
-public class IncidentType extends BusinessEntity
+public class IncidentType extends BaseEntity
 		implements
 			java.io.Serializable {
 	private static final long serialVersionUID = 2058841249L;
@@ -157,7 +157,7 @@ public class IncidentType extends BusinessEntity
 	}
 
 	/** This method is used by hibernate full text search - override to add additional fields
-	 * @see org.witchcraft.model.support.BusinessEntity#retrieveSearchableFieldsArray()
+	 * @see org.witchcraft.model.support.BaseEntity#retrieveSearchableFieldsArray()
 	 */
 	@Override
 	public List<String> listSearchableFields() {
@@ -180,11 +180,11 @@ public class IncidentType extends BusinessEntity
 
 		builder.append(getName() + " ");
 
-		for (BusinessEntity e : referenceFields) {
+		for (BaseEntity e : referenceFields) {
 			builder.append(e.getDisplayName() + " ");
 		}
 
-		for (BusinessEntity e : formFields) {
+		for (BaseEntity e : formFields) {
 			builder.append(e.getDisplayName() + " ");
 		}
 
