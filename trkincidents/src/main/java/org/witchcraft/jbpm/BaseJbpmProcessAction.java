@@ -24,7 +24,7 @@ import org.jboss.seam.web.ServletContexts;
 import org.jbpm.JbpmContext;
 import org.jbpm.graph.exe.Comment;
 import org.jbpm.taskmgmt.exe.TaskInstance;
-import org.witchcraft.base.entity.BusinessEntity;
+import org.witchcraft.base.entity.BaseEntity;
 
 /**
  * This action will fucntion as base for all workflow related actions
@@ -215,7 +215,7 @@ public class BaseJbpmProcessAction {
 	}
 	
 	@Transactional
-	public void updateUserForPooledTask(String userName, Long processId, BusinessEntity be) {
+	public void updateUserForPooledTask(String userName, Long processId, BaseEntity be) {
 		for (TaskInstance taskInstance : pooledTaskInstanceList) {
 			Long procId = taskInstance.getProcessInstance().getId();
 			if (procId.equals(processId)) {

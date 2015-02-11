@@ -43,7 +43,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.jboss.seam.annotations.Name;
 
-import org.witchcraft.base.entity.BusinessEntity;
+import org.witchcraft.base.entity.BaseEntity;
 import org.witchcraft.model.support.audit.Auditable;
 import org.witchcraft.base.entity.FileAttachment;
 
@@ -251,7 +251,7 @@ public class Employee extends com.oreon.incidents.patient.Person
 	}
 
 	/** This method is used by hibernate full text search - override to add additional fields
-	 * @see org.witchcraft.model.support.BusinessEntity#retrieveSearchableFieldsArray()
+	 * @see org.witchcraft.model.support.BaseEntity#retrieveSearchableFieldsArray()
 	 */
 	@Override
 	public List<String> listSearchableFields() {
@@ -287,15 +287,15 @@ public class Employee extends com.oreon.incidents.patient.Person
 			builder.append("department:" + getDepartment().getDisplayName()
 					+ " ");
 
-		for (BusinessEntity e : incidentsCreated) {
+		for (BaseEntity e : incidentsCreated) {
 			builder.append(e.getDisplayName() + " ");
 		}
 
-		for (BusinessEntity e : incidentsResponsibleFor) {
+		for (BaseEntity e : incidentsResponsibleFor) {
 			builder.append(e.getDisplayName() + " ");
 		}
 
-		for (BusinessEntity e : incidentsReported) {
+		for (BaseEntity e : incidentsReported) {
 			builder.append(e.getDisplayName() + " ");
 		}
 

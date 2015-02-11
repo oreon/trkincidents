@@ -39,7 +39,7 @@ import org.jboss.seam.international.StatusMessages;
 import org.jboss.seam.international.StatusMessage.Severity;
 import org.jboss.seam.log.Log;
 import org.jboss.seam.security.Identity;
-import org.witchcraft.base.entity.BusinessEntity;
+import org.witchcraft.base.entity.BaseEntity;
 import org.witchcraft.base.entity.EntityComment;
 import org.witchcraft.base.entity.EntityTemplate;
 import org.witchcraft.base.entity.FileAttachment;
@@ -55,7 +55,7 @@ import org.witchcraft.model.support.audit.EntityAuditLogInterceptor;
  * 
  * @param <T>
  */
-public abstract class BaseAction<T extends BusinessEntity> extends
+public abstract class BaseAction<T extends BaseEntity> extends
 		EntityHome<T> {
 
 	@Logger

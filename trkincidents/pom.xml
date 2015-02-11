@@ -556,7 +556,7 @@
 		<repository>
 			<id>dj-repo</id>
 			<name>Dyanmic jasper repo</name>
-			<url>http://fdvs.com.ar/djmaven2/</url>
+			<url>http://archiva.fdvs.com.ar/repository/public1/</url>
 		</repository>
 
 		<repository>

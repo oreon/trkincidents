@@ -3,7 +3,7 @@ package permissions;
 import java.security.Principal;
 import org.jboss.seam.security.permission.PermissionCheck;
 import org.jboss.seam.security.Role;
-import org.witchcraft.base.entity.BusinessEntity;
+import org.witchcraft.base.entity.BaseEntity;
 import com.oreon.incidents.users.User;
 
   

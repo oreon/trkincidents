@@ -43,7 +43,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.jboss.seam.annotations.Name;
 
-import org.witchcraft.base.entity.BusinessEntity;
+import org.witchcraft.base.entity.BaseEntity;
 import org.witchcraft.model.support.audit.Auditable;
 import org.witchcraft.base.entity.FileAttachment;
 
@@ -59,7 +59,7 @@ import com.oreon.incidents.ProjectUtils;
 @Cache(usage = CacheConcurrencyStrategy.NONE)
 @Analyzer(definition = "entityAnalyzer")
 @XmlRootElement
-public class Drug extends BusinessEntity implements java.io.Serializable {
+public class Drug extends BaseEntity implements java.io.Serializable {
 	private static final long serialVersionUID = -16274297L;
 
 	@NotNull
@@ -635,7 +635,7 @@ public class Drug extends BusinessEntity implements java.io.Serializable {
 	}
 
 	/** This method is used by hibernate full text search - override to add additional fields
-	 * @see org.witchcraft.model.support.BusinessEntity#retrieveSearchableFieldsArray()
+	 * @see org.witchcraft.model.support.BaseEntity#retrieveSearchableFieldsArray()
 	 */
 	@Override
 	public List<String> listSearchableFields() {
@@ -724,11 +724,11 @@ public class Drug extends BusinessEntity implements java.io.Serializable {
 
 		builder.append(getCategories() + " ");
 
-		for (BusinessEntity e : drugInteractions) {
+		for (BaseEntity e : drugInteractions) {
 			builder.append(e.getDisplayName() + " ");
 		}
 
-		for (BusinessEntity e : incidents) {
+		for (BaseEntity e : incidents) {
 			builder.append(e.getDisplayName() + " ");
 		}
 
