@@ -203,7 +203,7 @@
 		<dependency>
 			<groupId>org.jboss.resteasy</groupId>
 			<artifactId>resteasy-jaxrs</artifactId>
-			<version>2.0.0.GA</version>
+			<version>3.1.0.Final</version>
 		</dependency>
 
 		<dependency>
@@ -603,7 +603,7 @@
 		<richfaces.api.version>3.3.3.Final</richfaces.api.version>
 		<richfaces.impl.version>3.3.3.Final</richfaces.impl.version>
 		<richfaces.ui.version>3.3.3.Final</richfaces.ui.version>
-		<cxf.version>2.2.3</cxf.version>
+		<cxf.version>2.3.0</cxf.version>
 		<hibernate.version>3.6.1.Final</hibernate.version>
 		<hibernate.validator.version>3.1.0.GA</hibernate.validator.version>
 		<hibernate.entitymanager.version>3.6.0.Final</hibernate.entitymanager.version>
