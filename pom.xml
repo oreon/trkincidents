@@ -110,7 +110,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>3.1.13</version>
+			<version>5.1.42</version>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
@@ -242,7 +242,7 @@
 		<dependency>
 			<groupId>org.apache.solr</groupId>
 			<artifactId>solr-core</artifactId>
-			<version>1.4.0</version>
+			<version>6.6.5</version>
 		</dependency>
 
 		<dependency>
@@ -487,7 +487,7 @@
 		<dependency>
 			<groupId>net.sf.ehcache</groupId>
 			<artifactId>ehcache</artifactId>
-			<version>1.5.0</version>
+			<version>1.6.0</version>
 		</dependency>
 
 		<dependency>
@@ -603,11 +603,11 @@
 		<richfaces.api.version>3.3.3.Final</richfaces.api.version>
 		<richfaces.impl.version>3.3.3.Final</richfaces.impl.version>
 		<richfaces.ui.version>3.3.3.Final</richfaces.ui.version>
-		<cxf.version>2.2.3</cxf.version>
-		<hibernate.version>3.6.1.Final</hibernate.version>
+		<cxf.version>2.5.8</cxf.version>
+		<hibernate.version>4.1.1.Final</hibernate.version>
 		<hibernate.validator.version>3.1.0.GA</hibernate.validator.version>
 		<hibernate.entitymanager.version>3.6.0.Final</hibernate.entitymanager.version>
-		<hibernate.search.version>3.3.0.Final</hibernate.search.version>
+		<hibernate.search.version>4.0.0.Final</hibernate.search.version>
 		<release-plugin-version>2.0-beta-7</release-plugin-version>
 		<maven-compiler-plugin>2.0.2</maven-compiler-plugin>
 		<maven-surefire-version>2.4.3</maven-surefire-version>
