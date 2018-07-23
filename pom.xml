@@ -293,7 +293,7 @@
 		<dependency>
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
-			<version>1.2</version>
+			<version>1.3.3</version>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
@@ -487,7 +487,7 @@
 		<dependency>
 			<groupId>net.sf.ehcache</groupId>
 			<artifactId>ehcache</artifactId>
-			<version>1.5.0</version>
+			<version>1.6.0</version>
 		</dependency>
 
 		<dependency>
@@ -603,15 +603,15 @@
 		<richfaces.api.version>3.3.3.Final</richfaces.api.version>
 		<richfaces.impl.version>3.3.3.Final</richfaces.impl.version>
 		<richfaces.ui.version>3.3.3.Final</richfaces.ui.version>
-		<cxf.version>2.2.3</cxf.version>
+		<cxf.version>3.1.16</cxf.version>
 		<hibernate.version>3.6.1.Final</hibernate.version>
-		<hibernate.validator.version>3.1.0.GA</hibernate.validator.version>
-		<hibernate.entitymanager.version>3.6.0.Final</hibernate.entitymanager.version>
+		<hibernate.validator.version>4.0.0.GA</hibernate.validator.version>
+		<hibernate.entitymanager.version>4.1.1.Final</hibernate.entitymanager.version>
 		<hibernate.search.version>3.3.0.Final</hibernate.search.version>
 		<release-plugin-version>2.0-beta-7</release-plugin-version>
 		<maven-compiler-plugin>2.0.2</maven-compiler-plugin>
 		<maven-surefire-version>2.4.3</maven-surefire-version>
-		<drools.version>5.0.1</drools.version>
+		<drools.version>6.2.0.Final</drools.version>
 		<maven-eclipse-plugin.version>2.5.1</maven-eclipse-plugin.version>
 		<eclipse-downloadSources>true</eclipse-downloadSources>
 		<eclipse-downloadJavadocs>true</eclipse-downloadJavadocs>
