@@ -444,7 +444,7 @@
 		<dependency>
 			<groupId>net.sf.jasperreports</groupId>
 			<artifactId>jasperreports</artifactId>
-			<version>4.0.0</version>
+			<version>6.4.1</version>
 			<exclusions>
 				<exclusion>
 					<groupId>eclipse</groupId>
@@ -487,7 +487,7 @@
 		<dependency>
 			<groupId>net.sf.ehcache</groupId>
 			<artifactId>ehcache</artifactId>
-			<version>1.5.0</version>
+			<version>1.6.0</version>
 		</dependency>
 
 		<dependency>
@@ -603,7 +603,7 @@
 		<richfaces.api.version>3.3.3.Final</richfaces.api.version>
 		<richfaces.impl.version>3.3.3.Final</richfaces.impl.version>
 		<richfaces.ui.version>3.3.3.Final</richfaces.ui.version>
-		<cxf.version>2.2.3</cxf.version>
+		<cxf.version>3.1.16</cxf.version>
 		<hibernate.version>3.6.1.Final</hibernate.version>
 		<hibernate.validator.version>3.1.0.GA</hibernate.validator.version>
 		<hibernate.entitymanager.version>3.6.0.Final</hibernate.entitymanager.version>
