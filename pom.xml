@@ -604,7 +604,7 @@
 		<richfaces.impl.version>3.3.3.Final</richfaces.impl.version>
 		<richfaces.ui.version>3.3.3.Final</richfaces.ui.version>
 		<cxf.version>2.2.3</cxf.version>
-		<hibernate.version>3.6.1.Final</hibernate.version>
+		<hibernate.version>5.3.18.Final</hibernate.version>
 		<hibernate.validator.version>3.1.0.GA</hibernate.validator.version>
 		<hibernate.entitymanager.version>3.6.0.Final</hibernate.entitymanager.version>
 		<hibernate.search.version>3.3.0.Final</hibernate.search.version>
