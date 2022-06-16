@@ -611,7 +611,7 @@
 		<release-plugin-version>2.0-beta-7</release-plugin-version>
 		<maven-compiler-plugin>2.0.2</maven-compiler-plugin>
 		<maven-surefire-version>2.4.3</maven-surefire-version>
-		<drools.version>5.0.1</drools.version>
+		<drools.version>7.60.0.Final</drools.version>
 		<maven-eclipse-plugin.version>2.5.1</maven-eclipse-plugin.version>
 		<eclipse-downloadSources>true</eclipse-downloadSources>
 		<eclipse-downloadJavadocs>true</eclipse-downloadJavadocs>
